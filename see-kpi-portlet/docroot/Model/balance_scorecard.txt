@@ -1,0 +1,231 @@
+[
+ 	{
+        "perspective_name": "KPI List1 ",
+        "appraisal_item_id": 1417,
+        "appraisal_item_name": "1.จำนวน NPL ใหม่ที่เกิดขึ้น",
+        "target_value": "14.00",
+        "actual_value": "13.60",
+        "score": 2
+    },
+	{
+        "perspective_name": "KPI List1 ",
+        "appraisal_item_id": 1412,
+        "appraisal_item_name": "2.จำนวนเงิน Gross NPL",
+        "target_value": "49.74",
+        "actual_value": "45.80",
+        "score": 2
+    },
+    {
+        "perspective_name": "KPI List1 ",
+        "appraisal_item_id": 1413,
+        "appraisal_item_name": "3.จำนวนเงิน Gross NPL เฉลี่ยไตรมาส",
+        "target_value": "49.74",
+        "actual_value": "45.80",
+        "score": 2
+    },
+    {
+        "perspective_name": "KPI List1 ",
+        "appraisal_item_id": 1414,
+        "appraisal_item_name": "4.จำนวน NPL คงเหลือ",
+        "target_value": "7.09",
+        "actual_value": "6.20",
+        "score": 4
+    },
+   
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1416,
+        "appraisal_item_name": "5.ต้นทุนทางการเงิน",
+        "target_value": "4.93",
+        "actual_value": "4.90",
+        "score": 4
+    },
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1415,
+        "appraisal_item_name": "6.ค่าใข้จ่ายดำเนินงานต่อรายได้สุทธิจากการดำเนินงาน(Cost to Income)",
+        "target_value": "4.93",
+        "actual_value": "10.80",
+        "score": 2
+    },
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1418,
+        "appraisal_item_name": "7.BIS Ratio",
+        "target_value": "18.00",
+        "actual_value": "17.00",
+        "score": 5
+    },
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1428,
+        "appraisal_item_name": "8.อัตราผลตอบแทนต่อสินทรัพย์เสี่ยง(ROA Risk Adjusted)",
+        "target_value": "100.00",
+        "actual_value": "94.10",
+        "score": 2
+    },
+    
+    
+    
+    
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1412,
+        "appraisal_item_name": "9.NIM",
+        "target_value": "49.74",
+        "actual_value": "45.80",
+        "score": 2
+    },
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1413,
+        "appraisal_item_name": "10.เงินฝากส่วนเพิ่ม",
+        "target_value": "49.74",
+        "actual_value": "45.80",
+        "score": 2
+    },
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1414,
+        "appraisal_item_name": "11.การเติบโตของสินเชื่อ (Loan Growth)",
+        "target_value": "7.09",
+        "actual_value": "6.20",
+        "score": 4
+    },
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1417,
+        "appraisal_item_name": "12.จำนวนเงินสินเชื่อปล่อยใหม่",
+        "target_value": "14.00",
+        "actual_value": "13.60",
+        "score": 4
+    },
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1416,
+        "appraisal_item_name": "13.จำนวนเงินรายสินเชื่อปล่อยใหม่วงเงินไม่เกิน2.0 ล้านบาท",
+        "target_value": "4.93",
+        "actual_value": "4.90",
+        "score": 4
+    },
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1415,
+        "appraisal_item_name": "14.จำนวนเงินสินเชื่อโครงการบ้านประชารัฐ",
+        "target_value": "4.93",
+        "actual_value": "10.80",
+        "score": 2
+    },
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1418,
+        "appraisal_item_name": "15.ส่วนแบ่งการตลาดสินเชื่อคงค้าง(Out Standing)",
+        "target_value": "18.00",
+        "actual_value": "17.00",
+        "score": 5
+    },
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1428,
+        "appraisal_item_name": "16.สินเชื่อคงค้าง(OutStanding)",
+        "target_value": "100.00",
+        "actual_value": "94.10",
+        "score": 2
+    },
+    
+    
+    
+    
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1412,
+        "appraisal_item_name": "17.สัดส่วนสินเชื่อ Refinance Out ต่อสินเชื่อคงค้างไม่เกินค่าที่กำหนด",
+        "target_value": "49.74",
+        "actual_value": "45.80",
+        "score": 2
+    },
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1413,
+        "appraisal_item_name": "18. สัดส่วนค่าใช้จ่ายพนักงนต่อผลกำไรสุทธิ",
+        "target_value": "49.74",
+        "actual_value": "45.80",
+        "score": 2
+    },
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1414,
+        "appraisal_item_name": "19.อัตราส่วนสินเชื่อคงค้าง / พนักงานรายคน",
+        "target_value": "7.09",
+        "actual_value": "6.20",
+        "score": 4
+    },
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1417,
+        "appraisal_item_name": "20.อัตราส่วนเงินฝาก/พนักงานรายคน",
+        "target_value": "14.00",
+        "actual_value": "13.60",
+        "score": 4
+    },
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1416,
+        "appraisal_item_name": " 21.CBS Availablity",
+        "target_value": "4.93",
+        "actual_value": "4.90",
+        "score": 4
+    },
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1415,
+        "appraisal_item_name": "22.จำนวนครั้ง Cyber Crime ในระบบ",
+        "target_value": "4.93",
+        "actual_value": "10.80",
+        "score": 2
+    },
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1418,
+        "appraisal_item_name": "23.ระดับความสำเร็จของโครงการนวัตกรรม(GHB Inno Project 2017)",
+        "target_value": "18.00",
+        "actual_value": "17.00",
+        "score": 5
+    },
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1428,
+        "appraisal_item_name": "24.ร้อยละการพิจารณาสินเชื่อแล้วเสร็จภายในเวลามาตรฐาน 5 วันทำการ",
+        "target_value": "100.00",
+        "actual_value": "94.10",
+        "score": 2
+    },
+    
+    
+   
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1418,
+        "appraisal_item_name": "25.ระดับความสำเร็จของโครงการนวัตกรรม(GHB Inno Project 2017)",
+        "target_value": "18.00",
+        "actual_value": "17.00",
+        "score": 5
+    },
+    
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1418,
+        "appraisal_item_name": "26.ผลการจัดระดับตับโดยรวม(Composite Rating)",
+        "target_value": "18.00",
+        "actual_value": "17.00",
+        "score": 5
+    },
+    {
+        "perspective_name": "KPI List2 ",
+        "appraisal_item_id": 1428,
+        "appraisal_item_name": "27.จำนวนเรื่องร้องเรียนผ่าน Social Media ไม่ได้รับการ แก้ไขภายใน 24 ชั่วโมง",
+        "target_value": "100.00",
+        "actual_value": "94.10",
+        "score": 2
+    }
+]
