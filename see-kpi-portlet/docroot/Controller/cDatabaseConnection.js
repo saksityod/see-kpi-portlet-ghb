@@ -7,18 +7,18 @@
 	 	
 		 if(connectionServiceFn(username,password,plid)==true){
 	 
-	 		
     	var options={
     			"colunms":[
     			           {"colunmsDisplayName":"Connection Name","width":"20%","id":"connection_name","colunmsType":"text"},
-    			           {"colunmsDisplayName":"Database Type","width":"65%","id":"database_type","colunmsType":"text"},
+    			           {"colunmsDisplayName":"Database Type","width":"20%","id":"database_type","colunmsType":"text"},
+    			           {"colunmsDisplayName":"Is Report Connection","width":"45%","id":"is_report_connection","colunmsType":"checkbox"},
     			          ],
     			"form":[{
     					"label":"Connection Name","inputType":"text","placeholder":"Connection Name",
     					"id":"connection_name","width":"350px","required":true
     					},
     			        {
-    					"label":"Database Type","inputType":"dropdown","default":"checked",
+    					"label":"Database Type","inputType":"dropdown",
     					"id":"database_type_id","width":"250px","url":""+restfulURL+"/"+serviceName+"/public/database_connection/db_type_list",
     					},
     			        {
@@ -40,8 +40,11 @@
     			        {
     					"label":"Password","inputType":"password","placeholder":"Password",
     					"id":"password","width":"250px","required":true
-    					}
-    					
+    					},
+    					{
+            			"label":"Is Report Connection","inputType":"checkbox","default":"unchecked",
+            			"id":"is_report_connection","width":"250px"
+            			}
     			     ],
 			     "advanceSearch":[{
  					"label":"aaa Name0","inputType":"text","placeholder":"DefultText",
@@ -74,4 +77,3 @@
 		}
 	 }
     });
- 
