@@ -3,7 +3,7 @@
  var galbalDataTemp = [];
  var changeAutocomplete=true;
  galbalDataTemp['galbalOrg'] = [];
- 
+    
 //# Generate Drop Down List
  var generateDropDownList = function(url,type,request,initValue){
  	var html="";

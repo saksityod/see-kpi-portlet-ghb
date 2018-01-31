@@ -7,7 +7,7 @@
 <%@ page import="com.liferay.portal.util.PortalUtil" %>
 <liferay-theme:defineObjects />
 <portlet:defineObjects />
-
+  
 <%
 	String username = themeDisplay.getUser().getScreenName();
 	String password = (String) request.getSession().getAttribute(WebKeys.USER_PASSWORD);
