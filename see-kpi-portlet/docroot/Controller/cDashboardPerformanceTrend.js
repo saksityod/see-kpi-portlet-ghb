@@ -579,7 +579,7 @@
                 	"sYAxisNameFontItalic": "1",
                 	"sYAxisNameAlpha": "80",
 	                //"numberPrefix": "$",
-	               	"sNumberSuffix" : "%",
+	               	"sNumberSuffix" : (data['is_show_variance'] == "1" ? "":"%"),
 	                //"sYAxisMaxValue" : "50",
 					"showValues": "0",
 					//Cosmetics
