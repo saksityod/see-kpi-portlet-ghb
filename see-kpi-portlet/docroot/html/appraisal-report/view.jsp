@@ -441,7 +441,7 @@
 					<div class="row-fluid ">
 
 						<div style="margin-left: 5px; margin-bottom: 3px;"
-							class="form-group pull-left span2" id="yearArea">
+							class="form-group pull-left span1" id="yearArea">
 							<select name="year" id="year" class="input form-control input-sm"
 								title="" data-toggle="tooltip" style="cursor: pointer;"
 								data-original-title="Year">
@@ -485,6 +485,13 @@
 						</div>
 						<div style="margin-left: 5px; margin-bottom: 3px;"
 							class="form-group pull-left span2" id="kpiArea">
+							<select name="kpi_type" id="kpi_type" class="input form-control input-sm"
+								title="" data-toggle="tooltip" style="cursor: pointer;"
+								data-original-title="KPI Type">
+							</select>
+						</div>
+						<div style="margin-left: 5px; margin-bottom: 3px;"
+							class="form-group pull-left span2" id="kpiArea">
 							<select name="kpi" id="kpi" class="input form-control input-sm"
 								title="" data-toggle="tooltip" style="cursor: pointer;"
 								data-original-title="KPI">
@@ -495,7 +502,7 @@
 							</select>
 						</div>
 						<div style="margin-left: 5px; margin-bottom: 3px;"
-							class="form-group pull-left span2" id="kpiArea">
+							class="form-group pull-left span1" id="kpiArea">
 							<select name="output_type" id="output_type" class="input form-control input-sm"
 								title="" data-toggle="tooltip" style="cursor: pointer;"
 								data-original-title="Output Type">

@@ -66,6 +66,7 @@ var searchAdvanceFn = function (year,month,app_lv,app_type,org_id,position,emp_n
 	var htmlParam="";
 	htmlParam+="<input type='hidden' class='paramEmbed' id='param_year' name='param_year' value='"+year+"'>";
 	htmlParam+="<input type='hidden' class='paramEmbed' id='param_month' name='param_month' value='"+month+"'>";
+	galbalDataTemp["month_name"] = $("#month>option:selected").text();
 	htmlParam+="<input type='hidden' class='paramEmbed' id='param_app_lv' name='param_app_lv' value='"+app_lv+"'>";
 	htmlParam+="<input type='hidden' class='paramEmbed' id='param_app_type' name='param_app_type' value='"+app_type+"'>";
 	htmlParam+="<input type='hidden' class='paramEmbed' id='param_org_id' name='param_org_id' value='"+org_id+"'>";
@@ -95,8 +96,8 @@ var listCdsResultFn = function (data) {
 		htmlTable += "<td class='columnSearch'>"+ indexEntry["cds_id"]+ "</td>";
 		htmlTable += "<td class='columnSearch'>"+ indexEntry["cds_name"]+ "</td>";
 		htmlTable += "<td class='columnSearch'>"+ indexEntry["year"]+ "</td>";
-		htmlTable += "<td class='columnSearch'>"+ indexEntry["month_name"]+ "</td>";
-		htmlTable += "<td class='columnSearch' style='text-align: right;padding-right: 10px;'>"+ addCommas(parseFloat(indexEntry["cds_value"]).toFixed(2))+ "</td>";
+		htmlTable += "<td class='columnSearch'>"+ galbalDataTemp["month_name"] + "</td>";
+		htmlTable += "<td class='columnSearch' style='text-align: right;padding-right: 10px;'>"+ notNullTextFn(addCommas(parseFloat(indexEntry["cds_value"]).toFixed(2)))+ "</td>";
 		htmlTable += "<td class='columnSearch' style=\"vertical-align: middle;text-align: center;\"><i id='"+ indexEntry["cds_result_id"]+ "' class='fa fa-trash del' style='color: red; cursor: pointer;'></i></td>";
 		htmlTable += "</tr>";////parseFloat().toLocaleString()
 	});

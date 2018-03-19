@@ -281,7 +281,7 @@ var notNullFn = function(data){
 //check value not null
 var notNullTextFn = function(data){
 	var dataNotNull="";
-	if((data == '' || data == 'undefinided' || data == null )){
+	if((data == '' || data == 'undefinided' || data == null || data == 'NaN')){
 		dataNotNull="";
 	}else{
 		dataNotNull=data;

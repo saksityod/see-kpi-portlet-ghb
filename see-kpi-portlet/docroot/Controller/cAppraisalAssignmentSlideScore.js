@@ -5,7 +5,7 @@ var globalData=[];
 var empldoyees_code = [];
 var empldoyees_id = [];
 var item_id_array=[];
-
+var org_id_to_assign;
 
 
 //var is_hr = 0;
@@ -569,13 +569,13 @@ var listDataFn = function(data) {
 					//itemEntry['status']
 					if(is_hr==1 &&  itemEntry['status']=='Accepted'){
 						//htmlHTML+="  <i title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\" &lt;button class='btn btn-info btn-small btn-gear view' id='view-"+itemEntry['emp_id']+"' data-target=#addModalRule data-toggle='modal'&gt;View&lt;/button&gt;   &lt;button class='btn btn-warning btn-small btn-gear edit' id='edit-"+itemEntry['emp_id']+"' data-target=#addModalRule data-toggle='modal'&gt;Edit&lt;/button&gt;&nbsp;&lt;button id='del-"+itemEntry['emp_id']+"' class='btn btn-danger btn-small btn-gear del'&gt;Delete&lt;/button&gt;\"></i>";
-						htmlHTML+="  <i data-trigger=\"focus\" tabindex=\""+index2+"\" title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\"  data-content=\" &lt;button class='btn btn-info btn-small btn-gear view' id='view-"+itemEntry['emp_id']+"' data-target=#addModalRule data-toggle='modal'&gt;View\"></i>";
+						htmlHTML+="  <i data-trigger=\"focus\" tabindex=\""+index2+"\" title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\"  data-content=\" &lt;button class='btn btn-info btn-small btn-gear view' id='view-"+itemEntry['emp_id']+"-"+itemEntry['org_id']+"' data-target=#addModalRule data-toggle='modal'&gt;View\"></i>";
 					}else if(is_hr==1 &&  itemEntry['status']!='Accepted'){
-						htmlHTML+="  <i data-trigger=\"focus\" tabindex=\""+index2+"\" title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\" &lt;button class='btn btn-warning btn-small btn-gear edit' id='edit-"+itemEntry['emp_id']+"' data-target=#addModalRule data-toggle='modal'&gt;Edit&lt;/button&gt;&nbsp;&lt;button id='del-"+itemEntry['emp_id']+"' class='btn btn-danger btn-small btn-gear del'&gt;Delete&lt;/button&gt;\"></i>";
+						htmlHTML+="  <i data-trigger=\"focus\" tabindex=\""+index2+"\" title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\" &lt;button class='btn btn-warning btn-small btn-gear edit' id='edit-"+itemEntry['emp_id']+"-"+itemEntry['org_id']+"' data-target=#addModalRule data-toggle='modal'&gt;Edit&lt;/button&gt;&nbsp;&lt;button id='del-"+itemEntry['emp_id']+"' class='btn btn-danger btn-small btn-gear del'&gt;Delete&lt;/button&gt;\"></i>";
 						
 						
 					}else if(is_hr==0){
-						htmlHTML+="  <i data-trigger=\"focus\" tabindex=\""+index2+"\" title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\" &lt;button class='btn btn-info btn-small btn-gear view' id='view-"+itemEntry['emp_id']+"' data-target=#addModalRule data-toggle='modal'&gt;View\"></i>";
+						htmlHTML+="  <i data-trigger=\"focus\" tabindex=\""+index2+"\" title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\" &lt;button class='btn btn-info btn-small btn-gear view' id='view-"+itemEntry['emp_id']+"-"+itemEntry['org_id']+"' data-target=#addModalRule data-toggle='modal'&gt;View\"></i>";
 						
 					}
 				}
@@ -670,7 +670,8 @@ var listDataFn = function(data) {
 			
 			var edit=this.id.split("-");
 			var id=edit[1];
-			
+			org_id_to_assign=[];
+			org_id_to_assign.push(edit[2]);
 			sessionStorage.setItem('is_coporate_kpi',$("#is_coporate_kpi-"+id).val());
 			
 			$(".information").hide();
@@ -699,6 +700,9 @@ var listDataFn = function(data) {
 //				$(this).parent().parent().parent().children().click();
 //			}else{
 				//console.log($(this).parent().parent().parent().parent().children().eq(1).children().val());
+				var view=this.id.split("-");
+				org_id_to_assign=[];
+				org_id_to_assign.push(view[2]);
 				var emp_result_id= $(this).parent().parent().parent().parent().children().eq(1).children().val();
 				var period_id = $(this).parent().parent().parent().parent().children().eq(2).children().val();
 				$("#period_id_edit").val(period_id);
@@ -2149,8 +2153,8 @@ var getTemplateFn = function(emp_result_id){
 		async:false,
 		data:{
 			'appraisal_level_id':$("#appraisalLevel").val(),
-			'emp_result_id':emp_result_id
-
+			'emp_result_id':emp_result_id,
+			'org_id':org_id_to_assign
 			},
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success:function(data){
@@ -2437,6 +2441,7 @@ if(username!="" && username!=null & username!=[] && username!=undefined ){
 		
 		empldoyees_code=[];
 		empldoyees_id=[];
+		org_id_to_assign=[];
 		$(".information").hide();
 		$("#btnAddAnother").show();
 		$(".embed_appraisal_id").remove();
@@ -2447,6 +2452,7 @@ if(username!="" && username!=null & username!=[] && username!=undefined ){
 					
 					empldoyees_id.push(emp_id[0]);
 					empldoyees_code.push(emp_id[1]);
+					org_id_to_assign.push(emp_id[0]);
 				}
 			});
 		if(empldoyees_id.length==0){
