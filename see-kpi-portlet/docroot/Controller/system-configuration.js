@@ -495,7 +495,10 @@ var deleteEmpFn = function() {
 			
 			}
 		else{
-			$("#confrimModal").modal();
+			$("#confrimModal").modal({
+				"backdrop" : setModalPopup[0],
+				"keyboard" : setModalPopup[1]
+			});
 			$(document).off("click","#btnConfirmOK");
 			$(document).on("click","#btnConfirmOK",function(){
 			var emp_thresholds = [];
@@ -576,6 +579,10 @@ $(document).ready(function () {
 			});
 			$("#btnSetupReminder").click(function(){
 				//Modal Setup Email
+				$("#btnSetupReminder").attr({
+					"data-backdrop" : setModalPopup[0],
+					"data-keyboard" : setModalPopup[1]
+				});
 				$("#form_mail_driver").val(galbalDataSystemcon["mail_driver"]);
 				$("#form_mail_host").val(galbalDataSystemcon["mail_host"]);
 				$("#form_mail_port").val(galbalDataSystemcon["mail_port"]);
@@ -583,6 +590,7 @@ $(document).ready(function () {
 				$("#form_mail_password").val(galbalDataSystemcon["mail_password"]);
 				$("#form_mail_encryption").val(galbalDataSystemcon["mail_encryption"]);
 				$("#form_web_domain").val(galbalDataSystemcon["web_domain"]);
+				
 			});
 			$("#btnEmailSubmit").click(function(){
 				updateMailFn();

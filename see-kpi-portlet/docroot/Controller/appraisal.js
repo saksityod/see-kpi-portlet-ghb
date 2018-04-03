@@ -396,7 +396,7 @@ var assignTemplateQuantityFn = function(structureName,data){
 			htmlTemplateQuantity+="<th style=\"width:10%\" class=''><b>Perspective</b> </th>";
 			htmlTemplateQuantity+="<th style=\"width:20%\" class=''><b>KPI Name</b></th>";
 			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>Target </b></th>";
-			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>UOM </b></th>";
+			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>หน่วยวัด </b></th>";
 			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>Forecast </b></th>";
 			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>Actual </b></th>";
 			if(data['threshold']==1){
@@ -422,7 +422,7 @@ var assignTemplateQuantityFn = function(structureName,data){
 			htmlTemplateQuantity+="<th style=\"width:10%\" class=''><b>Perspective</b> </th>";
 			htmlTemplateQuantity+="<th style=\"width:20%\" class=''><b>KPI Name</b></th>";
 			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>Target </b></th>";
-			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>UOM </b></th>";
+			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>หน่วยวัด </b></th>";
 			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>Forecast </b></th>";
 			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>Actual </b></th>";
 			
@@ -475,8 +475,7 @@ var assignTemplateQuantityFn = function(structureName,data){
 						
 	
 						htmlTemplateQuantity+="	<td style=\"text-align:center\">";
-						htmlTemplateQuantity+=" <i data-trigger=\"focus\" tabindex=\""+index+"\" data-content=\"   &lt;button style='width:100px;' class='btn btn-success btn-small btn-gear reason' id='reason-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' data-target='' data-toggle='modal'&gt;Reason&lt;/button&gt;  &lt;button style='width:100px;' class='btn btn-success btn-small btn-gear ganttChart' id='ganttChart-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' data-target='' data-toggle='modal'&gt;Gantt Chart&lt;/button&gt;  &lt;button style='width:100px;' class='btn btn-success btn-small btn-gear phase' id='phase-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' data-target='' data-toggle='modal'&gt;Phase&lt;/button&gt; &lt;button style='width:100px;' id='action_plan-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' class='btn btn-success btn-small btn-gear action_plan'&gt;Action Plan&lt;/button&gt; &lt;button id='attach_file-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' style='width:100px;' class='btn btn-success btn-small btn-gear attach_file'&gt;Attach File&lt;/button&gt;\" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-edit-del\" data-original-title=\"\" title=\"\"></i>";
-						htmlTemplateQuantity+="	</td>";
+						htmlTemplateQuantity+=" <i data-trigger=\"focus\" tabindex=\""+index+"\" data-content=\"&lt;button style='width:100px;' class='btn btn-success btn-small btn-gear reason' id='reason-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;Detail&lt;/button&gt;  &lt;button id='attach_file-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' style='width:100px;' class='btn btn-success btn-small btn-gear attach_file'&gt;Attach File&lt;/button&gt;&lt;button style='width:100px;' id='action_plan-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' class='btn btn-success btn-small btn-gear action_plan'&gt;Action Plan&lt;/button&gt; &lt;button style='width:100px;' class='btn btn-success btn-small btn-gear ganttChart' id='ganttChart-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;Gantt Chart&lt;/button&gt;  &lt;button style='width:100px;' class='btn btn-success btn-small btn-gear phase' id='phase-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;Phase&lt;/button&gt; \" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-edit-del\" data-original-title=\"\" title=\"\"></i>";						htmlTemplateQuantity+="	</td>";
 							
 					htmlTemplateQuantity+="</tr>";
 				}else{
@@ -498,7 +497,7 @@ var assignTemplateQuantityFn = function(structureName,data){
 						}
 						
 						htmlTemplateQuantity+="	<td style=\"text-align:center\">";
-						htmlTemplateQuantity+=" <i data-trigger=\"focus\" tabindex=\""+index+"\" data-content=\"&lt;button class='btn btn-success btn-small btn-gear ganttChart' id='ganttChart-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' data-target='' data-toggle='modal'&gt;Gantt&lt;/button&gt; &lt;button class='btn btn-success btn-small btn-gear phase' id='phase-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' data-target='' data-toggle='modal'&gt;Phase&lt;/button&gt;&nbsp;&lt;button id='action_plan-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' class='btn btn-success btn-small btn-gear action_plan'&gt;Action Plan&lt;/button&gt; &lt;button id='attach_file-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' style='width:100px;' class='btn btn-success btn-small btn-gear attach_file'&gt;Attach File&lt;/button&gt;\" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-edit-del\" style='text-align:center;' data-original-title=\"\" title=\"\"></i>";
+						htmlTemplateQuantity+=" <i data-trigger=\"focus\" tabindex=\""+index+"\" data-content=\"&lt;button id='attach_file-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' style='width:100px;' class='btn btn-success btn-small btn-gear attach_file'&gt;Attach File&lt;/button&gt;&lt;button id='action_plan-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' class='btn btn-success btn-small btn-gear action_plan'&gt;Action Plan&lt;/button&gt;&lt;button class='btn btn-success btn-small btn-gear ganttChart' id='ganttChart-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;Gantt&lt;/button&gt; &lt;button class='btn btn-success btn-small btn-gear phase' id='phase-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;Phase&lt;/button&gt;&nbsp;\" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-edit-del\" style='text-align:center;' data-original-title=\"\" title=\"\"></i>";
 						htmlTemplateQuantity+="	</td>";
 							
 					htmlTemplateQuantity+="</tr>";
@@ -723,7 +722,10 @@ var listAppraisalDetailFn = function(data){
 					$("#informConfirm").empty();
 					var id=this.id.split("-");
 					id=id[1];
-					$("#actionPlanModal").modal().css({"margin-top":"0px"});
+					$("#actionPlanModal").modal({
+						"backdrop" : setModalPopup[0],
+						"keyboard" : setModalPopup[1]
+					}).css({"margin-top":"0px"});
 					getActionPlanFn(id);
 					$("#action_actionplan").val("add");
 					
@@ -735,7 +737,10 @@ var listAppraisalDetailFn = function(data){
 					var id=this.id.split("-");
 					id=id[1];
 					
-					$("#attachFileModal").modal().css({"margin-top":"0px"});
+					$("#attachFileModal").modal({
+						"backdrop" : setModalPopup[0],
+						"keyboard" : setModalPopup[1]
+					}).css({"margin-top":"0px"});
 					$("#attach_file_item_result_id").val(id)
 					$('.dropify').dropify();
 					
@@ -753,7 +758,10 @@ var listAppraisalDetailFn = function(data){
 					var id=this.id.split("-");
 					id=id[1];
 				
-					$("#phaseModal").modal().css({"margin-top":"0px"});
+					$("#phaseModal").modal({
+						"backdrop" : setModalPopup[0],
+						"keyboard" : setModalPopup[1]
+					}).css({"margin-top":"0px"});
 					$("#phaseName").off("fucus");
 					$("#phase_item_result_id").val(id)
 					getPhaseFn(id);
@@ -768,7 +776,10 @@ var listAppraisalDetailFn = function(data){
 					var id=this.id.split("-");
 					id=id[1];
 				
-					$("#reasonModal").modal().css({"margin-top":"0px"});
+					$("#reasonModal").modal({
+						"backdrop" : setModalPopup[0],
+						"keyboard" : setModalPopup[1]
+					}).css({"margin-top":"0px"});
 					$("#reason").off("fucus");
 					$("#reason_item_result_id").val(id);
 					getReasonFn(id);
@@ -784,7 +795,10 @@ var listAppraisalDetailFn = function(data){
 					getDataGanttChartFn(id);
 					//getDataGanttChartFn(id,$("#gantt_amount").val(),$("#gantt_unit").val());
 					$("#gantt_item_result_id").val(id);
-					$("#ganttChartModal").modal().css({"margin-top":"0px"});
+					$("#ganttChartModal").modal({
+						"backdrop" : setModalPopup[0],
+						"keyboard" : setModalPopup[1]
+					}).css({"margin-top":"0px"});
 			
 					
 				});
@@ -899,7 +913,10 @@ var listAppraisalDetailFn = function(data){
 //	});
 	dropDrowActionEditFn(data['head'][0]['stage_id']);
 	$("#assignTo").change();
-	$("#ModalAppraisal").modal().css({"margin-top":"0px"});
+	$("#ModalAppraisal").modal({
+		"backdrop" : setModalPopup[0],
+		"keyboard" : setModalPopup[1]
+	}).css({"margin-top":"0px"});
 	
 	
 	
@@ -1530,7 +1547,10 @@ var listPhaseFn = function(data){
 			$("#informConfirm").empty();
 			var id=this.id.split("-");
 			id=id[1];
-			$("#confrimModal").modal().css({"margin-top":"0px"});
+			$("#confrimModal").modal({
+				"backdrop" : setModalPopup[0],
+				"keyboard" : setModalPopup[1]
+			}).css({"margin-top":"0px"});
 			//$(this).parent().parent().parent().children().click();
 			$(document).off("click","#btnConfirmOK");
 			$(document).on("click","#btnConfirmOK",function(){
@@ -1696,7 +1716,7 @@ var listReasonFn = function(data){
 			htmlTR+="<td>"+indexEntry['rank']+"</td>";
 			htmlTR+="<td>"+indexEntry['reason_name']+"</td>";
 			htmlTR+="<td style='text-align:center;'>";
-			htmlTR+=" <i data-trigger=\"focus\" tabindex=\""+index+"\" data-content=\"&lt;button class='btn btn-warning btn-small btn-gear edit_reason' id=edit_reason-"+indexEntry['reason_id']+" data-target='' data-toggle='modal'&gt;Edit&lt;/button&gt;&nbsp;&lt;button id=del_reason-"+indexEntry['reason_id']+" class='btn btn-danger btn-small btn-gear reasonDel'&gt;Delete&lt;/button&gt;\" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-edit-del\" data-original-title=\"\" title=\"\"></i>";
+			htmlTR+=" <i data-trigger=\"focus\" tabindex=\""+index+"\" data-content=\"&lt;button class='btn btn-warning btn-small btn-gear edit_reason' id=edit_reason-"+indexEntry['reason_id']+" data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;Edit&lt;/button&gt;&nbsp;&lt;button id=del_reason-"+indexEntry['reason_id']+" class='btn btn-danger btn-small btn-gear reasonDel'&gt;Delete&lt;/button&gt;\" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-edit-del\" data-original-title=\"\" title=\"\"></i>";
 			htmlTR+="</td>";
 		htmlTR+="</tr>";
 	});
@@ -1712,7 +1732,10 @@ var listReasonFn = function(data){
 			$("#informConfirm").empty();
 			var id=this.id.split("-");
 			id=id[1];
-			$("#confrimModal").modal().css({"margin-top":"0px"});
+			$("#confrimModal").modal({
+				"backdrop" : setModalPopup[0],
+				"keyboard" : setModalPopup[1]
+			}).css({"margin-top":"0px"});
 			//$(this).parent().parent().parent().children().click();
 			$(document).off("click","#btnConfirmOK");
 			$(document).on("click","#btnConfirmOK",function(){
@@ -2430,7 +2453,10 @@ var getDataGanttChartFn = function(item_result_id,ganttPaneDuration,ganttPaneDur
 			generateGanttChartFn(objectGantt);
 			 
 			/* test here start*/
-			$("#ganttChartModal").modal().css({"margin-top":"0px"});
+			$("#ganttChartModal").modal({
+				"backdrop" : setModalPopup[0],
+				"keyboard" : setModalPopup[1]
+			}).css({"margin-top":"0px"});
 			/* test here end.*/
 //			var dataGantt="";
 			
@@ -2504,7 +2530,10 @@ $(document).ready(function() {
 	//Start Action plan by email link here..
 	setTimeout(function(){
 		if($("#param_link").val()=="email"){
-			$("#actionPlanModal").modal().css({"margin-top":"0px"});
+			$("#actionPlanModal").modal({
+				"backdrop" : setModalPopup[0],
+				"keyboard" : setModalPopup[1]
+			}).css({"margin-top":"0px"});
 			getActionPlanFn($("#param_item_result_id").val());
 			$("#action_actionplan").val("add");
 		}
@@ -3412,7 +3441,10 @@ $(document).ready(function() {
 		
 		$("#informConfirm").empty();
 		var id=$("#item_result_id").val();
-		$("#downloadAttachFileModal").modal().css({"margin-top":"0px"});
+		$("#downloadAttachFileModal").modal({
+			"backdrop" : setModalPopup[0],
+			"keyboard" : setModalPopup[1]
+		}).css({"margin-top":"0px"});
 		getAttachFileFn(id);
 	});
 	//download attahc file end

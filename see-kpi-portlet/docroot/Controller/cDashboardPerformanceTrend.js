@@ -826,7 +826,10 @@ var getDataKPIFn = function(page,rpp){
 			galbalDataTemp['All_KPI']=data;
 			//getOrgFn(data);
 			listDashBoardAllKPIFn(data);
-			$("#ModalKPI").modal('show');
+			$("#ModalKPI").modal({
+				"backdrop" : setModalPopup[0],
+				"keyboard" : setModalPopup[1]
+			});
 			setScrollFn();
 
 //			$("#scrollOrg *").scrollTop(0).scrollLeft(0);

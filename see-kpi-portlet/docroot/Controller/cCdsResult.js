@@ -105,7 +105,10 @@ var listCdsResultFn = function (data) {
 	$(".del").on("click",function(){
 		var id = this.id;
 		 
-		$("#confrimModal").modal();
+		$("#confrimModal").modal({
+			"backdrop" : setModalPopup[0],
+			"keyboard" : setModalPopup[1]
+		});
 		$(document).off("click","#btnConfirmOK");
 		$(document).on("click","#btnConfirmOK",function(){
 		
@@ -632,6 +635,10 @@ $(document).ready(function() {
 		$('#file').val("");
 		$(".btnModalClose").click();
 		$(".dropify-clear").click();
+		$("#btn_import").attr({
+			"data-backdrop" : setModalPopup[0],
+			"data-keyboard" : setModalPopup[1]
+		});	
 	});
 	
 	// Variable to store your files

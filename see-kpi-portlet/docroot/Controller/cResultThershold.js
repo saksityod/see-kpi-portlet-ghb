@@ -115,7 +115,10 @@ var listGroupFn = function (data){
 			var id = this.id;
 			$(this).parent().parent().parent().children().click();
 			 
-			$("#confrimModal").modal();
+			$("#confrimModal").modal({
+				"backdrop" : setModalPopup[0],
+				"keyboard" : setModalPopup[1]
+			});
 			$('#confrimModal').on('hidden', function () {
 		 		$("#ModalCreateGroup").modal('show');
 		 		gobalDataGroup['Modal'] = "off";
@@ -280,13 +283,19 @@ $(document).ready(function(){
     		gobalDataGroup['first'] = true;
     		gobalDataGroup['Modal'] = "off";
     		getDataGroupFn();
-     		$("#ModalCreateGroup").modal();
+     		$("#ModalCreateGroup").modal({
+				"backdrop" : setModalPopup[0],
+				"keyboard" : setModalPopup[1]
+			});
      		
      		$("#btnSaveGroup").click(function(){
      			$(".btnModalClose").click();
      			gobalDataGroup['Modal'] = "on";
      			$("#ModalCreateGroup").modal('hide');
-    			$("#confrimModalCreateGroup").modal();
+    			$("#confrimModalCreateGroup").modal({
+    				"backdrop" : setModalPopup[0],
+    				"keyboard" : setModalPopup[1]
+    			});
      	    	$('#confrimModalCreateGroup').on('hidden', function () {
      	    		$("#ModalCreateGroup").modal('show');
      	    		gobalDataGroup['Modal'] = "off";

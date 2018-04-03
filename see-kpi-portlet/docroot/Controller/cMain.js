@@ -1,7 +1,8 @@
 /* for portlet*/
 var tokenID= [];
 var is_hr = [];
-
+const setModalPopup = ['static','false'];
+//const setModalPopup = ['""','""'];
 //tokenID= eval("("+sessionStorage.getItem("tokenID")+")");
 
 var checkSession = function(paramTokenID){

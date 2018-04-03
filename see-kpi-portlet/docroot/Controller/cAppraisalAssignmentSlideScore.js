@@ -357,7 +357,10 @@ var findOneFn = function(id,actionType){
 			
 			if(data['head'].length>0){
 				setDataToTemplateFn(data,actionType);
-				$("#ModalAssignment").modal();
+				$("#ModalAssignment").modal({
+					"backdrop" : setModalPopup[0],
+					"keyboard" : setModalPopup[1]
+				});
 				$("#action").val("edit");
 				$("#id").val(id);
 				$("#btnAddAnother").hide();
@@ -569,13 +572,13 @@ var listDataFn = function(data) {
 					//itemEntry['status']
 					if(is_hr==1 &&  itemEntry['status']=='Accepted'){
 						//htmlHTML+="  <i title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\" &lt;button class='btn btn-info btn-small btn-gear view' id='view-"+itemEntry['emp_id']+"' data-target=#addModalRule data-toggle='modal'&gt;View&lt;/button&gt;   &lt;button class='btn btn-warning btn-small btn-gear edit' id='edit-"+itemEntry['emp_id']+"' data-target=#addModalRule data-toggle='modal'&gt;Edit&lt;/button&gt;&nbsp;&lt;button id='del-"+itemEntry['emp_id']+"' class='btn btn-danger btn-small btn-gear del'&gt;Delete&lt;/button&gt;\"></i>";
-						htmlHTML+="  <i data-trigger=\"focus\" tabindex=\""+index2+"\" title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\"  data-content=\" &lt;button class='btn btn-info btn-small btn-gear view' id='view-"+itemEntry['emp_id']+"-"+itemEntry['org_id']+"' data-target=#addModalRule data-toggle='modal'&gt;View\"></i>";
+						htmlHTML+="  <i data-trigger=\"focus\" tabindex=\""+index2+"\" title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\"  data-content=\" &lt;button class='btn btn-info btn-small btn-gear view' id='view-"+itemEntry['emp_id']+"-"+itemEntry['org_id']+"' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-target=#addModalRule data-toggle='modal'&gt;View\"></i>";
 					}else if(is_hr==1 &&  itemEntry['status']!='Accepted'){
-						htmlHTML+="  <i data-trigger=\"focus\" tabindex=\""+index2+"\" title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\" &lt;button class='btn btn-warning btn-small btn-gear edit' id='edit-"+itemEntry['emp_id']+"-"+itemEntry['org_id']+"' data-target=#addModalRule data-toggle='modal'&gt;Edit&lt;/button&gt;&nbsp;&lt;button id='del-"+itemEntry['emp_id']+"' class='btn btn-danger btn-small btn-gear del'&gt;Delete&lt;/button&gt;\"></i>";
+						htmlHTML+="  <i data-trigger=\"focus\" tabindex=\""+index2+"\" title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\" &lt;button class='btn btn-warning btn-small btn-gear edit' id='edit-"+itemEntry['emp_id']+"-"+itemEntry['org_id']+"' data-target=#addModalRule data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;Edit&lt;/button&gt;&nbsp;&lt;button id='del-"+itemEntry['emp_id']+"' class='btn btn-danger btn-small btn-gear del'&gt;Delete&lt;/button&gt;\"></i>";
 						
 						
 					}else if(is_hr==0){
-						htmlHTML+="  <i data-trigger=\"focus\" tabindex=\""+index2+"\" title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\" &lt;button class='btn btn-info btn-small btn-gear view' id='view-"+itemEntry['emp_id']+"-"+itemEntry['org_id']+"' data-target=#addModalRule data-toggle='modal'&gt;View\"></i>";
+						htmlHTML+="  <i data-trigger=\"focus\" tabindex=\""+index2+"\" title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\" &lt;button class='btn btn-info btn-small btn-gear view' id='view-"+itemEntry['emp_id']+"-"+itemEntry['org_id']+"' data-target=#addModalRule data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;View\"></i>";
 						
 					}
 				}
@@ -653,7 +656,10 @@ var listDataFn = function(data) {
 			
 			var emp_result_id= $(this).parent().parent().parent().parent().children().eq(1).children().val();
 			
-			$("#confrimModal").modal();
+			$("#confrimModal").modal({
+				"backdrop" : setModalPopup[0],
+				"keyboard" : setModalPopup[1]
+			});
 			$(this).parent().parent().parent().children().click();
 			$(document).off("click","#btnConfirmOK");
 			$(document).on("click","#btnConfirmOK",function(){
@@ -1663,7 +1669,7 @@ var assignTemplateQuantityFn = function(structureName,data){
 					htmlTemplateQuantity+="<th style=\"width:3%;  text-align:center;\" class=''><b>Select</b></th>";
 					htmlTemplateQuantity+="<th style=\"width:20%\" class=''><b>Appraisal Item Name</b></th>";
 					htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>Target</b> </th>";
-					htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>UOM</b> </th>";
+					htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>หน่วยวัด</b> </th>";
 					htmlTemplateQuantity+="<th style=\"width:10%;  text-align:center;\" class='thBox'><b>Forecast Value</b> </th>";
 					
 					
@@ -1754,7 +1760,7 @@ var assignTemplateQuantityFn = function(structureName,data){
 				htmlTemplateQuantity+="<th style=\"width:3%; text-align:center;\" class=''><b>Select</b></th>";
 				htmlTemplateQuantity+="<th style=\"width:30%\" class=''><b>Appraisal Item Name</b></th>";
 				htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>Target</b> </th>";
-				htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>UOM</b> </th>";
+				htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>หน่วยวัด</b> </th>";
 				htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>Forecast Value</b> </th>";
 				htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>%Weight</b></th>";
 				htmlTemplateQuantity+="</tr>";
@@ -1962,7 +1968,7 @@ var calculationGrandTotalFn = function(id){
 				var structure_id=dataId[2];
 				//if(apprailsal_item_id==apprailsal_item_id1 && structure_id==structure_id1){
 					if($(indexEntry).val().trim()!="" && $("#id-"+apprailsal_item_id+"-"+structure_id+"-checkbox").prop("checked")==true){
-						total_weigth_quality+=(parseFloat($(indexEntry).val().replace(',', '')));
+						total_weigth_quality=(parseFloat(Number(total_weigth_quality).toFixed(2)))+(parseFloat($(indexEntry).val().replace(',', '')));
 						//alert(grandTotalWieght);
 						//$("#weigth_total_quality_percentage").html( "["+total_weigth_quality+"]");
 						
@@ -2504,7 +2510,10 @@ if(username!="" && username!=null & username!=[] && username!=undefined ){
 		console.log(empldoyees_code);
 		*/
 		
-		
+		$("#btnAssignment").attr({
+			"data-backdrop" : setModalPopup[0],
+			"data-keyboard" : setModalPopup[1]
+		});
 		
 	});
 	//btn assignment end
