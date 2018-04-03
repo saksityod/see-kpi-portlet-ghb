@@ -396,7 +396,7 @@ var assignTemplateQuantityFn = function(structureName,data){
 			htmlTemplateQuantity+="<th style=\"width:10%\" class=''><b>Perspective</b> </th>";
 			htmlTemplateQuantity+="<th style=\"width:20%\" class=''><b>KPI Name</b></th>";
 			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>Target </b></th>";
-			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>หน่วยวัด </b></th>";
+			htmlTemplateQuantity+="<th style='width:5%;min-width: 60px !important;text-align: center;' class=''><b>หน่วยวัด </b></th>";
 			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>Forecast </b></th>";
 			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>Actual </b></th>";
 			if(data['threshold']==1){
@@ -422,7 +422,7 @@ var assignTemplateQuantityFn = function(structureName,data){
 			htmlTemplateQuantity+="<th style=\"width:10%\" class=''><b>Perspective</b> </th>";
 			htmlTemplateQuantity+="<th style=\"width:20%\" class=''><b>KPI Name</b></th>";
 			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>Target </b></th>";
-			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>หน่วยวัด </b></th>";
+			htmlTemplateQuantity+="<th style='width:5%;min-width: 60px !important;text-align:center;' class=''><b>หน่วยวัด </b></th>";
 			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>Forecast </b></th>";
 			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>Actual </b></th>";
 			
@@ -706,7 +706,11 @@ var listAppraisalDetailFn = function(data){
 			
 			/*bindding popover start*/
 			//Using
-			$(".popover-edit-del").popover();
+			$(".popover-edit-del").popover({
+				delay : {
+					hide : 100
+				}
+			});
 			
 			
 			$(".appraisal_result").off("click",".popover-edit-del");
@@ -1538,7 +1542,11 @@ var listPhaseFn = function(data){
 	$("#listDataPhase").html(htmlTR);
 	
 	/*bindding popover start*/
-	$(".popover-edit-del").popover();
+	$(".popover-edit-del").popover({
+		delay : {
+			hide : 100
+		}
+	});
 	
 	$("#listDataPhase").off("click",".popover-edit-del");
 	$("#listDataPhase").on("click",".popover-edit-del",function(){
@@ -1724,7 +1732,11 @@ var listReasonFn = function(data){
 	$("#listDataReason").html(htmlTR);
 	
 	/*bindding popover start*/
-	$(".popover-edit-del").popover();
+	$(".popover-edit-del").popover({
+		delay : {
+			hide : 100
+		}
+	});
 	$("#listDataReason").off("click",".popover-edit-del");
 	$("#listDataReason").on("click",".popover-edit-del",function(){
 		//Delete Start

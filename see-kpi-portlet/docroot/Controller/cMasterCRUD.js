@@ -388,6 +388,10 @@ var listDataFn = function(data,options){
 					htmlTbody+="<td  style='text-align:center;' class=\"columnSearch"+options['formDetail']['id']+"\"><input type='checkbox' disabled='disabled'></td>";
 				}
 				
+			}else if(indexEntry2['colunmsType']=='selectBox'){
+				htmlTbody+="<td style='text-align:center;' class=\"columnSearch"+options['formDetail']['id']+"\">"; 
+				htmlTbody+="<input type='checkbox' id=\"selectBox"+options['formDetail']['id']+"-"+indexEntry[indexEntry2['id']]+"\" class=\"selectBox"+options['formDetail']['id']+"\">";
+				htmlTbody+="</td>";
 			}else if(indexEntry2['colunmsType']=='text'){
 				var formatText = "";
 				var styleFormatNum = "";
@@ -425,7 +429,11 @@ var listDataFn = function(data,options){
 	});
 	
 	$("#listData").html(htmlTbody);
-	$(".popover-edit-del").popover();
+	$(".popover-edit-del").popover({
+		delay : {
+			hide : 100
+		}
+	});
 	$("#table-"+options['formDetail']['id']).off("click",".popover-edit-del");
 	$("#table-"+options['formDetail']['id']).on("click",".popover-edit-del",function(){
 		//console.log($(this).next().find('.edit').hide());
@@ -756,11 +764,11 @@ var createScriptCascadesFn = function(options){
 	});
 }
 var createBtnAdvanceSearchOptionFn = function(object){
-	
+	var classBtnColor = object['ClassBtnColor'] !=undefined ? object['ClassBtnColor'] :"btn-success";
 	var AdvanceSearchOption="";
 	//AdvanceSearchOption+="	<div class=\"input-group\" >";
 	//AdvanceSearchOption+="     	<div id=\"btnSearchArea\">";
-	AdvanceSearchOption+="    		<button style=\"margin-bottom: 5px;\"  type=\"button\" class=\"btn btn-success input-sm\" name=\""+object['id']+"\" id=\""+object['id']+"\">"+object['name']+"</button>";
+	AdvanceSearchOption+="    		<button style=\"margin-bottom: 5px;\"  type=\"button\" class=\"btn "+classBtnColor+" input-sm\" name=\""+object['id']+"\" id=\""+object['id']+"\">"+object['name']+"</button>";
 	//AdvanceSearchOption+="     	</div>";
 	//AdvanceSearchOption+=" 	</div>";
  	
@@ -940,6 +948,9 @@ var createDataTableFn = function(options){
 			createScriptCascadesFn(options);
 			if(options['btnAdvanceSearchOption']!=undefined){
 				$("#btnAdvanceSearchOption").html(createBtnAdvanceSearchOptionFn(options['btnAdvanceSearchOption']));
+			}
+			if(options['btnAdvanceSearchLastOption']!=undefined){
+				$("#btnAdvanceSearchLastOption").html(createBtnAdvanceSearchOptionFn(options['btnAdvanceSearchLastOption']));
 			}
 			if(options['btnAdvanceDownloadOption']!=undefined){
 				$("#btnAdvanceDownloadOption").html(createBtnAdvanceDownloadOptionFn());

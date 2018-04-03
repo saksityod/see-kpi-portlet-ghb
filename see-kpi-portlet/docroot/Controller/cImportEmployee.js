@@ -267,7 +267,11 @@ var listImportEmployeeFn = function(data) {
 	$("#listEmployee").html(htmlTable);
 	
 	//function popover
-	$(".popover-edit-del").popover();
+	$(".popover-edit-del").popover({
+		delay : {
+			hide : 100
+		}
+	});
 	
 	
 	$("#tableEmployee").off("click",".popover-edit-del");
@@ -830,6 +834,10 @@ $(document).ready(function() {
 		$('#file').val("");
 		$(".btnModalClose").click();
 		$(".dropify-clear").click(); 
+		$("#btn_import").attr({
+			"data-backdrop" : setModalPopup[0],
+			"data-keyboard" : setModalPopup[1]
+		});	
 	});
 //	$("#importFileMobile").click(function () {
 //		$('#file').val("");

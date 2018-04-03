@@ -645,7 +645,11 @@ var listDataFn = function(data) {
 	   
 	});
 	
-	$(".popover-edit-del").popover();
+	$(".popover-edit-del").popover({
+		delay : {
+			hide : 100
+		}
+	});
 	$("#listDatas").off("click",".popover-edit-del");
 	$("#listDatas").on("click",".popover-edit-del",function(){
 		//Delete Start
@@ -1669,7 +1673,7 @@ var assignTemplateQuantityFn = function(structureName,data){
 					htmlTemplateQuantity+="<th style=\"width:3%;  text-align:center;\" class=''><b>Select</b></th>";
 					htmlTemplateQuantity+="<th style=\"width:20%\" class=''><b>Appraisal Item Name</b></th>";
 					htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>Target</b> </th>";
-					htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>หน่วยวัด</b> </th>";
+					htmlTemplateQuantity+="<th style=\"width:5%;min-width: 60px !important;  text-align:center;\" class=''><b>หน่วยวัด</b> </th>";
 					htmlTemplateQuantity+="<th style=\"width:10%;  text-align:center;\" class='thBox'><b>Forecast Value</b> </th>";
 					
 					
@@ -1760,7 +1764,7 @@ var assignTemplateQuantityFn = function(structureName,data){
 				htmlTemplateQuantity+="<th style=\"width:3%; text-align:center;\" class=''><b>Select</b></th>";
 				htmlTemplateQuantity+="<th style=\"width:30%\" class=''><b>Appraisal Item Name</b></th>";
 				htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>Target</b> </th>";
-				htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>หน่วยวัด</b> </th>";
+				htmlTemplateQuantity+="<th style=\"width:5%;min-width: 60px !important;  text-align:center;\" class=''><b>หน่วยวัด</b> </th>";
 				htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>Forecast Value</b> </th>";
 				htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>%Weight</b></th>";
 				htmlTemplateQuantity+="</tr>";

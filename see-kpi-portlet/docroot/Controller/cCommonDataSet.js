@@ -228,7 +228,11 @@ var listCommonDataSetFn = function(data) {
 //	});
 	
 	//function popover
-	$(".popover-edit-del").popover();
+	$(".popover-edit-del").popover({
+		delay : {
+			hide : 100
+		}
+	});
 	
 	$("#tableCommonDataSet").off("click",".popover-edit-del");
 	$("#tableCommonDataSet").on("click",".popover-edit-del",function(){
