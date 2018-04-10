@@ -172,7 +172,8 @@ var getDataFn = function(page,rpp){
 			"emp_id":$("#embed_emp_id").val(),
 			"position_id":$("#embed_position_id").val(),
 			"level_id":$("#embed_appraisal_level_id").val(),
-			"org_id":$("#embed_organization").val()
+			"org_id":$("#embed_organization").val(),
+			"appraisal_type":$("#embed_appraisal_type_id").val()
 			
 			
 			},
@@ -226,8 +227,6 @@ var searchAdvance = function(){
 	getDataFn(1,$("#rpp").val());
 }
 
-
-
 $(document).ready(function(){
 	
 	
@@ -242,9 +241,16 @@ if(connectionServiceFn(username,password,plid)==true){
 	appraisalTypeFn();
 	appraisalLevelListFn();
 	$("#appraisalLevel").change(function(){
+		$("#Position").val("");
+		$("#empName").val("");
 		dropDrowOrgFn($(this).val());	
 	});
 	$("#appraisalLevel").change();
+	
+	$("#organization").change(function(){
+		$("#Position").val("");
+		$("#empName").val("");
+	});
 	
 	
 
@@ -302,11 +308,17 @@ if(connectionServiceFn(username,password,plid)==true){
 	$("#empName").autocomplete({
         source: function (request, response) {
         	$.ajax({
-				 url:restfulURL+"/"+serviceName+"/public/appraisal_assignment/auto_employee_name",
-				 type:"post",
+//        		 url:restfulURL+"/"+serviceName+"/public/appraisal_assignment/auto_employee_name",
+//				 type:"post",
+        		 url:restfulURL+"/"+serviceName+"/public/report/auto_employee_name",
+				 type:"get",
 				 dataType:"json",
 				 headers:{Authorization:"Bearer "+tokenID.token},
-				 data:{"emp_name":request.term},
+				 data:{
+					 "emp_name":request.term,
+					 "level_id":$("#appraisalLevel").val(),
+					 "org_id":$("#organization").val()
+					 },
 				 //async:false,
                  error: function (xhr, textStatus, errorThrown) {
                         console.log('Error: ' + xhr.responseText);
@@ -316,6 +328,8 @@ if(connectionServiceFn(username,password,plid)==true){
                             return {
                                 label: item.emp_code+"-"+item.emp_name,
                                 value: item.emp_code+"-"+item.emp_name,
+                                position_id: item.position_id,
+                                position_name: item.position_name
                             };
                         }));
 				},
@@ -324,6 +338,11 @@ if(connectionServiceFn(username,password,plid)==true){
 				}
 				
 				});
+        },
+        select:function(event, ui) {
+        	var position_id = (ui.item.position_id==null) ? '' : ui.item.position_id+"-";
+        	var position_name = (ui.item.position_name==null) ? '' : ui.item.position_name;
+        	$("#Position").val(position_id+position_name)
         }
     });
 	
