@@ -741,12 +741,24 @@ $("document").ready(function(){
 			$("#period").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/period_list","POST",{"appraisal_year":$("#year").val()}));
 			$("#region").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/region_list","GET",{},"All Region"));
 		 	$("#district").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/district_list","get",{"org_code":$("#region").val()},"All District"));
-		 	$("#kpi").html((generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/kpi_map_list","POST",{"region_code":$("#region").val(),"district_code":$("#district").val()},"All KPI")));
+		 	$("#kpi").html((generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/kpi_map_list","POST",{"region_code":$("#region").val(),"district_code":$("#district").val(),"year":$("#year").val(),"period":$("#period").val()},"All KPI")));
 			
 		 	//#Change Param Function
-			$("#year").change(function(){$("#period").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/period_list","POST",{"appraisal_year":$("#year").val()}));});
-			$("#region").change(function(){$("#district").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/district_list","get",{"org_code":$("#region").val()},"All District"));$("#district").change();});
-			$("#district").change(function(){$("#kpi").html((generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/kpi_map_list","POST",{"region_code":$("#region").val(),"district_code":$("#district").val()},"All KPI")));});
+			$("#year").change(function(){
+				$("#period").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/period_list","POST",{"appraisal_year":$("#year").val()}));
+				$("#kpi").html((generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/kpi_map_list","POST",{"region_code":$("#region").val(),"district_code":$("#district").val(),"year":$("#year").val(),"period":$("#period").val()},"All KPI")));
+			});
+			$("#period").change(function(){
+				$("#kpi").html((generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/kpi_map_list","POST",{"region_code":$("#region").val(),"district_code":$("#district").val(),"year":$("#year").val(),"period":$("#period").val()},"All KPI")));
+			});
+			$("#region").change(function(){
+				$("#district").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/district_list","get",{"org_code":$("#region").val()},"All District"));$("#district").change();
+				$("#kpi").html((generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/kpi_map_list","POST",{"region_code":$("#region").val(),"district_code":$("#district").val(),"year":$("#year").val(),"period":$("#period").val()},"All KPI")));
+			});
+			$("#district").change(function(){
+				$("#kpi").html((generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/kpi_map_list","POST",{"region_code":$("#region").val(),"district_code":$("#district").val(),"year":$("#year").val(),"period":$("#period").val()},"All KPI")));
+			});
+			
 			$(".app_url_hidden").show();
 			//$( "#detailPerfomanceArea" ).accordion();
 			 

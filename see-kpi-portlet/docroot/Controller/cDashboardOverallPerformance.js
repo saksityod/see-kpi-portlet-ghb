@@ -202,7 +202,12 @@
 	    }).render();
 	 
  };
- var generateChartPieFn = function(data){	
+ var generateChartPieFn = function(data){
+
+	 if(data['category'][0]['color']==null) {
+		 data['category'][0]['color'] = "";
+	 }
+	 
 	 var hoverColor = "";
 	 try {
 		 hoverColor = data['category'][0]['color'];
@@ -341,7 +346,7 @@ var getDataAllKPIFn = function(page,rpp){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		async:false,// w8 data 
 		success : function(data) {
-			console.log(data);
+			//console.log(data);
 			
 			if(data =="" || data ==null ){
 				$("#btn_kpi").hide();
