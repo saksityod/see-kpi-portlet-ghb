@@ -2366,6 +2366,14 @@ if(username!="" && username!=null & username!=[] && username!=undefined ){
 		
 	});
 	
+	$("#YearList").change(function(){
+		
+		//alert(period);
+		
+		dropDrowPeriodFn($("#periodFrequency").val(),$("#assignFrequency").val());
+		
+	});
+	
 	
 	$("#assignFrequency").change(function(){
 		dropDrowPeriodFn($("#periodFrequency").val(),$(this).val())

@@ -685,6 +685,14 @@ margin-bottom:1px;
     font-size: 13px;
 }
 
+.ca-sub-fixed33 {
+top: 33%
+}
+
+.ca-sub-fixed25 {
+top: 25%
+}
+
 </style>
 
 
@@ -1422,7 +1430,7 @@ Is Active
 			                           <!--  <span class="ca-icon">A</span> #aed6f1 --> 
 			                            <div class="ca-content" >
 			                                <h2 class="ca-main" style='font-size: 80px; color:#ffffff;'>S</h2>
-			                                <h3 class="ca-sub" style='font-size: 17px; color:#ffffff;'>SPECIFIC</h3>
+			                                <h5 class="ca-sub ca-sub-fixed33" style='font-size: 12px; color:#ffffff;'>Strong Financial Asset <br>and Quality</h5>
 			                            </div>
 			                        </a>                   
 			                    </li>
@@ -1431,7 +1439,7 @@ Is Active
 			                          <!--  <span class="ca-icon">I</span> #85c1e9-->
 			                            <div class="ca-content">
 			                                <h2 class="ca-main" style='font-size: 80px; color:#ffffff;'>M</h2>
-			                                <h3 class="ca-sub" style='font-size: 17px; color:#ffffff;'>MEASURABLE</h3>
+			                                <h5 class="ca-sub ca-sub-fixed33" style='font-size: 12px; color:#ffffff;'>Market Leader &<br>Customers top of mind</h5>
 			                            </div>
 			                        </a>                   
 			                    </li>
@@ -1440,7 +1448,7 @@ Is Active
 			                           <!-- <span class="ca-icon">C</span> #3498db-->
 			                            <div class="ca-content">
 			                                <h2 class="ca-main" style='font-size: 80px; color:#ffffff;'>A</h2>
-			                                <h3 class="ca-sub" style='font-size: 17px; color:#ffffff;'>ATTAINABLE</h3>
+			                                <h5 class="ca-sub" style='font-size: 12px; color:#ffffff;'>A+Leaders and Staff</h5>
 			                            </div>
 			                        </a>                    
 			                    </li>
@@ -1449,7 +1457,7 @@ Is Active
 			                           <!-- <span class="ca-icon">S</span> #1f74ad-->
 			                            <div class="ca-content">
 			                                <h2 class="ca-main" style='font-size: 80px; color:#ffffff;'>R</h2>
-			                                <h3 class="ca-sub"  style='font-size: 17px; color:#ffffff;'>RELEVANT</h3>
+			                                <h6 class="ca-sub ca-sub-fixed25"  style='font-size: 12px; color:#ffffff;'>Reliable, Innovation<br>and Delight Product,<br>Operation and service</h6>
 			                            </div>
 			                        </a>  
 			                    </li>
@@ -1458,7 +1466,7 @@ Is Active
 			                           <!-- <span class="ca-icon">T</span> #144d73-->
 			                            <div class="ca-content">
 			                                <h2 class="ca-main" style='font-size: 80px; color:#ffffff;'>T</h2>
-			                                <h3 class="ca-sub" style='font-size: 17px; color:#ffffff;'>TIME-BOUND</h3>
+			                                <h5 class="ca-sub" style='font-size: 12px; color:#ffffff;'>Trusted by Stakeholders</h5>
 			                            </div>
 			                        </a>  
 			                    </li>
