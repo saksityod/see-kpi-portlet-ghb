@@ -92,9 +92,8 @@ var listCdsResultFn = function (data) {
 			htmlTable += "<td class='columnSearch'>"+ indexEntry["org_code"]+ "</td>";
 			htmlTable += "<td class='columnSearch'>"+ indexEntry["org_name"]+ "</td>";
 		};
-		htmlTable += "<td class='columnSearch'>"+ indexEntry["appraisal_level_name"]+ "</td>";
-		htmlTable += "<td class='columnSearch'>"+ indexEntry["cds_id"]+ "</td>";
 		htmlTable += "<td class='columnSearch'>"+ indexEntry["cds_name"]+ "</td>";
+		htmlTable += "<td class='columnSearch'>"+ indexEntry["uom_name"]+ "</td>";
 		htmlTable += "<td class='columnSearch'>"+ indexEntry["year"]+ "</td>";
 		htmlTable += "<td class='columnSearch'>"+ galbalDataTemp["month_name"] + "</td>";
 		htmlTable += "<td class='columnSearch' style='text-align: right;padding-right: 10px;'>"+ notNullTextFn(addCommas(parseFloat(indexEntry["cds_value"]).toFixed(2)))+ "</td>";

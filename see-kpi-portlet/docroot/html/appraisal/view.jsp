@@ -1269,15 +1269,18 @@ Is Active
     <div class="modal-content animated bounceInRight">
             <div class="modal-header">
                 <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only"></span></button>
-                <h5 class="modal-title">Reason</h5>
+                <h5 class="modal-title">Detail</h5>
             </div>
             <div class="modal-body">
                
 <div style='margin-bottom:5px;'>
 <table style='width:100%'> 
 	<tr>
-		<td style='width:100px; '><b>Reason </b></td>
-		<td><input  style='margin-bottom:5px;'  type='text' name='reason_name' id='reason_name' placeholder='Reason' class='input form-control input-sm-small span5' value=''></td>
+		<td valign="top" style='width:100px; '><b>Detail </b></td>
+		<td>
+<!-- 			<input  style='margin-bottom:5px;'  type='text' name='reason_name' id='reason_name' placeholder='Detail' class='input form-control input-sm-small span5' value=''> -->
+			<textarea class="form-control input-sm-small span5" id="reason_name" placeholder="Detail" style="height: 83px; margin: 0px 0px 5px; resize: none;" value=''></textarea>
+		</td>
 	</tr>
 	
 </table>                
@@ -1286,14 +1289,14 @@ Is Active
 	     <button class="btn btn-danger" id='btnCancelReason' type="button"><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
 	</div>
 </div>
-			<table class='table'>
+			<table class="table">
 				<thead>
 					<tr>
 						<th style='width:10%;'>
 						<b>No.</b>
 						</th>
 						<th style='width:30%;'>
-						<b>Reason</b>
+						<b>Detail</b>
 						</th>
 						<th style='text-align:center; width:15%;'>
 						<b>Manage</b>
@@ -1311,7 +1314,6 @@ Is Active
 				
 				
 			</table>
-          
                 <!-- form start -->
                 <!-- content end -->
             </div>

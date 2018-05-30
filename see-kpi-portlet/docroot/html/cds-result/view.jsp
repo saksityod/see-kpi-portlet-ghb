@@ -500,9 +500,8 @@ plid = layout.getPlid();
 										<tr>
 											<th style='width: auto'>Emp&nbsp;Code&emsp;</th>
 											<th style='width: auto'>Emp&nbsp;Name&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
-											<th style='width: auto'>Appraisal&nbsp;Level&emsp;</th>
-											<th style='width: auto'>CDS&nbsp;ID&emsp;</th>
 											<th style='width: auto'>CDS&nbsp;Name&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</th>
+											<th style='width: auto'>UOM&emsp;</th>
 											<th style='width: auto'>Year&emsp;</th>
 											<th style='width: auto'>Month&emsp;</th>
 											<th style='width:auto;text-align: right;'>CDS&nbsp;Value&emsp;</th>

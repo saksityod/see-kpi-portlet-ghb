@@ -1718,11 +1718,10 @@ var listReasonFn = function(data){
 	var htmlTR="";
 	
 	//Exsample Data 
-	
 	$.each(data,function(index,indexEntry){
 		htmlTR+="<tr>";
 			htmlTR+="<td>"+indexEntry['rank']+"</td>";
-			htmlTR+="<td>"+indexEntry['reason_name']+"</td>";
+			htmlTR+="<td><div style='word-break: break-all;'>"+indexEntry['reason_name']+"<div>";
 			htmlTR+="<td style='text-align:center;'>";
 			htmlTR+=" <i data-trigger=\"focus\" tabindex=\""+index+"\" data-content=\"&lt;button class='btn btn-warning btn-small btn-gear edit_reason' id=edit_reason-"+indexEntry['reason_id']+" data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;Edit&lt;/button&gt;&nbsp;&lt;button id=del_reason-"+indexEntry['reason_id']+" class='btn btn-danger btn-small btn-gear reasonDel'&gt;Delete&lt;/button&gt;\" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-edit-del\" data-original-title=\"\" title=\"\"></i>";
 			htmlTR+="</td>";
