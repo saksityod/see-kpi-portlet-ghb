@@ -815,6 +815,7 @@ overflow:auto;
 				</div>
 				<div class="modal-body">
 <!-- ############################################################################ -->
+				<div class='noteInDashboard'></div> <!-- class in main.js -->
 				<div id="scrollOrg"style="overflow:auto;min-width:1184px;max-height:500px;" class="table-responsive p-b-xxs">
 				<div id="scrollSubOrg1"style='width: 740px;max-height:482px; float: left;overflow: hidden;position: relative;'>
 					<div id="scrollSubOrg2" style="float: left; position: relative; overflow-y: scroll; width: 757px; overflow-x: hidden; max-height: 482px;">

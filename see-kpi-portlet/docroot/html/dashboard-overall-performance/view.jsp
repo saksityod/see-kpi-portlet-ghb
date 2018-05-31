@@ -550,6 +550,11 @@ overflow:auto;
 		
 		
 		<div style="">
+		<div class="row-fluid">
+			<div class="span12">
+				<div style='font-size: 11.5px; font-style: oblique; color: #FF0000;' align='right'>แสดงเฉพาะตัวชี้วัดที่มีผลการดำเนินงานเท่านั้น</div>
+			</div>
+		</div>
 		<div class="row-fluid ">
 			<div class="span5 " >
 				<div class="row-fluid ">
@@ -592,6 +597,7 @@ overflow:auto;
 				</div>
 				<div class="modal-body">
 					<!-- ############################################################################ -->
+				<div class='noteInDashboard'></div> <!-- class in main.js -->
 				<div style="overflow: auto" class="table-responsive p-b-xxs" >
 					<table style="width: 100%;min-width: 720px;" class="table table-bordered fixedHeader" id="tableAllKPI">
 						<thead style="height: 66px !important;">

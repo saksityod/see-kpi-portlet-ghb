@@ -500,6 +500,11 @@
 			<span id='previous' class='arrow' data-previous=''></span>
 			<span id='next' class='arrow' data-next=''></span>
 		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				<div class='noteInDashboard'></div> <!-- class in main.js -->
+			</div>
+		</div>
 		<div class="row-fluid ">
 			<div class="span12 graphLTopHeader" id="txtTopic"></div>
 		</div>
