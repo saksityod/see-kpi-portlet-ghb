@@ -528,6 +528,7 @@ plid = layout.getPlid();
 											<th style='width: auto'>Position&nbsp;Name&emsp;&emsp;&emsp;</th>
 											<th style='width: auto'>Chief&nbsp;Emp&nbsp;Code&emsp;</th>
 											<th style='width: auto'>Appraisal&nbsp;Level&emsp;</th>
+											<th style='width: auto'>Is&nbsp;Show&nbsp;Corporate&emsp;</th>
 <!-- 											<th style='width: auto text-align:center;'>IsActive</th> -->
 											<th style='width: auto;text-align: center;' class='objectCenter'>Manage</th>
 										</tr>
@@ -787,6 +788,15 @@ plid = layout.getPlid();
 							<div class="form-group p-xxs">
 								<label class="control-label">Employee Type:</label>
 								<div id="drop_down_emp_typy" class="controls"></div>
+							</div>
+							<div class="form-group p-xxs">
+								<label class="control-label">Is Show Corporate:</label>
+								<div class="controls">
+									<label for="" class="checkbox" style="cursor:default">
+                  					<input id="from_checkboxIs_Show_Corporate" name="from_checkboxIs_Show_Corporate" type="checkbox"
+										value="" style="margin-top: 4px;">
+                					</label>
+								</div>
 							</div>
 							<div class="form-group p-xxs" style="display: none;"  >
 								<label class="control-label">Is Corporate KPI:</label>

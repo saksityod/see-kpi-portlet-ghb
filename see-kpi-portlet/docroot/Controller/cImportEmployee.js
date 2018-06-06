@@ -132,6 +132,7 @@ var clearFn = function() {
 	
 
 	$("#from_checkboxIs_active").prop("checked",false);
+	$("#from_checkboxIs_Show_Corporate").prop("checked",false);
 	
 	 $(".from_data_role").prop('checked', false); 
 	 
@@ -207,6 +208,13 @@ var findOneFn = function(id) {
 					$('#from_checkboxIs_active').prop('checked', true);
 				}else{
 					$('#from_checkboxIs_active').prop('checked', false);
+				}
+				
+				//IsAllParentOrg
+				if(data['is_show_corporate']==1){
+					$('#from_checkboxIs_Show_Corporate').prop('checked', true);
+				}else{
+					$('#from_checkboxIs_Show_Corporate').prop('checked', false);
 				}		
 								
 		}
@@ -240,7 +248,7 @@ var listImportEmployeeFn = function(data) {
 	var htmlTable = "";
 	//console.log(data);
 	$.each(data,function(index,indexEntry) {
-
+		var is_show_corporate = (indexEntry["is_show_corporate"]==1) ? "<input type=\"checkbox\" checked=\"checked\" disabled>" : "<input type=\"checkbox\" disabled>";
 //		$.each(indexEntry["appraisal_level"],function(index,indexEntry){
 //			htmlAppraisalLevel+=indexEntry["appraisal_level_name"]+"<br>";
 //		});
@@ -252,6 +260,7 @@ var listImportEmployeeFn = function(data) {
 		htmlTable += "<td class='columnSearch' style=\"vertical-align: middle;\">"+notNullTextFn(indexEntry["position_name"])+"</td>";
 		htmlTable += "<td class='columnSearch' style=\"vertical-align: middle;\">"+notNullTextFn(indexEntry["chief_emp_code"])+"</td>";
 		htmlTable += "<td class='columnSearch' style=\"vertical-align: middle;\">"+notNullTextFn(indexEntry["appraisal_level_name"])+"</td>";
+		htmlTable += "<td style=\"text-align: center; vertical-align: middle;\">"+is_show_corporate+"</td>";
 		//htmlTable += "<td class='objectCenter'>"+IsActive+"</td>";
 		//<button class='btn btn-primary btn-xs btn-gear role' id="+ indexEntry["_id"]+ " data-target=#ModalLevel data-toggle='modal'>Ruld</button>&nbsp;
 		//&lt;button class='btn btn-primary btn-xs btn-gear add' id=1 data-target=#ModalLevel data-toggle='modal'&gt;Role&lt;/button&gt;
@@ -396,6 +405,13 @@ var updateFn = function () {
 		isActive="0";
 	}
 	
+	var isShowCorporate="";
+	if($("#from_checkboxIs_Show_Corporate:checked").is(":checked")){
+		isShowCorporate="1";
+	}else{
+		isShowCorporate="0";
+	}
+	
 	$.ajax({
 		url:restfulURL+restfulPathImportEmployee+"/"+$("#id").val(),
 		type : "PATCH",
@@ -415,7 +431,8 @@ var updateFn = function () {
 			"s_amount":$("#from_emp_salary").val(),
 			"erp_user":$("#from_emp_erp_user").val(),
 			"emp_type":$("#from_emp_type").val(),
-			"is_active":isActive
+			"is_active":isActive,
+			"is_show_corporate":isShowCorporate
 		},	
 		success : function(data) {
 			
