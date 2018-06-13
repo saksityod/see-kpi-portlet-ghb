@@ -4,10 +4,11 @@ var golbalDataError=[];
 var galbalDataTemp = [];
 var pageNumberDefault=1;
 var restfulPathCdsResult="/"+serviceName+"/public/cds_result";
+var restfulPathAppraisal="/"+serviceName+"/public/appraisal";
 
 var restfulPathDropDownYear=restfulPathCdsResult+"/year_list";
 var restfulPathDropDownMonth=restfulPathCdsResult+"/month_list";
-var restfulPathDropDownAppraisalLevel=restfulPathCdsResult+"/al_list";
+var restfulPathDropDownAppraisalLevel=restfulPathAppraisal+"/al_list";
 var restfulPathDropDownAppraisalType="/"+serviceName+"/public/appraisal_assignment/appraisal_type_list";
 var restfulPathPositionAutocomplete=restfulPathCdsResult+"/auto_position_name";
 var restfulPathEmployeeAutocomplete=restfulPathCdsResult+"/auto_emp_name";
