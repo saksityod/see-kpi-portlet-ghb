@@ -186,6 +186,11 @@ plid = layout.getPlid();
 	#confrimModal {
 		left: 58.5%;
 	}
+	
+	#ModalCommonData {
+		left: 1%;
+	}
+	
 	.aui .ResultsPerPageTop {
 		position: absolute;
 		left: -20px;
@@ -474,7 +479,7 @@ plid = layout.getPlid();
 							<!-- pagination end -->
 
 				<div class="table-responsive" style="overflow:auto;">
-					<table class="table table-striped" id="tableCommonDataSet">
+					<table class="table table-striped" id="tableCommonDataSet" style="max-width: none;">
 						<thead>
 							<tr>
 <!-- 								<th style='width: auto text-align:center;'>Select</th> -->

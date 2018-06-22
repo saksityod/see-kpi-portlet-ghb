@@ -412,7 +412,32 @@
 #sticky-social a[class*="ex-excel"]:hover,
 #sticky-social a[class*="ex-excel"] span { background: #0cc523; }
   
+.responsive-wrapper {
+  position: relative;
+  height: 0;    /* gets height from padding-bottom */
+  
+  /* put following styles (necessary for overflow and scrolling handling on mobile devices) inline in .responsive-wrapper around iframe because not stable in CSS:
+    -webkit-overflow-scrolling: touch; overflow: auto; */
+  
+}
+ 
+.responsive-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  margin: 0;
+  padding: 0;
+  border: none;
+}
 
+/* padding-bottom = h/w as % -- sets aspect ratio */
+/* YouTube video aspect ratio */
+.responsive-wrapper-wxh-572x612 {
+  padding-bottom: 107%;
+}
 </style>
 
 
@@ -441,7 +466,7 @@
 					<div class="row-fluid ">
 
 						<div style="margin-left: 5px; margin-bottom: 3px;"
-							class="form-group pull-left span1" id="yearArea">
+							class="form-group pull-left span3" id="yearArea">
 							<select name="year" id="year" class="input form-control input-sm"
 								title="" data-toggle="tooltip" style="cursor: pointer;"
 								data-original-title="Year">
@@ -450,7 +475,7 @@
 							</select>
 						</div>
 						<div style="margin-left: 5px; margin-bottom: 3px;"
-							class="form-group pull-left span2" id="periodArea">
+							class="form-group pull-left span3" id="periodArea">
 							<select name="period" id="period"
 								class="input form-control input-sm" title=""
 								data-toggle="tooltip" style="cursor: pointer;"
@@ -461,7 +486,7 @@
 							</select>
 						</div>
 						<div style="margin-left: 5px; margin-bottom: 3px;"
-							class="form-group pull-left span2" id="apprasiaLevelArea">
+							class="form-group pull-left span3" id="apprasiaLevelArea">
 							<select name="apprasiaLevel" id="apprasiaLevel"
 								class="input form-control input-sm" title=""
 								data-toggle="tooltip" style="cursor: pointer;"
@@ -472,7 +497,7 @@
 							</select>
 						</div>
 						<div style="margin-left: 5px; margin-bottom: 3px;"
-							class="form-group pull-left span2" id="organizationArea">
+							class="form-group pull-left span3" id="organizationArea">
 							<select name="organization" id="organization"
 								class="input form-control input-sm" title=""
 								data-toggle="tooltip" style="cursor: pointer;"
@@ -483,15 +508,17 @@
 
 							</select>
 						</div>
+					</div>
+					<div class="row-fluid">
 						<div style="margin-left: 5px; margin-bottom: 3px;"
-							class="form-group pull-left span2" id="kpiArea">
+							class="form-group pull-left span3" id="kpiArea">
 							<select name="kpi_type" id="kpi_type" class="input form-control input-sm"
 								title="" data-toggle="tooltip" style="cursor: pointer;"
 								data-original-title="KPI Type">
 							</select>
 						</div>
 						<div style="margin-left: 5px; margin-bottom: 3px;"
-							class="form-group pull-left span2" id="kpiArea">
+							class="form-group pull-left span3" id="kpiArea">
 							<select name="kpi" id="kpi" class="input form-control input-sm"
 								title="" data-toggle="tooltip" style="cursor: pointer;"
 								data-original-title="KPI">
@@ -502,7 +529,7 @@
 							</select>
 						</div>
 						<div style="margin-left: 5px; margin-bottom: 3px;"
-							class="form-group pull-left span1" id="kpiArea">
+							class="form-group pull-left span3" id="kpiArea">
 							<select name="output_type" id="output_type" class="input form-control input-sm"
 								title="" data-toggle="tooltip" style="cursor: pointer;"
 								data-original-title="Output Type">
@@ -513,15 +540,9 @@
 						</div>
 
 
-						<div style="margin-bottom: 5px;"
-							class="form-group pull-right m-b-none ">
-							<button id="btnSearchAdvance" name="btnSearchAdvance"
-								class="btn btn-info input-sm" type="button">
-								<i class="fa fa-search"></i>&nbsp;Search
-							</button>
-
+						<div style="margin-left: 5px; margin-bottom: 3px;" class="form-group pull-left span3">
+    						<button id="btnSearchAdvance" name="btnSearchAdvance" class="btn btn-info input-sm" type="button"> <i class="fa fa-search"></i>&nbsp;Search </button>
 						</div>
-
 					</div>
 
 				</div>
@@ -549,9 +570,11 @@
 <!-- 		    </ul> -->
 <!-- 		</aside> -->
 		</div>
-		<iframe id="iFrame_report" frameborder="0" style="width :100%;height: 500px;">
-  			<p>Your browser does not support iframes.</p>
-		</iframe>
+		<div class="responsive-wrapper responsive-wrapper-wxh-572x612" style="-webkit-overflow-scrolling: touch; overflow: auto;">
+			<iframe id="iFrame_report" frameborder="0" style="width :100%;height: 500px;">
+	  			<p>Your browser does not support iframes.</p>
+			</iframe>
+		</div>
 	</div>
 
 	<!-- content accordion end -->

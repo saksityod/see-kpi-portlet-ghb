@@ -115,7 +115,7 @@ var listDataFn = function(data) {
 				
 		mainContentHTML+="		<div class=\"ibox-content\">";
 		mainContentHTML+="          	<div class=\"table-responsive\">";
-		mainContentHTML+="         		<table class=\"table table-striped\" id=\"\">";
+		mainContentHTML+="         		<table class=\"table table-striped\" id=\"\" style=\"max-width: none;\">";
         		
 		mainContentHTML+="                  <thead>";
 		mainContentHTML+="                      <tr>";
@@ -719,8 +719,12 @@ var dropDrowOrgFn = function(nameArea,id,defaultAll){
 			
 			$("#org"+nameArea+"Form").html(htmlOption);
 			$("#organization"+nameArea).val(org_array);
-			$('select[name="organization'+nameArea+'[]"]').bootstrapDualListbox();
-			
+			$('select[name="organization'+nameArea+'[]"]').bootstrapDualListbox({
+				bootstrap2Compatible: true,
+				moveOnSelect: false,
+				preserveSelectionOnMove: 'moved'
+			});
+			$(".move,.moveall,.remove,.removeall").css("width", "50%");
 		}
 	});
 	
@@ -768,8 +772,12 @@ var dropDrowPositionFn = function(nameArea,id,defaultAll){
 			htmlOption+="</select>";
 			$("#position"+nameArea+"Form").html(htmlOption);
 			$("#position"+nameArea).val(position_array);
-			$('select[name="position'+nameArea+'[]"]').bootstrapDualListbox();
-			
+			$('select[name="position'+nameArea+'[]"]').bootstrapDualListbox({
+				bootstrap2Compatible: true,
+				moveOnSelect: false,
+				preserveSelectionOnMove: 'moved'
+			});
+			$(".move,.moveall,.remove,.removeall").css("width", "50%");
 		}
 	});
 	
