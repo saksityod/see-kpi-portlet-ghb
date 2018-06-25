@@ -1,78 +1,79 @@
-            // var restfulURL="";
-            // var serviceName="see_api";
-            // /*#######Office#######*/
+$(document).ready(function () {
+    var username = $('#user_portlet').val();
+    var password = $('#pass_portlet').val();
+    var plid = $('#plid_portlet').val();
+    if (username != "" && username != null & username != [] && username != undefined) {
 
-            // //restfulURL="http://192.168.1.254";
-
-            // /*#######Localhost#######*/
-            // restfulURL="http://localhost";
-
-
-
-
-
-            $(document).ready(function() {
-                $.ajax({
-                    url:restfulURL+'/'+serviceName+"/public/benchmark_data/select_list_search_q",
-                    type:"get",
-                    //crossDomain: true,
-                    dataType:"json",
-                    success:function(result) {
-                        //console.log(result)
-                        if(result.nodata) {
-                            $('#s_yr').append('<option value="" disabled="" selected>ไม่มีข้อมูลปี</option>');
-                            $('#s_kpi').append('<option value="" disabled="" selected>ไม่มีข้อมูล KPI</option>');
-                        }
-                        else {
-                            var list_year;
-                            list_year +='<option value="">Select Year</option>';
-                            $.each(result.year, function (key,value) {
-                                list_year += 
-                                    '<option value="'+value.year+'">' + value.year + '</option>'
-                                    ;
-                            });
-                            $('#s_yr').append(list_year);
-
-                            var list_kpi;
-                            list_kpi +='<option value="">Select KPI</option>';
-                            $('#s_kpi').append(list_kpi);
-                        }
-                    }
-                });
-
-                //search kpi
-                $("#s_yr").change(function(){
-                    $('#s_kpi').empty();
-                    var data_val = {'s_check':'wdsdwaswdokd','s_yr':$("#s_yr").val()};
-                    $.ajax({
-                        url:restfulURL+'/'+serviceName+"/public/benchmark_data/search_kpi",
-                        type:"get",
-                        //crossDomain: true,
-                        dataType:"json",
-                        data:{"datas":JSON.stringify(data_val)},
-                        success:function(result) {
-                            //console.log(result.kpi)
-                            var list_kpi;
-                            if(result.nodata) {
-                                list_kpi +=
-                                    '<option value="">Select KPI</option>'
-                                    ;
-                            }
-                            else {
-                                list_kpi +=
-                                    '<option value="">Select KPI</option>'
-                                    ;
-                                $.each(result.kpi, function (key,value) {
-                                    list_kpi +=
-                                        '<option value="'+value.kpi_name+'">' + value.kpi_name + '</option>'
-                                    ;
-                                });
-                            }
-                            $('#s_kpi').append(list_kpi);
-                        }
+        if (connectionServiceFn(username, password, plid) == false) {
+            return false;
+        }
+        
+        $(".app_url_hidden").show();
+        
+        $.ajax({
+            url:restfulURL+'/'+serviceName+"/public/benchmark_data/select_list_search_q",
+            type:"get" ,
+    		dataType:"json" ,
+    		headers:{Authorization:"Bearer "+tokenID.token},
+    		async:false,
+            success:function(result) {
+                //console.log(result)
+                if(result.nodata) {
+                    $('#s_yr').append('<option value="" disabled="" selected>ไม่มีข้อมูลปี</option>');
+                    $('#s_kpi').append('<option value="" disabled="" selected>ไม่มีข้อมูล KPI</option>');
+                }
+                else {
+                    var list_year;
+                    list_year +='<option value="">Select Year</option>';
+                    $.each(result.year, function (key,value) {
+                        list_year += 
+                            '<option value="'+value.year+'">' + value.year + '</option>'
+                            ;
                     });
-                });
+                    $('#s_yr').append(list_year);
+
+                    var list_kpi;
+                    list_kpi +='<option value="">Select KPI</option>';
+                    $('#s_kpi').append(list_kpi);
+                }
+            }
+        });
+
+        //search kpi
+        $("#s_yr").change(function(){
+            $('#s_kpi').empty();
+            var data_val = {'s_check':'wdsdwaswdokd','s_yr':$("#s_yr").val()};
+            $.ajax({
+                url:restfulURL+'/'+serviceName+"/public/benchmark_data/search_kpi",
+                type:"get" ,
+        		dataType:"json" ,
+        		headers:{Authorization:"Bearer "+tokenID.token},
+        		async:false,
+                data:{"datas":JSON.stringify(data_val)},
+                success:function(result) {
+                    //console.log(result.kpi)
+                    var list_kpi;
+                    if(result.nodata) {
+                        list_kpi +=
+                            '<option value="">Select KPI</option>'
+                            ;
+                    }
+                    else {
+                        list_kpi +=
+                            '<option value="">Select KPI</option>'
+                            ;
+                        $.each(result.kpi, function (key,value) {
+                            list_kpi +=
+                                '<option value="'+value.kpi_name+'">' + value.kpi_name + '</option>'
+                            ;
+                        });
+                    }
+                    $('#s_kpi').append(list_kpi);
+                }
             });
+        });
+    }
+});
 
             var click_year;
             var click_kpi;
@@ -100,9 +101,10 @@
                     };
                     $.ajax({
                         url:restfulURL+'/'+serviceName+"/public/benchmark_data/search_chart",
-                        type:"get",
-                        //crossDomain: true,
-                        dataType:"json",
+                        type:"get" ,
+                		dataType:"json" ,
+                		headers:{Authorization:"Bearer "+tokenID.token},
+                		async:false,
                         data:{"datas":JSON.stringify(data_val)},
                         success:function(result) {
                             //console.log(result);
@@ -131,8 +133,8 @@
                                 var fusioncharts = new FusionCharts({
                                     type: 'mscolumn2d',
                                     renderAt: 'chart-container',
-                                    width: '600',
-                                    height: '480',
+                                    width: '100%',
+                        	        height: '400',
                                     dataFormat: 'json',
                                     dataSource: {
                                         "chart": {
@@ -220,9 +222,10 @@
                 console.log(data_val);
                 $.ajax({
                     url:restfulURL+'/'+serviceName+"/public/benchmark_data/search_chart_quarter",
-                    type:"get",
-                    //crossDomain: true,
-                    dataType:"json",
+                    type:"get" ,
+            		dataType:"json" ,
+            		headers:{Authorization:"Bearer "+tokenID.token},
+            		async:false,
                     data:{"datas":JSON.stringify(data_val)},
                     success:function(result) {
                         //console.log(result)
@@ -232,8 +235,8 @@
                             var fusioncharts = new FusionCharts({
                                 type: 'mscolumn2d',
                                 renderAt: 'chart-container2',
-                                width: '600',
-                                height: '480',
+                                width: '100%',
+                    	        height: '400',
                                 dataFormat: 'json',
                                 dataSource: {
                                     "chart": {

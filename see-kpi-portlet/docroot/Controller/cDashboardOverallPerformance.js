@@ -203,9 +203,11 @@
 	 
  };
  var generateChartPieFn = function(data){
-
-	 if(data['category'][0]['color']==null) {
-		 data['category'][0]['color'] = "";
+	 
+	 if(data['category'][0]!=undefined) {
+		 if(data['category'][0]['color']==null) {
+			 data['category'][0]['color'] = "";
+		 }
 	 }
 	 
 	 var hoverColor = "";

@@ -135,6 +135,10 @@ $(document).ready(function(){
             				"id":"province_code","width":"250px","url":""+restfulURL+"/"+serviceName+"/public/org/province_list"
             			},
             			{
+            				"label":"Organization Email","inputType":"text","placeholder":"Organization Email",
+            				"id":"org_email","width":"250px"
+            			},
+            			{
         					"label":"Latitude","inputType":"text","dataTypeInput":"geographic","placeholder":"Latitude",
         					"id":"latitude","width":"250px"
         				},
