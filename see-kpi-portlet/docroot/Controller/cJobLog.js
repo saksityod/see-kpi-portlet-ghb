@@ -40,7 +40,7 @@ var validationFn = function(data) {
 			}
 	 }).then(function() {
 		clearTimeout(timeOut);
-		timeOut = setTimeout(getDataFn, 15000);
+		timeOut = setTimeout(getDataFn, 10000);
 	 });
 }
 

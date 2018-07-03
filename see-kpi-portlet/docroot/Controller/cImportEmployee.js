@@ -33,8 +33,10 @@ var validationFn = function(data){
 //Check Validation Edd
 var validateFileFn = function(data){
 	var validateFile="";
-
+	//console.log(data,'1');
 	$.each(data,function(index,indexEntry){
+		//console.log(indexEntry,'2');
+		
 		if(indexEntry[Object.keys(indexEntry)[0]]!= undefined || indexEntry[Object.keys(indexEntry)[0]]==null){
 		
 			if(indexEntry[Object.keys(indexEntry)[0]]== null){//The employee code field is null
@@ -43,7 +45,12 @@ var validateFileFn = function(data){
 				validateFile+="<font color='#FFC446'><i class='fa fa-exclamation-triangle'></i></font> "+Object.keys(indexEntry)[0]+": "+indexEntry[Object.keys(indexEntry)[0]]+" <i class='fa fa-level-down'></i><br>";
 			}
 			if(indexEntry['errors']!=null || indexEntry['errors']!=undefined || indexEntry['errors']!=""){
-				validateFile+="<font color='red'>&emsp;*</font> "+indexEntry['errors']+"<br>";
+				//validateFile+="<font color='red'>&emsp;*</font> "+indexEntry['errors']+"<br>";
+				for (var key in indexEntry['errors']) {
+	 			    if (indexEntry['errors'].hasOwnProperty(key)) {
+	 			    	validateFile+="<font color='red'>&emsp;*</font> "+indexEntry['errors'][key]+"<br>";
+	 			    }
+	 			}
 			}
 		}
 		 

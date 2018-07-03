@@ -450,7 +450,7 @@
 		<div class="span12">
 			<div class="ibox float-e-margins">
 				<div class="ibox-title" style="background-color: rgb(83, 120, 253); border-color: rgb(83, 120, 253); min-height: 0px;">
-					<h5>Job Log</h5>
+					<h5>Monitor ETL</h5>
 				</div>
 				<div class="ibox-content breadcrumbs2 advance-search" style="border-color: rgb(83, 120, 253);">
 
@@ -469,7 +469,7 @@
 	    <div class="modal-content bounceInRight">
 	            <div class="modal-header">
 	                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only"></span></button>
-	                <h4 class="modal-title" id="modalTitleRole">Job Log</h4>
+	                <h4 class="modal-title" id="modalTitleRole">Monitor ETL</h4>
 	            </div>
 	            <div class="modal-body">
 	                <!-- panel0 start -->
