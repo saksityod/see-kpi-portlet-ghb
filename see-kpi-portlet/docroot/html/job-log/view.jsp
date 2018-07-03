@@ -572,7 +572,7 @@
 								        <div class="form-group p-xxs">
 								            <label class="control-label"><strong>Message Error :</strong></label>
 								            <div class="controls">
-								            	<textarea class="form-control input-sm-small span10" id="edit_scomment_error" placeholder="Comment Error" style="height: 100px; margin: 0px 0px 5px; resize: none;" value=""></textarea>
+								            	<textarea class="form-control input-sm-small span10" id="edit_scomment_error" placeholder="Comment Error" style="height: 100px; margin: 0px 0px 5px; resize: vertical;" value=""></textarea>
 								            </div>
 								        </div>
 								    	</div>
