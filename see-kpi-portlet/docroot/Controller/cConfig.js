@@ -1,4 +1,5 @@
 var restfulURL="";
+//var serviceName="ghb_api";
 var serviceName="see_api";
 /*#######Office#######*/
 
@@ -8,7 +9,8 @@ var serviceName="see_api";
 //restfulURL="http://192.168.1.59";
 
 /*#######Poroduction#######*/
-restfulURL="https://ghbank-smart-radar.ghb.co.th";
+//restfulURL="http://localhost";
+restfulURL="https://smart-radar.ghb.co.th";
 
 /*#######Cloud#######*/
 //restfulURL="http://210.4.153.18";

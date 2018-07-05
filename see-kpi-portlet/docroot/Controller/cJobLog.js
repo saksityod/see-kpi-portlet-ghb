@@ -14,11 +14,13 @@ var validationFn = function(data) {
 		 			} else {
 		 				validate += "<br><font color='red'>* </font> " + indexEntry[key] + " ";
 		 			}
+		 			
+		 			count++;
  			    }
+ 			    
  			}
  		}
 
- 		count++;
  	});
  	
  	callFlashSlideInModal(validate,"#information2","error");
@@ -40,7 +42,7 @@ var validationFn = function(data) {
 			}
 	 }).then(function() {
 		clearTimeout(timeOut);
-		timeOut = setTimeout(getDataFn, 10000);
+		timeOut = setTimeout(getDataFn, 5000);
 	 });
 }
 
@@ -214,33 +216,6 @@ var listDataFn = function(data) {
 							htmlHTML+="</table>";
 						htmlHTML+="</div>";
 					htmlHTML+="</div>";
-				
-				
-				
-				
-				
-				
-				
-//					htmlHTML+="<div style=\"text-align: right\"><i class=\"fa fas fa-play\"></i>&nbsp;&nbsp;<i class=\"fa fa-cog popover-edit-del\"></i></div>";
-//					htmlHTML+="<div class=\"row-fluid\">";
-//						htmlHTML+="<div class=\"span12\"><b>Job Log Name&nbsp;:&nbsp;</b>"+indexEntry['job_log_name']+"</div>";
-//					htmlHTML+="</div>";
-//					htmlHTML+="<div class=\"row-fluid\">";
-//						htmlHTML+="<div class=\"span12\"><b>Job Start Date&nbsp;:&nbsp;</b>"+indexEntry['etl_start_dttm']+"</div>";
-//					htmlHTML+="</div>";
-//					htmlHTML+="<div class=\"row-fluid\">";
-//						htmlHTML+="<div class=\"span12\"><b>Job Finish Date&nbsp;:&nbsp;</b>"+indexEntry['etl_finish_dttm']+"</div>";
-//					htmlHTML+="</div>";
-//					htmlHTML+="<div class=\"row-fluid\">";
-//						htmlHTML+="<div class=\"span12\"><b>Start Date&nbsp;:&nbsp;</b>"+indexEntry['param_start_date']+"</div>";
-//					htmlHTML+="</div>";
-//					htmlHTML+="<div class=\"row-fluid\">";
-//						htmlHTML+="<div class=\"span12\"><b>End Date&nbsp;:&nbsp;</b>"+indexEntry['param_end_date']+"</div>";
-//					htmlHTML+="</div>";
-//					htmlHTML+="<div class=\"row-fluid\">";
-//						htmlHTML+="<div class=\"span6\" style=\"text-align: right\"><b>Stats :</b></div>";
-//						htmlHTML+="<div class=\"span6\">"+indexEntry['status']+"</div>";
-//					htmlHTML+="</div>";
 			htmlHTML+="</li>";
 		if (index % 2 !== 0) {
 			htmlHTML+="</div>";
@@ -368,6 +343,7 @@ var assignToBCC = function(data) {
 		$("#listJobLog").on("click",".edit",function() {
 			var id = this.id;
 			$(".information").hide();
+			$("#demo,#demo2").hide();
 	
 			findOneFn(id);
 			
@@ -404,5 +380,14 @@ var assignToBCC = function(data) {
 		$("#btnConfirmOK").click(function() {
 			runFN();
 		});
+		
+		$("#btnadven").click(function() {
+			$("#demo").toggle();
+		});
+		
+		$("#btnadven2").click(function() {
+			$("#demo2").toggle();
+		});
+		
 	 }
  });

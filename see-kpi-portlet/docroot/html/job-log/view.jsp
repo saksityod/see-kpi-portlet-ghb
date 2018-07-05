@@ -477,6 +477,8 @@
 		  				<div class="span12">
 							<div class="row-fluid">
 	                				<div class="span12 form-horizontal p-t-xxs">
+	                					<h4>Job Log Setting</h4>
+	                					<hr />
 								        <div class="form-group p-xxs">
 								            <label class="control-label"><strong>Job Log name :</strong></label>
 								            <div class="controls">
@@ -494,6 +496,22 @@
 								            <div class="controls">
 								                <input type="text" class="form-control input-sm span10" placeholder="" id="edit_end_date"> </div>
 								        </div>
+								        <div class="form-group p-xxs">
+								        	<label class="control-label"><strong></strong></label>
+								        	<div class="controls">
+								        		<button type="button" id="btnadven" class="btn">Advanced Setting</button>
+								        	</div>
+								        </div>
+									    <div id="demo">
+									    	<div class="form-group p-xxs">
+									            <label class="control-label"><strong>Path Batch File :</strong></label>
+									            <div class="controls">
+									                <input type="text" class="form-control input-sm span10" id="edit_path_batch_file">
+									            </div>
+									        </div>
+									    </div>
+									    <h4>Email Setting</h4>
+	                					<hr />
 								        <div class="form-group p-xxs">
 								            <label class="control-label"><strong>Destination Address :</strong></label>
 								            <div class="controls">
@@ -541,40 +559,42 @@
 									        </div>
 									        <div class="list_input"></div>
 								        </div>
-								        <div class="form-group p-xxs">
-								            <label class="control-label"><strong>Sender Name :</strong></label>
-								            <div class="controls">
-								                <input type="text" class="form-control input-sm span10" id="edit_sender_name"> </div>
+								         <div class="form-group p-xxs">
+								        	<label class="control-label"><strong></strong></label>
+								        	<div class="controls">
+								        		<button type="button" id="btnadven2" class="btn">Advanced Setting</button>
+								        	</div>
 								        </div>
-								        <div class="form-group p-xxs">
-								            <label class="control-label"><strong>Sender Address :</strong></label>
-								            <div class="controls">
-								                <input type="text" class="form-control input-sm span10" id="edit_sender_address"> </div>
-								        </div>
-								        <div class="form-group p-xxs">
-								            <label class="control-label"><strong>Path Batch File :</strong></label>
-								            <div class="controls">
-								                <input type="text" class="form-control input-sm span10" id="edit_path_batch_file">
-								            </div>
-								        </div>
-								        <div class="form-group p-xxs">
-								            <label class="control-label"><strong>Path Log File :</strong></label>
-								            <div class="controls">
-								                <input type="text" class="form-control input-sm span10" id="edit_path_log_file">
-								            </div>
-								        </div>
-								        <div class="form-group p-xxs">
-								            <label class="control-label"><strong>Subject Error :</strong></label>
-								            <div class="controls">
-								                <input type="text" class="form-control input-sm span10" id="edit_subject_error">
-								            </div>
-								        </div>
-								        <div class="form-group p-xxs">
-								            <label class="control-label"><strong>Message Error :</strong></label>
-								            <div class="controls">
-								            	<textarea class="form-control input-sm-small span10" id="edit_scomment_error" placeholder="Comment Error" style="height: 100px; margin: 0px 0px 5px; resize: vertical;" value=""></textarea>
-								            </div>
-								        </div>
+								        	<div id="demo2">
+										        <div class="form-group p-xxs">
+										            <label class="control-label"><strong>Sender Name :</strong></label>
+										            <div class="controls">
+										                <input type="text" class="form-control input-sm span10" id="edit_sender_name"> </div>
+										        </div>
+										        <div class="form-group p-xxs">
+										            <label class="control-label"><strong>Sender Address :</strong></label>
+										            <div class="controls">
+										                <input type="text" class="form-control input-sm span10" id="edit_sender_address"> </div>
+										        </div>
+										        <div class="form-group p-xxs">
+										            <label class="control-label"><strong>Path Log File :</strong></label>
+										            <div class="controls">
+										                <input type="text" class="form-control input-sm span10" id="edit_path_log_file">
+										            </div>
+										        </div>
+										        <div class="form-group p-xxs">
+										            <label class="control-label"><strong>Subject Error :</strong></label>
+										            <div class="controls">
+										                <input type="text" class="form-control input-sm span10" id="edit_subject_error">
+										            </div>
+										        </div>
+										        <div class="form-group p-xxs">
+										            <label class="control-label"><strong>Message Error :</strong></label>
+										            <div class="controls">
+										            	<textarea class="form-control input-sm-small span10" id="edit_scomment_error" placeholder="Comment Error" style="height: 100px; margin: 0px 0px 5px; resize: vertical;" value=""></textarea>
+										            </div>
+										        </div>
+									        </div>
 								    	</div>
 									</div>		
 		   					</div>
