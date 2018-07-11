@@ -195,8 +195,8 @@ var pinSymbol = function (color) {
 							  info.setContent(locations[i][0].split("-")[1]);
 							  info.open(maps, marker);
 							  
-							  //console.log(marker.title);
-							  //console.log(locations[i][4]);
+							  console.log(marker.title);
+							  console.log(locations[i][4]);
 							  $("body").mLoading();
 							  listDataPerformanceDetailFn(locations[i][4],marker.title,"gmap");
 							  
@@ -212,7 +212,7 @@ var pinSymbol = function (color) {
 						//maps.panToBounds(bounds); 	// # auto-center 
 				
 				
-				
+						listDataPerformanceDetailFn(data['google_map'],$("#embed_region_name").val(),"gmap");
 				
 			}
 		});
@@ -278,7 +278,7 @@ var listDataPerformanceDetailFn = function(data,district,type){
 	var rageGreenColor="#ffffff";
 	var rangeColorsThreshold="[]";
 	var mainArea="";	
-	mainArea+="<h3 style='text-align:center;color:black;font-size: 20px;margin: 0px;' id='BranchPerTitle'></h3>";
+	mainArea+="<h3 style='text-align:center;color:black;font-size: 22px;margin: 0px;' id='BranchPerTitle'></h3>";
 	mainArea+="<div id='detailPerfomanceArea'></div>";
 	if(data == null || data == undefined || data =="" ){
 		mainArea+="<div id='noData'>No data to display.</div>";
@@ -289,9 +289,9 @@ var listDataPerformanceDetailFn = function(data,district,type){
 	$.each(data,function(index,indexEntry){
 	
 	var dataTableHTML="";
-	dataTableHTML+="<h3 data-sparkline='"+(index == 0 ? "active":"")+"'><span style='padding-top:10px;' id='bpf_org_id-"+indexEntry['org_id']+"'>"+indexEntry['org_name']+"</span>";
+	dataTableHTML+="<h3 data-sparkline='"+(index == 0 ? "active":"")+"'><span style='padding-top:10px;font-weight: 900;font-size: 19px;' id='bpf_org_id-"+indexEntry['org_id']+"'>"+indexEntry['org_name']+"</span>";
 	dataTableHTML+="<div class='branchPerformance'>";
-	dataTableHTML+="<svg id=\"fillgauge"+indexEntry['org_id']+"\" width=\"70px\" height=\"70px\" onclick=\"gauge"+indexEntry['org_id']+".update(NewValue());\"></svg>";
+	dataTableHTML+="<svg id=\"fillgauge"+indexEntry['org_id']+"\" width=\"100px\" height=\"100px\" onclick=\"gauge"+indexEntry['org_id']+".update(NewValue());\"></svg>";
 	dataTableHTML+="</div>";
 	dataTableHTML+="<br style='clear:both'>";
 	dataTableHTML+="</h3>";
@@ -300,10 +300,10 @@ var listDataPerformanceDetailFn = function(data,district,type){
 		dataTableHTML+="<table class='table table-bordered' style='width:100%;'>";
 			dataTableHTML+="<thead>";
 				dataTableHTML+="<tr>";
-					dataTableHTML+="<th>Perspective</th>";
-					dataTableHTML+="<th style='min-width: 130px;'>KPI</th>";
-					dataTableHTML+="<th>UOM</th>";
-					dataTableHTML+="<th style='text-align:center;min-width: 250px;'>KPI Result</th>";	
+//					dataTableHTML+="<th>Perspective</th>";
+					dataTableHTML+="<th style='min-width: 270px;font-weight: 700;font-size: 17px;'>KPI</th>";
+					dataTableHTML+="<th style='min-width: 70px;font-weight: 900;font-size: 17px;'>หน่วยวัด</th>";
+					dataTableHTML+="<th style='text-align:center;min-width: 250px;font-weight: 700;font-size: 17px;'>KPI Result</th>";	
 			dataTableHTML+="</tr>";
 			dataTableHTML+="</thead>";
 			dataTableHTML+="<tbody>";
@@ -353,7 +353,7 @@ var listDataPerformanceDetailFn = function(data,district,type){
 				*/
 				
 				dataTableHTML+="<tr>";
-					dataTableHTML+="<td>"+indexEntry2['perspective_name']+" </td>";
+//					dataTableHTML+="<td>"+indexEntry2['perspective_name']+" </td>";
 					dataTableHTML+="<td>"+indexEntry2['item_name']+"<br><span class='LastUpdateText'>As of: "+indexEntry2['etl_dttm']+"</span></td>";
 					dataTableHTML+="<td>"+indexEntry2['uom_name']+" </td>";
 					dataTableHTML+="<td>";
@@ -361,9 +361,9 @@ var listDataPerformanceDetailFn = function(data,district,type){
 					dataTableHTML+="<table class='tableInside table-striped'>";
 						dataTableHTML+="<thead>";
 							dataTableHTML+="<tr>";
-								dataTableHTML+="<th style='min-width: 90px;'>Target</th>";
-								dataTableHTML+="<th style='min-width: 60px;'>Forecast</th>";
-								dataTableHTML+="<th style='min-width: 60px;'>Actual</th>";
+								dataTableHTML+="<th style='min-width: 90px;font-weight: 700;font-size: 15px;'>Target</th>";
+								dataTableHTML+="<th style='min-width: 60px;font-weight: 700;font-size: 15px;'>Forecast</th>";
+								dataTableHTML+="<th style='min-width: 60px;font-weight: 700;font-size: 15px;'>Actual</th>";
 							dataTableHTML+="</tr>";
 							dataTableHTML+="</thead>";
 							dataTableHTML+="<tbody>";
@@ -372,14 +372,14 @@ var listDataPerformanceDetailFn = function(data,district,type){
 									dataTableHTML+="<td style=' text-align: right !important;'>"+addCommas(notNullFn(indexEntry2['forecast']))+"</td>";
 									dataTableHTML+="<td style=' text-align: right !important;'>"+addCommas(notNullFn(indexEntry2['actual']))+"</td>";
 								dataTableHTML+="</tr>";
-								dataTableHTML+="<tr>";
-									dataTableHTML+="<td>%Taget<span style='float:right'>"+addCommas(notNullFn(indexEntry2['percent_target']))+"</span></td>";
-									dataTableHTML+="<td colspan='2'><div class='sparkline' style='opacity:0;'  >"+indexEntry2['percent_target_str']+"</div></td>";
-								dataTableHTML+="</tr>";
-								dataTableHTML+="<tr>";
-									dataTableHTML+="<td>%Forecast<span style='float:right'>"+addCommas(notNullFn(indexEntry2['percent_forecast']))+"</span></td>";
-									dataTableHTML+="<td colspan='2'><div class='sparkline' style='opacity:0;'>"+indexEntry2['percent_forecast_str']+"</div></td>";
-								dataTableHTML+="</tr>";
+//								dataTableHTML+="<tr>";
+//									dataTableHTML+="<td>%Taget<span style='float:right'>"+addCommas(notNullFn(indexEntry2['percent_target']))+"</span></td>";
+//									dataTableHTML+="<td colspan='2'><div class='sparkline' style='opacity:0;'  >"+indexEntry2['percent_target_str']+"</div></td>";
+//								dataTableHTML+="</tr>";
+//								dataTableHTML+="<tr>";
+//									dataTableHTML+="<td>%Forecast<span style='float:right'>"+addCommas(notNullFn(indexEntry2['percent_forecast']))+"</span></td>";
+//									dataTableHTML+="<td colspan='2'><div class='sparkline' style='opacity:0;'>"+indexEntry2['percent_forecast_str']+"</div></td>";
+//								dataTableHTML+="</tr>";
 							dataTableHTML+="</tbody>";
 						dataTableHTML+="</table>";
 					dataTableHTML+="</td>";
@@ -707,6 +707,7 @@ var searchAdvanceFn = function() {
 	embedParam+="<input type='hidden' class='embed_param_search' id='embed_year' name='embed_year' value='"+$("#year").val()+"'>";
 	embedParam+="<input type='hidden' class='embed_param_search' id='embed_period' name='embed_period' value='"+$("#period").val()+"'>";
 	embedParam+="<input type='hidden' class='embed_param_search' id='embed_region' name='embed_region' value='"+$("#region").val()+"'>";
+	embedParam+="<input type='hidden' class='embed_param_search' id='embed_region_name' name='embed_region_name' value='"+$("#region option:selected").text()+"'>";
 	embedParam+="<input type='hidden' class='embed_param_search' id='embed_district' name='embed_district' value='"+$("#district").val()+"'>";
 	embedParam+="<input type='hidden' class='embed_param_search' id='embed_kpi' name='embed_kpi' value='"+$("#kpi").val()+"'>";
 

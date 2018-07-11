@@ -209,6 +209,11 @@
 	.aui select, .aui textarea, .aui .uneditable-input {
 	margin-bottom: 0;
 }
+.aui .ui-accordion-content .table td {
+    font-size: 15px !important;
+    font-weight:bold;
+    background-color: #F9F9F7 !important;
+}
 
 .ibox-title {
 	min-height: 30px;
@@ -244,7 +249,7 @@
 }
 
 .aui h1, .aui h2, .aui h3 {
-	line-height: 65px;
+	line-height: 92px;
 }
 
 .ui-accordion .ui-accordion-content {
@@ -252,7 +257,7 @@
 }
 
 .aui .table td {
-	padding-top: 3px;
+	padding-top: 4px;
 	padding-bottom: 3px;
 }
 
@@ -286,6 +291,7 @@ overflow:auto;
 .aui #detailArea h3{
 overflow:hidden !important;
 }
+
  
 /* /* Track */ */
 /* ::-webkit-scrollbar-track { */
