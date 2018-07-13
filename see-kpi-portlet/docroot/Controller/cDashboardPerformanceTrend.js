@@ -1023,11 +1023,11 @@ var listHeaderFn=function(galbalOrg){
 	 $.each(galbalOrg,function(index,indexEntry){
 	  //console.log(indexEntry);
 	  if(indexEntry['org_id']==org){
-	   htmlHeaderMain+="<th style='min-width:325px;'>";
+	   htmlHeaderMain+="<th style='min-width:360px;'>";
 	    htmlHeaderMain+="<div class='fontBold fontCenter'>"+indexEntry['org_name']+"</div>";
 	   htmlHeaderMain+="</th>";
 	  }else{
-	   htmlHeader2+="<th style='min-width:325px;'>";
+	   htmlHeader2+="<th style='min-width:365px;'>";
 	    htmlHeader2+="<div class='fontBold fontCenter'>"+indexEntry['org_name']+"</div>";
 	   htmlHeader2+="</th>";
 	  }
@@ -1202,9 +1202,9 @@ var listDashBoardAllKPIFn = function(data){
 	    htmlData2+="<table class='tableInside table-striped'>";
 	    htmlData2+="<thead>";
 	    htmlData2+="<tr>";
-	    htmlData2+="<th><div class='fontBold ' style='min-width:102px'>Target</div></th>";
-	    htmlData2+="<th><div class='fontBold '  style='min-width:100px'>Forecast</div></th>";
-	    htmlData2+="<th><div class='fontBold ' style='min-width:100px'>Actual</div></th>";
+	    htmlData2+="<th><div class='fontBold ' style='min-width:145px'>Target</div></th>";
+	    htmlData2+="<th><div class='fontBold '  style='min-width:110px'>Forecast</div></th>";
+	    htmlData2+="<th><div class='fontBold ' style='min-width:85px'>Actual</div></th>";
 	      htmlData2+="</tr>";
 	     htmlData2+="</thead>";
 	     htmlData2+="<tbody>";
@@ -1232,9 +1232,9 @@ var listDashBoardAllKPIFn = function(data){
 	    htmlData3+="<table class='tableInside table-striped'>";
 	    htmlData3+="<thead>";
 	     htmlData3+="<tr>";
-	      htmlData3+="<th><div class='fontBold ' style='min-width:102px;'>Target</div></th>";
-	      htmlData3+="<th><div class='fontBold ' style='min-width:100px;'>Forecast</div></th>";
-	      htmlData3+="<th><div class='fontBold ' style='min-width:100px;'>Actual</div></th>";
+	      htmlData3+="<th><div class='fontBold ' style='min-width:145px;'>Target</div></th>";
+	      htmlData3+="<th><div class='fontBold ' style='min-width:110px;'>Forecast</div></th>";
+	      htmlData3+="<th><div class='fontBold ' style='min-width:85px;'>Actual</div></th>";
 	      htmlData3+="</tr>";
 	    htmlData3+="</thead>";
 	     htmlData3+="<tbody>";

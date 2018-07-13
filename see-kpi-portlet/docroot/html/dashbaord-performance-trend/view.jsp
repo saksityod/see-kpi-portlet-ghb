@@ -640,7 +640,7 @@ table#tableAllKPI2 .aui .table th, .aui .table td{
 .aui .header-fixed-kpi1 { 
     position: absolute; 
     top: -1px; display:none;
-    width:740px;
+    width:780px;
 }
 .aui .header-fixed-kpi2 { 
     position: absolute; 
@@ -817,8 +817,8 @@ overflow:auto;
 <!-- ############################################################################ -->
 				<div class='noteInDashboard'></div> <!-- class in main.js -->
 				<div id="scrollOrg"style="overflow:auto;min-width:1184px;max-height:500px;" class="table-responsive p-b-xxs">
-				<div id="scrollSubOrg1"style='width: 740px;max-height:482px; float: left;overflow: hidden;position: relative;'>
-					<div id="scrollSubOrg2" style="float: left; position: relative; overflow-y: scroll; width: 757px; overflow-x: hidden; max-height: 482px;">
+				<div id="scrollSubOrg1"style='width: 780px;max-height:482px; float: left;overflow: hidden;position: relative;'>
+					<div id="scrollSubOrg2" style="float: left; position: relative; overflow-y: scroll; width: 797px; overflow-x: hidden; max-height: 482px;">
 					<table class='table table-bordered' id='tableAllKPI1'>
 
 						<thead>
@@ -835,8 +835,8 @@ overflow:auto;
 					</div>
 				</div>
 
-				<div id="scrollSubOrg3" style='width: 444px;max-height:500px; float: left; overflow-x: auto;overflow-y: auto;position: relative;'>
-					<table class='table table-bordered' id='tableAllKPI2' style="width: 325px;">
+				<div id="scrollSubOrg3" style='width: 384px;max-height:500px; float: left; overflow-x: auto;overflow-y: auto;position: relative;'>
+					<table class='table table-bordered' id='tableAllKPI2' style="width: 360px;">
 
 						<thead>
 							<tr id="listHeader2" style='height: 66px;'>
