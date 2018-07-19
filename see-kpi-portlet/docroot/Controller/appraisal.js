@@ -121,7 +121,7 @@ var dropdownDeductScoreFn = function(score,nof_target_score,hint){
 var assignTemplateQualityFn = function(structureName,data){
 	var item_result_id_array=[];
 	var htmlTemplateQuality="";
-	
+	var paperclip;
 	
 	var hintCount = 0;
 	var hintHtml="";
@@ -180,12 +180,12 @@ var assignTemplateQualityFn = function(structureName,data){
 					$.each(data['items'],function(index,indexEntry){
 						
 					item_result_id_array.push(indexEntry['item_result_id']);
-						
+					paperclip = (indexEntry['files_amount'] > 0) ? "&nbsp;&nbsp;<i class='fa fa-paperclip' style='font-weight: bold;'></i>" : "";
 					//has weight
 						if(data['no_weight']==0){
 							htmlTemplateQuality+="<tr>";
 							
-								htmlTemplateQuality+="<td class=''>"+indexEntry['item_name']+"</td>";
+								htmlTemplateQuality+="<td class=''>"+indexEntry['item_name']+paperclip+"</td>";
 								htmlTemplateQuality+="<td class='' style='text-align: right;padding-right: 10px;'><div data-toggle=\"tooltip\" data-placement=\"right\" title=\""+hintHtml+"\">"+addCommas(parseFloat(notNullFn(indexEntry['target_value'])).toFixed(2))+"</div></td>";
 								
 								htmlTemplateQuality+="<td class='' style='text-align: center;'>";
@@ -201,7 +201,7 @@ var assignTemplateQualityFn = function(structureName,data){
 						}else{
 							htmlTemplateQuality+="<tr>";
 							
-								htmlTemplateQuality+="<td class=''>"+indexEntry['item_name']+"</td>";
+								htmlTemplateQuality+="<td class=''>"+indexEntry['item_name']+paperclip+"</td>";
 								htmlTemplateQuality+="<td class='' style='text-align: right;padding-right: 10px;'><div data-toggle=\"tooltip\" data-placement=\"right\" title=\""+hintHtml+"\">"+addCommas(parseFloat(notNullFn(indexEntry['target_value'])).toFixed(2))+"</div></td>";
 								
 								htmlTemplateQuality+="<td class='' style='text-align: center;'>";
@@ -251,6 +251,7 @@ return htmlTemplateQuality;
 var assignTemplateDeductFn = function(structureName,data){
 	
 	var htmlTemplateDeduct="";
+	var paperclip;
 	htmlTemplateDeduct+="<div class=\"row-fluid\">";
 	htmlTemplateDeduct+="<div class=\"span12\">";
 	htmlTemplateDeduct+="<div class=\"ibox-title2\">";
@@ -300,11 +301,11 @@ var assignTemplateDeductFn = function(structureName,data){
 					htmlTemplateDeduct+="<tbody id=\"\" class='appraisal_result'>";
 					
 					$.each(data['items'],function(index,indexEntry){
-						
+						paperclip = (indexEntry['files_amount'] > 0) ? "&nbsp;&nbsp;<i class='fa fa-paperclip' style='font-weight: bold;'></i>" : "";
 						//has weight
 						if(data['no_weight']==0){
 							htmlTemplateDeduct+="<tr>";
-									htmlTemplateDeduct+="<td class=''> "+indexEntry['item_name']+"</td>";
+									htmlTemplateDeduct+="<td class=''> "+indexEntry['item_name']+paperclip+"</td>";
 									htmlTemplateDeduct+="<td class='' style='text-align: right;padding-right: 10px;'>"+addCommas(parseFloat(notNullFn(indexEntry['max_value'])).toFixed(2))+"</td>";
 									//htmlTemplateDeduct+="<td style='text-align: right;padding-right: 10px;'><input style=\"width:70px; height: 25px;padding: 0 0 0 5px; font-size:13px; text-align:right;\" type=\"text\" class=\"span10 input-sm-small numberOnly itemScore\" id=\"actual-"+indexEntry['item_result_id']+"\" name=\"actual-"+indexEntry['item_result_id']+"\" value="+indexEntry['actual_value']+"></td>";
 									htmlTemplateDeduct+="<td class='' style='text-align: right;padding-right: 10px;'>"+addCommas(parseFloat(notNullFn(indexEntry['actual_value'])).toFixed(2))+"</td>";
@@ -315,7 +316,7 @@ var assignTemplateDeductFn = function(structureName,data){
 							htmlTemplateDeduct+="</tr>";
 						}else{
 							htmlTemplateDeduct+="<tr>";
-									htmlTemplateDeduct+="<td class=''> "+indexEntry['item_name']+"</td>";
+									htmlTemplateDeduct+="<td class=''> "+indexEntry['item_name']+paperclip+"</td>";
 									htmlTemplateDeduct+="<td class='' style='text-align: right;padding-right: 10px;'>"+addCommas(parseFloat(notNullFn(indexEntry['max_value'])).toFixed(2))+"</td>";
 									//htmlTemplateDeduct+="<td style='text-align: right;padding-right: 10px;'><input style=\"width:70px; height: 25px;padding: 0 0 0 5px; font-size:13px; text-align:right;\" type=\"text\" class=\"span10 input-sm-small numberOnly itemScore\" id=\"actual-"+indexEntry['item_result_id']+"\" name=\"actual-"+indexEntry['item_result_id']+"\" value="+indexEntry['actual_value']+"></td>";
 									htmlTemplateDeduct+="<td class='' style='text-align: right;padding-right: 10px;'>"+addCommas(parseFloat(notNullFn(indexEntry['actual_value'])).toFixed(2))+"</td>";
@@ -357,6 +358,7 @@ var assignTemplateQuantityFn = function(structureName,data){
 	var htmlTemplateQuantity = "";
 	var hintCount = 0;
 	var hintHtml="";
+	var paperclip;
 	$.each(data['hint'],function(index,indexEntry){
 		hintHtml+="<div style='text-align: left;\'>"+indexEntry['hint']+"</div>";
 		hintCount++;
@@ -434,7 +436,7 @@ var assignTemplateQuantityFn = function(structureName,data){
 			htmlTemplateQuantity+="<tbody id=\"\" class='appraisal_result'>";
 			$.each(data['items'],function(index,indexEntry){
 			
-				
+				paperclip = (indexEntry['files_amount'] > 0) ? "&nbsp;&nbsp;<i class='fa fa-paperclip' style='font-weight: bold;'></i>" : "";
 				item_result_id_array.push(indexEntry['item_result_id']);
 				/*
 				item_result_id
@@ -451,7 +453,7 @@ var assignTemplateQuantityFn = function(structureName,data){
 				if(data['no_weight']==0){
 					htmlTemplateQuantity+="<tr >";
 						htmlTemplateQuantity+="<td>"+indexEntry['perspective_name']+"</td>";
-						htmlTemplateQuantity+="<td id=\"item_name-"+indexEntry['item_result_id']+"\">"+indexEntry['item_name']+"</td>";
+						htmlTemplateQuantity+="<td id=\"item_name-"+indexEntry['item_result_id']+"\">"+indexEntry['item_name']+paperclip+"</td>";
 						htmlTemplateQuantity+="<td style='text-align: right;padding-right: 10px;'><div title=\""+hintHtml+"\" data-toggle=\"tooltip\" data-html=\"true\" data-placement=\"right\" >"+addCommas(parseFloat(notNullFn(indexEntry['target_value'])).toFixed(2))+"</div></td>";
 						htmlTemplateQuantity+="<td>"+indexEntry['uom_name']+"</td>";
 						htmlTemplateQuantity+="<td style='text-align: right;padding-right: 10px;'><input style=\"width:70px; height: 25px;padding: 0 0 0 5px; font-size:13px; text-align:right;\" type=\"text\" class=\"span10 input-sm-small numberOnly itemScore addComma\" id=\"forecast-"+indexEntry['item_result_id']+"\" name=\"forecast-"+indexEntry['item_result_id']+"\" value="+addCommas(indexEntry['forecast_value'])+" value-actual="+addCommas(indexEntry['actual_value'])+"></td>";
@@ -474,7 +476,7 @@ var assignTemplateQuantityFn = function(structureName,data){
 					//no_weight	
 					htmlTemplateQuantity+="<tr >";
 						htmlTemplateQuantity+="<td>"+indexEntry['perspective_name']+"</td>";
-						htmlTemplateQuantity+="<td>"+indexEntry['item_name']+"</td>";
+						htmlTemplateQuantity+="<td>"+indexEntry['item_name']+paperclip+"</td>";
 						htmlTemplateQuantity+="<td style='text-align: right;padding-right: 10px;'><div title=\""+hintHtml+"\" data-toggle=\"tooltip\" data-html=\"true\" data-placement=\"right\" >"+addCommas(parseFloat(notNullFn(indexEntry['target_value'])).toFixed(2))+"</div></td>";
 						htmlTemplateQuantity+="<td>"+indexEntry['uom_name']+"</td>";
 						htmlTemplateQuantity+="<td style='text-align: right;padding-right: 10px;'><input type=\"text\"  class=\"span10 input-sm-small numberOnly addComma itemScore\" id=\"forecast-"+indexEntry['item_result_id']+"\" name=\"forecast-"+indexEntry['item_result_id']+"\" value="+addCommas(indexEntry['forecast_value'])+" value-actual="+addCommas(indexEntry['actual_value'])+"></td>";
