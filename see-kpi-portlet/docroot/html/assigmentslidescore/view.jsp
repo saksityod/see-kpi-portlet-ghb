@@ -122,6 +122,12 @@ plid = layout.getPlid();
 	 .ibox-content .row-fluid .span4{
 		width: 32.4917%
 	}
+	
+	.aui .table-responsive {
+	 white-space: nowrap;
+	 /*overflow: hidden;*/
+	 text-overflow: ellipsis;
+	}
   }
  /* Portrait tablet to landscape and desktop End############*/ 
  
@@ -169,6 +175,12 @@ plid = layout.getPlid();
 	 .ibox-content .row-fluid .span4{
 		width: 100%
 	}
+	
+	.aui .table-responsive {
+	 white-space: nowrap;
+	 /*overflow: hidden;*/
+	 text-overflow: ellipsis;
+	}
  
   }
  /* Landscape phone to portrait tablet End##################*/ 
@@ -208,6 +220,12 @@ plid = layout.getPlid();
 	
 	.ibox-content .row-fluid .span4{
 		width: 100%
+	}
+	
+	.aui .table-responsive {
+	 white-space: nowrap;
+	 /*overflow: hidden;*/
+	 text-overflow: ellipsis;
 	}
 
 	
