@@ -483,9 +483,13 @@ var listDataFn = function(data) {
 	htmlHTML+="<div class=\"span12\">";
 	htmlHTML+="<div class=\"ibox-title2\">";
 	if(index!='p0'){
-		htmlHTML+="<div class=\"titlePanel2\">"+indexEntry['appraisal_period_desc']+" ";
-		htmlHTML+="<button "+statusAction+" type=\"button\" class=\"btn btn-primary input-sm\" name=\"btnAction"+index+"\" id=\"btnAction"+index+"\"><i class=\"fa fa-sign-in\"></i>&nbsp;Action</button>";
-		htmlHTML+="</div>";
+		if($("#appraisalStatus").val()=='All') {
+			htmlHTML+="<div class=\"titlePanel2\">"+indexEntry['appraisal_period_desc']+" </div> ";
+		} else {
+			htmlHTML+="<div class=\"titlePanel2\">"+indexEntry['appraisal_period_desc']+" ";
+			htmlHTML+="<button "+statusAction+" type=\"button\" class=\"btn btn-primary input-sm\" name=\"btnAction"+index+"\" id=\"btnAction"+index+"\"><i class=\"fa fa-sign-in\"></i>&nbsp;Action</button>";
+			htmlHTML+="</div>";
+		}
 	} else {
 		htmlHTML+="<div class=\"titlePanel2\">"+indexEntry['appraisal_period_desc']+" </div> ";
 	}
@@ -501,9 +505,13 @@ var listDataFn = function(data) {
 		htmlHTML+=" <thead>";
 			htmlHTML+=" <tr>";
 			if(index!='p0'){
-				htmlHTML+="<th style=\"width:5%; text-align:center; \" class=\"object-center\">";
-				htmlHTML+="<input style=\"margin-bottom: 5px;\" type=\"checkbox\" name=\"statusSelectAll"+index+"\" id=\"statusSelectAll"+index+"\" style=\"margin-top:-3px;\">";
-				htmlHTML+="</th>";
+				if($("#appraisalStatus").val()=='All') {
+					htmlHTML+=" <th style=\"width:5%; text-align:center; \" class=\"object-center\"></th>";
+				} else {
+					htmlHTML+="<th style=\"width:5%; text-align:center; \" class=\"object-center\">";
+					htmlHTML+="<input type=\"checkbox\" name=\"statusSelectAll"+index+"\" id=\"statusSelectAll"+index+"\" style=\"margin-top:-3px;\">";
+					htmlHTML+="</th>";
+				}
 			}else{
 				htmlHTML+="<th style=\"width:5%; text-align:center;\" class=\"object-center\">";
 				htmlHTML+="<input type=\"checkbox\" name=\"unassignSelectAll\" id=\"unassignSelectAll\" style=\"margin-top:-3px;\">";
@@ -544,11 +552,16 @@ var listDataFn = function(data) {
 
 				htmlHTML+="<tr>";
 				if(index!='p0'){
-					if($("#embed_appraisal_type_id").val()==2){
-						htmlHTML+="	<td class='object-center' style='text-align:center;'><input class='action_emp"+index+"' id='id-"+itemEntry['emp_id']+"' type='checkbox' value="+itemEntry['emp_id']+"-"+itemEntry['emp_code']+" data-id='"+itemEntry['emp_result_id']+"-"+itemEntry['stage_id']+"'></td>";
-					}else if($("#embed_appraisal_type_id").val()==1){
-						htmlHTML+="	<td class='object-center' style='text-align:center;'><input class='action_emp"+index+"' id='id-"+itemEntry['org_id']+"' type='checkbox' value="+itemEntry['org_id']+"-"+itemEntry['org_code']+" data-id='"+itemEntry['emp_result_id']+"-"+itemEntry['stage_id']+"'></td>";
-						//alert(itemEntry['org_id']);
+					
+					if($("#appraisalStatus").val()=='All') {
+						htmlHTML+="	<td class='object-center'></td>";
+					} else {
+						if($("#embed_appraisal_type_id").val()==2){
+							htmlHTML+="	<td class='object-center' style='text-align:center;'><input class='action_emp"+index+"' id='id-"+itemEntry['emp_id']+"' type='checkbox' value="+itemEntry['emp_id']+"-"+itemEntry['emp_code']+" data-id='"+itemEntry['emp_result_id']+"-"+itemEntry['stage_id']+"'></td>";
+						}else if($("#embed_appraisal_type_id").val()==1){
+							htmlHTML+="	<td class='object-center' style='text-align:center;'><input class='action_emp"+index+"' id='id-"+itemEntry['org_id']+"' type='checkbox' value="+itemEntry['org_id']+"-"+itemEntry['org_code']+" data-id='"+itemEntry['emp_result_id']+"-"+itemEntry['stage_id']+"'></td>";
+							//alert(itemEntry['org_id']);
+						}
 					}
 						
 				}else{
@@ -669,106 +682,106 @@ var listDataFn = function(data) {
 	   
 	});
 	
-	$.each(data['group'],function(index,indexEntry){
-		
-		$("#statusSelectAll"+index).click
-		
-		$('#statusSelectAll'+index).click(function() {
-		   if($('#statusSelectAll'+index).prop('checked')){
-			   $(".action_emp"+index).prop('checked',true);
-		   }else{
-			   $(".action_emp"+index).prop('checked',false);
-		   }
-		   
-		});
-		
-		$("#btnAction"+index).click(function(){
-	//		empldoyees_code=[];
-	//		empldoyees_id=[];
-	//		default_stage_id=[];
-	//		organization_code = [];
-			emp_result_id_action = [];
-			stage_id_action = [];
-			$("#remark_footer_action").val("");
-			$(".information").hide();
-			$("#btnAddAnother").show();
-				$.each($(".action_emp"+index).get(),function(index,indexEntry){
-					if($(indexEntry).is(":checked")){
-	//					var emp_id=$(indexEntry).val().split("-");
-	//					var org_id=$(indexEntry).val().split("-/");
-						var data_id=$(indexEntry).attr("data-id").split("-");
-	//					empldoyees_id.push(emp_id[0]);
-	//					empldoyees_code.push(emp_id[1]);
-	//					org_id_to_assign = emp_id[2];
-	//					position_id.push(emp_id[3]);
-	//					organization_code.push(org_id[1]);
-						emp_result_id_action.push(data_id[0]);
-						stage_id_action.push(data_id[1]);
-					}
-				});
-			if(emp_result_id_action.length==0){
-				callFlashSlide("Please choose Employees or Organization for Action.");
-				return false;
-			}else{
-	//			sessionStorage.setItem('is_coporate_kpi',$("#is_coporate_kpi-"+empldoyees_id[0]).val());
-				
-	
-				$(".cus_information_area").hide();
-				//Default start
-				$("#btnSubmitAction").removeAttr("disabled");
-				$("#btnAddAnother").removeAttr("disabled");
-				//Default end
-				//getTemplateFn();
-				
-				
-				/*dropDrowAsignToFn();
-				$("#assignTo").off("change");
-				$("#assignTo").change(function(){
-					dropDrowActionFn($(this).val());
-				});
-				$("#assignTo").change();
-				*/
-				//var Emp_Code = JSON.stringify(empldoyees_code[0]);
-				//console.log(empldoyees_code[0])
-				//dropDrowActionFn(empldoyees_code[0]);
-				dropDrowActionEditFn2(stage_id_action[0]);
-				if($("#actionAction").val()==null){
-					$("#btnSubmitAction").attr("disabled","disabled");
-				} else {
-					$("#btnSubmitAction").removeAttr("disabled");
-				}
-				//dropDrowActionFn($(this).val());
-				
-				$("#ModalAction").modal({
-					"backdrop" : setModalPopup[0],
-					"keyboard" : setModalPopup[1]
-				});
-				
-				//check assignment if reject  remark is require.
-				$("#actionAction").off("change");
-				$("#actionAction").on("change",function(){
-					//alert("hello jquery");
-					
-				});
-				
-				$(window).scrollTop(0);
-				setTimeout(function(){
-					$(".modal-body").scrollTop(0);
-					$(".fht-tbody").scrollTop(0);
-				
-				});
-			}
-			//$(".scoreText0").attr("disabled","disabled");
-			/*
-			console.log(empldoyees_id);
-			console.log(empldoyees_code);
-			*/
-			//auto click
-			//$("#tableQuality .appraisalItem-checkbox,#tableDeduct .appraisalItem-checkbox,#fixClickKPI-2 .appraisalItem-checkbox").click();
+	if($("#appraisalStatus").val()!='All' && $("#appraisalStatus").val()!='Unassigned') {
+		$.each(data['group'],function(index,indexEntry){
+			$("#statusSelectAll"+index).click
+			$('#statusSelectAll'+index).click(function() {
+			   if($('#statusSelectAll'+index).prop('checked')){
+				   $(".action_emp"+index).prop('checked',true);
+			   }else{
+				   $(".action_emp"+index).prop('checked',false);
+			   }
+			   
+			});
 			
+			$("#btnAction"+index).click(function(){
+		//		empldoyees_code=[];
+		//		empldoyees_id=[];
+		//		default_stage_id=[];
+		//		organization_code = [];
+				emp_result_id_action = [];
+				stage_id_action = [];
+				$("#remark_footer_action").val("");
+				$(".information").hide();
+				$("#btnAddAnother").show();
+					$.each($(".action_emp"+index).get(),function(index,indexEntry){
+						if($(indexEntry).is(":checked")){
+		//					var emp_id=$(indexEntry).val().split("-");
+		//					var org_id=$(indexEntry).val().split("-/");
+							var data_id=$(indexEntry).attr("data-id").split("-");
+		//					empldoyees_id.push(emp_id[0]);
+		//					empldoyees_code.push(emp_id[1]);
+		//					org_id_to_assign = emp_id[2];
+		//					position_id.push(emp_id[3]);
+		//					organization_code.push(org_id[1]);
+							emp_result_id_action.push(data_id[0]);
+							stage_id_action.push(data_id[1]);
+						}
+					});
+				if(emp_result_id_action.length==0){
+					callFlashSlide("Please choose Employees or Organization for Action.");
+					return false;
+				}else{
+		//			sessionStorage.setItem('is_coporate_kpi',$("#is_coporate_kpi-"+empldoyees_id[0]).val());
+					
+		
+					$(".cus_information_area").hide();
+					//Default start
+					$("#btnSubmitAction").removeAttr("disabled");
+					$("#btnAddAnother").removeAttr("disabled");
+					//Default end
+					//getTemplateFn();
+					
+					
+					/*dropDrowAsignToFn();
+					$("#assignTo").off("change");
+					$("#assignTo").change(function(){
+						dropDrowActionFn($(this).val());
+					});
+					$("#assignTo").change();
+					*/
+					//var Emp_Code = JSON.stringify(empldoyees_code[0]);
+					//console.log(empldoyees_code[0])
+					//dropDrowActionFn(empldoyees_code[0]);
+					dropDrowActionEditFn2(stage_id_action[0]);
+					if($("#actionAction").val()==null){
+						$("#btnSubmitAction").attr("disabled","disabled");
+					} else {
+						$("#btnSubmitAction").removeAttr("disabled");
+					}
+					//dropDrowActionFn($(this).val());
+					
+					$("#ModalAction").modal({
+						"backdrop" : setModalPopup[0],
+						"keyboard" : setModalPopup[1]
+					});
+					
+					//check assignment if reject  remark is require.
+					$("#actionAction").off("change");
+					$("#actionAction").on("change",function(){
+						//alert("hello jquery");
+						
+					});
+					
+					$(window).scrollTop(0);
+					setTimeout(function(){
+						$(".modal-body").scrollTop(0);
+						$(".fht-tbody").scrollTop(0);
+					
+					});
+				}
+				//$(".scoreText0").attr("disabled","disabled");
+				/*
+				console.log(empldoyees_id);
+				console.log(empldoyees_code);
+				*/
+				//auto click
+				//$("#tableQuality .appraisalItem-checkbox,#tableDeduct .appraisalItem-checkbox,#fixClickKPI-2 .appraisalItem-checkbox").click();
+				
+			});
+		
 		});
-	
-	});
+	}
 	
 	$(".popover-edit-del").popover({
 		delay : {
