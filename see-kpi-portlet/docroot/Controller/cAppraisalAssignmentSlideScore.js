@@ -2627,7 +2627,12 @@ if(username!="" && username!=null & username!=[] && username!=undefined ){
 		appraisalStatusFn();
 	});
 	$("#assignFrequency").change();
-	//htmlOption+="<option value="+i+">à¸£à¸­à¸šà¸�à¸²à¸£à¸›à¸£à¸°à¹€à¸¡à¸´à¸™"+i+"</option>";
+	
+	$("#period_id").change(function(){
+		appraisalStatusFn();
+	});
+	
+	
 	
 	
 	//Auto complete Start
