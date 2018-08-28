@@ -115,17 +115,20 @@ function search_benchmark() {
 //Check Validation Edd
 var validateFileFn = function(data){
 	var validateFile="";
-
 	$.each(data,function(index,indexEntry){
 		if(indexEntry[Object.keys(indexEntry)[0]]!= undefined || indexEntry[Object.keys(indexEntry)[0]]==null){
-		
 			if(indexEntry[Object.keys(indexEntry)[0]]== null){//The employee code field is null
 				validateFile+="<font color='#FFC446'><i class='fa fa-exclamation-triangle'></i></font> "+Object.keys(indexEntry)[0]+" : null <i class='fa fa-level-down'></i><br>";
 			}else{
 				validateFile+="<font color='#FFC446'><i class='fa fa-exclamation-triangle'></i></font> "+Object.keys(indexEntry)[0]+": "+indexEntry[Object.keys(indexEntry)[0]]+" <i class='fa fa-level-down'></i><br>";
 			}
 			if(indexEntry['errors']!=null || indexEntry['errors']!=undefined || indexEntry['errors']!=""){
-				validateFile+="<font color='red'>&emsp;*</font> "+indexEntry['errors']+"<br>";
+				//validateFile+="<font color='red'>&emsp;*</font> "+indexEntry['errors']+"<br>";
+				for (var key in indexEntry['errors']) {
+	 			    if (indexEntry['errors'].hasOwnProperty(key)) {
+	 			    	validateFile+="<font color='red'>&emsp;*</font> "+indexEntry['errors'][key]+"<br>";
+	 			    }
+	 			}
 			}
 		}
 		 
