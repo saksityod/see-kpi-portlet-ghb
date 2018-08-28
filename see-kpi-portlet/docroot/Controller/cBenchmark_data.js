@@ -1,3 +1,37 @@
+//auto check
+function generate_dropdown() {
+    	$('#s_yr,#s_qt,#show_nodata').empty();
+		$.ajax({
+		    url: restfulURL + '/' + serviceName + "/public/benchmark_data/select_list_search",
+		    type:"get" ,
+			dataType:"json" ,
+			headers:{Authorization:"Bearer "+tokenID.token},
+			async:false,
+		    success: function (result) {
+		        //console.log(result)
+		        if (result.nodata) {
+		            $('#s_yr').append('<option value="" disabled="" selected>ไม่มีข้อมูลปี</option>');
+		            $('#s_qt').append('<option value="" disabled="" selected>ไม่มีข้อมูลไตรมาส</option>');
+		            $('#show_nodata').append('ดาวน์โหลดข้อมูลด้านล่างเพื่อทำการเพิ่มข้อมูล');
+		        }
+		        else {
+		            var list_year;
+		            list_year += '<option value="">Select Year</option>';
+		            $.each(result.year, function (key, value) {
+		                list_year +=
+		                    '<option value="' + value.year + '">' + value.year + '</option>'
+		                    ;
+		            });
+		            $('#s_yr').append(list_year);
+		
+		            var list_quarter;
+		            list_quarter += '<option value="">Select Quarter</option>';
+		            $('#s_qt').append(list_quarter);
+		        }
+		    }
+		});
+}
+
 $(document).ready(function () {
     var username = $('#user_portlet').val();
     var password = $('#pass_portlet').val();
@@ -12,36 +46,7 @@ $(document).ready(function () {
     $(".app_url_hidden").show();
     $('.dropify').dropify();
     
-    //auto check
-	$.ajax({
-	    url: restfulURL + '/' + serviceName + "/public/benchmark_data/select_list_search",
-	    type:"get" ,
-		dataType:"json" ,
-		headers:{Authorization:"Bearer "+tokenID.token},
-		async:false,
-	    success: function (result) {
-	        //console.log(result)
-	        if (result.nodata) {
-	            $('#s_yr').append('<option value="" disabled="" selected>ไม่มีข้อมูลปี</option>');
-	            $('#s_qt').append('<option value="" disabled="" selected>ไม่มีข้อมูลไตรมาส</option>');
-	            $('#show_nodata').append('ดาวน์โหลดข้อมูลด้านล่างเพื่อทำการเพิ่มข้อมูล');
-	        }
-	        else {
-	            var list_year;
-	            list_year += '<option value="">Select Year</option>';
-	            $.each(result.year, function (key, value) {
-	                list_year +=
-	                    '<option value="' + value.year + '">' + value.year + '</option>'
-	                    ;
-	            });
-	            $('#s_yr').append(list_year);
-	
-	            var list_quarter;
-	            list_quarter += '<option value="">Select Quarter</option>';
-	            $('#s_qt').append(list_quarter);
-	        }
-	    }
-	});
+    generate_dropdown();
 
 	//search quarter
 	$("#s_yr").change(function () {
@@ -202,6 +207,7 @@ function uploadFiles(event)
 				callFlashSlide("Import Employee Successfully");
 				$("body").mLoading('hide');
 				$('#ModalImport').modal('hide');
+				generate_dropdown();
 				
 			}else{
 				validateFileFn(data['errors']);
