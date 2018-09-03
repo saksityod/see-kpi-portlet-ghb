@@ -1242,7 +1242,8 @@
  		<footer-portlet-javascript>/js/jvectormap/js/jquery-jvectormap-th-mill-en.js</footer-portlet-javascript>
  		<footer-portlet-javascript>/js/jvectormap/js/jquery-jvectormap-th-merc-en.js</footer-portlet-javascript>
    		-->
-
+		
+		<footer-portlet-javascript>/js/google_api_map.js</footer-portlet-javascript>
 		<footer-portlet-javascript>/Controller/cConfig.js</footer-portlet-javascript>
 	    <footer-portlet-javascript>/Controller/cMain.js</footer-portlet-javascript> 
 	    <footer-portlet-javascript>/Controller/cDashboardBranchPerformance.js</footer-portlet-javascript>
