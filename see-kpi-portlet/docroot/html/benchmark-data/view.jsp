@@ -525,7 +525,7 @@ plid = layout.getPlid();
 			<div class="modal-content  bounceInRight">
 				<div class="modal-header" >
 					<button data-dismiss="modal" class="close" type="button" style="padding-top:5px">
-						<span aria-hidden="true"><i class='fa fa-times'></i></span><span class="sr-only">Close</span>
+						<span aria-hidden="true"><i class='fa fa-times'></i></span>
 					</button>
 					<!-- <i class="fa fa-laptop modal-icon"></i> -->
 					<h4 class="modal-title" id="">Import Benchmark</h4>

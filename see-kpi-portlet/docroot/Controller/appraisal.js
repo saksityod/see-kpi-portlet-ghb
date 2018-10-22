@@ -1643,7 +1643,18 @@ var listAttachFileFn = function(data){
 		var id = this.id;
 		id = id.split("-");
 		id=id[1];
-		deleteAttachFileFn(id);
+		$("#confrimModal").modal({
+			"backdrop" : setModalPopup[0],
+			"keyboard" : setModalPopup[1]
+		}).css({"margin-top":"0px"});
+		//$(this).parent().parent().parent().children().click();
+		$(document).off("click","#btnConfirmOK");
+		$(document).on("click","#btnConfirmOK",function(){
+			//alert(id);
+			deleteAttachFileFn(id);
+			
+		});
+		
 	});
 	
 }
@@ -1660,6 +1671,7 @@ var deleteAttachFileFn = function(id){
 			if(data['status']==200){
 				getAttachFileFn($("#item_result_id").val());
 				findOneFn($("#emp_result_id").val());
+				$("#confrimModal").modal('hide');
 			}
 		}
 	});

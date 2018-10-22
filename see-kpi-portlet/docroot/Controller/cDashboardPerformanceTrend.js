@@ -417,6 +417,8 @@
 	        dataFormat: 'json',
 	        dataSource: {
 	            "chart": {
+	            	"caption": " ",
+		            "subCaption": " ",
 	            	"xAxisname": "Month",
 	                "yAxisName": "Monthly Actual",
 	                "xAxisNameFont": "Arial",
@@ -558,6 +560,8 @@
 	        dataFormat: 'json',
 	        dataSource: {
 	            "chart": {
+	            	"caption": " ",
+		            //"subCaption": " ",
 	            	"xAxisname": "Month",
 	                "yAxisName": "Monthly Actual",
 	                "xAxisNameFont": "Arial",
