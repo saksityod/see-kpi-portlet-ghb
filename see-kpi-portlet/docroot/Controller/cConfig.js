@@ -10,7 +10,7 @@ var serviceName="see_api";
 
 /*#######Poroduction#######*/
 //restfulURL="http://localhost";
-restfulURL="https://smart-radar.ghb.co.th";
+restfulURL="https://smart-kpi.ghb.co.th";
 
 /*#######Cloud#######*/
 //restfulURL="http://210.4.153.18";
