@@ -166,7 +166,7 @@ $(document).ready(function(){
  	 	 					}
  	 	 				}],
     			 "formDetail":{"formSize":"modal-dialog","formName":"Organization","id":"organization","pk_id":"org_id"},       
-    			 "serviceName":[restfulURL+"/"+serviceName+"/public/org"],
+    			 "serviceName":[restfulURL+"/"+serviceName+"/public/org/master"],
     			 "tokenID":tokenID,
     			 "pagignation":false,
     			 "expressSearch":false,
