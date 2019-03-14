@@ -627,7 +627,7 @@ var dropDrowDepartmentFn = function(id){
 var dropDrowOrgFn = function(appraisalLevelId){
 
 	$.ajax({
-		url:restfulURL+"/"+serviceName+"/public/org",
+		url:restfulURL+"/"+serviceName+"/public/org/master/org_list_transection",
 		type:"get",
 		dataType:"json",
 		async:false,
