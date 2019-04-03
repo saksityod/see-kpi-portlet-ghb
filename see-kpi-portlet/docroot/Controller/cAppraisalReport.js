@@ -205,7 +205,8 @@ var listDashBoardFn = function(data){
 		});
 		
 		$("#apprasiaLevel").change(function() {
-			$("#organization").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/org_list","POST",{"appraisal_level":$("#apprasiaLevel").val()}));
+			$("#organization").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/org","GET",{"level_id":$("#apprasiaLevel").val()}));
+//			$("#organization").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/org_list","POST",{"appraisal_level":$("#apprasiaLevel").val()}));
 			$("#organization").change();
 		});
 		
