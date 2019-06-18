@@ -433,21 +433,31 @@ plid = layout.getPlid();
 							</div>
 
 							<div class="ibox-content breadcrumbs2">
-								<div class="row-fluid p-t-xxs">
-									<div class="span8">
-                                        <div class="span12">
-                                            <form class="form-inline">
-                                            <select id="s_yr"></select>
-                                            <select id="s_kpi"></select>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="span4" align="right">
-                                        <button type="button" class="btn btn-info" onclick="search_chart()">
-                                            <i class="icon-search icon-white"></i>&nbsp;&nbsp;Search
-                                        </button>
-                                    </div>
+
+								<div class="row-fluid ">
+									<!-- param year -->
+									<div style="margin-left: 5px; margin-bottom: 3px;" class="form-group pull-left span2">
+										<select name="year" id="s_yr" class="input form-control input-sm" title="" data-toggle="tooltip" style="cursor: pointer; width: 100%" data-original-title="Year">
+										</select>
+									</div>
+									<!-- param kpi -->
+									<div style="margin-left: 5px; margin-bottom: 3px;" class="form-group pull-left span3" id="kpiArea">
+										<select name="kpi" id="s_kpi" class="input form-control input-sm" title="" data-toggle="tooltip" style="cursor: pointer; min-width: 100%; width: 100%; max-width: 100%;" data-original-title="KPI" onchange="resizeWidth()">
+										</select>
+									</div>
+
+									<select id="width_tmp_select"  style="width: auto; display: none">
+										<option id="width_tmp_option"></option>
+									</select>
+			
+									<div style="margin-bottom: 5px;" class="form-group pull-right m-b-none ">
+										<button id="btnSearchAdvance" onclick="search_chart()" name="btnSearchAdvance" class="btn btn-info input-sm" type="button">
+											<i class="fa fa-search"></i>&nbsp;Search
+										</button>
+									</div>
+			
 								</div>
+
 							</div>
 							<!-- content end -->
 						</div>

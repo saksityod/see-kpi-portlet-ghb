@@ -394,32 +394,30 @@ This is the <b>Usage Log</b> portlet in View mode.2
 
 						</select>
 					</div>
-					<div class="form-group span2"
+					<div class="form-group span3" id="kpiArea"
 						style="margin-left: 5px; margin-bottom: 3px;">
-						<select name="kpi" id="kpi"
+						<select name="kpi" onchange="resizeWidth()" id="kpi"
 							class="input form-control input-sm span12" title=""
-							data-toggle="tooltip" style="cursor: pointer;"
+							data-toggle="tooltip" style="cursor: pointer; min-width: 100%; max-width: 100%"
 							data-original-title="KPI">
 
 							<option value="">KPI1</option>
 							<option value="">KPI2</option>
-
 						</select>
+						
 					</div>
 
+					<select id="width_tmp_select"  style="width: auto; display: none">
+						<option id="width_tmp_option"></option>
+					</select>
 
-
-
-
-					<div id='btnUsageLogSearchArea' class="form-group  m-b-none "
-						style="margin-left: 5px; margin-bottom: 3px; text-align: right;">
-						<button type="button" class="btn btn-info input-sm"
-							name="btnSearchAdvance" id="btnSearchAdvance">
+					<div style="margin-bottom: 5px;" class="form-group pull-right m-b-none ">
+						<button id="btnSearchAdvance" name="btnSearchAdvance"
+							class="btn btn-info input-sm" type="button">
 							<i class="fa fa-search"></i>&nbsp;Search
 						</button>
-
 					</div>
-
+					
 				</div>
 
 
