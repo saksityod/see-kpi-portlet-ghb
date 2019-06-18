@@ -465,7 +465,7 @@
 						<div style="margin-left: 5px; margin-bottom: 3px;"
 							class="form-group pull-left span3" id="kpiArea">
 							<select name="kpi" id="kpi" class="input form-control input-sm"
-								title="" data-toggle="tooltip" style="cursor: pointer;"
+								title="" data-toggle="tooltip" style="cursor: pointer; max-width: 100%; min-width: 100%;" onchange="resizeWidth()"
 								data-original-title="KPI">
 
 								<option value="">KPI1</option>
@@ -473,6 +473,9 @@
 
 							</select>
 						</div>
+						<select id="width_tmp_select"  style="width: auto; display: none">
+								<option id="width_tmp_option"></option>
+						</select>
 
 
 						<div style="margin-bottom: 5px;"
