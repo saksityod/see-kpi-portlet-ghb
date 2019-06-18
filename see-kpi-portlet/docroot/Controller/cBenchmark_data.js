@@ -1,38 +1,36 @@
 //auto check
 function generate_dropdown() {
-    	$('#s_yr,#s_qt,#show_nodata').empty();
-		$.ajax({
-		    url: restfulURL + '/' + serviceName + "/public/benchmark_data/select_list_search",
-		    type:"get" ,
-			dataType:"json" ,
-			headers:{Authorization:"Bearer "+tokenID.token},
-			async:false,
-		    success: function (result) {
-		        //console.log(result)
-		        if (result.nodata) {
-		            $('#s_yr').append('<option value="" disabled="" selected>ไม่มีข้อมูลปี</option>');
-		            $('#s_qt').append('<option value="" disabled="" selected>ไม่มีข้อมูลไตรมาส</option>');
-		            $('#show_nodata').append('ดาวน์โหลดข้อมูลด้านล่างเพื่อทำการเพิ่มข้อมูล');
-		        }
-		        else {
-		            var list_year;
-		            list_year += '<option value="">Select Year</option>';
-		            $.each(result.year, function (key, value) {
-		                list_year +=
-		                    '<option value="' + value.year + '">' + value.year + '</option>'
-		                    ;
-		            });
-		            $('#s_yr').append(list_year);
-		
-		            var list_quarter;
-		            list_quarter += '<option value="">Select Quarter</option>';
-		            $('#s_qt').append(list_quarter);
-		        }
-		    }
-		});
+    $('#s_yr,#s_qt,#show_nodata').empty();
+    $.ajax({
+        url: restfulURL + '/' + serviceName + "/public/benchmark_data/select_list_search",
+        type: "get",
+        dataType: "json",
+        headers: { Authorization: "Bearer " + tokenID.token },
+        async: false,
+        success: function(result) {
+            //console.log(result)
+            if (result.nodata) {
+                $('#s_yr').append('<option value="" disabled="" selected>ไม่มีข้อมูลปี</option>');
+                $('#s_qt').append('<option value="" disabled="" selected>ไม่มีข้อมูลไตรมาส</option>');
+                $('#show_nodata').append('ดาวน์โหลดข้อมูลด้านล่างเพื่อทำการเพิ่มข้อมูล');
+            } else {
+                var list_year;
+                list_year += '<option value="">Select Year</option>';
+                $.each(result.year, function(key, value) {
+                    list_year +=
+                        '<option value="' + value.year + '">' + value.year + '</option>';
+                });
+                $('#s_yr').append(list_year);
+
+                var list_quarter;
+                list_quarter += '<option value="">Select Quarter</option>';
+                $('#s_qt').append(list_quarter);
+            }
+        }
+    });
 }
 
-$(document).ready(function () {
+$(document).ready(function() {
     var username = $('#user_portlet').val();
     var password = $('#pass_portlet').val();
     var plid = $('#plid_portlet').val();
@@ -45,42 +43,38 @@ $(document).ready(function () {
 
     $(".app_url_hidden").show();
     $('.dropify').dropify();
-    
+
     generate_dropdown();
 
-	//search quarter
-	$("#s_yr").change(function () {
-	    $('#s_qt').empty();
-	    var data_val = { 's_check': 'wdsdwokd@wkdo', 's_yr': $("#s_yr").val() };
-	    $.ajax({
-	        url: restfulURL + '/' + serviceName + "/public/benchmark_data/search_quarter",
-	        type:"get" ,
-			dataType:"json" ,
-			headers:{Authorization:"Bearer "+tokenID.token},
-			async:false,
-	        data: { "datas": JSON.stringify(data_val) },
-	        success: function (result) {
-	            //console.log(result.nodata)
-	            var list_quarter;
-	            if (result.nodata) {
-	                list_quarter +=
-	                    '<option value="">Select Quarter</option>'
-	                    ;
-	            }
-	            else {
-	                list_quarter +=
-	                    '<option value="">Select Quarter</option>'
-	                    ;
-	                $.each(result.quarter, function (key, value) {
-	                    list_quarter +=
-	                        '<option value="' + value.quarter + '">' + value.quarter + '</option>'
-	                        ;
-	                });
-	            }
-	            $('#s_qt').append(list_quarter);
-	        }
-	    });
-	});
+    //search quarter
+    $("#s_yr").change(function() {
+        $('#s_qt').empty();
+        var data_val = { 's_check': 'wdsdwokd@wkdo', 's_yr': $("#s_yr").val() };
+        $.ajax({
+            url: restfulURL + '/' + serviceName + "/public/benchmark_data/search_quarter",
+            type: "get",
+            dataType: "json",
+            headers: { Authorization: "Bearer " + tokenID.token },
+            async: false,
+            data: { "datas": JSON.stringify(data_val) },
+            success: function(result) {
+                //console.log(result.nodata)
+                var list_quarter;
+                if (result.nodata) {
+                    list_quarter +=
+                        '<option value="">Select Quarter</option>';
+                } else {
+                    list_quarter +=
+                        '<option value="">Select Quarter</option>';
+                    $.each(result.quarter, function(key, value) {
+                        list_quarter +=
+                            '<option value="' + value.quarter + '">' + value.quarter + '</option>';
+                    });
+                }
+                $('#s_qt').append(list_quarter);
+            }
+        });
+    });
 });
 
 
@@ -99,14 +93,15 @@ function search_benchmark() {
         //crossDomain: true,
         dataType: "json",
         data: { "datas": JSON.stringify(data_val) },
-        headers:{Authorization:"Bearer "+tokenID.token},
-        success: function (result) {
+        headers: { Authorization: "Bearer " + tokenID.token },
+        success: function(result) {
             //console.log(result)
             var trHTML;
-            $.each(result, function (key, value) {
+            $.each(result, function(key, value) {
                 trHTML +=
                     '<tr><td>' + value.year +
                     '</td><td>' + value.quarter +
+                    '</td><td>' + value.month +
                     '</td><td>' + value.kpi_name +
                     '</td><td>' + value.company_code +
                     '</td><td>' + value.value +
@@ -118,32 +113,32 @@ function search_benchmark() {
 }
 
 //Check Validation Edd
-var validateFileFn = function(data){
-	var validateFile="";
-	$.each(data,function(index,indexEntry){
-		if(indexEntry[Object.keys(indexEntry)[0]]!= undefined || indexEntry[Object.keys(indexEntry)[0]]==null){
-			if(indexEntry[Object.keys(indexEntry)[0]]== null){//The employee code field is null
-				validateFile+="<font color='#FFC446'><i class='fa fa-exclamation-triangle'></i></font> "+Object.keys(indexEntry)[0]+" : null <i class='fa fa-level-down'></i><br>";
-			}else{
-				validateFile+="<font color='#FFC446'><i class='fa fa-exclamation-triangle'></i></font> "+Object.keys(indexEntry)[0]+": "+indexEntry[Object.keys(indexEntry)[0]]+" <i class='fa fa-level-down'></i><br>";
-			}
-			if(indexEntry['errors']!=null || indexEntry['errors']!=undefined || indexEntry['errors']!=""){
-				//validateFile+="<font color='red'>&emsp;*</font> "+indexEntry['errors']+"<br>";
-				for (var key in indexEntry['errors']) {
-	 			    if (indexEntry['errors'].hasOwnProperty(key)) {
-	 			    	validateFile+="<font color='red'>&emsp;*</font> "+indexEntry['errors'][key]+"<br>";
-	 			    }
-	 			}
-			}
-		}
-		 
-//	     $.each(indexEntry['errors'],function(index2,indexEntry2){
-//	    	 console.log("test4");
-//	    	 //validateFile+="<font color='red'>&emsp;*</font> "+indexEntry2+"<br>";
-//	     });
-	 
-	});
-	callFlashSlideInModal(validateFile,"#informationFile","error");
+var validateFileFn = function(data) {
+    var validateFile = "";
+    $.each(data, function(index, indexEntry) {
+        if (indexEntry[Object.keys(indexEntry)[0]] != undefined || indexEntry[Object.keys(indexEntry)[0]] == null) {
+            if (indexEntry[Object.keys(indexEntry)[0]] == null) { //The employee code field is null
+                validateFile += "<font color='#FFC446'><i class='fa fa-exclamation-triangle'></i></font> " + Object.keys(indexEntry)[0] + " : null <i class='fa fa-level-down'></i><br>";
+            } else {
+                validateFile += "<font color='#FFC446'><i class='fa fa-exclamation-triangle'></i></font> " + Object.keys(indexEntry)[0] + ": " + indexEntry[Object.keys(indexEntry)[0]] + " <i class='fa fa-level-down'></i><br>";
+            }
+            if (indexEntry['errors'] != null || indexEntry['errors'] != undefined || indexEntry['errors'] != "") {
+                //validateFile+="<font color='red'>&emsp;*</font> "+indexEntry['errors']+"<br>";
+                for (var key in indexEntry['errors']) {
+                    if (indexEntry['errors'].hasOwnProperty(key)) {
+                        validateFile += "<font color='red'>&emsp;*</font> " + indexEntry['errors'][key] + "<br>";
+                    }
+                }
+            }
+        }
+
+        //	     $.each(indexEntry['errors'],function(index2,indexEntry2){
+        //	    	 console.log("test4");
+        //	    	 //validateFile+="<font color='red'>&emsp;*</font> "+indexEntry2+"<br>";
+        //	     });
+
+    });
+    callFlashSlideInModal(validateFile, "#informationFile", "error");
 }
 
 function download_benchmark() {
@@ -152,14 +147,14 @@ function download_benchmark() {
     return false;
 }
 
-$("#btn_import").click(function () {
-	$('#file').val("");
-	$(".btnModalClose").click();
-	$(".dropify-clear").click(); 
-	$("#btn_import").attr({
-		"data-backdrop" : setModalPopup[0],
-		"data-keyboard" : setModalPopup[1]
-	});	
+$("#btn_import").click(function() {
+    $('#file').val("");
+    $(".btnModalClose").click();
+    $(".dropify-clear").click();
+    $("#btn_import").attr({
+        "data-backdrop": setModalPopup[0],
+        "data-keyboard": setModalPopup[1]
+    });
 });
 
 var files;
@@ -167,61 +162,55 @@ var files;
 $('#file').on('change', prepareUpload2);
 
 // Grab the files and set them to our variable
-function prepareUpload2(event)
-{
-  files = event.target.files;
+function prepareUpload2(event) {
+    files = event.target.files;
 }
 $('form#fileImportEmployee').on('submit', uploadFiles);
 
 // Catch the form submit and upload the files
-function uploadFiles(event)
-{
-	
-	event.stopPropagation(); // Stop stuff happening
-	event.preventDefault(); // Totally stop stuff happening
+function uploadFiles(event) {
 
-	// START A LOADING SPINNER HERE
+    event.stopPropagation(); // Stop stuff happening
+    event.preventDefault(); // Totally stop stuff happening
 
-	// Create a formdata object and add the files
-	var data = new FormData();
-	$.each(files, function(key, value)
-	{
-		data.append(key, value);
-	});
-	$("body").mLoading();
-	$.ajax({
-		url: restfulURL + '/' + serviceName + "/public/benchmark_data/import_benchmark",
-		type: 'POST',
-		data: data,
-		cache: false,
-		dataType: 'json',
-		processData: false, // Don't process the files
-		contentType: false, // Set content type to false as jQuery will tell the server its a query string request
-		headers:{Authorization:"Bearer "+tokenID.token},
-		success: function(data, textStatus, jqXHR)
-		{
-			
-			//console.log(data);
-			if(data['status']==200 && data['errors'].length==0){
-						
-				callFlashSlide("Import Employee Successfully");
-				$("body").mLoading('hide');
-				$('#ModalImport').modal('hide');
-				generate_dropdown();
-				
-			}else{
-				validateFileFn(data['errors']);
-				$("body").mLoading('hide');
-			}
-		},
-		error: function(jqXHR, textStatus, errorThrown)
-		{
-			// Handle errors here
-			callFlashSlide('Format Error : ' + textStatus);
-			// STOP LOADING SPINNER
-		}
-	});
-	return false;
+    // START A LOADING SPINNER HERE
+
+    // Create a formdata object and add the files
+    var data = new FormData();
+    $.each(files, function(key, value) {
+        data.append(key, value);
+    });
+    $("body").mLoading();
+    $.ajax({
+        url: restfulURL + '/' + serviceName + "/public/benchmark_data/import_benchmark",
+        type: 'POST',
+        data: data,
+        cache: false,
+        dataType: 'json',
+        processData: false, // Don't process the files
+        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+        headers: { Authorization: "Bearer " + tokenID.token },
+        success: function(data, textStatus, jqXHR) {
+
+            if (data['status'] == 200 && data['errors'].length == 0) {
+
+                callFlashSlide("Import Employee Successfully");
+                $("body").mLoading('hide');
+                $('#ModalImport').modal('hide');
+                generate_dropdown();
+
+            } else {
+                validateFileFn(data['errors']);
+                $("body").mLoading('hide');
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            // Handle errors here
+            callFlashSlide('Format Error : ' + textStatus);
+            // STOP LOADING SPINNER
+        }
+    });
+    return false;
 }
 
 //var oFileIn;

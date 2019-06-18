@@ -25,6 +25,7 @@
 		<header-portlet-css>/js/css3-hover-effects/style.css</header-portlet-css>
 		
 		<header-portlet-css>/js/bootstrap-modal/css/bootstrap-modal.css</header-portlet-css>
+		<header-portlet-css>/js/bootstrap-modal/css/bootstrap-modal.css</header-portlet-css>
 		
 		<!-- 
 		<header-portlet-css>/js/css3-hover-effects/demo.css</header-portlet-css>
@@ -32,8 +33,7 @@
 	                       
 	   	<header-portlet-css>/css/tywMain.css</header-portlet-css>
 	    <header-portlet-css>/css/appraisal.css</header-portlet-css>
-	    <header-portlet-css>/css/dropify.css</header-portlet-css> 
-    
+	    <header-portlet-css>/css/dropify.css</header-portlet-css>
     
     	
 	    <footer-portlet-javascript>/js/jquery-2.1.1.js</footer-portlet-javascript>
@@ -61,7 +61,8 @@
 		</footer-portlet-javascript> 
 		<footer-portlet-javascript> 
 			/js/fusioncharts/js/themes/fusioncharts.theme.fint.js
-		</footer-portlet-javascript>   
+		</footer-portlet-javascript>
+		 
 		                     
  		                  
 	    <footer-portlet-javascript>/Controller/cConfig.js</footer-portlet-javascript>
@@ -1432,6 +1433,26 @@
 			<header-portlet-css>/js/bootstrap-modal/css/bootstrap-modal.css</header-portlet-css>
 		    <header-portlet-css>/css/tywMain.css</header-portlet-css>
 		    <header-portlet-css>/css/dropify.css</header-portlet-css>
+		     
+		    <!-- <header-portlet-css>/css/plugins/fusioncharts/style.css</header-portlet-css> -->
+		    <!-- <header-portlet-css>/css/plugins/fusioncharts/fusiondesign.css</header-portlet-css>  -->
+			   
+			<footer-portlet-javascript> 
+				/js/plugins/fusioncharts/fusioncharts.js
+			</footer-portlet-javascript> 
+			<footer-portlet-javascript> 
+				/js/plugins/fusioncharts/themes/fusioncharts.theme.fusion.js
+			</footer-portlet-javascript>
+			<footer-portlet-javascript> 
+				/js/plugins/fusioncharts/jquery-fusioncharts.js
+			</footer-portlet-javascript>
+			<footer-portlet-javascript> 
+				/js/plugins/fusioncharts/fusioncharts.charts.js
+			</footer-portlet-javascript> 
+			<footer-portlet-javascript> 
+				/js/plugins/fusioncharts/fusioncharts.widgets.js
+			</footer-portlet-javascript> 
+		
 	        <footer-portlet-javascript>/js/jquery-2.1.1.js</footer-portlet-javascript>
 			<footer-portlet-javascript>/js/jquery.bootpag.min.js</footer-portlet-javascript>
 			<footer-portlet-javascript>/js/jquery-ui-1.10.4.min.js</footer-portlet-javascript>
@@ -1440,8 +1461,8 @@
 			<footer-portlet-javascript>/js/jquery.mloading.js</footer-portlet-javascript>
 			<footer-portlet-javascript>/js/bootstrap-modal/js/bootstrap-modalmanager.js</footer-portlet-javascript>	 
 		    <footer-portlet-javascript>/js/bootstrap-modal/js/bootstrap-modal.js</footer-portlet-javascript>
-		    <footer-portlet-javascript>/js/fusioncharts/js/fusioncharts.js</footer-portlet-javascript>
-			<footer-portlet-javascript>/js/fusioncharts/js/fusioncharts.charts.js</footer-portlet-javascript>	     
+		    <!-- <footer-portlet-javascript>/js/fusioncharts/js/fusioncharts.js</footer-portlet-javascript>
+			<footer-portlet-javascript>/js/fusioncharts/js/fusioncharts.charts.js</footer-portlet-javascript> -->	     
 		    <footer-portlet-javascript>/Controller/cConfig.js</footer-portlet-javascript>  
 		    <footer-portlet-javascript>/Controller/cMain.js</footer-portlet-javascript> 
 			<footer-portlet-javascript>/Controller/cBenchmark_chart.js</footer-portlet-javascript>
