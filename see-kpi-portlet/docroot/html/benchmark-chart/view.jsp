@@ -441,14 +441,10 @@ plid = layout.getPlid();
 										</select>
 									</div>
 									<!-- param kpi -->
-									<div style="margin-left: 5px; margin-bottom: 3px;" class="form-group pull-left span3" id="kpiArea">
-										<select name="kpi" id="s_kpi" class="input form-control input-sm" title="" data-toggle="tooltip" style="cursor: pointer; min-width: 100%; width: 100%; max-width: 100%;" data-original-title="KPI" onchange="resizeWidth()">
+									<div style="margin-left: 5px; margin-bottom: 3px;" class="form-group pull-left span9" id="kpiArea">
+										<select name="kpi" id="s_kpi" class="input form-control input-sm" title="" data-toggle="tooltip" style="cursor: pointer; width: 100%" data-original-title="KPI">
 										</select>
 									</div>
-
-									<select id="width_tmp_select"  style="width: auto; display: none">
-										<option id="width_tmp_option"></option>
-									</select>
 			
 									<div style="margin-bottom: 5px;" class="form-group pull-right m-b-none ">
 										<button id="btnSearchAdvance" onclick="search_chart()" name="btnSearchAdvance" class="btn btn-info input-sm" type="button">

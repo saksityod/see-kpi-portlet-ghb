@@ -740,36 +740,6 @@ var searchAdvanceFn = function() {
 
 }; 
 
-
-var span_item = 3;
-var resizeWidth = function () {
-    $("#width_tmp_option").html($('#kpi option:selected').text());  
-
-    var tmp_width = $("#width_tmp_select").width();
-    var span_width = 0;
-    var loop = 1;
-
-    $("#kpiArea").removeClass("span" + span_item).addClass("span3"); // set default span3
-    span_item = 3;
-
-    while (loop) { // loop ไม่เกิน 12 ครั้ง ต่อการ change
-        span_width = $('#kpiArea').width();
-        if (span_width >= tmp_width) {
-            $('#kpi').width(50);
-            $('#kpi').width($("#width_tmp_select").width());
-            loop = 0;
-        } else {
-            $("#kpiArea").removeClass("span" + span_item).addClass("span" + (span_item + 1));
-            span_item++;
-            if (span_item >= 12) {
-                $('#kpi').width(50);
-                $('#kpi').width($("#width_tmp_select").width());
-                loop = 0;
-            }
-        }
-    }
-};
-
 $("document").ready(function(){
 	var username = $('#user_portlet').val();
 	 var password = $('#pass_portlet').val();
@@ -790,20 +760,20 @@ $("document").ready(function(){
 			$("#year").change(function(){
 				$("#period").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/period_list","POST",{"appraisal_year":$("#year").val()}));
 				$("#kpi").html((generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/kpi_map_list","POST",{"region_code":$("#region").val(),"district_code":$("#district").val(),"year":$("#year").val(),"period":$("#period").val()})));
-				resizeWidth();  // resize width kpi
+				
 			});
 			$("#period").change(function(){
 				$("#kpi").html((generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/kpi_map_list","POST",{"region_code":$("#region").val(),"district_code":$("#district").val(),"year":$("#year").val(),"period":$("#period").val()})));
-				resizeWidth();  // resize width kpi
+				
 			});
 			$("#region").change(function(){
 				$("#district").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/district_list","get",{"org_code":$("#region").val()},"All District"));$("#district").change();
 				$("#kpi").html((generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/kpi_map_list","POST",{"region_code":$("#region").val(),"district_code":$("#district").val(),"year":$("#year").val(),"period":$("#period").val()})));
-				resizeWidth();  // resize width kpi
+				
 			});
 			$("#district").change(function(){
 				$("#kpi").html((generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/kpi_map_list","POST",{"region_code":$("#region").val(),"district_code":$("#district").val(),"year":$("#year").val(),"period":$("#period").val()})));
-				resizeWidth();  // resize width kpi
+				
 			});
 			
 			$(".app_url_hidden").show();
@@ -877,7 +847,7 @@ $("document").ready(function(){
 			 });
 		//binding tooltip end
 				 
-		resizeWidth();  // resize width kpi
+		
 		 
 	 }
 	
