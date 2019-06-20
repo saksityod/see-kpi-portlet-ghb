@@ -21,7 +21,7 @@ $(document).ready(function () {
                 if(result.nodata) {
                     $('#s_yr').append('<option value="" disabled="" selected>ไม่มีข้อมูลปี</option>');
                     $('#s_kpi').append('<option value="" disabled="" selected>ไม่มีข้อมูล KPI</option>');
-                    resizeWidth(); // resize width kpi
+                    
                 }
                 else {
                     var list_year;
@@ -36,7 +36,7 @@ $(document).ready(function () {
                     var list_kpi;
                     list_kpi +='<option value="">Select KPI</option>';
                     $('#s_kpi').append(list_kpi);
-                    resizeWidth(); // resize width kpi
+                    
                 }
             }
         });
@@ -71,45 +71,12 @@ $(document).ready(function () {
                         });
                     }
                     $('#s_kpi').append(list_kpi);
-                    resizeWidth(); // resize width kpi
+                    
                 }
             });
         });
     }
 });
-
-
-
-var span_item = 3;
-var resizeWidth = function () {
-    $("#width_tmp_option").html($('#s_kpi option:selected').text());  
-
-    var tmp_width = $("#width_tmp_select").width();
-    var span_width = 0;
-    var loop = 1;
-
-    $("#kpiArea").removeClass("span" + span_item).addClass("span3");
-    span_item = 3;
-
-    while (loop) {
-        span_width = $('#kpiArea').width();
-        if (span_width >= tmp_width) {
-            $('#s_kpi').width(50);
-            $('#s_kpi').width($("#width_tmp_select").width());
-            loop = 0;
-        } else {
-            $("#kpiArea").removeClass("span" + span_item).addClass("span" + (span_item + 1));
-            span_item++;
-            if (span_item >= 12) {
-                $('#s_kpi').width(50);
-                $('#s_kpi').width($("#width_tmp_select").width());
-                loop = 0;
-            }
-        }
-    }
-};
-
-
 
             var click_year;
             var click_kpi;
@@ -235,7 +202,7 @@ var resizeWidth = function () {
                 //console.log(click_kpi);
                 $("#s_yr").val(click_year);
                 $("#s_kpi").val(click_kpi);
-                resizeWidth(); // resize width kpi
+                
                 search_chart();
                 s_chart_q(click_quarter);
             });
@@ -244,7 +211,7 @@ var resizeWidth = function () {
                 //console.log(click_kpi);
                 $("#s_yr").val(click_year2);
                 $("#s_kpi").val(click_kpi2);
-                resizeWidth(); // resize width kpi
+                
                 search_chart();
                 s_chart_q(click_quarter2);
             });
