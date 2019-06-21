@@ -511,6 +511,11 @@ plid = layout.getPlid();
 											<th style='width: auto'>Year&emsp;</th>
 											<th style='width: auto'>Month&emsp;</th>
 											<th style='width:auto;text-align: right;'>CDS&nbsp;Value&emsp;</th>
+											
+											<!-- #499 เพิ่มช่อง Forecast และ Forcast BU -->
+											<th style='width:auto;text-align: right;'>Forecast</th>
+											<th style='width:auto;text-align: right;'>ForecastBU</th>
+											
 											<th style='width: auto; text-align: center;'>Manage</th>
 										</tr>
 									</thead>

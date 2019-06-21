@@ -98,6 +98,11 @@ var listCdsResultFn = function (data) {
 		htmlTable += "<td class='columnSearch'>"+ indexEntry["year"]+ "</td>";
 		htmlTable += "<td class='columnSearch'>"+ galbalDataTemp["month_name"] + "</td>";
 		htmlTable += "<td class='columnSearch' style='text-align: right;padding-right: 10px;'>"+ notNullTextFn(addCommas(parseFloat(indexEntry["cds_value"]).toFixed(2)))+ "</td>";
+		
+		// #499 เพิ่มช่อง Forecast และ Forcast BU
+		htmlTable += "<td class='columnSearch'>"+ indexEntry.forecast + "</td>";
+		htmlTable += "<td class='columnSearch'>"+ indexEntry.forecast_bu + "</td>";
+		
 		htmlTable += "<td class='columnSearch' style=\"vertical-align: middle;text-align: center;\"><i id='"+ indexEntry["cds_result_id"]+ "' class='fa fa-trash del' style='color: red; cursor: pointer;'></i></td>";
 		htmlTable += "</tr>";////parseFloat().toLocaleString()
 	});
