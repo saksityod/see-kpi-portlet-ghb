@@ -11,12 +11,12 @@ $(document).ready(function() {
         $(".app_url_hidden").show();
 
         $.ajax({
-            url: restfulURL + '/' + serviceName + "/public/benchmark_data/select_list_search_q",
-            type: "get",
-            dataType: "json",
-            headers: { Authorization: "Bearer " + tokenID.token },
-            async: false,
-            success: function(result) {
+            url:restfulURL+'/'+serviceName+"/public/benchmark_data/select_list_search_q",
+            type:"get" ,
+    		dataType:"json" ,
+    		headers:{Authorization:"Bearer "+tokenID.token},
+    		async:false,
+            success:function(result) {
                 //console.log(result)
                 if (result.nodata) {
                     $('#s_yr').append('<option value="" disabled="" selected>ไม่มีข้อมูลปี</option>');
