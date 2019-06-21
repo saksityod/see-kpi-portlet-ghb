@@ -59,7 +59,7 @@
 		text-align: right;
 	}
 	.aui #usageLogAdvanceSearchArea.row-fluid .span3 {
-		width: 32.5%;
+		width: 24%;
 	}
 	.aui #usageLogAdvanceSearchArea.row-fluid .span9 {
 		width: 98.621%;
@@ -68,6 +68,8 @@
 		width: 98.621%;
 	}
 }
+
+
 /*  desktop End############################################*/
 
 /* Portrait tablet to landscape and desktop Start##########*/
@@ -327,7 +329,7 @@ This is the <b>Usage Log</b> portlet in View mode.2
 
 
 
-<div class="row-fluid app_url_hidden" style='' id='advanceSearchDisplay'>
+<div class="row-fluid app_url_hidden"  id='advanceSearchDisplay'>
 	<!--  SEARCH ADVANCE START -->
 
 	<div class="span12">
@@ -340,7 +342,7 @@ This is the <b>Usage Log</b> portlet in View mode.2
 
 				<div class="row-fluid " id='usageLogAdvanceSearchArea'>
 
-					<div id="appraisalTypeArea" class="form-group span2"
+					<div id="appraisalTypeArea" class="form-group span3"
 						style="margin-left: 5px; margin-bottom: 3px;">
 
 						<select name="year" id="year"
@@ -353,7 +355,7 @@ This is the <b>Usage Log</b> portlet in View mode.2
 
 						</select>
 					</div>
-					<div id='xxxArea' class="form-group span2"
+					<div id='xxxArea' class="form-group span3"
 						style="margin-left: 5px; margin-bottom: 3px;">
 						<select name="period" id="period"
 							class="input form-control input-sm span12" title=""
@@ -366,7 +368,7 @@ This is the <b>Usage Log</b> portlet in View mode.2
 					</div>
 
 
-					<div id='xxxArea' class="form-group span2"
+					<div id='xxxArea' class="form-group span3"
 						style="margin-left: 5px; margin-bottom: 3px;">
 						<select name="region" id="region"
 							class="input form-control input-sm span12" title=""
@@ -382,7 +384,7 @@ This is the <b>Usage Log</b> portlet in View mode.2
 
 
 
-					<div id='appraisalLevelArea' class="form-group span2"
+					<div id='appraisalLevelArea' class="form-group span3"
 						style="margin-left: 5px; margin-bottom: 3px;">
 						<select name="district" id="district"
 							class="input form-control input-sm span12" title=""
@@ -394,11 +396,11 @@ This is the <b>Usage Log</b> portlet in View mode.2
 
 						</select>
 					</div>
-					<div class="form-group span3" id="kpiArea"
+					<div class="form-group span10" id="kpiArea"
 						style="margin-left: 5px; margin-bottom: 3px;">
-						<select name="kpi" onchange="resizeWidth()" id="kpi"
+						<select name="kpi" id="kpi"
 							class="input form-control input-sm span12" title=""
-							data-toggle="tooltip" style="cursor: pointer; min-width: 100%; max-width: 100%"
+							data-toggle="tooltip" style="cursor: pointer;"
 							data-original-title="KPI">
 
 							<option value="">KPI1</option>
@@ -407,9 +409,6 @@ This is the <b>Usage Log</b> portlet in View mode.2
 						
 					</div>
 
-					<select id="width_tmp_select"  style="width: auto; display: none">
-						<option id="width_tmp_option"></option>
-					</select>
 
 					<div style="margin-bottom: 5px;" class="form-group pull-right m-b-none ">
 						<button id="btnSearchAdvance" name="btnSearchAdvance"

@@ -390,8 +390,8 @@
 
 					<div class="row-fluid ">
 
-						<div style="margin-left: 5px; margin-bottom: 3px;"
-							class="form-group pull-left span3" id="yearArea">
+						<div style=" margin-bottom: 5px;"
+							class="form-group pull-left span4" id="yearArea">
 							<select name="year" id="year" class="input form-control input-sm"
 								title="" data-toggle="tooltip" style="cursor: pointer;"
 								data-original-title="Year">
@@ -401,8 +401,8 @@
 
 							</select>
 						</div>
-						<div style="margin-left: 5px; margin-bottom: 3px;"
-							class="form-group pull-left span3" id="periodArea">
+						<div style="margin-bottom: 5px;"
+							class="form-group pull-left span4" id="periodArea">
 							<select name="period" id="period"
 								class="input form-control input-sm" title=""
 								data-toggle="tooltip" style="cursor: pointer;"
@@ -413,7 +413,7 @@
 
 							</select>
 						</div>
-						<div class="form-group pull-left span3" style="margin-left: 5px;margin-bottom: 3px;">
+						<div class="form-group pull-left span4" style="margin-bottom: 5px;">
 							<select name="app_type" id="app_type"
 								class="input form-control input-sm" title=""
 								data-toggle="tooltip" style="cursor: pointer;"
@@ -424,22 +424,16 @@
 
 							</select>
 						</div>
-						<div class="form-group pull-left span3" style="margin-left: 5px;margin-bottom: 3px;" id="txtEmpInput">
+						<div class="form-group pull-left span4" style="margin-left: 0px; margin-bottom: 5px;" id="txtEmpInput">
 							<input data-toggle="tooltip" data-placement="top" disabled
 								title="Employee Name" class="span12 m-b-n ui-autocomplete-input"
 								placeholder="Employee Name" id="emp_name" name="emp_name"
 								type="text"> <input class="form-control input-sm"
 								id="emp_name_id" name="emp_name_id" value="" type="hidden">
 						</div>
-<!-- 						<div class="form-group pull-left span3" style="margin-left: 5px;margin-bottom: 3px;" > -->
-<!-- 							<input data-toggle="tooltip" data-placement="top" -->
-<!-- 								title="Position" class="span12 m-b-n ui-autocomplete-input" -->
-<!-- 								placeholder="Position" id="position" name="position" type="text"> -->
-<!-- 							<input class="form-control input-sm" id="position_id" -->
-<!-- 								name="position_id" value="" type="hidden"> -->
-<!-- 						</div> -->
-						<div style="margin-left: 5px; margin-bottom: 3px;"
-							class="form-group pull-left span3" id="apprasiaLevelArea">
+
+						<div style="margin-bottom: 5px;"
+							class="form-group pull-left span4" id="apprasiaLevelArea">
 							<select name="apprasiaLevel" id="apprasiaLevel"
 								class="input form-control input-sm" title=""
 								data-toggle="tooltip" style="cursor: pointer;"
@@ -450,8 +444,8 @@
 
 							</select>
 						</div>
-						<div style="margin-left: 5px; margin-bottom: 3px;"
-							class="form-group pull-left span3" id="organizationArea">
+						<div style="margin-bottom: 5px;"
+							class="form-group pull-left span4" id="organizationArea">
 							<select name="organization" id="organization"
 								class="input form-control input-sm" title=""
 								data-toggle="tooltip" style="cursor: pointer;"
@@ -462,10 +456,10 @@
 
 							</select>
 						</div>
-						<div style="margin-left: 5px; margin-bottom: 3px;"
-							class="form-group pull-left span3" id="kpiArea">
+						<div style="margin-left: 0px; margin-bottom: 5px;"
+							class="form-group pull-left span10" id="kpiArea">
 							<select name="kpi" id="kpi" class="input form-control input-sm"
-								title="" data-toggle="tooltip" style="cursor: pointer; max-width: 100%; min-width: 100%;" onchange="resizeWidth()"
+								title="" data-toggle="tooltip" style="cursor: pointer; width: 100%" onchange="resizeWidth()"
 								data-original-title="KPI">
 
 								<option value="">KPI1</option>
@@ -473,9 +467,6 @@
 
 							</select>
 						</div>
-						<select id="width_tmp_select"  style="width: auto; display: none">
-								<option id="width_tmp_option"></option>
-						</select>
 
 
 						<div style="margin-bottom: 5px;"
