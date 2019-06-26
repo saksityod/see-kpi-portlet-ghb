@@ -13,7 +13,6 @@ const search_kpi = () => {
     if (!startYear || !endYear || !type) return
     // if (!typeValue && (type === 'Month' || type === 'Quarter')) return
     $('#s_kpi').empty();
-    console.log('Test passed')
     var data_val = { 's_check': 'wdsdwaswdokd', 's_yr1': $("#s_yr1").val(), 's_yr2': $("#s_yr2").val(), 's_type': $("#s_type").val() }//, 's_type_value': $("#s_type_value").val() || null  };
     $.ajax({
         url: restfulURL + '/' + serviceName + "/public/benchmark_data/search_kpi",
@@ -64,7 +63,6 @@ $(document).ready(function () {
             headers: { Authorization: "Bearer " + tokenID.token },
             async: false,
             success: function (result) {
-                console.log(result)
                 if (result.nodata) {
                     $('#s_yr1').append('<option value="" disabled="" selected>ไม่มีข้อมูลปี</option>');
                     $('#s_yr2').append('<option value="" disabled="" selected>ไม่มีข้อมูลปี</option>');
@@ -200,14 +198,14 @@ function search_chart() {
 
                 FusionCharts.ready(function () {
                     $('#chart-container').empty()
-                    // let item = result
                     chartResult.map((item, index) => {
-                        $('#chart-container').append(`<div id="chartItem-${item.year}" style="max-width: 100%; padding-right: 1rem;"></div>`)
+                        $('#chart-container').append(`<div id="chartItem-${item.year}" style="width: 100%; max-width: 100%; padding-right: 1rem;"></div>`)
                         charts = new FusionCharts({
                             type: 'mscombi2d',
                             renderAt: `chartItem-${item.year}`,
-                            width: '100%',
+                            width: '1160',
                             height: '100%',
+                            chartRightMargin: '15',
                             dataFormat: 'json',
                             dataSource: {
                                 "chart": {
