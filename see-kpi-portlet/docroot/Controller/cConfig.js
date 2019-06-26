@@ -9,7 +9,7 @@ var serviceName="see_api_ghb_505/see-kpi-service-ghb/ghb_api";
 //restfulURL="http://192.168.1.59";
 
 /*#######Poroduction#######*/
-restfulURL="http://localhost";
+restfulURL="http://192.168.1.45";
 //restfulURL="https://smart-kpi.ghb.co.th";
 
 /*#######Cloud#######*/

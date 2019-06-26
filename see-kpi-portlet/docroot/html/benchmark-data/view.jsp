@@ -498,6 +498,7 @@ plid = layout.getPlid();
 												<tr>
 													<th>Year</th>
 													<th>Quarter</th>
+													<th>Month</th>
 													<th>KPI</th>
 													<th>Company</th>
 													<th>Value</th>
