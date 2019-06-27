@@ -446,17 +446,17 @@ plid = layout.getPlid();
                 <div class="ibox-content breadcrumbs2">
                     <div class="row-fluid ">
                         <!-- param year -->
-                        <div style="margin-left: 5px; margin-bottom: 3px;" class="form-group pull-left span2">
+                        <div style="margin-left: 5px; margin-bottom: 3px;" class="form-group pull-left span4">
                             <select name="year1" id="s_yr1" class="input form-control input-sm" title="" data-toggle="tooltip" style="cursor: pointer; width: 100%" data-original-title="Year">
                                 <option value="">Start Year</option>
                             </select>
                         </div>
-                        <div style="margin-left: 5px; margin-bottom: 3px;" class="form-group pull-left span2">
+                        <div style="margin-left: 5px; margin-bottom: 3px;" class="form-group pull-left span4">
                             <select name="year2" id="s_yr2" class="input form-control input-sm" title="" data-toggle="tooltip" style="cursor: pointer; width: 100%" data-original-title="Year">
                                 <option value="">End Year</option>
                             </select>
                         </div>
-                        <div style="margin-left: 5px; margin-bottom: 3px;" class="form-group pull-left span2">
+                        <div style="margin-left: 5px; margin-bottom: 3px;" class="form-group pull-left span4">
                             <select name="type" id="s_type" class="input form-control input-sm" title="" data-toggle="tooltip" style="cursor: pointer; width: 100%" data-original-title="type">
                             </select>
                         </div>
@@ -465,7 +465,7 @@ plid = layout.getPlid();
                             </select>
                         </div> -->
                         <!-- param kpi -->
-                        <div style="margin-left: 5px; margin-bottom: 3px;" class="form-group pull-left span9" id="kpiArea">
+                        <div style="margin-left: 5px; margin-bottom: 3px;" class="form-group pull-left span11" id="kpiArea">
                             <select name="kpi" id="s_kpi" class="input form-control input-sm" title="" data-toggle="tooltip" style="cursor: pointer; width: 100%" data-original-title="KPI">
                             </select>
                         </div>
