@@ -199,10 +199,10 @@ function search_chart() {
                 FusionCharts.ready(function () {
                     $('#chart-container').empty()
                     chartResult.map((item, index) => {
-                        $('#chart-container').append(`<div id="chartItem-${item.year}" style="width: 100%; max-width: 100%; padding-right: 1rem;"></div>`)
+                        $('#chart-container').append(`<div id="chartItem-${index}" style="width: 100%; max-width: 100%; padding-right: 1rem;"></div>`)
                         charts = new FusionCharts({
                             type: 'mscombi2d',
-                            renderAt: `chartItem-${item.year}`,
+                            renderAt: `chartItem-${index}`,
                             width: '1160',
                             height: '100%',
                             chartRightMargin: '15',
@@ -215,6 +215,7 @@ function search_chart() {
                                     "xAxisnameFontSize": "14",
                                     "defaultNumberScale": " %",
                                     "theme": "fusion",
+                                    "palettecolors": "ff850c,00a950,003090,7a58bf,ec068d,64d3f4,663300,2F4F4F,330066,000000",
                                 },
                                 "categories": [{
                                     "category": item.category
@@ -249,7 +250,7 @@ function search_chart() {
                                     chartResult = [...chartResult.slice(0, index), item, ...chartResult.slice(index+1)]
 
                                     window.setTimeout(() => {
-                                        $(`#chartItem-${item.year}`).updateFusionCharts({
+                                        $(`#chartItem-${index}`).updateFusionCharts({
                                             dataSource: {
                                                 "chart": {
                                                     "exportenabled": "0",
@@ -258,6 +259,7 @@ function search_chart() {
                                                     "xAxisnameFontSize": "14",
                                                     "defaultNumberScale": " %",
                                                     "theme": "fusion",
+                                                    "palettecolors": "ff850c,00a950,003090,7a58bf,ec068d,64d3f4,663300,2F4F4F,330066,000000",
                                                 },
                                                 "categories": [{
                                                     category: item.category,
@@ -270,7 +272,7 @@ function search_chart() {
                             }
                         })
                         charts.render()
-                        return item
+                        // return item
                     })
                 })
             }
