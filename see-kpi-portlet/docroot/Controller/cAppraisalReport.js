@@ -48,17 +48,25 @@
 		var period= $("#param_period").val();
 		var app_type= $("#param_app_type").val();
 		var emp= $("#param_emp").val();
-		//var position= $("#param_position").val();
 		var app_lv= $("#param_app_lv").val();
 		var org= $("#param_org_id").val();
 		var kpi= $("#param_kpi_id").val();
 		var kpi_type= $("#param_kpi_type_id").val();
 		var output_type = $("#output_type").val();
+		var path_jasper = "report-appraisal/";
+		
+		//-- set report lacale name --//
+		var currentLocale = $("#user_locale").val();
+		var template_name = "Appraisal_Report";
+		if (typeof currentLocale !== 'undefined') {
+		  template_name = template_name + "_" + currentLocale;
+		  path_jasper = path_jasper + currentLocale + "/";
+		}
+
 		
 		var parameter = {
 				//logo: "/imake/Jasper/jasper_service_api/resources/jasper/1588_6832_th.jpg",
-				logo: "C:\\jasper\\1588_6832_th.jpg", // use for ghb
-//				logo: "C:\\Bitnami\\wampstack-5.6.30-1\\apache2\\htdocs\\ghb_api\\resources\\jasper\\1588_6832_th.jpg",
+				logo: "C:\\jasper\\1588_6832_th.jpg",
 				param_year: year,
 				param_period: period,
 				param_level: app_lv,
@@ -68,43 +76,13 @@
 		}
 		var data = JSON.stringify(parameter);
 		//var url_report_jasper = "http://35.198.242.63:9000/generate?template_name=Appraisal_Report&template_format="+output_type+"&used_connection=1&inline=1&data="+data;
-		var url_report_jasper = restfulURL+"/"+serviceName+"/public/generate?template_name=Appraisal_Report&template_format="+output_type+"&used_connection=1&inline=1&data="+data;
+		var url_report_jasper = restfulURL+"/"+serviceName+"/public/generate?path_jasper="+path_jasper+"&template_name="+template_name+"&template_format="+output_type+"&used_connection=1&inline=1&data="+data;
 		
 		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 			window.open(url_report_jasper,"_blank");
 		 } else {
 			 $('#iFrame_report').attr('src',url_report_jasper);
 		 }
-		// $("#report_download_ul").show();
-		
-//		$.ajax({
-//			//url : restfulURL+"/"+serviceName+"/public/dashboard/kpi_overall",
-//			url : url_report_jasper,
-//			type : "post",
-//			//dataType : "json",
-//			//data:{ "logo": "/imake/Jasper/jasper_service_api/resources/jasper/1588_6832_th.jpg", "param_year": "2017", "param_period": 1, "param_level": "All", "param_org": "All", "param_kpi": "All" },
-//			data:{
-//				"logo": "/imake/Jasper/jasper_service_api/resources/jasper/1588_6832_th.jpg",
-//				"param_year":year,
-//				"param_period":period,
-//				"param_level":app_lv,
-//				"param_org":org,
-//				"param_kpi":kpi
-//				//"appraisal_type_id":app_type,
-//				//"emp_id":emp,
-//				//"position_id":position,
-//			},
-//			//headers:{Authorization:"Bearer "+tokenID.token},
-//			async:false,// w8 data 
-//			success : function(data) {
-//				console.log("success")
-//				$("#report_download_ul").show();
-//				$('#iFrame_report').attr('src',url_report_jasper);
-//				//galbalDashboard=data;
-//				//listDashBoardFn(data);
-//				
-//			}
-//		});
 
 };
 

@@ -12,6 +12,7 @@
 <%
 	String username = themeDisplay.getUser().getScreenName();
 	String password = (String) request.getSession().getAttribute(WebKeys.USER_PASSWORD);
+	String currentLocale = themeDisplay.getLanguageId();
 	layout = themeDisplay.getLayout();
 	plid = layout.getPlid();
 	
@@ -30,6 +31,7 @@
 <input type="hidden" id="get_org_id" name="get_org_id" value="<%= PortalUtil.getOriginalServletRequest(request).getParameter("param_org_id")%>">
 <input type="hidden" id="get_item_id" name="get_item_id" value="<%=PortalUtil.getOriginalServletRequest(request).getParameter("param_item")%>">
 <input type="hidden" id="get_sending_status" name="get_sending_status" value="<%=PortalUtil.getOriginalServletRequest(request).getParameter("sending_status")%>">
+<input type="hidden" id="user_locale" name="user_locale" value="<%=currentLocale%>">
 <style>
 .aui #breadcrumbs {
 	margin-bottom: 0px;
