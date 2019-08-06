@@ -57,7 +57,8 @@
 		
 		var parameter = {
 				//logo: "/imake/Jasper/jasper_service_api/resources/jasper/1588_6832_th.jpg",
-				logo: "C:\\jasper\\1588_6832_th.jpg",
+//				logo: "C:\\jasper\\1588_6832_th.jpg", // use for ghb
+				logo: "C:\\Bitnami\\wampstack-5.6.30-1\\apache2\\htdocs\\ghb_api\\resources\\jasper\\1588_6832_th.jpg",
 				param_year: year,
 				param_period: period,
 				param_level: app_lv,
@@ -191,8 +192,8 @@ var listDashBoardFn = function(data){
 		$("#app_type").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/appraisal_assignment/appraisal_type_list","GET"));
 		$("#apprasiaLevel").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/appraisal/al_list","GET"));
 		$("#organization").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/org","GET",{"level_id":$("#apprasiaLevel").val()}));
-		$("#kpi_type").html((generateDropDownList(restfulURL+"/"+serviceName+"/public/report/list_kpi_type","GET",{"appraisal_level":$("#apprasiaLevel").val(),"org_id":$("#organization").val(),"emp_id":$("#emp_name_id").val(),"appraisal_type_id":1,"period":$("#period").val()},"All")));
-		$("#kpi").html((generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/kpi_list","POST",{"appraisal_level":$("#apprasiaLevel").val(),"org_id":$("#organization").val(),"emp_id":$("#emp_name_id").val(),"appraisal_type_id":1,"kpi_type_id":$("#kpi_type").val(),"period":$("#period").val(), "year": $("#year").val()},"All")));
+		$("#kpi_type").html((generateDropDownList(restfulURL+"/"+serviceName+"/public/report/list_kpi_type","GET",{"appraisal_level":$("#apprasiaLevel").val(),"org_id":$("#organization").val(),"emp_id":$("#emp_name_id").val(),"appraisal_type_id":1,"period":$("#period").val()},Liferay.Language.get('all-kpi-type'))));
+		$("#kpi").html((generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/kpi_list","POST",{"appraisal_level":$("#apprasiaLevel").val(),"org_id":$("#organization").val(),"emp_id":$("#emp_name_id").val(),"appraisal_type_id":1,"kpi_type_id":$("#kpi_type").val(),"period":$("#period").val(), "year": $("#year").val()},Liferay.Language.get('all-kpi'))));
 
 		//#Change Param Function
 		$("#year").change(function(){
