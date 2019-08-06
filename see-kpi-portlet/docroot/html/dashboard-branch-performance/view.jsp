@@ -4,6 +4,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme"%>
 <%@ page import="com.liferay.portal.kernel.util.WebKeys"%>
+<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <liferay-theme:defineObjects />
 <portlet:defineObjects />
 <%
@@ -295,23 +296,7 @@ overflow:hidden !important;
 }
 
  
-/* /* Track */ */
-/* ::-webkit-scrollbar-track { */
-/*     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);  */
-/*     -webkit-border-radius: 10px; */
-/*     border-radius: 10px; */
-/* } */
- 
-/* /* Handle */ */
-/* ::-webkit-scrollbar-thumb { */
-/*     -webkit-border-radius: 10px; */
-/*     border-radius: 10px; */
-/*     background: rgba(255,0,0,0.8);  */
-/*     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);  */
-/* } */
-/* ::-webkit-scrollbar-thumb:window-inactive { */
-/* 	background: rgba(255,0,0,0.4);  */
-/* } */
+
 </style>
 <input type="hidden" id="user_portlet" name="user_portlet"
 	value="<%=username%>">
@@ -322,10 +307,6 @@ overflow:hidden !important;
 <input type="hidden" id="plid_portlet" name="plid_portlet"
 	value="<%=plid%>">
 
-<!-- 
-This is the <b>Usage Log</b> portlet in View mode.2
-
- -->
 
 
 
@@ -335,7 +316,7 @@ This is the <b>Usage Log</b> portlet in View mode.2
 	<div class="span12">
 		<div class="ibox float-e-margins">
 			<div class="ibox-title">
-				<div class='titlePanel'>Advance Search</div>
+				<div class='titlePanel'><liferay-ui:message key="advanced-search"/></div>
 			</div>
 			<div class="ibox-content breadcrumbs2">
 
@@ -348,7 +329,7 @@ This is the <b>Usage Log</b> portlet in View mode.2
 						<select name="year" id="year"
 							class="input form-control input-sm span12" title=""
 							data-toggle="tooltip" style="cursor: pointer;"
-							data-original-title="Year">
+							data-original-title="<liferay-ui:message key="year"/>">
 
 							<option value="1">2017</option>
 
@@ -360,7 +341,7 @@ This is the <b>Usage Log</b> portlet in View mode.2
 						<select name="period" id="period"
 							class="input form-control input-sm span12" title=""
 							data-toggle="tooltip" style="cursor: pointer;"
-							data-original-title="Period">
+							data-original-title="<liferay-ui:message key="period"/>">
 
 							<option value=""></option>
 
@@ -373,7 +354,7 @@ This is the <b>Usage Log</b> portlet in View mode.2
 						<select name="region" id="region"
 							class="input form-control input-sm span12" title=""
 							data-toggle="tooltip" style="cursor: pointer;"
-							data-original-title="Region">
+							data-original-title="<liferay-ui:message key="region"/>">
 
 							<option value="">ทุกฝ่าย</option>
 							<option value="1">ฝ่ายสาขาภาคเหนือ</option>
@@ -389,7 +370,7 @@ This is the <b>Usage Log</b> portlet in View mode.2
 						<select name="district" id="district"
 							class="input form-control input-sm span12" title=""
 							data-toggle="tooltip" style="cursor: pointer;"
-							data-original-title="District">
+							data-original-title="<liferay-ui:message key="district"/>">
 
 							<option value="">ทุกเขต</option>
 							<option value="10">กรุงเทพมหานคร</option>
@@ -401,7 +382,7 @@ This is the <b>Usage Log</b> portlet in View mode.2
 						<select name="kpi" id="kpi"
 							class="input form-control input-sm span12" title=""
 							data-toggle="tooltip" style="cursor: pointer;"
-							data-original-title="KPI">
+							data-original-title="<liferay-ui:message key="kpi"/>">
 
 							<option value="">KPI1</option>
 							<option value="">KPI2</option>
@@ -413,7 +394,7 @@ This is the <b>Usage Log</b> portlet in View mode.2
 					<div style="margin-bottom: 5px;" class="form-group pull-right m-b-none ">
 						<button id="btnSearchAdvance" name="btnSearchAdvance"
 							class="btn btn-info input-sm" type="button">
-							<i class="fa fa-search"></i>&nbsp;Search
+							<i class="fa fa-search"></i>&nbsp;<liferay-ui:message key="search"/>
 						</button>
 					</div>
 					
@@ -446,77 +427,6 @@ This is the <b>Usage Log</b> portlet in View mode.2
 
 		<h3 style='text-align: center; color: black;' id='BranchPerTitle'></h3>
 		<div id="detailPerfomanceArea">
-
-			<!-- 
-			  <h3><span style='padding-top:10px;'>สาขา: เซ็นต์หลุยส์ 3</span>
-	   			
-	   
-				 	
-				 	<div class='branchPerformance'>
-				  		<svg id="fillgauge2" width="70px" height="70px" onclick="gauge1.update(NewValue());"></svg>
-				   	</div>
-				   	<br style='clear:both'>
-	   			</h3>
-	   			
-			  <div>
-			    <p>
-			    Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
-			    purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
-			    velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
-			    suscipit faucibus urna.
-			    </p>
-			  </div>
-			  
-			  <h3><span style='padding-top:10px;'>สาขา: ดอนเมือง</span>
-	   			
-	   
-				 	
-				 	<div class='branchPerformance'>
-				  		<svg id="fillgauge3" width="70px" height="70px" onclick="gauge1.update(NewValue());"></svg>
-				   	</div>
-				   	<br style='clear:both'>
-	   			</h3>
-	   			
-			  <div>
-			    <p>
-			    Nam enim risus, molestie et, porta ac, aliquam ac, risus. Quisque lobortis.
-			    Phasellus pellentesque purus in massa. Aenean in pede. Phasellus ac libero
-			    ac tellus pellentesque semper. Sed ac felis. Sed commodo, magna quis
-			    lacinia ornare, quam ante aliquam nisi, eu iaculis leo purus venenatis dui.
-			    </p>
-			    <ul>
-			      <li>List item one</li>
-			      <li>List item two</li>
-			      <li>List item three</li>
-			    </ul>
-			  </div>
-			  
-			  <h3><span style='padding-top:10px;'>สาขา: สะพานสูง</span>
-	   			
-	   
-				 	
-				 	<div class='branchPerformance'>
-				  		<svg id="fillgauge4" width="70px" height="70px" onclick="gauge1.update(NewValue());"></svg>
-				   	</div>
-				   	<br style='clear:both'>
-	   			</h3>
-			  <div>
-			    <p>
-			    Cras dictum. Pellentesque habitant morbi tristique senectus et netus
-			    et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
-			    faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
-			    mauris vel est.
-			    </p>
-			    <p>
-			    Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
-			    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
-			    inceptos himenaeos.
-			    </p>
-			  </div>
-			 -->
-
-
-
 
 
 		</div>
