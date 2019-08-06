@@ -10,7 +10,7 @@ $(".noteInDashboard").text('แสดงเฉพาะตัวชี้วั�
 	   'text-align' : 'right'
 });
 const styleInDashboard = 'font-size: 11.5px; font-style: oblique; color: #FF0000; text-align: right;';
-const styleInDashboardText = 'แสดงเฉพาะตัวชี้วัดที่มีผลการดำเนินงานเท่านั้น';
+const styleInDashboardText = Liferay.Language.get('show-only-indicators-that-have-performance-results');
 //tokenID= eval("("+sessionStorage.getItem("tokenID")+")");
 
 var checkSession = function(paramTokenID){

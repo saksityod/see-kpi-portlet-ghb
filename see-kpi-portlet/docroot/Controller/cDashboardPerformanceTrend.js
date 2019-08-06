@@ -126,8 +126,8 @@
 			accordionHtml += "	<div style='margin-bottom: auto; margin-top: auto;'><span class='fa fa-caret-right'></span> "+data['org_name']+"&emsp;</div>";
 			accordionHtml += "</div>";
 			accordionHtml += "<div class='accordion-btn'>";
-			accordionHtml += "<button id='btn_extract' type='button' class='btn btn-xs btn-white' style='margin-top: -1px;font-weight: 700;'> <i class='fa fa-plus-square' aria-hidden='true'></i> Expand</button>";
-			accordionHtml += "<button id='btn_kpi' type='button'  class='btn btn-xs btn-white' style='margin-top: -1px;margin-left: 5px;font-weight: 700;'> <i class='fa fa-table fa-table' aria-hidden='true'></i> All KPI</button>";
+			accordionHtml += "<button id='btn_extract' type='button' class='btn btn-xs btn-white' style='margin-top: -1px;font-weight: 700;'> <i class='fa fa-plus-square' aria-hidden='true'></i>"+Liferay.Language.get('expand')+"</button>";
+			accordionHtml += "<button id='btn_kpi' type='button'  class='btn btn-xs btn-white' style='margin-top: -1px;margin-left: 5px;font-weight: 700;'> <i class='fa fa-table fa-table' aria-hidden='true'></i>"+Liferay.Language.get('all-kpi')+"</button>";
 			accordionHtml += "</div>";
 		}else{
 			accordionHtml += "<span class='fa fa-caret-right'></span> "+data['org_name']+"&emsp;";	
@@ -1218,9 +1218,9 @@ var listDashBoardAllKPIFn = function(data){
 	    htmlData2+="<table class='tableInside table-striped'>";
 	    htmlData2+="<thead>";
 	    htmlData2+="<tr>";
-	    htmlData2+="<th><div class='fontBold ' style='min-width:145px'>Target</div></th>";
-	    htmlData2+="<th><div class='fontBold '  style='min-width:110px'>Forecast</div></th>";
-	    htmlData2+="<th><div class='fontBold ' style='min-width:85px'>Actual</div></th>";
+	    htmlData2+="<th><div class='fontBold ' style='min-width:145px'>"+Liferay.Language.get('target')+"</div></th>";
+	    htmlData2+="<th><div class='fontBold '  style='min-width:110px'>"+Liferay.Language.get('forecast')+"</div></th>";
+	    htmlData2+="<th><div class='fontBold ' style='min-width:85px'>"+Liferay.Language.get('actual')+"</div></th>";
 	      htmlData2+="</tr>";
 	     htmlData2+="</thead>";
 	     htmlData2+="<tbody>";
