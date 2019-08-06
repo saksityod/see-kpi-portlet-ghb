@@ -57,8 +57,8 @@
 		
 		var parameter = {
 				//logo: "/imake/Jasper/jasper_service_api/resources/jasper/1588_6832_th.jpg",
-//				logo: "C:\\jasper\\1588_6832_th.jpg", // use for ghb
-				logo: "C:\\Bitnami\\wampstack-5.6.30-1\\apache2\\htdocs\\ghb_api\\resources\\jasper\\1588_6832_th.jpg",
+				logo: "C:\\jasper\\1588_6832_th.jpg", // use for ghb
+//				logo: "C:\\Bitnami\\wampstack-5.6.30-1\\apache2\\htdocs\\ghb_api\\resources\\jasper\\1588_6832_th.jpg",
 				param_year: year,
 				param_period: period,
 				param_level: app_lv,
