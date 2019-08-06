@@ -387,9 +387,9 @@ var listAllKPIFn = function(data){
 			dataTableHTML+="<table class='tableInside table-striped'>";
 				dataTableHTML+="<thead>";
 					dataTableHTML+="<tr>";
-						dataTableHTML+="<th style='min-width: 100px;'>Target</th>";
-						dataTableHTML+="<th style='min-width: 100px;'>Forecast</th>";
-						dataTableHTML+="<th style='min-width: 100px;'>Actual</th>";
+						dataTableHTML+="<th style='min-width: 100px;'>"+Liferay.Language.get('target')+"</th>";
+						dataTableHTML+="<th style='min-width: 100px;'>"+Liferay.Language.get('forecast')+"</th>";
+						dataTableHTML+="<th style='min-width: 100px;'>"+Liferay.Language.get('actual')+"</th>";
 					dataTableHTML+="</tr>";
 					dataTableHTML+="</thead>";
 					dataTableHTML+="<tbody>";
@@ -468,7 +468,7 @@ var getDataBubbleFn = function(page,rpp){
 		success : function(data) {
 			var htmlCaption="";
 			htmlCaption +="<div id='txtTopic' class='span12 graphLTopHeader'>"+data['header'].replace("Performance by KPI", "<div style='display: inline-block;'>Performance by KPI</div>");
-			htmlCaption +="<div style='display: inline-block;'><button id='btn_kpi' type='button' data-target='#ModalKPI' data-toggle='modal' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' class='btn btn-xs btn-white' > <i class='fa fa-table fa-table' aria-hidden='true'></i> All KPI</button></div>";
+			htmlCaption +="<div style='display: inline-block;'><button id='btn_kpi' type='button' data-target='#ModalKPI' data-toggle='modal' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' class='btn btn-xs btn-white' > <i class='fa fa-table fa-table' aria-hidden='true'></i>"+Liferay.Language.get('all-kpi')+"</button></div>";
 			htmlCaption +="</div>";
 			
 			$("#captionBubbleChart").html(htmlCaption);

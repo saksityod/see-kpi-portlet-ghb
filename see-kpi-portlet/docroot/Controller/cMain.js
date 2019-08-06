@@ -3,7 +3,7 @@ var tokenID= [];
 var is_hr = [];
 const setModalPopup = ['static','false'];
 //const setModalPopup = ['""','""'];
-$(".noteInDashboard").text('แสดงเฉพาะตัวชี้วัดที่มีผลการดำเนินงานเท่านั้น').css({
+$(".noteInDashboard").css({
 	   'font-size' : '11.5px',
 	   'font-style' : 'oblique',
 	   'color' : '#FF0000',
