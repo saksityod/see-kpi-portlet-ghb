@@ -1,9 +1,12 @@
-<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
-<%@ taglib uri="http://alloy.liferay.com/tld/aui" prefix="aui"%>
 <%@ page import="javax.portlet.*"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 <%@ page import="com.liferay.portal.kernel.util.WebKeys" %>
+
+<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
+<%@ taglib uri="http://alloy.liferay.com/tld/aui" prefix="aui"%>
+<%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
+<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
+
 <liferay-theme:defineObjects />
 <portlet:defineObjects />
 <%
@@ -497,523 +500,288 @@ plid = layout.getPlid();
 </style>
 <body class="gray-bg ">
 
+    <!--  #####################Content data here ######################-->
+    <div class='row-fluid'>
+        <div id="slide_status" class='span12'>
+            <div id="btnCloseSlide"><i class='fa fa-times'></i></div>
+            <div id="slide_status_area"></div>
+        </div>
+    </div>
 
-<!--  #####################Content data here ######################-->
-<div class='row-fluid'>
-	<div id="slide_status" class='span12'>
-		<div id="btnCloseSlide">×</div>
-		<div id="slide_status_area"></div>
-	</div>
-</div>
+    <div class="app_url_hidden">
+        <div class="container1">
 
+            <div class="row-fluid">
+                <!-- start--row-fluid -->
 
-<div class="app_url_hidden">
-<div class="container1">
+                <div class="span12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
 
+                            <div class='titlePanelSearch'><liferay-ui:message key="advanced-search" /></div>
+                        </div>
 
+                        <div class="ibox-content breadcrumbs2">
 
-<!-- 
-<h2><i class="fa fa fa-pencil-square-o icon-title"></i> <span id="modalDescription"> Appraisal Assignment</span> </h2>
- -->
-				<div class="row-fluid"><!-- start--row-fluid -->
+                            <div class="row-fluid ">
 
-                    <div class="span12">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
+                                <div id="appraisalTypeArea" class="form-group pull-left span4" style="margin-left: 5px; margin-bottom: 3px;">
+                                    <select data-toggle="tooltip" title="<liferay-ui:message key="entity-type" />" class="input form-control input-sm" id="appraisalType" name="appraisalType">
+
+                                        <option value="0"></option>
+
+                                    </select>
+                                </div>
+                                <div id="empNameArea" class="form-group pull-left span4" style="margin-left: 5px; margin-bottom: 3px;">
+                                    <input data-toggle="tooltip" type="text" class="form-control input-sm span12 " placeholder="<liferay-ui:message key="emp-name"/>" id="empName" data-original-title="<liferay-ui:message key="emp-name"/>">
+                                </div>
+                                <div id="PositionArea" class="form-group pull-left span4" style="margin-left: 5px; margin-bottom: 3px;">
+                                    <input data-toggle="tooltip" type="text" id="Position" placeholder="<liferay-ui:message key="position"/>" class="form-control input-sm span12" data-original-title="<liferay-ui:message key="position"/>">
+                                </div>
+
+                                <div id='appraisalLevelArea' class="form-group pull-left span4" style="margin-left: 5px; margin-bottom: 3px;">
+                                    <select data-toggle="tooltip" title="<liferay-ui:message key="level"/>" class="input form-control input-sm" id="appraisalLevel" name="appraisalLevel">
+
+                                        <option value="0"></option>
+
+                                    </select>
+                                </div>
+                                <div class="form-group pull-left span4" style="margin-left: 5px">
+                                    <select data-toggle="tooltip" title="" data-original-title="<liferay-ui:message key="organization"/>" class="input form-control input-sm span12" id="organization" name="organization">
+                                        <option value=''>All Organization</option>
+                                    </select>
+                                </div>
+
+                                <div id='yearArea' class="form-group pull-left span4" style="margin-left: 5px; margin-bottom: 3px;">
+                                    <select data-toggle="tooltip" title="<liferay-ui:message key="year"/>" class="input form-control input-sm" id="YearList" name="YearList">
+
+                                        <option value="0"></option>
+
+                                    </select>
+                                </div>
+                                <div id="periodFrequencyArea" class="form-group pull-left span4" style="margin-left: 5px; margin-bottom: 3px;">
+                                    <select data-toggle="tooltip" title="<liferay-ui:message key="period-frequency"/>" class="input form-control input-sm" id="periodFrequency" name="periodFrequency">
+                                        <option value="0"></option>
+                                    </select>
+                                </div>
+                                <div id="assignFrequencyArea" class="form-group pull-left span4" style="margin-left: 5px; margin-bottom: 3px;">
+                                    <select data-toggle="tooltip" title="<liferay-ui:message key="assign-frequency"/>" class="input form-control input-sm" id="assignFrequency" name="assignFrequency">
+
+                                        <option value="1">ครั้งเดียวทุกงวด</option>
+                                        <option value="2">ทีละงวด</option>
+
+                                    </select>
+                                </div>
+                                <div id="periodArea" class="form-group pull-left span4" style="margin-left: 5px; margin-bottom: 3px;">
+                                    <select data-toggle="tooltip" disabled='disabled' data-toggle="<liferay-ui:message key="period"/>" title="<liferay-ui:message key="period"/>" class="input form-control input-sm" id="period_id" name="period_id">
+
+                                        <option value=""></option>
+
+                                    </select>
+                                </div>
+
+                                <div id="appraisalStatusArea" class="form-group pull-left span4" style="margin-left: 5px; margin-bottom: 3px;">
+                                    <select data-toggle="tooltip" title="<liferay-ui:message key="status"/>" class="input form-control input-sm" id="appraisalStatus" name="appraisalStatus">
+
+                                    </select>
+                                </div>
+
+                                <div class="form-group pull-right m-b-none " style="margin-bottom: 5px;">
+                                    <button type="button" class="btn btn-info input-sm" name="btnSearchAdvance" id="btnSearchAdvance">
+                                        <i class="fa fa-search"></i>&nbsp;<liferay-ui:message key="search"/>
+                                    </button>
+                                    <button type="button" data-target='#ModalAssignment' data-toggle='modal' class="btn btn-warning input-sm" name="btnAssignment" id="btnAssignment">
+                                        <i class="fa fa-sign-in"></i>&nbsp;<liferay-ui:message key="assign"/>
+                                    </button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!-- content end -->
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- end--row-fluid -->
+            <div class="row-fluid search_result">
+                <div class="span12">
+                    <div class="ibox-title">
+                        <div class='titlePanel'><liferay-ui:message key="assignment-list"/></div>
+                    </div>
+
+                    <div class="ibox-content">
+
+                        <!-- start table -->
+                        <!-- pagination start -->
+                        <div class="row-fluid">
+                            <div class="span6 pagianation_area">
+                                <div class="pagination_top pagination"></div>
+                            </div>
+
+                            <div class="span6 object-right paging-text">
+
+                                <div class='pagingDropdown'>
+                                    <select id='countPaginationTop' class="form-control input-sm countPagination">
+                                        <option>10</option>
+                                        <option>20</option>
+                                        <option>50</option>
+                                        <option>100</option>
+                                    </select>
+
+                                </div>
+                                <div class='pagingText'><liferay-ui:message key="results-per-page"/></div>
+
+                            </div>
+
+                        </div>
+                        <!-- pagination end -->
+
+                        <!-- content row-fluid 1 start-->
+                        <div id='listDatas'>
+
+                        </div>
+                        <!-- content row-fluid 1 end-->
+
+                        <!-- row-fluid start -->
+                        <div class="row-fluid">
+                            <div class="span6 pagianation_area">
+
+                                <p class="pagination_bottom pagination"></p>
                                
-                                  <div class='titlePanelSearch'>Advance Search</div> 
-         					</div>
-         					
-         						<div class="ibox-content breadcrumbs2"> 
-         						
-         						<div  class="row-fluid ">
-									
-									<div id="appraisalTypeArea" class="form-group pull-left span4"
-										style="margin-left: 5px; margin-bottom: 3px;">
-										<select data-toggle="tooltip" title="Entity Type"
-											class="input form-control input-sm" id="appraisalType"
-											name="appraisalType">
-								
-											<option value="0"></option>
-								
-										</select>
-									</div>
-									 <div id="empNameArea" class="form-group pull-left span4"
-										style="margin-left: 5px; margin-bottom: 3px;">
-										<input data-toggle="tooltip" type="text" class="form-control input-sm span12 "
-											placeholder="Emp Name" id="empName" data-original-title="Employee Name">
-									</div>
-									 <div id="PositionArea" class="form-group pull-left span4"
-										style="margin-left: 5px; margin-bottom: 3px;">
-										<input data-toggle="tooltip" type="text" id="Position" placeholder="Position"
-											class="form-control input-sm span12" data-original-title="Position">
-									</div>
-									
-									
-									
-									<div id='appraisalLevelArea' class="form-group pull-left span4"
-										style="margin-left: 5px; margin-bottom: 3px;">
-										<select data-toggle="tooltip" title="Level"
-											class="input form-control input-sm" id="appraisalLevel"
-											name="appraisalLevel">
-								
-											<option value="0"></option>
-								
-								
-										</select>
-									</div>
-									<div class="form-group pull-left span4" style="margin-left: 5px">
-										<select data-toggle="tooltip" title="" data-original-title="organization"
-											class="input form-control input-sm span12" id="organization"
-											name="organization">
-											<option value=''>All Organization</option>
-										</select>
-									</div>
-									
-									<!-- 
-									<div id="organizationArea" class="form-group pull-left span4"
-										style="margin-left: 5px; margin-bottom: 3px;">
-										<input data-toggle="tooltip" type="text" class="form-control input-sm span12 "
-											placeholder="Organization" id="organization" data-original-title="Organization">
-									</div>
-								-->
-								
-									
-									
-								 
-									<div id='yearArea' class="form-group pull-left span4"
-										style="margin-left: 5px; margin-bottom: 3px;">
-										<select data-toggle="tooltip" title="Year"
-											class="input form-control input-sm" id="YearList" name="YearList">
-								
-											<option value="0"></option>
-								
-										</select>
-									</div>
-									<div id="periodFrequencyArea" class="form-group pull-left span4"
-										style="margin-left: 5px; margin-bottom: 3px;">
-										<select data-toggle="tooltip" title="Period frequency"
-											class="input form-control input-sm" id="periodFrequency"
-											name="periodFrequency">
-											<option value="0"></option>
-										</select>
-									</div>
-									<div id="assignFrequencyArea" class="form-group pull-left span4"
-										style="margin-left: 5px; margin-bottom: 3px;">
-										<select data-toggle="tooltip" title="Assign Frequency"
-											class="input form-control input-sm" id="assignFrequency"
-											name="assignFrequency">
-								
-											<option value="1">ครั้งเดียวทุกงวด</option>
-											<option value="2">ทีละงวด</option>
-								
-										</select>
-									</div>
-									<div id="periodArea" class="form-group pull-left span4"
-										style="margin-left: 5px; margin-bottom: 3px;">
-										<select data-toggle="tooltip" disabled='disabled' data-toggle="Period" title="Period"
-											class="input form-control input-sm" id="period_id" name="period_id">
-								
-											<option value=""></option>
-								
-										</select>
-									</div>
-								
-									<div id="appraisalStatusArea" class="form-group pull-left span4"
-										style="margin-left: 5px; margin-bottom: 3px;">
-										<select data-toggle="tooltip" title="Status"
-											class="input form-control input-sm" id="appraisalStatus"
-											name="appraisalStatus">
+                            </div>
 
-										</select>
-									</div>
-								
-								
-								
-								
-							
-								<div class="form-group pull-right m-b-none "
-									style="margin-bottom: 5px;">
-									<button type="button" class="btn btn-info input-sm"
-										name="btnSearchAdvance" id="btnSearchAdvance">
-										<i class="fa fa-search"></i>&nbsp;Search
-									</button>
-									<button type="button" data-target='#ModalAssignment'
-										data-toggle='modal' class="btn btn-warning input-sm"
-										name="btnAssignment" id="btnAssignment">
-										<i class="fa fa-sign-in"></i>&nbsp;Assign
-									</button>
-								</div>
-							
-							</div>
-         						
-         						
-         					<!--		
-											<div class='row-fluid'>
-												
-				                                    <div class="span4 m-b-xs">
-					                                    <div class="form-group"><label class="span5 control-label">Appraisal Level</label>
-			
-						                                    <div class="span7" id='appraisalLevelArea'>
-						                                    
-							                                    <select data-toggle="tooltip" title="Flag 2" class="input form-control input-sm"  id="appraisalLevel" name="appraisalLevel">
-							                                    	
-							                                    	<option value="0"></option>
-																	
-																	
-																</select>
-																
-						                                    </div>
-						                                </div>
-													</div>
-													
-													<div class="span4 m-b-xs">
-					                                    <div class="form-group"><label class="span5 control-label">Department</label>
-			
-						                                    <div class="span7" id='DepartmentArea'>
-						                                    
-							                                    <select data-toggle="tooltip" title="Flag 2" class="input form-control input-sm"  id="Department" name="Department">
-							                                    	
-							                                   
-																	
-																	
-																</select>
-																
-						                                    </div>
-						                                </div>
-													</div>
-													 
-													<div class="span4 m-b-xs">
-					                                    <div class="form-group"><label class="span5 control-label">Appraisal Type</label>
-			
-						                                    <div class="span7" id="appraisalTypeArea">
-						                                    
-							                                    <select data-toggle="tooltip" title="Appraisal Type" class="input form-control input-sm"  id="appraisalType" name="appraisalType">
-							                                    	
-							                                    	<option value="0"></option>
-																	
-																</select>
-																
-						                                    </div>
-						                                </div>
-													</div>
-													
-											
-											</div>
-											<div class='row-fluid'>
-													<div class="span4 m-b-xs">
-					                                    <div class="form-group"><label class="span5 control-label">Year </label>
-			
-						                                    <div class="span7" id='yearArea'>
-						                                    
-							                                  
-																  <select data-toggle="tooltip" title="Year" class="input form-control input-sm"  id="YearList" name="YearList">
-							                                    	
-							                                    	<option value="0"></option>
-																	
-																</select>
-																
-						                                    </div>
-						                                </div>
-													</div>
-													
-													
-													<div class="span4 m-b-xs" id="periodfrequencyArea">
-					                                    <div class="form-group"><label class="span5 control-label">Period frequency</label>
-			
-						                                    <div class="span7" id="periodFrequencyArea">
-						                                    
-							                                    <select data-toggle="tooltip" title="Period frequency" class="input form-control input-sm"  id="periodFrequency" name="periodFrequency">
-							                                    	<option value="0"></option>
-																</select>
-																
-						                                    </div>
-						                                </div>
-													</div>
-													
-													<div class="span4 m-b-xs">
-					                                    <div class="form-group"><label class="span5 control-label">Assign Frequency</label>
-			
-						                                    <div class="span7" id='assignFrequencyArea'>
-						               
-							                                    <select data-toggle="tooltip" title="Assign Frequency" class="input form-control input-sm"  id="assignFrequency" name="assignFrequency">
-							                                    
-							                                    	<option value="1">ครั้งเดียวทุกงวด</option>
-							                                    	<option value="2">ทีละงวด</option>
-																	
-																</select>
-																
-						                                    </div>
-						                                </div>
-													</div>
-												</div>
-											<div class='row-fluid'>
-													<div class="span4 m-b-xs">
-					                                    <div class="form-group"><label class="span5 control-label">Period</label>
-			
-						                                    <div class="span7" id="periodArea">
-						                                    
-							                                    <select disabled='disabled' data-toggle="Period" title="Period" class="input form-control input-sm"  id="period_id" name="period_id">
-							                                    	
-							                                    	<option  value=""></option>
-																	
-																</select>
-																
-						                                    </div>
-						                                </div>
-													</div>
-													
-													<div class="span4 m-b-xs">
-					                                    <div class="form-group"><label class="span5 control-label">Emp Name</label>
-			
-						                                    <div class="span7" id="empNameArea">
-						                                    
-							                         
-																<input type="text" class="form-control input-sm span12 " placeholder="Emp Name" id="empName">
-																
-																
-						                                    </div>
-						                                </div>
-													</div>
-													<div class="span4 m-b-xs">
-					                                    <div class="form-group"><label class="span5 control-label">Position </label>
-			
-						                                    <div class="span7" id='PositionArea'>
-						                                    
-							                                  
-																
-																<input type="text" id="Position" placeholder="Position" class="form-control input-sm span12">
-													
-						                                    </div>
-						                                </div>
-													</div>
-												</div>
-											<div class='row-fluid'>
-													<div class='span12 object-right' style='text-align:right;' >
-										
-												
-														
-			                                  
-				                                     	<div id="btnSearchArea">
-			                                         		<button type="button" class="btn btn-info input-sm" name="btnSearchAdvance" id="btnSearchAdvance"><i class="fa fa-search"></i>&nbsp;Search</button>
-			                                         		<button type="button"  data-target='#ModalAssignment' data-toggle='modal' class="btn btn-warning input-sm" name="btnAssignment" id="btnAssignment"><i class="fa fa-sign-in"></i>&nbsp;Assign</button>
-			                                         	</div>
-		                                         
-				                                     	
-                                     	
-													</div>
-
-											</div>
-							-->
-				         		</div><!-- content end -->
-				         		</div>
-				         		
-         				</div>
-	
-         			</div><!-- end--row-fluid -->
-         			<div class="row-fluid search_result">
-				         		<div class="span12">
-					         	<div class="ibox-title">
-	                                <div class='titlePanel'>Employee List</div>
-	         					</div>
-	         					
-	         					
-	         					<div class="ibox-content"> 
-	         					
-                                    	<!-- start table -->
-                                    	<!-- pagination start -->
-                                    	<div class="row-fluid">
-	                                    	<div class="span6 pagianation_area">
-												<div class="pagination_top pagination"></div>
-	                                    	</div>
-	                                    
-		                                    <div class="span6 object-right paging-text">
-		                                    
-		                                    	<div class='pagingDropdown'>
-		                                 			<select  id='countPaginationTop'  class="form-control input-sm countPagination">
-					                                     <option>10</option>
-					                                     <option>20</option>
-					                                     <option>50</option>
-					                                     <option>100</option>
-					                                 </select>
-		                                 		
-		                                 		</div>
-												<div class='pagingText'>Results per page</div>
-		                                    
-		                                    </div>
-		                                    
-                                    	</div> 
-                                    	 <!-- pagination end -->
-                                    	 
-                                    	 <!-- content row-fluid 1 start-->
-                                    	 <div id='listDatas'>
-                                    	 
-                                    	 </div>
-	         							<!-- content row-fluid 1 end-->
-	         							
-	         							
-	         							
-
-                                        
-                                        <!-- row-fluid start -->
-                                    	<div class="row-fluid">
-	                                    	<div class="span6 pagianation_area">
-	
-												  <p class="pagination_bottom pagination"></p>
-												<!-- 
-												<ul class="pagination bootpag"><li class="first disabled" data-lp="1"><a href="javascript:void(0);">←</a></li><li class="prev disabled" data-lp="1"><a href="javascript:void(0);">prev</a></li><li data-lp="1" class="active"><a href="javascript:void(0);">1</a></li><li data-lp="2"><a href="javascript:void(0);">2</a></li><li class="next" data-lp="2"><a href="javascript:void(0);">next</a></li><li class="last" data-lp="2"><a href="javascript:void(0);">→</a></li></ul>
-	                   							 -->
-	                                    	</div>
-	                                    
-		                                    <div class="span6 object-right paging-text ">
-		                                    	<div class='pagingDropdown'>
-		                                 			<select  id='countPaginationBottom'  class="form-control input-sm countPagination">
-					                                     <option>10</option>
-					                                     <option>20</option>
-					                                     <option>50</option>
-					                                     <option>100</option>
-					                                 </select> 
-			                                 	</div>
-												<div class='pagingText'>Results per page</div>
-		                                    </div>
-		                                    <!-- 
-		                                    <div class="span1">
-	                                    	<select name="countPagination" id='countPaginationBottom'  class="form-control input-sm countPagination">
-		                                        <option>10</option>
-		                                     	<option>20</option>
-		                                     	<option>50</option>
-		                                     	<option>100</option>
-		                                    </select> 
-	                                    	</div>
-	                                    	 -->
-                                    	</div> 
-                                    	 <!-- row-fluid end -->
-                                    	<!-- end table -->
-                                    	<br style='clear:both'>
-         						</div><!-- content end -->
-         					</div>
-         					</div>
-         					 
-  </div>
- </div>
+                            <div class="span6 object-right paging-text ">
+                                <div class='pagingDropdown'>
+                                    <select id='countPaginationBottom' class="form-control input-sm countPagination">
+                                        <option>10</option>
+                                        <option>20</option>
+                                        <option>50</option>
+                                        <option>100</option>
+                                    </select>
+                                </div>
+                                <div class='pagingText'><liferay-ui:message key="results-per-page"/></div>
+                            </div>
   
-  <div id='embedParamSearch'></div>
-  <div id='embedStructureCheckWeight'></div>           					
-      <!-- <button data-toggle="modal" data-target="#ModalKPI" id="btnAddKPI" class="btn btn-info input-sm" type="button"><i class="fa fa-plus-square"></i>&nbsp;Assign KPI</button>	 -->				
-<!-- Modal KPI Start Edit -->
+                        </div>
+                        <!-- row-fluid end -->
+                        <!-- end table -->
+                        <br style='clear:both'>
+                    </div>
+                    <!-- content end -->
+                </div>
+            </div>
 
-  <div aria-hidden="true" role="dialog" tabindex="-1" id="ModalAssignment" class="modal inmodal  large" style="display: none;">
-    <div class="modal-dialog  ">
-    <div class="modal-content animated bounceInRight">
-            <div class="modal-header">
-                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only"></span></button>
-             
-                <h4 class="modal-title" id="modalTitleRole">Assignment</h4>
-               
-            </div>
-            <div class="modal-body">
-            	
-                <!-- content start -->
-                <!-- 
-                <h2><i class="fa fa fa-pencil-square-o icon-title"></i> <span id="modalDescription"> Assign Appraisal Item</span> </h2>
-                <hr>
-                -->
-             
-                <!-- panel0 start -->
-                <div class="row-fluid cus_information_area" >
-	  					<div class="span12">
-	                      <div class="ibox-title2">
-	                          <div class='titlePanel' id='titlePanelInformation'>Employee Information</div>
-	                      </div>
-	   					
-	   					<div class="ibox-content">
-	   							
-	   							<!-- content table start-->	
-	   							<div id='empInformation' class='container-fluid'>
-	   								<div class="row-fluid">
-										<label style='min-height:auto;' class="span3 textInfo textData">Employee code:</label>
-										<label style='min-height:auto;' class="span3 textInfo textData" id="employee_code"></label>
-										<label style='min-height:auto;' class="span3 textInfo textData">Employee Name:</label>
-										<label style='min-height:auto;' class="span3 textInfo textData" id="employee_name"></label>
-									</div>
-									<div class="row-fluid">
-										<label style='min-height:auto;' class="span3 textInfo textData">Position:</label>
-										<label style='min-height:auto;' class="span3 textInfo textData" id="position"></label>
-										
-										<label style='min-height:auto;' class="span3 textInfo textData">Organization:</label>
-										<label style='min-height:auto;' class="span3 textInfo textData" id="organizationLabel"></label>
-										 
-									</div>
-									<div class="row-fluid">
-										
-										<label style='min-height:auto;' class="span3 textInfo textData">Chief Employee Code:</label>
-										<label style='min-height:auto;' class="span3 textInfo textData" id="chief_employee_code"></label>
-										<label style='min-height:auto;' class="span3 textInfo textData">Chief Employee Name:</label>
-										<label style='min-height:auto;' class="span3 textInfo textData" id="chief_employee_name"></label>
-									</div>
-									
-									<div class="row-fluid">
-										<label style='min-height:auto;' class="span3 textInfo textData">Period:</label>
-										<label style='min-height:auto;' class="span3 textInfo textData"  id="period_label"></label>
-										
-										<label style='min-height:auto;' class="span3 textInfo textData">Start Working Date:</label>
-										<label style='min-height:auto;' class="span3 textInfo textData"  id="start_working_date"></label>
-										
-									</div>
-								</div>
-								
-								<div id='orgInformation' class='container-fluid'>
-								
-									
-									<div class="row-fluid">
-										<label style='min-height:auto;' class="span3 textInfo textData">Organization Code:</label>
-										<label style='min-height:auto;' class="span3 textInfo textData" id="organizationCodeLabelOrg"></label>
-										<label style='min-height:auto;' class="span3 textInfo textData">Organization Name:</label>
-										<label style='min-height:auto;' class="span3 textInfo textData" id="organizationNameLabelOrg"></label>
-										 
-									</div>
-									<div class="row-fluid">
-										
-										<label style='min-height:auto;' class="span3 textInfo textData">Parent Organization:</label>
-										<label style='min-height:auto;' class="span3 textInfo textData" id="parentOrganizationOrg"></label>
-										<label style='min-height:auto;' class="span3 textInfo textData">Period:</label>
-										<label style='min-height:auto;' class="span3 textInfo textData" id="periodOrg"></label>
-									</div>
-									
-									
-									
-								</div>
-									
-						          <br style="clear:both">
-	                            <!-- content table end-->				
-	   					</div>
-	   				</div>
-	   			</div>
-                <!-- panel0 end -->
-                <!-- panel1 start -->
-                <div id='appraisal_template_area'></div>
-                <!-- panel1 end -->
-                
-                
-               
-                
-                <!-- content end -->
-            </div>
-            <div class="modal-footer">
-            
-            	<div class="row-fluid">
-            		<div class='span12 grandTotalWeight' >
-            		
-            		<span id='grandTotalWeightArea' >Grand Total Weight %</span>
-            	
-            		<span id="grandTotalWeight"  class='perscentage'>0.00</span>
-            		</div>
-            	</div>
-            	
-            	<div class="row-fluid">
-            		<!-- 
+        </div>
+    </div>
+
+    <div id='embedParamSearch'></div>
+    <div id='embedStructureCheckWeight'></div>
+    <!-- Modal KPI Start Edit -->
+
+    <div aria-hidden="true" role="dialog" tabindex="-1" id="ModalAssignment" class="modal inmodal  large" style="display: none;">
+        <div class="modal-dialog  ">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true"><i class='fa fa-times'></i></span><span class="sr-only"></span></button>
+
+                    <h4 class="modal-title" id="modalTitleRole"><liferay-ui:message key="assignment"/></h4>
+
+                </div>
+                <div class="modal-body">
+
+                    <!-- content start -->
+
+                    <!-- panel0 start -->
+                    <div class="row-fluid cus_information_area">
+                        <div class="span12">
+                            <div class="ibox-title2">
+                                <div class='titlePanel' id='titlePanelInformation'><liferay-ui:message key="employee-information"/></div>
+                            </div>
+
+                            <div class="ibox-content">
+
+                                <!-- content table start-->
+                                <div id='empInformation' class='container-fluid'>
+                                    <div class="row-fluid">
+                                        <label style='min-height:auto;' class="span3 textInfo textData"><liferay-ui:message key="emp-code"/>:</label>
+                                        <label style='min-height:auto;' class="span3 textInfo textData" id="employee_code"></label>
+                                        <label style='min-height:auto;' class="span3 textInfo textData"><liferay-ui:message key="emp-name"/>:</label>
+                                        <label style='min-height:auto;' class="span3 textInfo textData" id="employee_name"></label>
+                                    </div>
+                                    <div class="row-fluid">
+                                        <label style='min-height:auto;' class="span3 textInfo textData"><liferay-ui:message key="position"/>:</label>
+                                        <label style='min-height:auto;' class="span3 textInfo textData" id="position"></label>
+
+                                        <label style='min-height:auto;' class="span3 textInfo textData"><liferay-ui:message key="organization"/>:</label>
+                                        <label style='min-height:auto;' class="span3 textInfo textData" id="organizationLabel"></label>
+
+                                    </div>
+                                    <div class="row-fluid">
+
+                                        <label style='min-height:auto;' class="span3 textInfo textData"><liferay-ui:message key="chief-employee-code"/>:</label>
+                                        <label style='min-height:auto;' class="span3 textInfo textData" id="chief_employee_code"></label>
+                                        <label style='min-height:auto;' class="span3 textInfo textData"><liferay-ui:message key="chief-employee-name"/>:</label>
+                                        <label style='min-height:auto;' class="span3 textInfo textData" id="chief_employee_name"></label>
+                                    </div>
+
+                                    <div class="row-fluid">
+                                        <label style='min-height:auto;' class="span3 textInfo textData"><liferay-ui:message key="period"/>:</label>
+                                        <label style='min-height:auto;' class="span3 textInfo textData" id="period_label"></label>
+
+                                        <label style='min-height:auto;' class="span3 textInfo textData"><liferay-ui:message key="start-working-date"/>:</label>
+                                        <label style='min-height:auto;' class="span3 textInfo textData" id="start_working_date"></label>
+
+                                    </div>
+                                </div>
+
+                                <div id='orgInformation' class='container-fluid'>
+
+                                    <div class="row-fluid">
+                                        <label style='min-height:auto;' class="span3 textInfo textData"><liferay-ui:message key="organization-code"/>:</label>
+                                        <label style='min-height:auto;' class="span3 textInfo textData" id="organizationCodeLabelOrg"></label>
+                                        <label style='min-height:auto;' class="span3 textInfo textData"><liferay-ui:message key="organization-name"/>:</label>
+                                        <label style='min-height:auto;' class="span3 textInfo textData" id="organizationNameLabelOrg"></label>
+
+                                    </div>
+                                    <div class="row-fluid">
+
+                                        <label style='min-height:auto;' class="span3 textInfo textData"><liferay-ui:message key="parent-organization"/>:</label>
+                                        <label style='min-height:auto;' class="span3 textInfo textData" id="parentOrganizationOrg"></label>
+                                        <label style='min-height:auto;' class="span3 textInfo textData"><liferay-ui:message key="period"/>:</label>
+                                        <label style='min-height:auto;' class="span3 textInfo textData" id="periodOrg"></label>
+                                    </div>
+
+                                </div>
+
+                                <br style="clear:both">
+                                <!-- content table end-->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- panel0 end -->
+                    <!-- panel1 start -->
+                    <div id='appraisal_template_area'></div>
+                    <!-- panel1 end -->
+
+                    <!-- content end -->
+                </div>
+                <div class="modal-footer">
+
+                    <div class="row-fluid">
+                        <div class='span12 grandTotalWeight'>
+
+                            <span id='grandTotalWeightArea'><liferay-ui:message key="grand-total-weight-percent"/></span>
+
+                            <span id="grandTotalWeight" class='perscentage'>0.00</span>
+                        </div>
+                    </div>
+
+                    <div class="row-fluid">
+                        <!-- 
             		<div class="span3 ">
-            		
+
             			<div class="form-group "> 
 							 <label class="span5 p-t-xxs"><b>Assign to:</b></label> 
 							 <div class="span7"> 
@@ -1021,260 +789,170 @@ plid = layout.getPlid();
 				   				 </select>
 							 </div> 
 						 </div> 
-						 
+
             		</div>
             		 -->
-            		<div class="span3 ">
-            		
-	            			<div class="form-group "> 
-							 <label class="span4 p-t-xxs"><b>Action:</b></label> 
-							 <div class="span8"> 
-									<select id='actionAssign' class='input form-control input-sm'>
-				   					</select>
-							 </div> 
-						  </div> 
-					 
-            		</div>
-            		
-            		<div class="span5 ">
-            		
-            			<div class="form-group "> 
-							 <label class="span3 p-t-xxs"><b>Remark:</b></label> 
-							 <div class="span9"> 
-								 <input type='text' name='remark_footer' id='remark_footer' class='span12' value=''>
-							 </div> 
-						 </div> 
-						 
-            		</div>
-            		
-            		<div class="span4 offset0">
-            				<input type="hidden" name="id" id="id" value="">
-		   					<input type="hidden" name="period_id_edit" id="period_id_edit" value="">
-			   				<input type="hidden" name="action" id="action" value="add">
-			   				<button class="btn btn-primary" type="button" id="btnSubmit">Submit</button>
-			                <button data-dismiss="modal" class="btn btn-white btnCancle" type="button">Cancel</button>
-            		</div>
-            	</div>
-            	
-            	<div class="row-fluid" style='text-align:left;'>
-            		<a href="#" id='slideUpDownStageHistory' style='display:none;'>Work Flow Stage History</a>
-            		<div id='slideStageHistory' style='display:none;'>
-            			<table class='table'>
-            				<thead>
-            					<tr>
-            						<th  style='width:15%'>Created By</th>
-            						<th  style='width:15%'>Created Datetime</th>
-            						<th  style='width:15%'>From Stage</th>
-            						<th  style='width:15%'>To Stage</th>
-            						<th  style='width:35%'>Remark</th>
-            					</tr>
-            				</thead>
-            				<tbody id='listDataStageHistory'>
-            					<tr >
-            						<td>emp_code1</td>
-            						<td>2017-08-16 10:20:22</td>
-            						<td>HR</td>
-            						<td>Manager</td>
-            						<td>่Reject เนื่องจากไม่เหมาะสม</td>
-            					</tr>
-            					<tr >
-            						<td>emp_code1</td>
-            						<td>2017-08-16 10:20:22</td>
-            						<td>HR</td>
-            						<td>Manager</td>
-            						<td>่Reject เนื่องจากไม่เหมาะสม</td>
-            					</tr>
-            					<tr >
-            						<td>emp_code1</td>
-            						<td>2017-08-16 10:20:22</td>
-            						<td>HR</td>
-            						<td>Manager</td>
-            						<td>่Reject เนื่องจากไม่เหมาะสม</td>
-            					</tr>
-            				</tbody>
-            			</table>
-            		</div>
-            	</div>
-            	
-   				<div class="alert alert-warning information" id="information" style="display: none;"></div>
-	   			
-	   			
-			   	<!-- 
-            	<div class="row-fluid">
-            		<div class='span12'>
+                        <div class="span3 ">
 
-		   				<div class='btnAssignment'>
+                            <div class="form-group ">
+                                <label class="span4 p-t-xxs"><b><liferay-ui:message key="action"/>:</b></label>
+                                <div class="span8">
+                                    <select id='actionAssign' class='input form-control input-sm'>
+                                    </select>
+                                </div>
+                            </div>
 
-	            			<div class='labelAssign'>Assign to:&nbsp; </div>
-	            			<div class='dropdownListAssign' id='assignToArea'>
-	            			
-		            			<select id='assignTo' class='input form-control input-sm'>
-				   				</select>
-			   				</div>
-			   				
-			   				<div class='labelAssign'>Action:&nbsp; </div>
-	            			<div class='dropdownListAssign' id='actionAssignArea'>
-		            			<select id='actionAssign' class='input form-control input-sm'>
-				   				</select>
-			   				</div>
-			   				
-		   				</div>
-		   				
-		   				<div class='btnManagement'>
-		   					<input type="hidden" name="id" id="id" value="">
-		   					<input type="hidden" name="period_id_edit" id="period_id_edit" value="">
-			   				<input type="hidden" name="action" id="action" value="add">
-			   				<button class="btn btn-primary" type="button" id="btnSubmit">Submit</button>
-			                <button data-dismiss="modal" class="btn btn-white btnCancle" type="button">Cancel</button>
-			                
-		   				</div>
-		   				
-            		
-		            		
-		   				<br style='clear:both'>
-		   				<div class="alert alert-warning information" id="information" style="display: none;"></div>
-			   			<br style='clear:both'>
-			   			<br style='clear:both'>
-		   			</div>
-		   		
-		   			
-   				</div>
-            	-->
-           	 	
-            </div>
-        </div>
-    </div>
-    
-</div>                      
-<!-- Modal KPI End Edit -->
+                        </div>
 
-<!-- Modal Action Start Edit -->
+                        <div class="span5 ">
 
-  <div aria-hidden="true" role="dialog" tabindex="-1" id="ModalAction" class="modal inmodal small" style="display: none;">
-    <div class="modal-dialog  ">
-    <div class="modal-content animated bounceInRight">
-            <div class="modal-header">
-                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only"></span></button>
-                <h4 class="modal-title" id="modalTitleRole">Action</h4>
-            </div>
-            <div class="modal-body">
-            	<div class="row-fluid">
-            		<div class="span4">
-	            		<div class="form-group"> 
-							<label class="span4 p-t-xxs"><b>Action:</b></label> 
-							 <div class="span8"> 
-									<select id='actionAction' class='input form-control input-sm'>
-				   					</select>
-							 </div> 
-						 </div> 
-            		</div>
-            		<div class="span8">
-            			<div class="form-group"> 
-							 <label class="span3 p-t-xxs"><b>Remark:</b></label> 
-							 <div class="span9"> 
-								 <input type='text' name='remark_footer_action' id='remark_footer_action' class='span12' value=''>
-							 </div> 
-						 </div> 
-            		</div>
-            	</div>
-            </div>
-            <div class="modal-footer">
-            	<div class="row-fluid">
-            		<div class="span12 offset0">
-            				<input type="hidden" name="id_action" id="id_action" value="">
-			   				<button class="btn btn-primary" type="button" id="btnSubmitAction">Submit</button>
-			                <button data-dismiss="modal" class="btn btn-white btnCancle" type="button">Cancel</button>
-            		</div>
-            	</div>
-   				<div class="alert alert-warning information" id="information2" style="display: none;"></div>
-			   	<!-- 
-            	<div class="row-fluid">
-            		<div class='span12'>
+                            <div class="form-group ">
+                                <label class="span3 p-t-xxs"><b><liferay-ui:message key="remark"/>:</b></label>
+                                <div class="span9">
+                                    <input type='text' name='remark_footer' id='remark_footer' class='span12' value=''>
+                                </div>
+                            </div>
 
-		   				<div class='btnAssignment'>
+                        </div>
 
-	            			<div class='labelAssign'>Assign to:&nbsp; </div>
-	            			<div class='dropdownListAssign' id='assignToArea'>
-	            			
-		            			<select id='assignTo' class='input form-control input-sm'>
-				   				</select>
-			   				</div>
-			   				
-			   				<div class='labelAssign'>Action:&nbsp; </div>
-	            			<div class='dropdownListAssign' id='actionAssignArea'>
-		            			<select id='actionAssign' class='input form-control input-sm'>
-				   				</select>
-			   				</div>
-			   				
-		   				</div>
-		   				
-		   				<div class='btnManagement'>
-		   					<input type="hidden" name="id" id="id" value="">
-		   					<input type="hidden" name="period_id_edit" id="period_id_edit" value="">
-			   				<input type="hidden" name="action" id="action" value="add">
-			   				<button class="btn btn-primary" type="button" id="btnSubmit">Submit</button>
-			                <button data-dismiss="modal" class="btn btn-white btnCancle" type="button">Cancel</button>
-			                
-		   				</div>
-		   				
-            		
-		            		
-		   				<br style='clear:both'>
-		   				<div class="alert alert-warning information" id="information" style="display: none;"></div>
-			   			<br style='clear:both'>
-			   			<br style='clear:both'>
-		   			</div>
-		   		
-		   			
-   				</div>
-            	-->
-           	 	
-            </div>
-        </div>
-    </div>
-    
-</div>                      
-<!-- Modal Action End Edit -->
+                        <div class="span4 offset0">
+                            <input type="hidden" name="id" id="id" value="">
+                            <input type="hidden" name="period_id_edit" id="period_id_edit" value="">
+                            <input type="hidden" name="action" id="action" value="add">
+                            <button class="btn btn-primary" type="button" id="btnSubmit"><liferay-ui:message key="submit"/></button>
+                            <button data-dismiss="modal" class="btn btn-white btnCancle" type="button"><liferay-ui:message key="cancel"/></button>
+                        </div>
+                    </div>
 
+                    <div class="row-fluid" style='text-align:left;'>
+                        <a href="#" id='slideUpDownStageHistory' style='display:none;'><liferay-ui:message key="work-flow-stage-history"/></a>
+                        <div id='slideStageHistory' style='display:none;'>
+                            <table class='table'>
+                                <thead>
+                                    <tr>
+                                        <th style='width:15%'><liferay-ui:message key="created-by"/></th>
+                                        <th style='width:15%'><liferay-ui:message key="created-datetime"/></th>
+                                        <th style='width:15%'><liferay-ui:message key="from-stage"/></th>
+                                        <th style='width:15%'><liferay-ui:message key="to-stage"/></th>
+                                        <th style='width:35%'><liferay-ui:message key="remark"/></th>
+                                    </tr>
+                                </thead>
+                                <tbody id='listDataStageHistory'>
+                                    <tr>
+                                        <td>emp_code1</td>
+                                        <td>2017-08-16 10:20:22</td>
+                                        <td>HR</td>
+                                        <td>Manager</td>
+                                        <td>่Reject เนื่องจากไม่เหมาะสม</td>
+                                    </tr>
+                                    <tr>
+                                        <td>emp_code1</td>
+                                        <td>2017-08-16 10:20:22</td>
+                                        <td>HR</td>
+                                        <td>Manager</td>
+                                        <td>่Reject เนื่องจากไม่เหมาะสม</td>
+                                    </tr>
+                                    <tr>
+                                        <td>emp_code1</td>
+                                        <td>2017-08-16 10:20:22</td>
+                                        <td>HR</td>
+                                        <td>Manager</td>
+                                        <td>่Reject เนื่องจากไม่เหมาะสม</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
 
-<!-- Modal Confirm Start -->
-<div aria-hidden="true" role="dialog" tabindex="-1" id="confrimModal" class="modal inmodal " style="display: none;">
-    <div class="modal-dialog">
-    <div class="modal-content animated bounceInRight">
-            <div class="modal-header">
-                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only"></span></button>
-                <h5 class="modal-title">Confirm Dialog</h5>
-            </div>
-            <div class="modal-body">
-                <!-- content start -->
-                <!-- <h2><i class="fa fa fa-pencil-square-o icon-title"></i> ADD NEW GRADE</h2>
-                <hr>
-                 -->
-                <!-- form start -->
-                <div class="form-kpi-mangement">
-	                <div class="form-kpi-label" align="center">
-	                
-	                 		<label>Confirm to Delete Data?</label>
-	                </div>
+                    <div class="alert alert-warning information" id="information" style="display: none;"></div>
+
                 </div>
-                               
-                <!-- form start -->
-                <!-- content end -->
-            </div>
-            <div class="modal-footer">
-            	<div align="center">
-	                <button class="btn btn-success" id="btnConfirmOK" type="button">&nbsp;&nbsp;<i class="fa fa-check-circle"></i>&nbsp;&nbsp;Yes&nbsp;&nbsp;</button>&nbsp;&nbsp;
-	                <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
-            	</div>
             </div>
         </div>
+
     </div>
-    
-    
-   
-</div>
-<!-- Modal Confirm End -->
-      
-          
+    <!-- Modal KPI End Edit -->
+
+    <!-- Modal Action Start Edit -->
+
+    <div aria-hidden="true" role="dialog" tabindex="-1" id="ModalAction" class="modal inmodal small" style="display: none;">
+        <div class="modal-dialog  ">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true"><i class='fa fa-times'></i></span><span class="sr-only"></span></button>
+                    <h4 class="modal-title" id="modalTitleRole"><liferay-ui:message key="action"/></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row-fluid">
+                        <div class="span4">
+                            <div class="form-group">
+                                <label class="span4 p-t-xxs"><b><liferay-ui:message key="action"/>:</b></label>
+                                <div class="span8">
+                                    <select id='actionAction' class='input form-control input-sm'>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span8">
+                            <div class="form-group">
+                                <label class="span3 p-t-xxs"><b><liferay-ui:message key="remark"/>:</b></label>
+                                <div class="span9">
+                                    <input type='text' name='remark_footer_action' id='remark_footer_action' class='span12' value=''>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row-fluid">
+                        <div class="span12 offset0">
+                            <input type="hidden" name="id_action" id="id_action" value="">
+                            <button class="btn btn-primary" type="button" id="btnSubmitAction"><liferay-ui:message key="submit"/></button>
+                            <button data-dismiss="modal" class="btn btn-white btnCancle" type="button"><liferay-ui:message key="cancel"/></button>
+                        </div>
+                    </div>
+                    <div class="alert alert-warning information" id="information2" style="display: none;"></div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Modal Action End Edit -->
+
+    <!-- Modal Confirm Start -->
+    <div aria-hidden="true" role="dialog" tabindex="-1" id="confrimModal" class="modal inmodal " style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                <div class="modal-header">
+                    <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true"><i class='fa fa-times'></i></span><span class="sr-only"></span></button>
+                    <h5 class="modal-title"><liferay-ui:message key="confirm-dialog"/></h5>
+                </div>
+                <div class="modal-body">
+                    <!-- content start -->
+                    
+                    <!-- form start -->
+                    <div class="form-kpi-mangement">
+                        <div class="form-kpi-label" align="center">
+
+                            <label><liferay-ui:message key="confirm-to-delete-data"/>?</label>
+                        </div>
+                    </div>
+
+                    <!-- form start -->
+                    <!-- content end -->
+                </div>
+                <div class="modal-footer">
+                    <div align="center">
+                        <button class="btn btn-success" id="btnConfirmOK" type="button">&nbsp;&nbsp;<i class="fa fa-check-circle"></i>&nbsp;&nbsp;<liferay-ui:message key="yes"/>&nbsp;&nbsp;</button>&nbsp;&nbsp;
+                        <button data-dismiss="modal" class="btn btn-danger" type="button"><i class="fa fa-times-circle"></i>&nbsp;<liferay-ui:message key="cancel"/></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Modal Confirm End -->
+
 </body>
 
