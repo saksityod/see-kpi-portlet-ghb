@@ -4,6 +4,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 <%@ page import="com.liferay.portal.kernel.util.WebKeys" %>
+<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <liferay-theme:defineObjects />
 <portlet:defineObjects />
 <%
@@ -429,7 +430,7 @@ plid = layout.getPlid();
 					<div class="col-lg-12">
 						<div class="ibox float-e-margins">
 							<div class="ibox-title">
-								<h5>Advance Search</h5>
+								<h5><liferay-ui:message key="advanced-search"/></h5>
 							</div>
 
 							<div class="ibox-content breadcrumbs2">
@@ -437,15 +438,15 @@ plid = layout.getPlid();
 									<div class="span8">
 										<div class="span12">
 											<form class="form-inline">
-											<select id="s_yr" data-toggle="tooltip" title=Year></select>
-											<select id="s_qt" data-toggle="tooltip" title="Quarter"></select>
+											<select id="s_yr" data-toggle="tooltip" title="<liferay-ui:message key="year"/>"></select>
+											<select id="s_qt" data-toggle="tooltip" title="<liferay-ui:message key="quarter"/>"></select>
 											</form>
 											<span id="show_nodata"></span>
 										</div>
 									</div>
 									<div class="span4" align="right">
 										<button type="button" class="btn btn-info" onclick="search_benchmark()">
-											<i class="icon-search icon-white"></i>&nbsp;&nbsp;Search
+											<i class="icon-search icon-white"></i>&nbsp;&nbsp;<liferay-ui:message key="search"/>
 										</button>
 									</div>
 								</div>
@@ -464,7 +465,7 @@ plid = layout.getPlid();
 					<div class="col-lg-12">
 						<div class="ibox float-e-margins">
 							<div class="ibox-title">
-								<h5>Benchmark</h5>
+								<h5><liferay-ui:message key="benchmark"/></h5>
 							</div>
 
 							<div class="ibox-content breadcrumbs2">
@@ -472,12 +473,12 @@ plid = layout.getPlid();
 									<div class="span8">
 									
 										<button type="button" class="btn btn-warning" onclick="download_benchmark()">
-											<i class="fa fa-download" aria-hidden="true"></i>&nbsp;&nbsp;Download 
+											<i class="fa fa-download" aria-hidden="true"></i>&nbsp;&nbsp;<liferay-ui:message key="download"/> 
 										</button>
 										
 										<button id="btn_import" type="button" data-target="#ModalImport"
 										data-toggle="modal" class="btn btn-success btn-sm " style="margin-left: 5px;">
-										<i class="fa fa-upload"></i>&nbsp;Import</button>
+										<i class="fa fa-upload"></i>&nbsp;<liferay-ui:message key="import"/></button>
 										
 <!-- 										<span class="btn btn-success btn-file"> -->
 <!-- 											<i class="fa fa-upload" aria-hidden="true"></i>&nbsp;&nbsp; -->
@@ -489,19 +490,19 @@ plid = layout.getPlid();
 										</i>
 									</div>
 									<div class="span4" align="right">
-										<span id="textnumber" style="display: none;">Refresh in </span>
+										<span id="textnumber" style="display: none;">Refresh in</span>
 										<span id="number" style="display: none;">10</span>
 									</div>
 									<div class="table table-responsive" style="overflow:auto;">
 										<table class="table table-striped" style="max-width: none;">
 											<thead>
 												<tr>
-													<th>Year</th>
-													<th>Quarter</th>
-													<th>Month</th>
-													<th>KPI</th>
-													<th>Company</th>
-													<th>Value</th>
+													<th><liferay-ui:message key="year"/></th>
+													<th><liferay-ui:message key="quarter"/></th>
+													<th><liferay-ui:message key="month"/></th>
+													<th><liferay-ui:message key="kpi"/></th>
+													<th><liferay-ui:message key="company"/></th>
+													<th><liferay-ui:message key="value"/></th>
 												</tr>
 											</thead>
 											<tbody id="data-benchmark"></tbody>
@@ -529,7 +530,7 @@ plid = layout.getPlid();
 						<span aria-hidden="true"><i class='fa fa-times'></i></span>
 					</button>
 					<!-- <i class="fa fa-laptop modal-icon"></i> -->
-					<h4 class="modal-title" id="">Import Benchmark</h4>
+					<h4 class="modal-title" id=""><liferay-ui:message key="import-benchmark"/></h4>
 					<!-- 
                 <small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
                  -->
@@ -539,7 +540,7 @@ plid = layout.getPlid();
 					<!-- form start -->
 					<div class="form-group">
 					<form id="fileImportEmployee">
-						<h4>FILE IMPORT</h4>
+						<h4><liferay-ui:message key="file-import"/></h4>
 						<div class="fileUpload ">
 							<input type="file" id="file" class="dropify" accept=".xls, .xlsx" /><span></span>
 						</div>
@@ -549,9 +550,9 @@ plid = layout.getPlid();
 					<!-- content end -->
 				</div>
 				<div class="modal-footer">
-					<button class="btn btn-success" type="submit" id="importFileMobile" form="fileImportEmployee">Import</button>
+					<button class="btn btn-success" type="submit" id="importFileMobile" form="fileImportEmployee"><liferay-ui:message key="import"/></button>
 					<button data-dismiss="modal" class="btn btn-danger btnCancle"
-						type="button">Cancel</button>
+						type="button"><liferay-ui:message key="cancel"/></button>
 						<div class="alert alert-warning information" id="informationFile"
 						style="height:120px; overflow-y: scroll; position:relative;display: none;"></div>
 				</div>

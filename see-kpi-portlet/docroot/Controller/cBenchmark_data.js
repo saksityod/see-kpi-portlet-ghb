@@ -10,12 +10,12 @@ function generate_dropdown() {
         success: function(result) {
             //console.log(result)
             if (result.nodata) {
-                $('#s_yr').append('<option value="" disabled="" selected>ไม่มีข้อมูลปี</option>');
-                $('#s_qt').append('<option value="" disabled="" selected>ไม่มีข้อมูลไตรมาส</option>');
-                $('#show_nodata').append('ดาวน์โหลดข้อมูลด้านล่างเพื่อทำการเพิ่มข้อมูล');
+                $('#s_yr').append('<option value="" disabled="" selected>'+ Liferay.Language.get('no-year-data')+'</option>');
+                $('#s_qt').append('<option value="" disabled="" selected>'+ Liferay.Language.get('no-quarter-data')+'</option>');
+                $('#show_nodata').append(Liferay.Language.get('downlond-the-information-below-to-add-information'));
             } else {
                 var list_year;
-                list_year += '<option value="">Select Year</option>';
+                list_year += '<option value="">'+ Liferay.Language.get('select-year')+'</option>';  //Liferay.Language.get('select-year')
                 $.each(result.year, function(key, value) {
                     list_year +=
                         '<option value="' + value.year + '">' + value.year + '</option>';
@@ -23,7 +23,7 @@ function generate_dropdown() {
                 $('#s_yr').append(list_year);
 
                 var list_quarter;
-                list_quarter += '<option value="">Select Quarter</option>';
+                list_quarter += '<option value="">'+ Liferay.Language.get('select-quarter')+'</option>';  //"+Liferay.Language.get('select-quarter')+"
                 $('#s_qt').append(list_quarter);
             }
         }
@@ -132,10 +132,6 @@ var validateFileFn = function(data) {
             }
         }
 
-        //	     $.each(indexEntry['errors'],function(index2,indexEntry2){
-        //	    	 console.log("test4");
-        //	    	 //validateFile+="<font color='red'>&emsp;*</font> "+indexEntry2+"<br>";
-        //	     });
 
     });
     callFlashSlideInModal(validateFile, "#informationFile", "error");
