@@ -380,7 +380,7 @@ var listAllKPIFn = function(data){
 
 		dataTableHTML+="<tr>";
 			dataTableHTML+="<td>"+indexEntry2['perspective_name']+" </td>";
-			dataTableHTML+="<td>"+indexEntry2['item_name']+"<br><span class='LastUpdateText'>As of: "+indexEntry2['etl_dttm']+"</span></td>";
+			dataTableHTML+="<td>"+indexEntry2['item_name']+"<br><span class='LastUpdateText'>"+Liferay.Language.get('as-of')+": "+indexEntry2['etl_dttm']+"</span></td>";
 			dataTableHTML+="<td>"+indexEntry2['uom_name']+" </td>";
 			dataTableHTML+="<td>";
 			
@@ -399,11 +399,11 @@ var listAllKPIFn = function(data){
 							dataTableHTML+="<td style=' text-align: right !important;'>"+actual+"</td>";
 						dataTableHTML+="</tr>";
 						dataTableHTML+="<tr>";
-							dataTableHTML+="<td>%Taget<span style='float:right'>"+percent_target+"</span></td>";
+							dataTableHTML+="<td>"+Liferay.Language.get('percent-target')+"<span style='float:right'>"+percent_target+"</span></td>";
 							dataTableHTML+="<td colspan='2'><div class='sparkline' style='opacity:1;'  >"+indexEntry2['percent_target_str']+"</div></td>";
 						dataTableHTML+="</tr>";
 						dataTableHTML+="<tr>";
-							dataTableHTML+="<td>%Forecast<span style='float:right'>"+percent_forecast+"</span></td>";
+							dataTableHTML+="<td>"+Liferay.Language.get('percent-forecast')+"<span style='float:right'>"+percent_forecast+"</span></td>";
 							dataTableHTML+="<td colspan='2'><div class='sparkline' style='opacity:1;'>"+indexEntry2['percent_forecast_str']+"</div></td>";
 						dataTableHTML+="</tr>";
 					dataTableHTML+="</tbody>";
