@@ -1869,7 +1869,7 @@ var calculationGrandTotalFn = function(id){
 					if(totalWeigthQuantity != parseFloat($("#weigth_total_quantity_percentage_target-"+structure_id).text())){
 						
 						$("#weigth_total_quantity_percentage-"+structure_id)
-						.html("Cannot Assignment Because Weight% not equal to "+parseFloat($("#weigth_total_quantity_percentage_target-"+structure_id).text()).toFixed(2)+"% ["+addCommas(parseFloat(totalWeigthQuantity).toFixed(2))+"%]")
+						.html(Liferay.Language.get('cannot-assignment-because-weight-percent-not-equal-to')+" "+parseFloat($("#weigth_total_quantity_percentage_target-"+structure_id).text()).toFixed(2)+"% ["+addCommas(parseFloat(totalWeigthQuantity).toFixed(2))+"%]")
 						.css({"color":"#FF0000"}).
 						addClass("weightIsOver");
 						
@@ -1912,11 +1912,11 @@ var calculationGrandTotalFn = function(id){
 				var structure_id=dataId[2];
 					if($(indexEntry).val().trim()!="" && $("#id-"+apprailsal_item_id+"-"+structure_id+"-checkbox").prop("checked")==true){
 						total_weigth_quality=(parseFloat(Number(total_weigth_quality).toFixed(2)))+(parseFloat($(indexEntry).val().replace(',', '')));
-						
+						 
 						if(total_weigth_quality != parseFloat($("#weigth_total_quality_percentage_target-"+structure_id).text())){
 
 							$("#weigth_total_quality_percentage-"+structure_id)
-							.html("Cannot Assignment Because Weight% not equal to "+parseFloat($("#weigth_total_quality_percentage_target-"+structure_id).text())+"% ["+addCommas(parseFloat(total_weigth_quality).toFixed(2))+"%]")
+							.html(Liferay.Language.get('cannot-assignment-because-weight-percent-not-equal-to')+" "+parseFloat($("#weigth_total_quality_percentage_target-"+structure_id).text())+"% ["+addCommas(parseFloat(total_weigth_quality).toFixed(2))+"%]")
 							.css({"color":"#FF0000"}).
 							addClass("weightIsOver");
 							
