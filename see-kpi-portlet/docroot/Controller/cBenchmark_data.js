@@ -62,10 +62,10 @@ $(document).ready(function() {
                 var list_quarter;
                 if (result.nodata) {
                     list_quarter +=
-                        '<option value="">Select Quarter</option>';
+                        '<option value="">'+Liferay.Language.get('select-quarter')+'</option>';
                 } else {
                     list_quarter +=
-                        '<option value="">Select Quarter</option>';
+                        '<option value="">'+Liferay.Language.get('select-quarter')+'</option>';
                     $.each(result.quarter, function(key, value) {
                         list_quarter +=
                             '<option value="' + value.quarter + '">' + value.quarter + '</option>';
@@ -190,7 +190,7 @@ function uploadFiles(event) {
 
             if (data['status'] == 200 && data['errors'].length == 0) {
 
-                callFlashSlide("Import Employee Successfully");
+                callFlashSlide(Liferay.Language.get('import-employee-succesfully'));
                 $("body").mLoading('hide');
                 $('#ModalImport').modal('hide');
                 generate_dropdown();
