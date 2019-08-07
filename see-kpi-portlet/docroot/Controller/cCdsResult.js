@@ -119,7 +119,7 @@ var listCdsResultFn = function (data) {
 			    	 
 				     if(data['status']==200){
 				    	 
-				       callFlashSlide("Delete Successfully.");
+				       callFlashSlide(Liferay.Language.get('delete-successfully')+".");
 				       getDataFn($("#pageNumber").val(),$("#rpp").val()); 
 				       $("#confrimModal").modal('hide');
 				       
