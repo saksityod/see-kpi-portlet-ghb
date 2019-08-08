@@ -315,7 +315,7 @@
 			success : function(data) {
 				galbalDashboard=data;
 				$("#btn_kpi").hide();
-				$("#captionPieChart").html("<input type='hidden' id='overall_name' name='overall_name' value='"+data['name']+"'><div id='txtTopic' class='span12 graphLTopHeader'>"+data['header'].replace("Performance by Perspective", "<div style='display: inline-block;'>Performance by Perspective</div>")+"</div>");
+				$("#captionPieChart").html("<input type='hidden' id='overall_name' name='overall_name' value='"+data['name']+"'><div id='txtTopic' class='span12 graphLTopHeader'>"+data['header'].replace(Liferay.Language.get('performance-by-perspective'), "<div style='display: inline-block;'>"+Liferay.Language.get('performance-by-perspective')+"</div>")+"</div>");
 				$("#overall_name_on_list_kpi").html(data['name']);
 				generateChartPieFn(data);
 				
@@ -467,7 +467,7 @@ var getDataBubbleFn = function(page,rpp){
 		async:false,// w8 data 
 		success : function(data) {
 			var htmlCaption="";
-			htmlCaption +="<div id='txtTopic' class='span12 graphLTopHeader'>"+data['header'].replace("Performance by KPI", "<div style='display: inline-block;'>Performance by KPI</div>");
+			htmlCaption +="<div id='txtTopic' class='span12 graphLTopHeader'>"+data['header'].replace(Liferay.Language.get('performance-by-kpi'), "<div style='display: inline-block;'>"+Liferay.Language.get('performance-by-kpi')+"</div>");
 			htmlCaption +="<div style='display: inline-block;'><button id='btn_kpi' type='button' data-target='#ModalKPI' data-toggle='modal' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' class='btn btn-xs btn-white' > <i class='fa fa-table fa-table' aria-hidden='true'></i>"+Liferay.Language.get('all-kpi')+"</button></div>";
 			htmlCaption +="</div>";
 			
