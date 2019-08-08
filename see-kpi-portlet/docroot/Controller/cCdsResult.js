@@ -26,11 +26,11 @@ var getDataFn = function(page,rpp){
 	var emp_name= $("#param_emp_id").val();
 	
 	if(app_type == "2"){
-		$("#tableCdsResult thead tr").find("th:first").html("Emp&nbsp;Code&emsp;");
-		$("#tableCdsResult thead tr").find("th:first").next().html("Emp&nbsp;Name&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;");
+		$("#tableCdsResult thead tr").find("th:first").html(Liferay.Language.get('emp-code'));
+		$("#tableCdsResult thead tr").find("th:first").next().html(Liferay.Language.get('emp-name'));
 	}else if(app_type == "1"){
-		$("#tableCdsResult thead tr").find("th:first").html("Org&nbsp;Code&emsp;");
-		$("#tableCdsResult thead tr").find("th:first").next().html("Org&nbsp;Name&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;");
+		$("#tableCdsResult thead tr").find("th:first").html(Liferay.Language.get('org-code'));
+		$("#tableCdsResult thead tr").find("th:first").next().html(Liferay.Language.get('org-name'));
 	}
 	$.ajax({
 		url : restfulURL+restfulPathCdsResult,
@@ -82,10 +82,8 @@ var searchAdvanceFn = function (year,month,app_lv,app_type,org_id,position,emp_n
 var listCdsResultFn = function (data) {
 	var htmlTable = "";
 	$.each(data,function(index,indexEntry) {
-// 		console.log(indexEntry["period"]+indexEntry["structure"]
-// 		+indexEntry["appraisal_level"]+indexEntry["appraisal_item"]);
 	
-		htmlTable += "<tr class='rowSearch'>";//cds_result_id
+		htmlTable += "<tr class='rowSearch'>";
 		if($("#param_app_type").val() == "2"){
 			htmlTable += "<td class='columnSearch'>"+ indexEntry["emp_code"]+ "</td>";
 			htmlTable += "<td class='columnSearch'>"+ indexEntry["emp_name"]+ "</td>";
@@ -121,7 +119,7 @@ var listCdsResultFn = function (data) {
 			    	 
 				     if(data['status']==200){
 				    	 
-				       callFlashSlide("Delete Successfully.");
+				       callFlashSlide(Liferay.Language.get('delete-successfully')+".");
 				       getDataFn($("#pageNumber").val(),$("#rpp").val()); 
 				       $("#confrimModal").modal('hide');
 				       
@@ -157,7 +155,7 @@ var dropDownListMonth = function(){
 	var html="";
 	
 	
-	html+="<select id=\"month\" class=\"input span12 m-b-n\" data-toggle=\"tooltip\" title=\"Month\" name=\"month\">";
+	html+="<select id=\"month\" class=\"input span12 m-b-n\" data-toggle=\"tooltip\" title=\""+Liferay.Language.get('month')+"\" name=\"month\">";
 	//html+="<option  selected value=''>All</option>";
 	$.ajax ({
 		url:restfulURL+restfulPathDropDownMonth ,
@@ -185,7 +183,7 @@ var dropDownListYear = function(){
 	var html="";
 	
 	
-	html+="<select id=\"year\" class=\"input span12 m-b-n\" data-toggle=\"tooltip\" title=\"Year\" name=\"year\">";
+	html+="<select id=\"year\" class=\"input span12 m-b-n\" data-toggle=\"tooltip\" title=\""+Liferay.Language.get('year')+"\" name=\"year\">";
 	//html+="<option  selected value=''>All</option>";
 	$.ajax ({
 		url:restfulURL+restfulPathDropDownYear ,
@@ -214,8 +212,8 @@ var dropDownListAppraisalLevel = function(){
 	var html="";
 	
 	
-	html+="<select data-placement='top' id=\"app_lv\" class=\"input span12 m-b-n\" data-toggle=\"tooltip\" title=\"Level\" name=\"app_lv\">";
-	html+="<option  selected value=''>All Appraisal Level</option>";
+	html+="<select data-placement='top' id=\"app_lv\" class=\"input span12 m-b-n\" data-toggle=\"tooltip\" title=\""+Liferay.Language.get('level')+"\" name=\"app_lv\">";
+	html+="<option  selected value=''>"+Liferay.Language.get('all-level')+"</option>";
 	$.ajax ({
 		url:restfulURL+restfulPathDropDownAppraisalLevel,
 		type:"get" ,
@@ -242,7 +240,7 @@ var dropDownListAppraisalType = function(){
 	var html="";
 	
 	
-	html+="<select data-placement='top' id=\"app_type\" class=\"input span12 m-b-n\" data-toggle=\"tooltip\" title=\"Entity Type\" name=\"app_type\">";
+	html+="<select data-placement='top' id=\"app_type\" class=\"input span12 m-b-n\" data-toggle=\"tooltip\" title=\""+Liferay.Language.get('entity-type')+"\" name=\"app_type\">";
 	$.ajax ({
 		url:restfulURL+restfulPathDropDownAppraisalType,
 		type:"get" ,
@@ -266,8 +264,8 @@ var dropDownListOrganization = function(){
 	var html="";
 	
 	
-	html+="<select data-placement='top' id=\"org_id\" class=\"input span12 m-b-n\" data-toggle=\"tooltip\" title=\"Organization\" name=\"org_id\">";
-	html+="<option  selected value=''>All Organization</option>";
+	html+="<select data-placement='top' id=\"org_id\" class=\"input span12 m-b-n\" data-toggle=\"tooltip\" title=\""+Liferay.Language.get('organization')+"\" name=\"org_id\">";
+	html+="<option  selected value=''>"+Liferay.Language.get('all-organization')+"</option>";
 	$.ajax ({
 		url:restfulURL+"/"+serviceName+"/public/org",
 		type:"get" ,
@@ -290,7 +288,7 @@ var dropDownListOrganization = function(){
 };
 var listErrorFn =function(data){
 	var errorData="";
-	//alert(data['errors'] instanceof  Array);
+	
 	golbalDataError=data;
 	
 	var validateFile="";
@@ -307,42 +305,9 @@ var listErrorFn =function(data){
 	     });
 	 
 	});
-	   /*  
-		$.each(data,function(index,indexEntry){	
-		if(data[index]['employee_code']!= undefined || data[index]['employee_code']==null){
-			if(data[index]['employee_code']== null){//The employee code field is null
-				errorData+="<font color='#FFC446'><i class='fa fa-exclamation-triangle'></i></font> Employee Code : null <i class='fa fa-level-down'></i><br>";
-			}else{
-				errorData+="<font color='#FFC446'><i class='fa fa-exclamation-triangle'></i></font> Employee Code : "+data[index]['employee_code']+" <i class='fa fa-level-down'></i><br>";}
-			
-		}
-		
-		if(typeof data[index]['errors'] != 'object'){
-			errorData+="<font color='red'>*</font> "+data[index]['errors']+"<br>";
-		}
-		if(data[index]['errors']['employee_code']!=undefined){
-			errorData+="<font color='red'>*</font> "+data[index]['errors']['employee_code']+"<br>";
-		}
-		if(data[index]['errors']['cds_id']!=undefined){
-			errorData+="<font color='red'>*</font> "+data[index]['errors']['cds_id']+"<br>";
-		}
-		if(data[index]['errors']['year']!=undefined){
-			errorData+="<font color='red'>*</font> "+data[index]['errors']['year']+"<br>";
-		}
-		if(data[index]['errors']['month']!=undefined){
-			errorData+="<font color='red'>*</font> "+data[index]['errors']['month']+"<br>";
-		}
-		if(data[index]['errors']['cds_value']!=undefined){
-			errorData+="<font color='red'>*</font> "+data[index]['errors']['cds_value']+"<br>";
-		}
-		
-		
-	});*/
-
-	//alert(errorData);
-	//callFlashSlideInModal(errorData);
+	  
 	callFlashSlideInModal(validateFile,"#information","error");
-	/*return errorData;*/
+	
 }
 //-------------------  Drop Down List Appraisal Level FN END ---------------------
 var getBrowserWidth = function(){
@@ -415,64 +380,6 @@ $(document).ready(function() {
 		getBrowserWidth();
 		return false;
 	});
-	//$("#btnSearchAdvance").click();
-	/*
-	//Autocomplete Search Start
-		$("#org_name").autocomplete({
-	        source: function (request, response) {
-	        	$.ajax({
-					 url:restfulURL+"/"+serviceName+"/public/org/auto_org_name",
-					 type:"post",
-					 dataType:"json",
-					 headers:{Authorization:"Bearer "+tokenID.token},
-					 data:{"org_name":request.term,
-						 "level_id":$("#app_lv").val()},
-					 //async:false,
-	                 error: function (xhr, textStatus, errorThrown) {
-	                        console.log('Error: ' + xhr.responseText);
-	                    },
-					 success:function(data){
-						console.log(data);
-							response($.map(data, function (item) {
-								console.log(item.org_code);
-								//alert(item.org_code);
-	                            return {
-	                                label: item.org_name,
-	                                value: item.org_name,
-	                                org_code:item.org_id
-	                            };
-	                        }));
-						
-					},
-					beforeSend:function(){
-						$("body").mLoading('hide');	
-					}
-					
-					});
-	        },
-			select:function(event, ui) {
-				$("#org_name").val(ui.item.value);
-	            $("#org_id").val(ui.item.org_code);
-	            galbalDataTemp['org_name'] = ui.item.value;
-	            galbalDataTemp['org_id']=ui.item.org_code;
-	            return false;
-	        },change: function(e, ui) {  
-				if ($("#org_name").val() == galbalDataTemp['org_name']) {
-					$("#org_id").val(galbalDataTemp['org_id']);
-				} else if (ui.item != null) {
-					$("#org_id").val(ui.item.org_code);
-				} else {
-					$("#org_id").val("");
-				}
-	        	
-	         }
-	    });
-	*/
-
-	
-
-	
-	
 	
 	
 	//Autocomplete Search Position Start
@@ -681,10 +588,10 @@ $(document).ready(function() {
 			success: function(data, textStatus, jqXHR)
 			{
 				
-				console.log(data);
+				
 				if(data['status']==200 && data['errors'].length==0){
-							
-					callFlashSlide("Import CDS Result Successfully");
+					
+					callFlashSlide(Liferay.Language.get('import-cds-result-successfully'));
 					getDataFn($(".pagination .active").attr( "data-lp" ),$("#rpp").val());
 					$("body").mLoading('hide');
 					$('#file').val("");

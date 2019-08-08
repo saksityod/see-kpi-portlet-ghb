@@ -8,27 +8,6 @@ var files;
 // funciton global start
 //form2
 
-//var connectionServiceFn = function(username,password){
-//	$.ajax({
-//		
-//		url:restfulURL+"/"+serviceName+"/public/session",
-//		//url:"http://localhost/"+serviceName+"/public/session",
-//		type:"POST",
-//		dataType:"text",
-//		data:{"username":username,"password":password},
-//		//data:{"username":"2015019","password":"2015019"},
-//		error: function(jqXHR, textStatus, errorThrown) {
-//			
-//		},
-//		success:function(data){
-//			//console.log(data);
-//			localStorage.setItem("tokenID",data);
-//			console.log("Login is Success");
-//			
-//		}
-//	})			
-//}
-
 //List Error Function Start
 var listErrorActionPlanFn =function(data){
 	var errorData="";
@@ -81,40 +60,6 @@ var dropdownDeductScoreFn = function(score,nof_target_score,hint){
 		
 		
 	}
-	/*
-	if(score==0){
-		htmlTemplateQuality+="<option selected='selected'>0</option>";
-		htmlTemplateQuality+="<option >1</option>";
-		htmlTemplateQuality+="<option>2</option>";
-		htmlTemplateQuality+="<option>3</option>";
-		htmlTemplateQuality+="<option>4</option>";
-	}else if(score==1){
-		htmlTemplateQuality+="<option>0</option>";
-		htmlTemplateQuality+="<option selected='selected'>1</option>";
-		htmlTemplateQuality+="<option>2</option>";
-		htmlTemplateQuality+="<option>3</option>";
-		htmlTemplateQuality+="<option>4</option>";
-	}else if(score==2){
-		htmlTemplateQuality+="<option>0</option>";
-		htmlTemplateQuality+="<option>1</option>";
-		htmlTemplateQuality+="<option selected='selected'>2</option>";
-		htmlTemplateQuality+="<option>3</option>";
-		htmlTemplateQuality+="<option>4</option>";
-	}else if(score==3){
-		htmlTemplateQuality+="<option>0</option>";
-		htmlTemplateQuality+="<option>1</option>";
-		htmlTemplateQuality+="<option>2</option>";
-		htmlTemplateQuality+="<option selected='selected'>3</option>";
-		htmlTemplateQuality+="<option>4</option>";
-	}else if(score==4){
-		htmlTemplateQuality+="<option>0</option>";
-		htmlTemplateQuality+="<option>1</option>";
-		htmlTemplateQuality+="<option>2</option>";
-		htmlTemplateQuality+="<option>3</option>";
-		htmlTemplateQuality+="<option selected='selected'>4</option>";
-	}
-	*/
-	
 	
 	return htmlTemplateQuality;
 }
@@ -139,9 +84,9 @@ var assignTemplateQualityFn = function(structureName,data){
 	htmlTemplateQuality+="<div class='titlePanel'>"+structureName+"</div>";
 		if(data['no_weight']==0){ // has weight;
 			if(data['result_type']==1){
-				htmlTemplateQuality+="<div class='totalWeight'>Total Weight "+data['total_weight_percent']+"%</div>";
+				htmlTemplateQuality+="<div class='totalWeight'>"+Liferay.Language.get('total-weight')+" "+data['total_weight_percent']+"%</div>";
 			}else{
-				htmlTemplateQuality+="<div class='totalWeight'>Total Score "+data['total_weight']+"</div>";
+				htmlTemplateQuality+="<div class='totalWeight'>"+Liferay.Language.get('total-score')+" "+data['total_weight']+"</div>";
 			}
 		
 		}
@@ -153,23 +98,23 @@ var assignTemplateQualityFn = function(structureName,data){
 	//has weight
 	if(data['no_weight']==0){
 			htmlTemplateQuality+="<tr>";
-				htmlTemplateQuality+="<th style=\"width:40%\"><b>KPI Name</b></th>";
-				htmlTemplateQuality+="<th style='width:15%;text-align: right;'><b>Target</b></th>";
-				htmlTemplateQuality+="<th style='width:10%;text-align: center;'><b>Score</b></th>  ";      
-				htmlTemplateQuality+="<th style='width:15%;text-align: right;'><b>%Weight</b></th>  ";  
+				htmlTemplateQuality+="<th style=\"width:40%\"><b>"+Liferay.Language.get('kpi-name')+"</b></th>";
+				htmlTemplateQuality+="<th style='width:15%;text-align: right;'><b>"+Liferay.Language.get('target')+"</b></th>";
+				htmlTemplateQuality+="<th style='width:10%;text-align: center;'><b>"+Liferay.Language.get('score')+"</b></th>  ";      
+				htmlTemplateQuality+="<th style='width:15%;text-align: right;'><b>"+Liferay.Language.get('percent-weight')+"</b></th>  ";  
 				if(data['result_type']==1){
-					htmlTemplateQuality+="<th style='width:15%;text-align: right;'><b>Weight Score</b></th>  ";
+					htmlTemplateQuality+="<th style='width:15%;text-align: right;'><b>"+Liferay.Language.get('weight-score')+"</b></th>  ";
 				}else{
-					htmlTemplateQuality+="<th style='width:15%;text-align: right;'><b>Result Score</b></th>  ";
+					htmlTemplateQuality+="<th style='width:15%;text-align: right;'><b>"+Liferay.Language.get('result-score')+"</b></th>  ";
 				}
 				   
 			htmlTemplateQuality+="</tr>";
 	}else{
 		
 		htmlTemplateQuality+="<tr>";
-			htmlTemplateQuality+="<th style=\"width:40%\"><b>KPI Name</b></th>";
-			htmlTemplateQuality+="<th style='width:15%;text-align: right;'><b>Target</b></th>";
-			htmlTemplateQuality+="<th style='width:10%;text-align: center;'><b>Score</b></th>  ";      
+			htmlTemplateQuality+="<th style=\"width:40%\"><b>"+Liferay.Language.get('kpi-name')+"</b></th>";
+			htmlTemplateQuality+="<th style='width:15%;text-align: right;'><b>"+Liferay.Language.get('target')+"</b></th>";
+			htmlTemplateQuality+="<th style='width:10%;text-align: center;'><b>"+Liferay.Language.get('score')+"</b></th>  ";      
 		 
 		htmlTemplateQuality+="</tr>";
 	}
@@ -221,7 +166,7 @@ var assignTemplateQualityFn = function(structureName,data){
 							htmlTemplateQuality+="<td class=''></td>";
 							htmlTemplateQuality+="<td class='' ></td>";
 							htmlTemplateQuality+="<td class=''></td>";
-							htmlTemplateQuality+="<td class='object-right' style='text-align: right;padding-right: 10px;font-weight: bold;'><b>Total</b></td>";
+							htmlTemplateQuality+="<td class='object-right' style='text-align: right;padding-right: 10px;font-weight: bold;'><b>"+Liferay.Language.get('total')+"</b></td>";
 							htmlTemplateQuality+="<td class='' style='text-align: right;padding-right: 10px;font-weight: bold;font-size:16px'><b>"+addCommas(parseFloat(notNullFn(data['total_weigh_score'])).toFixed(2))+"</b></td>";
 							
 						htmlTemplateQuality+="</tr>";
@@ -242,8 +187,6 @@ var assignTemplateQualityFn = function(structureName,data){
 htmlTemplateQuality+="</div>";
 return htmlTemplateQuality;
 
-//$("#appraisal_template_area").append(htmlTemplateQuality);
-
 };
 
 var assignTemplateDeductFn = function(structureName,data){
@@ -256,9 +199,9 @@ var assignTemplateDeductFn = function(structureName,data){
 	if(data['no_weight']==0){ // has weight;
 		
 		if(data['result_type']==1){
-			htmlTemplateDeduct+="<div class='totalWeight'>Total Weight "+data['total_weight_percent']+"%</div>";
+			htmlTemplateDeduct+="<div class='totalWeight'>"+Liferay.Language.get('total-weight')+" "+data['total_weight_percent']+"%</div>";
 		}else{
-			htmlTemplateDeduct+="<div class='totalWeight'>Total Score "+data['total_weight']+"</div>";
+			htmlTemplateDeduct+="<div class='totalWeight'>"+Liferay.Language.get('total-score')+" "+data['total_weight']+"</div>";
 		}
 	}
 	htmlTemplateDeduct+="</div>";
@@ -273,25 +216,25 @@ var assignTemplateDeductFn = function(structureName,data){
 			
 		
 			htmlTemplateDeduct+="<tr>";
-				htmlTemplateDeduct+="<th style=\"width:30%\"><b>KPI Name</b></th>";
-				htmlTemplateDeduct+="<th style='width:15%;text-align: right;'><b>Max Value</b></th>";
-				htmlTemplateDeduct+="<th style='width:15%;text-align: right;'><b>Actual Value</b></th>";
-				htmlTemplateDeduct+="<th style='width:15%;text-align: right;'><b>Over Value</b></th>";
-				htmlTemplateDeduct+="<th style='width:15%;text-align: right;'><b>Deduct Score/Unit</b> </th>";
+				htmlTemplateDeduct+="<th style=\"width:30%\"><b>"+Liferay.Language.get('kpi-name')+" </b></th>";
+				htmlTemplateDeduct+="<th style='width:15%;text-align: right;'><b>"+Liferay.Language.get('max-value')+" </b></th>";
+				htmlTemplateDeduct+="<th style='width:15%;text-align: right;'><b>"+Liferay.Language.get('actual-value')+" </b></th>";
+				htmlTemplateDeduct+="<th style='width:15%;text-align: right;'><b>"+Liferay.Language.get('over-value')+" </b></th>";
+				htmlTemplateDeduct+="<th style='width:15%;text-align: right;'><b>"+Liferay.Language.get('deduct-score-per-unit')+"</b> </th>";
 				if(data['result_type']==1){
-					htmlTemplateDeduct+="<th style='width:20%;text-align: right;'><b>Weight Score </b></th>";
+					htmlTemplateDeduct+="<th style='width:20%;text-align: right;'><b>"+Liferay.Language.get('weight-score')+" </b></th>";
 				}else{
-					htmlTemplateDeduct+="<th style='width:20%;text-align: right;'><b>Result Score </b></th>";
+					htmlTemplateDeduct+="<th style='width:20%;text-align: right;'><b>"+Liferay.Language.get('result-score')+" </b></th>";
 				}
 			htmlTemplateDeduct+="</tr>";
 		}else{
 			htmlTemplateDeduct+="<tr>";
-				htmlTemplateDeduct+="<th style=\"width:35%\"><b>KPI Name</b></th>";
-				htmlTemplateDeduct+="<th style='width:15%;text-align: right;'><b>Max Value</b></th>";
-				htmlTemplateDeduct+="<th style='width:15%;text-align: right;'><b>Actual Value</b></th>";
-				htmlTemplateDeduct+="<th style='width:15%;text-align: right;'><b>Over Value</b></th>";
-				htmlTemplateDeduct+="<th style='width:15%;text-align: right;'><b>Deduct Score/Unit</b> </th>";
-				htmlTemplateDeduct+="<th style='width:15%;text-align: right;'><b>Score </b></th>";
+				htmlTemplateDeduct+="<th style=\"width:35%\"><b>"+Liferay.Language.get('kpi-name')+"</b></th>";
+				htmlTemplateDeduct+="<th style='width:15%;text-align: right;'><b>"+Liferay.Language.get('max-value')+"</b></th>";
+				htmlTemplateDeduct+="<th style='width:15%;text-align: right;'><b>"+Liferay.Language.get('actual-value')+"</b></th>";
+				htmlTemplateDeduct+="<th style='width:15%;text-align: right;'><b>"+Liferay.Language.get('over-value')+"</b></th>";
+				htmlTemplateDeduct+="<th style='width:15%;text-align: right;'><b>"+Liferay.Language.get('deduct-score-per-unit')+" </b></th>";
+				htmlTemplateDeduct+="<th style='width:15%;text-align: right;'><b>"+Liferay.Language.get('score')+" </b></th>";
 			htmlTemplateDeduct+="</tr>";
 		}
 			htmlTemplateDeduct+="</thead>";
@@ -329,7 +272,7 @@ var assignTemplateDeductFn = function(structureName,data){
 								htmlTemplateDeduct+="<td class=''></td>";
 								htmlTemplateDeduct+="<td class=''></td>";
 								htmlTemplateDeduct+="<td class=''></td>";
-								htmlTemplateDeduct+="<td class='object-right' style='text-align: right;padding-right: 10px;font-weight: bold;'><b>Total</b></td>";
+								htmlTemplateDeduct+="<td class='object-right' style='text-align: right;padding-right: 10px;font-weight: bold;'><b>"+Liferay.Language.get('total')+"</b></td>";
 								htmlTemplateDeduct+="<td class=''  style='text-align: right;padding-right: 10px;font-weight: bold; font-size:16px'><b>"+addCommas(parseFloat(notNullFn(data['total_weigh_score'])).toFixed(2))+"</b></td>";
 						htmlTemplateDeduct+="</tr>";
 					}
@@ -346,7 +289,6 @@ var assignTemplateDeductFn = function(structureName,data){
 		htmlTemplateDeduct+="</div>";
 	htmlTemplateDeduct+="</div>";
 	return htmlTemplateDeduct;
-	//$("#appraisal_template_area").append(htmlTemplateDeduct);
 };
 
 var assignTemplateQuantityFn = function(structureName,data){
@@ -367,9 +309,9 @@ var assignTemplateQuantityFn = function(structureName,data){
 	htmlTemplateQuantity+="      <div class='titlePanel'>"+structureName+"</div>";
 	if(data['no_weight']==0){ // has weight;
 		if(data['result_type']==1){
-			htmlTemplateQuantity+="      <div class='totalWeight'>Total Weight "+data['total_weight_percent']+"%</div>";
+			htmlTemplateQuantity+="      <div class='totalWeight'>"+Liferay.Language.get('total-weight')+" "+data['total_weight_percent']+"%</div>";
 		}else{
-			htmlTemplateQuantity+="      <div class='totalWeight'>Total Score "+data['total_weight']+"</div>";
+			htmlTemplateQuantity+="      <div class='totalWeight'>"+Liferay.Language.get('total-score')+" "+data['total_weight']+"</div>";
 		}
 	}
 	htmlTemplateQuantity+="  </div>";
@@ -383,25 +325,25 @@ var assignTemplateQuantityFn = function(structureName,data){
 		
 		htmlTemplateQuantity+="<tr>";
 		
-			htmlTemplateQuantity+="<th style=\"width:10%\" class=''><b>Perspective</b> </th>";
-			htmlTemplateQuantity+="<th style=\"width:20%\" class=''><b>KPI Name</b></th>";
-			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>Target </b></th>";
-			htmlTemplateQuantity+="<th style='width:5%;min-width: 60px !important;text-align: center;' class=''><b>หน่วยวัด </b></th>";
-			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>Forecast </b></th>";
-			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>Actual </b></th>";
+			htmlTemplateQuantity+="<th style=\"width:10%\" class=''><b>"+Liferay.Language.get('perspective')+" </b></th>";
+			htmlTemplateQuantity+="<th style=\"width:20%\" class=''><b>"+Liferay.Language.get('kpi-name')+" </b></th>";
+			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>"+Liferay.Language.get('target')+" </b></th>";
+			htmlTemplateQuantity+="<th style='width:5%;min-width: 60px !important;text-align: center;' class=''><b>"+Liferay.Language.get('uom')+" </b></th>";
+			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>"+Liferay.Language.get('forecast')+" </b></th>";
+			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>"+Liferay.Language.get('actual')+" </b></th>";
 			if(data['threshold']==1){
-				htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>Score </b></th>";
+				htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>"+Liferay.Language.get('score')+" </b></th>";
 			}else{
-				htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>%Achievement </b></th>";
+				htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>"+Liferay.Language.get('percent-achievement')+" </b></th>";
 			}
-			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>%Weight </b></th>";
+			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>"+Liferay.Language.get('percent-weight')+" </b></th>";
 			if(data['result_type']==1){
-				htmlTemplateQuantity+="<th style='width:10%;text-align: right;' class=''><b>Weight Score</b> </th>";
+				htmlTemplateQuantity+="<th style='width:10%;text-align: right;' class=''><b>"+Liferay.Language.get('weight-score')+"</b> </th>";
 			}else{
-				htmlTemplateQuantity+="<th style='width:10%;text-align: right;' class=''><b>Result Score</b> </th>";
+				htmlTemplateQuantity+="<th style='width:10%;text-align: right;' class=''><b>"+Liferay.Language.get('result-score')+"</b> </th>";
 			}
 
-			htmlTemplateQuantity+="<th style='width:10%;text-align: center;' class=''><b>Manage</b> </th>";
+			htmlTemplateQuantity+="<th style='width:10%;text-align: center;' class=''><b>"+Liferay.Language.get('manage')+"</b> </th>";
 
 			
 		htmlTemplateQuantity+="</tr>";
@@ -409,21 +351,21 @@ var assignTemplateQuantityFn = function(structureName,data){
 	}else{
 	//no_weight	
 		htmlTemplateQuantity+="<tr>";
-			htmlTemplateQuantity+="<th style=\"width:10%\" class=''><b>Perspective</b> </th>";
-			htmlTemplateQuantity+="<th style=\"width:20%\" class=''><b>KPI Name</b></th>";
-			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>Target </b></th>";
-			htmlTemplateQuantity+="<th style='width:5%;min-width: 60px !important;text-align:center;' class=''><b>หน่วยวัด </b></th>";
-			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>Forecast </b></th>";
-			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>Actual </b></th>";
+			htmlTemplateQuantity+="<th style=\"width:10%\" class=''><b>"+Liferay.Language.get('perspective')+"</b> </th>";
+			htmlTemplateQuantity+="<th style=\"width:20%\" class=''><b>"+Liferay.Language.get('kpi-name')+"</b></th>";
+			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>"+Liferay.Language.get('target')+" </b></th>";
+			htmlTemplateQuantity+="<th style='width:5%;min-width: 60px !important;text-align:center;' class=''><b>"+Liferay.Language.get('uom')+" </b></th>";
+			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>"+Liferay.Language.get('forecast')+" </b></th>";
+			htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>"+Liferay.Language.get('actual')+" </b></th>";
 			
 			if(data['threshold']==1){
-				htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>Score </b></th>";
+				htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>"+Liferay.Language.get('score')+" </b></th>";
 			}else{
-				htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>%Achievement </b></th>";
+				htmlTemplateQuantity+="<th style='width:5%;text-align: right;' class=''><b>"+Liferay.Language.get('percent-achievement')+" </b></th>";
 			}
 			
 
-			htmlTemplateQuantity+="<th style='width:15%;text-align: center;' class=''><b>Manage</b> </th>";
+			htmlTemplateQuantity+="<th style='width:15%;text-align: center;' class=''><b>"+Liferay.Language.get('manage')+"</b> </th>";
 		htmlTemplateQuantity+="</tr>";
 	}
 	
@@ -464,7 +406,7 @@ var assignTemplateQuantityFn = function(structureName,data){
 						
 	
 						htmlTemplateQuantity+="	<td style=\"text-align:center; display: flex; justify-content: space-between;\">";
-						htmlTemplateQuantity+=" <span>&nbsp;&nbsp;&nbsp;&nbsp;</span><i data-trigger=\"focus\" tabindex=\""+index+"\" data-content=\"&lt;button style='width:100%;' class='btn btn-success btn-small btn-gear reason' id='reason-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;Detail&lt;/button&gt;  &lt;button id='attach_file-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' style='width:100%;' class='btn btn-success btn-small btn-gear attach_file'&gt;Attach File&lt;/button&gt;&lt;button style='width:100%;' id='action_plan-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' class='btn btn-success btn-small btn-gear action_plan'&gt;Action Plan&lt;/button&gt; &lt;button style='width:100%;' class='btn btn-success btn-small btn-gear ganttChart' id='ganttChart-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;Gantt Chart&lt;/button&gt;  &lt;button style='width:100%;' class='btn btn-success btn-small btn-gear phase' id='phase-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;Phase&lt;/button&gt; \" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-edit-del\" data-original-title=\"\" title=\"\"></i>"+paperclip;						htmlTemplateQuantity+="	</td>";
+						htmlTemplateQuantity+=" <span>&nbsp;&nbsp;&nbsp;&nbsp;</span><i data-trigger=\"focus\" tabindex=\""+index+"\" data-content=\"&lt;button style='width:100%;' class='btn btn-success btn-small btn-gear reason' id='reason-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;"+Liferay.Language.get('detail')+"&lt;/button&gt;  &lt;button id='attach_file-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' style='width:100%;' class='btn btn-success btn-small btn-gear attach_file'&gt;"+Liferay.Language.get('attach-files')+"&lt;/button&gt;&lt;button style='width:100%;' id='action_plan-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' class='btn btn-success btn-small btn-gear action_plan'&gt;"+Liferay.Language.get('action-plan')+"&lt;/button&gt; &lt;button style='width:100%;' class='btn btn-success btn-small btn-gear ganttChart' id='ganttChart-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;"+Liferay.Language.get('gantt-chart')+"&lt;/button&gt;  &lt;button style='width:100%;' class='btn btn-success btn-small btn-gear phase' id='phase-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;"+Liferay.Language.get('phase')+"&lt;/button&gt; \" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-edit-del\" data-original-title=\"\" title=\"\"></i>"+paperclip;						htmlTemplateQuantity+="	</td>";
 					htmlTemplateQuantity+="</tr>";
 				}else{
 					//no_weight	
@@ -485,7 +427,7 @@ var assignTemplateQuantityFn = function(structureName,data){
 						}
 						
 						htmlTemplateQuantity+="	<td style=\"text-align:center; display: flex; justify-content: space-between;\">";
-						htmlTemplateQuantity+=" <span>&nbsp;&nbsp;&nbsp;&nbsp;</span><i data-trigger=\"focus\" tabindex=\""+index+"\" data-content=\"&lt;button id='attach_file-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' style='width:100%;' class='btn btn-success btn-small btn-gear attach_file'&gt;Attach File&lt;/button&gt;&lt;button id='action_plan-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' style='width:100%;' class='btn btn-success btn-small btn-gear action_plan'&gt;Action Plan&lt;/button&gt;&lt;button class='btn btn-success btn-small btn-gear ganttChart' id='ganttChart-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' style='width:100%;' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;Gantt&lt;/button&gt; &lt;button class='btn btn-success btn-small btn-gear phase' id='phase-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' style='width:100%;' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;Phase&lt;/button&gt;&nbsp;\" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-edit-del\" style='text-align:center;' data-original-title=\"\" title=\"\"></i>"+paperclip;
+						htmlTemplateQuantity+=" <span>&nbsp;&nbsp;&nbsp;&nbsp;</span><i data-trigger=\"focus\" tabindex=\""+index+"\" data-content=\"&lt;button id='attach_file-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' style='width:100%;' class='btn btn-success btn-small btn-gear attach_file'&gt;"+Liferay.Language.get('attach-files')+"&lt;/button&gt;&lt;button id='action_plan-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' style='width:100%;' class='btn btn-success btn-small btn-gear action_plan'&gt;"+Liferay.Language.get('action-plan')+"&lt;/button&gt;&lt;button class='btn btn-success btn-small btn-gear ganttChart' id='ganttChart-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' style='width:100%;' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;"+Liferay.Language.get('gantt')+"&lt;/button&gt; &lt;button class='btn btn-success btn-small btn-gear phase' id='phase-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' style='width:100%;' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;"+Liferay.Language.get('phase')+"&lt;/button&gt;&nbsp;\" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-edit-del\" style='text-align:center;' data-original-title=\"\" title=\"\"></i>"+paperclip;
 						htmlTemplateQuantity+="	</td>";
 							
 					htmlTemplateQuantity+="</tr>";
@@ -503,7 +445,7 @@ var assignTemplateQuantityFn = function(structureName,data){
 					htmlTemplateQuantity+="<td></td>";
 					htmlTemplateQuantity+="<td></td>";
 					htmlTemplateQuantity+="<td></td>";
-					htmlTemplateQuantity+="<td class='object-right' style='text-align: right;padding-right: 10px;font-weight: bold;'><b>Total</b></td>";
+					htmlTemplateQuantity+="<td class='object-right' style='text-align: right;padding-right: 10px;font-weight: bold;'><b>"+Liferay.Language.get('total')+"</b></td>";
 					htmlTemplateQuantity+="<td style='text-align: right;padding-right: 10px;font-weight: bold; font-size:16px;'><b>"+addCommas(parseFloat(notNullFn(data['total_weigh_score'])).toFixed(2))+"</b></td>";
 				htmlTemplateQuantity+="</tr>";
 			}
@@ -522,9 +464,6 @@ var assignTemplateQuantityFn = function(structureName,data){
 	htmlTemplateQuantity+="</div>";
 	
 	return htmlTemplateQuantity;
-	//$("#appraisal_template_area").append(htmlTemplateQuantity);
-	//console.log(data['count']);
-	//console.log(data['structure_id']);
 	
 }
 
@@ -589,7 +528,7 @@ var dropDrowAppraisalLevelFn = function(id){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success:function(data){
 			var htmlOption="";
-			htmlOption+="<option value=''>All Level</option>";
+			htmlOption+="<option value=''>"+Liferay.Language.get('all-level')+"</option>";
 			$.each(data,function(index,indexEntry){
 				
 				if(id==indexEntry['level_id']){
@@ -635,7 +574,7 @@ var dropDrowOrgFn = function(appraisalLevelId){
 		data:{"level_id":appraisalLevelId},
 		success:function(data){
 			var htmlOption="";
-			htmlOption+="<option value=''>All Organization</option>";
+			htmlOption+="<option value=''>"+Liferay.Language.get('all-organization')+"</option>";
 			$.each(data,function(index,indexEntry){
 				if(id==indexEntry['org_id']){
 					htmlOption+="<option selected='selected' value="+indexEntry['org_id']+">"+indexEntry['org_name']+"</option>";
@@ -715,12 +654,10 @@ var listAppraisalDetailFn = function(data){
 				
 				if( /iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
 					$(".popover").css({"text-align":"center","width": "120px","margin-left":"78px"});
-//					$(".popover").css({"text-align":"center","width": "120px","margin-left":"78px","margin-top":"-62px"});
 				} else {
 					$(".popover").css({"text-align":"center"});
 				}
-				//$("#tableAppraisalAssignment .popover-content").css({"width":"120px;"});
-				//$("#tableAppraisalAssignment .popover").css({"width":"120px;"});
+
 				//action_plan Start
 				$(".action_plan").on("click",function() {
 					
@@ -758,7 +695,6 @@ var listAppraisalDetailFn = function(data){
 				//phase Start
 				$(".phase").on("click",function(event) {
 					event.preventDefault();
-					//alert("phase3");
 					clearFormPhaseFn();
 					$("#informConfirm").empty();
 					var id=this.id.split("-");
@@ -776,7 +712,6 @@ var listAppraisalDetailFn = function(data){
 				//reason Start
 				$(".reason").on("click",function(event) {
 					event.preventDefault();
-					//alert("phase3");
 					clearFormReasonFn();
 					$(".informConfirm").empty();
 					var id=this.id.split("-");
@@ -799,7 +734,6 @@ var listAppraisalDetailFn = function(data){
 					var id=this.id.split("-");
 					id=id[1];
 					getDataGanttChartFn(id);
-					//getDataGanttChartFn(id,$("#gantt_amount").val(),$("#gantt_unit").val());
 					$("#gantt_item_result_id").val(id);
 					$("#ganttChartModal").modal({
 						"backdrop" : setModalPopup[0],
@@ -814,8 +748,6 @@ var listAppraisalDetailFn = function(data){
 			});
 			/*bindding popover end*/
 			
-			
-			//$("#appraisal_template_area").append(assignTemplateQualityFn(index,groupEntry));
 		}else if(groupEntry['form_url']=='quality'){
 			$("#appraisal_template_area").append(assignTemplateQualityFn(index,groupEntry));
 		}else if(groupEntry['form_url']=='deduct'){
@@ -848,7 +780,7 @@ var listAppraisalDetailFn = function(data){
 					
 					
 				
-			 $("#titlePanelInformation").html("Employee Information");
+			 $("#titlePanelInformation").html(Liferay.Language.get('employee-information'));
 		 
 			 $(".txtEmpCode").html(data['head'][0]['emp_code']);
 			 $(".txtEmpName").html(data['head'][0]['emp_name']);
@@ -865,7 +797,7 @@ var listAppraisalDetailFn = function(data){
 			 $("#orgInformation").show();
 			 $("#empInformation").hide();
 			 
-			 $("#titlePanelInformation").html("Organization Information");
+			 $("#titlePanelInformation").html(Liferay.Language.get('organization-information'));
 			 
 			 $(".txtOrgCodeOrg").html(data['head'][0]['org_code']);
 			 $(".txtOrgNameOrg").html(data['head'][0]['org_name']);
@@ -903,28 +835,19 @@ var listAppraisalDetailFn = function(data){
 			});
 			
 			$(".addComma").keyup(function(){
-				//Comma();
 				$(this).val(Comma($(this).val()));
-				//console.log(Comma($(this).val()));
 			})
 		//set header end
 
 	});
 	
-//	dropDrowAsignToEditFn(data['head'][0]['stage_id']);
-//	$("#assignTo").off("change");
-//	$("#assignTo").on("change",function(){
-//		dropDrowActionEditFn(data['head'][0]['stage_id'],$(this).val());
-//		
-//	});
+
 	dropDrowActionEditFn(data['head'][0]['stage_id']);
 	$("#assignTo").change();
 	$("#ModalAppraisal").modal({
 		"backdrop" : setModalPopup[0],
 		"keyboard" : setModalPopup[1]
 	}).css({"margin-top":"0px"});
-	
-	
 	
 	
 	//Stage History List Data..
@@ -971,10 +894,7 @@ var findOneFn = function(id){
 				}else if($("#actionToAssign").val()==null){
 					$("#btnSubmit").attr("disabled","disabled");
 					
-				}/*else if((username.toLowerCase()!=data['head'][0]['chief_emp_code'].toLowerCase())){
-					//$("#btnSubmit").removeAttr("disabled");
-					$("#btnSubmit").attr("disabled","disabled");
-				}*/
+				}
 
 				
 			}else{
@@ -1018,9 +938,7 @@ var dropdownListPhaseFn_bk = function(nameArea,id){
 				}
 			});
 			htmlOption+="</select>";
-			return htmlOption;
-			//$("#uom"+nameArea).html(htmlOption);
-			
+			return htmlOption;			
 		}
 	});
 	
@@ -1042,7 +960,6 @@ var dropdownListPhaseFn = function(){
 	    });
 	    
 	   }
-	   //$("#uom"+nameArea).html(htmlOption);
 	   
 	  }
 	 });
@@ -1057,12 +974,6 @@ var listActionPlanFn = function(data){
 	 $("#action_new_actionplan").val("");
 
 	//Map Data ...
-	/*
-	alert(notNullFn(data['header']['target_value']));
-	alert(parseFloat(data['header']['target_value']).toFixed(2));
-	alert(addCommas(parseFloat(notNullFn(data['header']['target_value'])).toFixed(2)));
-	*/
-	
 	
 	$("#actionPlanOrganization").html(data['header']['org_name']);
 	$("#actionPlanAppraisalItem").html(data['header']['item_name']);
@@ -1076,10 +987,6 @@ var listActionPlanFn = function(data){
 	$("#actionplan_emp_name").val(data['header']['emp_name']);
 	$("#actionplan_emp_id").val(data['header']['emp_id']);
 	$("#item_result_id").val(data['header']['item_result_id']);
-	
-	
-	
-	
 	
 	
 	var htmlTR="";
@@ -1170,59 +1077,13 @@ update_dttm
 			htmlTR+="<div class='actionplan_label' style='text-align:right;'>"+addCommas(parseFloat(notNullFn(indexEntry['completed_percent'])).toFixed(2))+"</div>";//Completed
 			htmlTR+="<input style=\"height:20px;margin-right:3px; width:100px;\" type='text' id='completed_percent-"+indexEntry['action_plan_id']+"' class='actionplan_input' name='completed_percent-"+indexEntry['action_plan_id']+"' value='"+indexEntry['completed_percent']+"'>";//Completed
 			
-			htmlTR+="</td>";/*
-			htmlTR+="<td>";
-			htmlTR+="<div class='actionplan_label' style='text-align:right;'>"+addCommas(parseFloat(notNullFn(indexEntry['plan_value'])).toFixed(2))+"</div>";//PV
-			htmlTR+="<input style=\"height:20px;margin-right:3px; width:100px;\" type='text' id='plan_value-"+indexEntry['action_plan_id']+"' name='plan_value-"+indexEntry['action_plan_id']+"' class='actionplan_input' value='"+indexEntry['plan_value']+"'>";//PV
-			
 			htmlTR+="</td>";
-			htmlTR+="<td>";
-			htmlTR+="<div class='actionplan_label' style='text-align:right;'>"+addCommas(parseFloat(notNullFn(indexEntry['actual_cost'])).toFixed(2))+"</div>";//AC
-			htmlTR+="<input style=\"height:20px;margin-right:3px; width:100px;\" type='text' id='actual_cost-"+indexEntry['action_plan_id']+"' name='actual_cost-"+indexEntry['action_plan_id']+"' class='actionplan_input' value='"+indexEntry['actual_cost']+"'>";//AC
-			
-			htmlTR+="</td>";
-			htmlTR+="<td>";
-			htmlTR+="<div class='actionplan_label' style='text-align:right;'>"+addCommas(parseFloat(notNullFn(indexEntry['earned_value'])).toFixed(2))+"</div>";//EV
-			htmlTR+="<input style=\"height:20px;margin-right:3px; width:100px;\" type='text' id='earned_value-"+indexEntry['action_plan_id']+"' name='earned_value-"+indexEntry['action_plan_id']+"' class='actionplan_input' value='"+indexEntry['earned_value']+"'>";//EV
-			htmlTR+="</td>";*/
 		htmlTR+="</tr>";
 	});
 	
-	
-	
-		
-	
-		
-	
 
 	$("#listDataActionPlan").html(htmlTR);
-	$(".actionplan_input").hide();
-	
-	
-	
-//	 $( ".datepicker" ).datepicker({
-//	        showOn: "button",
-//	        buttonImage: "../../see-kpi-portlet/img/calendar.gif",
-//	        buttonImageOnly: true,
-//	        buttonText: "Select date"
-//	      });
-	//2017-08-22
-//	 	 $(".datepicker").datepicker();
-//	 	 $(".datepicker").datepicker( "option", "dateFormat", "yy-mm-dd" );
-	   
-	
-	
-	/*
-	 data['header']['target_value']
-	 data['header']['forecast_value']
-	 data['header']['actual_value']
-	 data['header']['actual_vs_forecast']
-	 data['header']['actual_vs_target']
-	 
-	 */
-	//parseFloat(notNullFn(data['header']['target_value'])).toFixed(2);
-	
-	   
+	$(".actionplan_input").hide();	   
 	
 	 //0,0,100,80,80
 	//%Actual vs Forecast 
@@ -1235,16 +1096,7 @@ update_dttm
 	
 	actual_vs_forecast= (actual_value/forecast_value)*100;
 	actual_vs_target= (actual_value/target_value)*100;
-	
-	//alert("actual_vs_forecast="+actual_vs_forecast);
-	//alert("actual_vs_target="+actual_vs_target);
-	//% Actual vs Target 
-	/*
-	target,performance,green,yellow,red
-	$("#sparkline").sparkline([10,12,12,9,7 ], {
-    type: 'bullet',
-    rangeColors: ['green','yellow','red ']});
-    */
+
 	 //target,over_target,center,performance2,performance1
 	//target,allArea,green,yellow,red
 	console.log(data['header']['result_threshold_color']);
@@ -1268,7 +1120,6 @@ update_dttm
 	    $("#actualvsForecastBar").sparkline(ragneValue1, {
 	        type: 'bullet',
 	        width:'80',
-	        //targetColor: rageGreenColor,
 	        targetColor: '#fefefe',
 		    performanceColor: '#282a4b',
 	        rangeColors: rangeColorsThreshold});
@@ -1277,29 +1128,10 @@ update_dttm
 	    $("#actualvsTargetBar").sparkline(ragneValue2, {
 	        type: 'bullet',
 	        width:'80',
-	        //targetColor: rageGreenColor,
 	        targetColor: '#fefefe',
 		    performanceColor: '#282a4b',
 	        rangeColors: rangeColorsThreshold});
 	    
-	   
-		/*
-	    $("#actualvsForecastBar").sparkline([0,0,100,parseFloat(notNullFn(actual_vs_forecast)).toFixed(2),parseFloat(notNullFn(actual_vs_forecast)).toFixed(2)], {
-	        type: 'bullet',
-	        width:'80',
-	        targetColor: '#7f94ff',
-	        performanceColor: '#7f94ff',
-	        rangeColors: ['#d3dafe','#7f94ff','#7f94ff ']});
-	    
-	    
-	    $("#actualvsTargetBar").sparkline([0,0,100,parseFloat(notNullFn(actual_vs_target)).toFixed(2),parseFloat(notNullFn(actual_vs_target)).toFixed(2)], {
-	        type: 'bullet',
-	        width:'80',
-	        targetColor: '#7f94ff',
-	        performanceColor: '#7f94ff',
-	        rangeColors: ['#d3dafe','#7f94ff','#7f94ff ']});
-	    
-	   */
 	    $(".jqstooltip").hide();
 	    
 	
@@ -1312,23 +1144,6 @@ var insertActionPlanInlineFn = function(){
 	
 	
 	var htmlTR = ""
-			/*
-			htmlTableInline+="<tr >";	
-			htmlTableInline+="<td><input id='new_seq-"+globalCount+"'  class=\"form-control input-inline-table input-seq new-condition\" type=\"text\" name=\"\"";
-			htmlTableInline+="</td>";
-			htmlTableInline+="<td>";
-			htmlTableInline+="<select id='new_operator-"+globalCount+"' class=\"form-control input-inline-table input-contact-selecttype new-condition\" ><option>or</option> <option selected>and</option></select>";
-			htmlTableInline+="</td>";
-		    htmlTableInline+="<td>";
-		    htmlTableInline+="<p>"+rule_name+"<input type='hidden' id='new_rule_id-"+globalCount+"' value="+rule_id+"></p>";
-		    htmlTableInline+="</td>";
-			htmlTableInline+="<td>";
-			htmlTableInline+="<input id='new_complete-"+globalCount+"' type=\"checkbox\" class='new_complete_flag'>";
-			htmlTableInline+="</td>";
-			htmlTableInline+="<td ><button class='btn btn-danger btn-xs  deleteNewAction Plan new-condition' type='button' id='"+globalCount+"'>Delete</button></td>";
-			//htmlTableInline+="<td ><i class=\"fa fa-gear font-management font-management2  new-condition\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\"<button class='btn btn-danger btn-xs deleteAction Plan deleteNewAction Plan new-condition' type='button' id='"+globalCount+"'>Delete</button>\"></i></td>";
-			htmlTableInline+="</tr>";
-			*/
 			
 			htmlTR+="<tr>";
 				htmlTR+="<td>";
@@ -1368,16 +1183,7 @@ var insertActionPlanInlineFn = function(){
 				htmlTR+="</td>";
 				htmlTR+="<td>";
 				htmlTR+="<input style=\"height:20px;margin-right:3px; width:100px;\" type='text' id='new_completed_percent-"+globalCount+"' name='new_completed_percent-"+globalCount+"' value=''>";//Completed
-				htmlTR+="</td>";/*
-				htmlTR+="<td>";
-				htmlTR+="<input style=\"height:20px;margin-right:3px; width:100px;\" type='text' id='new_plan_value-"+globalCount+"' name='new_plan_value-"+globalCount+"' value=''>";//PV
 				htmlTR+="</td>";
-				htmlTR+="<td>";
-				htmlTR+="<input style=\"height:20px;margin-right:3px; width:100px;\" type='text' id='new_actual_cost-"+globalCount+"' name='new_actual_cost-"+globalCount+"' value=''>";//AC
-				htmlTR+="</td>";
-				htmlTR+="<td>";
-				htmlTR+="<input style=\"height:20px;margin-right:3px; width:100px;\" type='text' id='new_earned_value-"+globalCount+"' name='new_earned_value-"+globalCount+"' value=''>";//EV
-				htmlTR+="</td>";*/
 			htmlTR+="</tr>";
 			
 
@@ -1402,7 +1208,6 @@ var insertActionPlanInlineFn = function(){
 						 data:{
 							 "emp_name":request.term,
 							 },
-						 //async:false,
 		                 error: function (xhr, textStatus, errorThrown) {
 		                        console.log('Error: ' + xhr.responseText);
 		                    },
@@ -1420,10 +1225,7 @@ var insertActionPlanInlineFn = function(){
 						
 						});
 		        }
-		    });
-		 //Autocomplete END.
-		 
-		 //$('[data-toggle="popover"]').popover();  
+		    }); 
 		 globalCount++;
 }
 
@@ -1437,7 +1239,6 @@ var getActionPlanFn = function(id){
 		async:false,
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success:function(data){
-			//console.log(data);
 			listActionPlanFn(data);
 		}
 	});
@@ -1456,13 +1257,11 @@ var deletePhaseFn = function(id){
 			  success:function(data){ 
 				if(data['status']==200){
 					
-					   callFlashSlide("Delete Successfully.");       
+					   callFlashSlide(Liferay.Language.get('delete-successfully'));       
 				       getPhaseFn($("#phase_item_result_id").val());
 					   $("#confrimModal").modal('hide');
 					   
-				}else if(data['status']=="400"){
-					
-					//$("#informConfirm").html("<font color='red'>"+data['data']+"</font>");
+				}else if(data['status']=="400"){				
 					callFlashSlide("<font color=''>"+data['data']+"</font>","error");  
 					
 				}
@@ -1475,7 +1274,6 @@ var deletePhaseFn = function(id){
 var findOnePhaseFn = function(id){
 	
 	//get structure
-
 	
 	//get data for structure
 	$.ajax({
@@ -1533,7 +1331,7 @@ var listPhaseFn = function(data){
 			
 			htmlTR+="<td style='text-align:center;'>";
 	
-			htmlTR+=" <i data-trigger=\"focus\" tabindex=\""+index+"\" data-content=\"&lt;button class='btn btn-warning btn-small btn-gear edit_phase' id=edit_phase-"+indexEntry['phase_id']+" data-target='' data-toggle='modal'&gt;Edit&lt;/button&gt;&nbsp;&lt;button id=del_phase-"+indexEntry['phase_id']+" class='btn btn-danger btn-small btn-gear phaseDel'&gt;Delete&lt;/button&gt;\" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-edit-del\" data-original-title=\"\" title=\"\"></i>";
+			htmlTR+=" <i data-trigger=\"focus\" tabindex=\""+index+"\" data-content=\"&lt;button class='btn btn-warning btn-small btn-gear edit_phase' id=edit_phase-"+indexEntry['phase_id']+" data-target='' data-toggle='modal'&gt;"+Liferay.Language.get('edit')+"&lt;/button&gt;&nbsp;&lt;button id=del_phase-"+indexEntry['phase_id']+" class='btn btn-danger btn-small btn-gear phaseDel'&gt;"+Liferay.Language.get('delete')+"&lt;/button&gt;\" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-edit-del\" data-original-title=\"\" title=\"\"></i>";
 			
 			htmlTR+="</td>";
 		htmlTR+="</tr>";
@@ -1627,7 +1425,6 @@ var getAttachFileFn = function(id){
 var listAttachFileFn = function(data){
 	var host = "http://"+window.location.hostname;
 
-	//console.log(data);
 	var html="";
 	
 	$.each(data,function(index,indexEntry){
@@ -1647,10 +1444,8 @@ var listAttachFileFn = function(data){
 			"backdrop" : setModalPopup[0],
 			"keyboard" : setModalPopup[1]
 		}).css({"margin-top":"0px"});
-		//$(this).parent().parent().parent().children().click();
 		$(document).off("click","#btnConfirmOK");
 		$(document).on("click","#btnConfirmOK",function(){
-			//alert(id);
 			deleteAttachFileFn(id);
 			
 		});
@@ -1693,13 +1488,11 @@ var deleteReasonFn = function(id){
 			  success:function(data){
 				if(data['status']==200){
 					
-					   callFlashSlide("Delete Successfully.");       
+					   callFlashSlide(Liferay.Language.get('delete-successfully'));       
 				       getReasonFn($("#reason_item_result_id").val());
 					   $("#confrimModal").modal('hide');
 					   
 				}else if(data['status']=="400"){
-					
-					//$("#informConfirm").html("<font color='red'>"+data['data']+"</font>");
 					callFlashSlide("<font color=''>"+data['data']+"</font>","error");  
 					
 				}
@@ -1738,7 +1531,7 @@ var listReasonFn = function(data){
 			htmlTR+="<td>"+indexEntry['rank']+"</td>";
 			htmlTR+="<td><div style='word-break: break-all;'>"+indexEntry['reason_name']+"<div>";
 			htmlTR+="<td style='text-align:center;'>";
-			htmlTR+=" <i data-trigger=\"focus\" tabindex=\""+index+"\" data-content=\"&lt;button class='btn btn-warning btn-small btn-gear edit_reason' id=edit_reason-"+indexEntry['reason_id']+" data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;Edit&lt;/button&gt;&nbsp;&lt;button id=del_reason-"+indexEntry['reason_id']+" class='btn btn-danger btn-small btn-gear reasonDel'&gt;Delete&lt;/button&gt;\" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-edit-del\" data-original-title=\"\" title=\"\"></i>";
+			htmlTR+=" <i data-trigger=\"focus\" tabindex=\""+index+"\" data-content=\"&lt;button class='btn btn-warning btn-small btn-gear edit_reason' id=edit_reason-"+indexEntry['reason_id']+" data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;"+Liferay.Language.get('edit')+"&lt;/button&gt;&nbsp;&lt;button id=del_reason-"+indexEntry['reason_id']+" class='btn btn-danger btn-small btn-gear reasonDel'&gt;"+Liferay.Language.get('delete')+"&lt;/button&gt;\" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-edit-del\" data-original-title=\"\" title=\"\"></i>";
 			htmlTR+="</td>";
 		htmlTR+="</tr>";
 	});
@@ -1762,10 +1555,8 @@ var listReasonFn = function(data){
 				"backdrop" : setModalPopup[0],
 				"keyboard" : setModalPopup[1]
 			}).css({"margin-top":"0px"});
-			//$(this).parent().parent().parent().children().click();
 			$(document).off("click","#btnConfirmOK");
 			$(document).on("click","#btnConfirmOK",function(){
-				//alert(id);
 				deleteReasonFn(id);
 				
 			});
@@ -1777,7 +1568,6 @@ var listReasonFn = function(data){
 			$(window).scrollTop(0);
 			var edit=this.id.split("-");
 			var id=edit[1];
-			//alert(id+"-----"+form_url);
 			findOneReasonFn(id);
 			$(".modal-body").scrollTop(0);
 		});
@@ -1801,10 +1591,8 @@ var getReasonFn = function(id){
 		type:"get",
 		dataType:"json",
 		async:false,
-		//data:{"item_result_id":id},
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success:function(data){
-			//console.log(data);
 			listReasonFn(data);
 		}
 	});
@@ -1814,42 +1602,10 @@ var getReasonFn = function(id){
 
 
 var listDataFn = function(data){
-	htmlHTML="";
-
-//	$.each(data,function(index,indexEntry){
-//		/*
-//	emp_result_id
-//	emp_code
-//	emp_name
-//	appraisal_level_name
-//	appraisal_type_name
-//	position_name
-//	assign
-//	to_action
-//		*/
-//		
-//		htmlHTML+="<tr>";
-//		
-//		htmlHTML+="	<td class=''><a href=\"#\" class='emp_code' id=\"id-"+indexEntry['emp_result_id']+"\" >"+indexEntry['emp_code']+"</a></td>";
-//		htmlHTML+=" <td>"+indexEntry['emp_name']+"</td>";
-//		htmlHTML+=" <td>"+indexEntry['appraisal_level_name']+"</td>";
-//		htmlHTML+=" <td>"+indexEntry['appraisal_type_name']+"</td>";
-//		htmlHTML+="	<td>"+indexEntry['position_name']+"</td>";
-//		htmlHTML+="	<td>"+indexEntry['assign']+"</td>";
-//		htmlHTML+="	<td>"+indexEntry['to_action']+"</td>";
-//		
-//		htmlHTML+="</tr>";
-//		
-//	});
-
-	
-	
+	htmlHTML="";	
 
 	htmlHTML="";
 	$.each(data['group'],function(index,indexEntry){
-		//console.log(index);
-//	console.log(indexEntry['items']);
-//	console.log(indexEntry['appraisal_period_desc']);
 	
 	htmlHTML+="<div class=\"row-fluid\">";
 	htmlHTML+="<div class=\"span12\">";
@@ -1869,21 +1625,19 @@ var listDataFn = function(data){
 				
 			if($("#embed_appraisalType").val()=="2"){
 				
-				htmlHTML+=" <th style=\"width:auto;\"><b>Emp Code</b></th>";
-				htmlHTML+=" <th style=\"widthauto;\"><b>Emp Name</b></th>";
-				htmlHTML+=" <th style=\"width:auto;\"><b>Level</b> </th>";
-				htmlHTML+=" <th style=\"width:auto;\"><b>Organization </b></th>";
-				htmlHTML+=" <th style=\"width:auto;\"><b>Position</b> </th>";
-				htmlHTML+=" <th style=\"width:auto;\"><b>Action</b></th>";
-				//htmlHTML+=" <th style=\"width:auto; text-align:center;\"><b>Manage</b></th>";
+				htmlHTML+=" <th style=\"width:auto;\"><b>"+Liferay.Language.get('emp-code')+" </b></th>";
+				htmlHTML+=" <th style=\"widthauto;\"><b>"+Liferay.Language.get('emp-name')+" </b></th>";
+				htmlHTML+=" <th style=\"width:auto;\"><b>"+Liferay.Language.get('level')+" </b></th>";
+				htmlHTML+=" <th style=\"width:auto;\"><b>"+Liferay.Language.get('organization')+" </b></th>";
+				htmlHTML+=" <th style=\"width:auto;\"><b>"+Liferay.Language.get('position')+" </b></th>";
+				htmlHTML+=" <th style=\"width:auto;\"><b>"+Liferay.Language.get('action')+" </b></th>";
 				
 			}else if($("#embed_appraisalType").val()=="1"){
 				
-				htmlHTML+=" <th style=\"width:auto;\"><b>Org Code</b></th>";
-				htmlHTML+=" <th style=\"widthauto;\"><b>Org Name</b></th>";
-				htmlHTML+=" <th style=\"width:auto;\"><b>Level</b> </th>";
-				htmlHTML+=" <th style=\"width:auto;\"><b>Action</b></th>";
-				//htmlHTML+=" <th style=\"width:auto; text-align:center;\"><b>Manage</b></th>";
+				htmlHTML+=" <th style=\"width:auto;\"><b>"+Liferay.Language.get('org-code')+"</b></th>";
+				htmlHTML+=" <th style=\"widthauto;\"><b>"+Liferay.Language.get('org-name')+"</b></th>";
+				htmlHTML+=" <th style=\"width:auto;\"><b>"+Liferay.Language.get('level')+"</b> </th>";
+				htmlHTML+=" <th style=\"width:auto;\"><b>"+Liferay.Language.get('action')+"</b></th>";
 				
 			}
 				
@@ -1920,9 +1674,6 @@ var listDataFn = function(data){
 						htmlHTML+="	<td>"+itemEntry['position_name']+"</td>";
 						
 						htmlHTML+="	<td>"+itemEntry['to_action']+"</td>";
-//						htmlHTML+="	<td style=\"text-align:center\">";
-//						htmlHTML+=" <i data-trigger=\"focus\" tabindex=\""+index2+"\" data-content=\"&lt;button class='btn btn-warning btn-small btn-gear phase' id=phase-"+itemEntry['org_code']+" data-target=#addModalRule data-toggle='modal'&gt;Phase&lt;/button&gt;&nbsp;&lt;button id=action_plan-"+itemEntry['org_code']+" class='btn btn-danger btn-small btn-gear action_plan'&gt;Action Plan&lt;/button&gt;\" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-edit-del\" data-original-title=\"\" title=\"\"></i>";
-//						htmlHTML+="	</td>";
 					
 					htmlHTML+="</tr>";
 					
@@ -1940,9 +1691,6 @@ var listDataFn = function(data){
 						htmlHTML+=" <td>"+itemEntry['appraisal_level_name']+"</td>";
 					
 						htmlHTML+="	<td>"+itemEntry['to_action']+"</td>";
-//						htmlHTML+="	<td style=\"text-align:center\">";
-//						htmlHTML+=" <i data-trigger=\"focus\" tabindex=\""+index2+"\" data-content=\"&lt;button class='btn btn-warning btn-small btn-gear phase' id=phase-"+itemEntry['org_code']+" data-target=#addModalRule data-toggle='modal'&gt;Phase&lt;/button&gt;&nbsp;&lt;button id=action_plan-"+itemEntry['org_code']+" class='btn btn-danger btn-small btn-gear action_plan'&gt;Action Plan&lt;/button&gt;\" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-edit-del\" data-original-title=\"\" title=\"\"></i>";
-//						htmlHTML+="	</td>";
 					
 					htmlHTML+="</tr>";
 				}
@@ -1959,45 +1707,8 @@ var listDataFn = function(data){
 
 	});
 	
-	$("#listAppraisal").html(htmlHTML);
-	
-	/*bindding popover start*/
-	/*
-	// Not Use
-	$(".popover-edit-del").popover();
-	$("#listAppraisal").off("click",".popover-edit-del");
-	$("#listAppraisal").on("click",".popover-edit-del",function(){
-		
-		//action_plan Start
-		$(".action_plan").on("click",function() {
-			
-			$("#informConfirm").empty();
-			var id=this.id.split("-");
-			id=id[1];
-			$("#actionPlanModal").modal();
-			
-			getActionPlanFn("3");
-			$("#action_actionplan").val("add");
-			
-			
-			
-		});
-		//phase Start
-		
-		$(".phase").on("click",function(event) {
-			  
-			//alert("phase3");
-			clearFormPhaseFn();
-			$("#informConfirm").empty();
-			var id=this.id.split("-");
-			id=id[1];
-			$("#phaseModal").modal();
-			getPhaseFn();
-		});
-		//$(".phase").off("click");
-	});	
-	*/
-	/*bindding popover end*/
+	$("#listAppraisal").html(htmlHTML);	
+
 }
 var getDataFn = function(page,rpp){
 
@@ -2018,7 +1729,6 @@ var getDataFn = function(page,rpp){
 	var Organization= $("#embed_Org").val();
 	var org_id=Organization.split('-');
 	org_id=org_id[0];
-	//var Section= $("#embed_Section").val();
 	var Position= $("#embed_Position").val();
 	var EmpName= ($("#embed_EmpName").val());
 	var EmpID=EmpName.split('-');
@@ -2046,8 +1756,6 @@ var getDataFn = function(page,rpp){
 			
 		},
 		success:function(data){
-			
-			//console.log(data);
 			
 			listDataFn(data);
 			setThemeColorFn(tokenID.theme_color);
@@ -2080,7 +1788,6 @@ var searchAdvanceFn = function() {
 	embedParam+="<input type='hidden' class='embed_param_search' id='embed_AppraisalPeriod' name='embed_AppraisalPeriod' value='"+$("#AppraisalPeriod").val()+"'>";
 	embedParam+="<input type='hidden' class='embed_param_search' id='embed_AppraisalLevel' name='embed_AppraisalLevel' value='"+$("#AppraisalLevel").val()+"'>";
 	embedParam+="<input type='hidden' class='embed_param_search' id='embed_Org' name='embed_Org' value='"+$("#organization").val()+"'>";
-	//embedParam+="<input type='hidden' class='embed_param_search' id='embed_Section' name='embed_Section' value='"+$("#Section").val()+"'>";
 	embedParam+="<input type='hidden' class='embed_param_search' id='embed_Position' name='embed_Position' value='"+Position+"'>";
 	embedParam+="<input type='hidden' class='embed_param_search' id='embed_EmpName' name='embed_EmpName' value='"+$("#EmpName").val()+"'>";
 	embedParam+="<input type='hidden' class='embed_param_search' id='embed_appraisalType' name='embed_appraisalType' value='"+$("#appraisalType").val()+"'>";
@@ -2099,7 +1806,6 @@ var dropDrowAsignToEditFn = function(paramStageID){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		data:{"stage_id":paramStageID},
 		success:function(data){
-			//var data=['à¸—à¸”à¸¥à¸­à¸‡à¸‡à¸²à¸™','à¸›à¸£à¸°à¸ˆà¸³à¸›à¸µ','à¸£à¸±à¸�à¸©à¸²à¸�à¸²à¸£'];
 			var htmlOption="";
 			$.each(data,function(index,indexEntry){
 				if(id==indexEntry['to_appraisal_level_id']){
@@ -2121,7 +1827,6 @@ var dropDrowActionEditFn = function(stage_id,to_appraisal_level_id){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		data:{"stage_id":stage_id,"to_appraisal_level_id":to_appraisal_level_id},
 		success:function(data){
-			//var data=['à¸—à¸”à¸¥à¸­à¸‡à¸‡à¸²à¸™','à¸›à¸£à¸°à¸ˆà¸³à¸›à¸µ','à¸£à¸±à¸�à¸©à¸²à¸�à¸²à¸£'];
 			if(data==''){
 				$("#btnSubmit").attr("disabled","disabled");
 			}else{
@@ -2147,17 +1852,14 @@ var appraisalTypeFn = function(nameArea,id){
 	}
 	
 	$.ajax({
-		//http://192.168.1.52/"+serviceName+"/public/appraisal_assignment/appraisal_type_list
 		url:restfulURL+"/"+serviceName+"/public/appraisal_assignment/appraisal_type_list",
 		type:"get",
 		dataType:"json",
 		async:false,
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success:function(data){
-			//var data=['à¸—à¸”à¸¥à¸­à¸‡à¸‡à¸²à¸™','à¸›à¸£à¸°à¸ˆà¸³à¸›à¸µ','à¸£à¸±à¸�à¸©à¸²à¸�à¸²à¸£'];
 			var htmlOption="";
 			
-			//htmlOption+="<option  value=''>All Appraisal Type</option>";
 			$.each(data,function(index,indexEntry){
 				if(id==undefined){
 						if(index==0){	
@@ -2221,7 +1923,6 @@ var saveAppraisalFn = function(){
 		if(typeScore=="forecast"){
 			appraisal+="\"forecast_value\":\""+removeComma($(indexEntry).val())+"\",";
 			appraisal+="\"actual_value\":\""+actual_value+"\",";
-			//appraisal+="\"actual_value\":\""+$("#actual-"+item_result_id).val()+"\",";
 			appraisal+="\"score\":\"\"";
 			
 		}else if(typeScore=="competencyScore"){
@@ -2229,21 +1930,12 @@ var saveAppraisalFn = function(){
 			appraisal+="\"actual_value\":\"\",";
 			appraisal+="\"score\":\""+$(indexEntry).val()+"\"";
 		}
-//			else{
-//			
-//			appraisal+="\"forecast_value\":\"\",";
-//			appraisal+="\"actual_value\":\""+$("#actual-"+item_result_id).val()+"\",";
-//			appraisal+="\"score\":\"\"";
-//			
-//		}
 		
 		
 		appraisal+="}";
 	});
 	appraisal+="]";
-	//console.log(appraisal);
 	var appraisalObject=eval("("+appraisal+")");
-	//console.log(appraisalObject);
 	
 	$.ajax({
 		url:restfulURL+"/"+serviceName+"/public/appraisal/"+$("#emp_result_id").val(),
@@ -2280,44 +1972,9 @@ var calculateBunusFn= function(){
 	emp_code,
 	appraisal_item_id
 	*/
-	
-//	$.ajax({
-//		url:restfulURL+"/"+serviceName+"/public/appraisal/calculate_weight",
-//		type:"post",
-//		dataType:"json",
-//		async:false,
-//		headers:{Authorization:"Bearer "+tokenID.token},
-//		data:{
-//			"appraisal_type_id":"",
-//			"period_id":"",
-//			"emp_code":"",
-//			"appraisal_item_id":"",
-//			
-//		},
-//		success:function(data){
-//			if(data['status']==200){
-//				
-//				
-//				
-//			}else if(data['status']==400){
-//				
-//				callFlashSlide(validationFn(data),"error");Â Â 
-//				
-//			}
-//		}
-//	});
+
 }
-//function getParamValue(paramName)
-//{
-//    var url = window.location.search.substring(1); //get rid of "?" in querystring
-//    var qArray = url.split('&'); //get key-value pairs
-//    for (var i = 0; i < qArray.length; i++) 
-//    {
-//        var pArr = qArray[i].split('='); //split key and value
-//        if (pArr[0] == paramName) 
-//            return pArr[1]; //return value
-//    }
-//}
+
 
 
 var generateGanttChartFn = function(dataSource){
@@ -2387,7 +2044,6 @@ var getDataGanttChartFn = function(item_result_id,ganttPaneDuration,ganttPaneDur
 		data:{"item_result_id":item_result_id},
 		async:false,
 		success:function(data){
-		//console.log(data);
 			var tasksLength=0;
 			var startDate="";
 			var endDate="";
@@ -2404,9 +2060,6 @@ var getDataGanttChartFn = function(item_result_id,ganttPaneDuration,ganttPaneDur
 				}else{
 					ganttPaneDurationVarible=ganttPaneDuration;
 				}
-			//console.log(diffDateFn(startDate,endDate));
-			//alert(ganttPaneDurationVarible);
-				//$("#selectGanntChartViewDaily").val(ganttPaneDurationVarible);
 				$("#selectGanntChartViewDaily").val(365);
 			}else{
 				$("#selectGanntChartViewDaily").val(1);
@@ -2485,36 +2138,6 @@ var getDataGanttChartFn = function(item_result_id,ganttPaneDuration,ganttPaneDur
 				"backdrop" : setModalPopup[0],
 				"keyboard" : setModalPopup[1]
 			}).css({"margin-top":"0px"});
-			/* test here end.*/
-//			var dataGantt="";
-			
-//				
-//				dataGantt+="{";
-//				dataGantt+="\"chart\": {";
-//				dataGantt+="\"exportenabled\": \"1\",";
-//				dataGantt+="\"exportatclient\": \"1\",";
-//				dataGantt+="\"caption\": \"Construction management of a new store in Denver\",";
-//				dataGantt+="\"subcaption\": \"Planned vs Actual\",";                
-//				dataGantt+="\"dateformat\": \"dd/mm/yyyy\",";
-//				dataGantt+="\"outputdateformat\": \"ddds mns yy\",";
-//				dataGantt+="\"ganttwidthpercent\": \"60\",";
-//				dataGantt+="\"ganttPaneDuration\": \"40\",";
-//				dataGantt+="\"ganttPaneDurationUnit\": \"d\",";
-//				dataGantt+="\"plottooltext\": \"$processName{br} $label starting date $start{br}$label ending date $end\",";
-//				dataGantt+="\"legendBorderAlpha\": \"0\",";
-//				dataGantt+="\"legendShadow\": \"0\",";
-//				dataGantt+="\"usePlotGradientColor\": \"0\",";
-//				dataGantt+="\"showCanvasBorder\": \"0\",";
-//				dataGantt+="\"flatScrollBars\": \"1\",";
-//				dataGantt+="\"gridbordercolor\": \"#333333\",";
-//				dataGantt+="\"gridborderalpha\": \"20\",";
-//				dataGantt+="\"slackFillColor\": \"#e44a00\",";
-//				dataGantt+="\"taskBarFillMi\": \"light+0\"";
-//				dataGantt+="}";
-//				//dataGantt+=data;
-//			dataGantt+="}";
-			
-			
 		}
 	});
 };
@@ -2534,21 +2157,10 @@ var listViewDailyOrMonthlyFn = function(){
 
 $(document).ready(function() {
 	
-	 	
-	   
-	
-
-//	var username = getParamValue('username');
-//	var password = getParamValue('password');
-	
-	
 	
 	 username = $('#user_portlet').val();
 	 password = $('#pass_portlet').val();
 	var plid = $('#plid_portlet').val();
-	/*Fixed for Test.*/
-//	 username = "1";
-//	 password =	"11";
 	
 	if(username!="" && username!=null & username!=[] && username!=undefined ){
 		if(connectionServiceFn(username,password,plid)==true){
@@ -2566,17 +2178,7 @@ $(document).ready(function() {
 			$("#action_actionplan").val("add");
 		}
 	},3000);	
-	//End Action plan by email link here..
-	
-	
-	//Test Fusion Chart Start
-	
-	//getDataGanttChartFn();
-	
-	
-	
-	
-			
+		
 	
 	
 	$("#assignTo").removeAttr("disabled");
@@ -2593,8 +2195,6 @@ $(document).ready(function() {
 		//},1000);
 
 		dropDrowAppraisalLevelFn();
-		//dropDrowOrgFn();
-		//dropDrowDepartmentFn();
 		
 		$("#AppraisalLevel").change(function(){
 			dropDrowOrgFn($(this).val());	
@@ -2602,7 +2202,6 @@ $(document).ready(function() {
 		$("#AppraisalLevel").change();
 		
 		//Auto complete Start
-		//http://192.168.1.52/"+serviceName+"/public/appraisal_assignment/auto_position_name
 		$("#Position").autocomplete({
 	        source: function (request, response) {
 	        	$.ajax({
@@ -2632,36 +2231,6 @@ $(document).ready(function() {
 	    });
 	
 		
-//		$("#organization").autocomplete({
-//	        source: function (request, response) {
-//	        	$.ajax({
-//					 url:restfulURL+"/"+serviceName+"/public/appraisal/auto_org_name",
-//					 type:"get",
-//					 dataType:"json",
-//					 headers:{Authorization:"Bearer "+tokenID.token},
-//					 data:{"org_name":request.term,"level_id":$("#AppraisalLevel").val()},
-//					 //async:false,
-//	                 error: function (xhr, textStatus, errorThrown) {
-//	                        console.log('Error: ' + xhr.responseText);
-//	                    },
-//					 success:function(data){
-//							response($.map(data, function (item) {
-//	                            return {
-//	                                label: item.org_id+"-"+item.org_name,
-//	                                value: item.org_id+"-"+item.org_name
-//	                            };
-//	                        }));
-//					},
-//					beforeSend:function(){
-//						$("body").mLoading('hide');	
-//					}
-//					
-//					});
-//	        }
-//	    });
-		
-		
-		
 		/*
 		org_id,
 		position_id
@@ -2675,7 +2244,6 @@ $(document).ready(function() {
 					 dataType:"json",
 					 headers:{Authorization:"Bearer "+tokenID.token},
 					 data:{"emp_name":request.term},
-						// "position_id":splitData($("#Position").val()),"org_id":splitData($("#organization").val())},
 					 //async:false,
 	                 error: function (xhr, textStatus, errorThrown) {
 	                        console.log('Error: ' + xhr.responseText);
@@ -2696,9 +2264,6 @@ $(document).ready(function() {
 	        }
 	    });
 		appraisalTypeFn();
-		
-		//$("#Position").prop("disabled",true);
-		//$("#EmpName").prop("disabled",true);
 		
 		$("#appraisalType").change(function(){
 			
@@ -2746,12 +2311,6 @@ $(document).ready(function() {
 			sessionStorage.setItem('emp_code',$('#emp_emp_code-'+id).val());
 			sessionStorage.setItem('appraisal_item_id',$('#emp_appraisal_item_id-'+id).val());
 			
-			
-			//alert($('#emp_appraisal_item_id-'+id).val());
-//			console.log(sessionStorage.getItem("appraisal_type_id"));
-//			console.log(sessionStorage.getItem("period_id"));
-//			console.log(sessionStorage.getItem("emp_code"));
-//			console.log(sessionStorage.getItem("appraisal_item_id"));
 			$(window).scrollTop(0);
 			$(".modal-body").scrollTop(0);
 
@@ -2777,12 +2336,10 @@ $(document).ready(function() {
 				   
 				insertActionPlanInlineFn();
 				$("#action_new_actionplan").val("add");
-				//$(".iconDisable").html("<i style='opacity:0.3;cursor:default;' class='fa fa-gear font-management'></i>");
-				//$(".iconDisable").html("<button id=\"\" style='opacity:0.3;cursor:default;' type=\"button\" class=\"btn btn-danger btn-xs   new-condition\">Delete</button>");
 				$("input.action_plan_id").prop("disabled",true);
 				return false;
 			  }else{
-				  callFlashSlideInModal("Can't add Action Plan. Because your doing Update Data!.","#information3","error");
+				  callFlashSlideInModal(Liferay.Language.get('can-not-add-action-plan-because-your-doing-update-data'),"#information3","error");
 			  }
 		  });
 		 
@@ -2791,7 +2348,7 @@ $(document).ready(function() {
 		  $("#btnEditActionPlan").click(function() {
 			
 				if($("#action_new_actionplan").val()=="add"){
-					callFlashSlideInModal("Can't edit Action Plan. Because your doing insert Data!.","#information3","error");
+					callFlashSlideInModal(Liferay.Language.get('can-not-edit-action-plan-because-your-doing-insert-data'),"#information3","error");
 					return false;
 				  }
 				
@@ -2904,10 +2461,6 @@ $(document).ready(function() {
 					  plan_end_date = $("#plan_end_date-"+i).val();
 					  actual_start_date = $("#actual_start_date-"+i).val();
 					  actual_end_date=$("#actual_end_date-"+i).val();
-					  /*
-					  plan_value=$("#plan_value-"+i).val();
-					  actual_cost=$("#actual_cost-"+i).val();
-					  earned_value=$("#earned_value-"+i).val();*/
 					  completed_percent=$("#completed_percent-"+i).val();
 					  if($("#responsible-"+i).val()==""){
 						  emp_id="";
@@ -2915,8 +2468,6 @@ $(document).ready(function() {
 						  emp_id=$("#responsible-"+i).val().split("-");
 						  emp_id=emp_id[0];
 					  }
-//					  emp_id=$("#actionplan_emp_id").val();
-//					  responsible=$("#new_responsible").val();
 					
 					
 
@@ -2929,17 +2480,11 @@ $(document).ready(function() {
 							  plan_end_date : ""+plan_end_date+"",
 							  actual_start_date : ""+actual_start_date+"",
 							  actual_end_date: ""+actual_end_date+"",
-							  //plan_value: ""+plan_value+"",
-							  //actual_cost: ""+actual_cost+"",
-							  //earned_value: ""+earned_value+"",
 							  completed_percent: ""+completed_percent+"",
-							 // responsible: ""+responsible+"",
 							  emp_id:emp_id
 							  
 					   });
 			  });
-				//console.log("actions");
-				//console.log(actions);
 				
 				
 					$.ajax({
@@ -2956,11 +2501,10 @@ $(document).ready(function() {
 								  	$("#action_actionplan").val("add");
 									if(data['data']['error'].length==0){
 							      	
-								  	callFlashSlideInModal("Update Successfully.","#information3"); 
+								  	callFlashSlideInModal(Liferay.Language.get('update-successfully'),"#information3"); 
 							
 									}else{
 										callFlashSlideInModal(listErrorActionPlanFn(data['data']['error']),"#information3","error");
-										//callFlashSlideInModal(validationFn(data),"#information3","error");
 									  }
 								  	  
 								  }
@@ -2972,23 +2516,6 @@ $(document).ready(function() {
 				
 			if($("#action_actionplan").val()=="add") {
 				
-				/*
-				actions: [
-				   {
-				        'phase_id' => 'required|integer',
-				        'action_plan_name' => 'required|max:255',
-				        'plan_start_date' => 'date|date_format:Y-m-d',
-				        'plan_end_date' => 'date|date_format:Y-m-d',
-				        'actual_start_date' => 'date|date_format:Y-m-d',
-				        'actual_end_date' => 'date|date_format:Y-m-d',
-				        'plan_value' => 'numeric',
-				        'actual_cost' => 'numeric',
-				        'earned_value' => 'numeric',
-				        'completed_percent' => 'numeric',
-				        'emp_id' => 'integer'
-				   },....
-				]
-				*/
 				  var phase_id = "";
 				  var action_plan_name = "";
 				  var plan_start_date = "";
@@ -3004,15 +2531,6 @@ $(document).ready(function() {
 				  var new_responsible="";
 				  
 				  var actions = [];
-					  
-//				  $.each($(".new_action_plan_id"),function(index,indexEntry){
-//					 console.log(this.id);
-//					// console.log($(this).attr("id"));
-//					 console.log($(this));
-//					 var id=this.id.split("-");
-//					 id=id[1];
-//					 
-//				  });	
 				  
 				  $.each($(".new_action_plan_id"),function(index,indexEntry){
 						 
@@ -3027,10 +2545,6 @@ $(document).ready(function() {
 						  plan_end_date = $("#new_plan_end_date-"+i).val();
 						  actual_start_date = $("#new_actual_start_date-"+i).val();
 						  actual_end_date=$("#new_actual_end_date-"+i).val();
-						  /*
-						  plan_value=$("#new_plan_value-"+i).val();
-						  actual_cost=$("#new_actual_cost-"+i).val();
-						  earned_value=$("#new_earned_value-"+i).val();*/
 						  completed_percent=$("#new_completed_percent-"+i).val();
 						  if($("#new_responsible-"+i).val()==""){
 							  emp_id="";
@@ -3038,10 +2552,6 @@ $(document).ready(function() {
 							  emp_id=$("#new_responsible-"+i).val().split("-");
 							  emp_id=emp_id[0];
 						  }
-//						  emp_id=$("#actionplan_emp_id").val();
-//						  responsible=$("#new_responsible").val();
-						
-						
 
 						   
 						  actions.push({
@@ -3052,17 +2562,11 @@ $(document).ready(function() {
 								  plan_end_date : ""+plan_end_date+"",
 								  actual_start_date : ""+actual_start_date+"",
 								  actual_end_date: ""+actual_end_date+"",
-								  //plan_value: ""+plan_value+"",
-								 // actual_cost: ""+actual_cost+"",
-								  //earned_value: ""+earned_value+"",
 								  completed_percent: ""+completed_percent+"",
-								 // responsible: ""+responsible+"",
 								  emp_id:emp_id
 								  
 						   });
 				  });
-					//console.log("actions");
-					//console.log(actions);
 				
 					  $.ajax({
 						     url:restfulURL+"/"+serviceName+"/public/appraisal/action_plan/"+$("#item_result_id").val(),
@@ -3071,18 +2575,16 @@ $(document).ready(function() {
 						     data:{"actions": actions },
 							 headers:{Authorization:"Bearer "+tokenID.token},
 						     success:function(data,status){
-						    // checkMaintenanceFn(data);
 								if(data['data']['error']==undefined){
 									callFlashSlideInModal(data['data'],"#information2","error");
 								  }else{
 						
 								      if(data['data']['error'].length==0){
 										getActionPlanFn($("#item_result_id").val());
-									    callFlashSlideInModal("Insert Successfully.","#information3");
+									    callFlashSlideInModal(Liferay.Language.get('insert-successfully'),"#information3");
 								     
 								      }else{
 										callFlashSlideInModal(listErrorActionPlanFn(data['data']['error']),"#information3","error");
-										//callFlashSlideInModal(validationFn(data),"#information3","error");
 										
 										}
 									  
@@ -3094,22 +2596,8 @@ $(document).ready(function() {
 				}
 			
 				});
-		//end btn saved.
-		//delete action plan start...
+
 		 $(document).on("click","#btnDelActionPlan",function(){
-				
-//			 	if($("#action_actionplan").val()=="add"){
-//			 	
-//			 		 $.each($("input.new_action_plan_id:checked"),function(index,indexEntry){
-//			 			 
-//			 			$(this).parent().parent().parent().remove();
-//			 			 
-//			 		 });
-//			 		
-//			 		if($("input.new_action_plan_id").get().length==0){
-//						$("#btnCancelActionPlan").click();
-//					}
-//			 	}
 			 	
 				 var action_plan_id=[];
 				 var actions=[];
@@ -3128,11 +2616,7 @@ $(document).ready(function() {
 								  
 						 	 });
 			 	});
-			 	 
-		
-			 	 					  
-			
-			 	// console.log(actions);
+			 	
 			 	  
 
 					  $.ajax({
@@ -3147,11 +2631,10 @@ $(document).ready(function() {
 								
 								 if(data['data']['error'].length==0){
 										getActionPlanFn($("#item_result_id").val());
-									    callFlashSlideInModal("Delete Successfully.","#information3");
+									    callFlashSlideInModal(Liferay.Language.get('delete-successfully'),"#information3");
 								     
 								      }else{
 										callFlashSlideInModal(listErrorActionPlanFn(data['data']['error']),"#information3","error");
-										//callFlashSlideInModal(validationFn(data),"#information3","error");
 										
 								}
 								 
@@ -3419,7 +2902,6 @@ $(document).ready(function() {
 
 		// Create a formdata object and add the files
 		var data = new FormData();
-		//console.log(data);
 		jQuery_1_1_3.each(files, function(key, value)
 		{
 			data.append(key, value);
@@ -3439,16 +2921,13 @@ $(document).ready(function() {
 			async:false,
 			success: function(data, textStatus, jqXHR)
 			{
-				//console.log(data);
 				if(data['status']==200 && data['data'].length>0){
 					findOneFn($("#emp_result_id").val());
-					callFlashSlideInModal("Upload Successfully.",".information");
+					callFlashSlideInModal(Liferay.Language.get('update-successfully'),".information");
 					$('#attach_files_attachment').val("");
 					$(".dropify-clear").click();
 
 				}else{
-					
-					//callFlashSlideInModal("Can't Upload file .","#information3");
 				}
 			},
 			error: function(jqXHR, textStatus, errorThrown)

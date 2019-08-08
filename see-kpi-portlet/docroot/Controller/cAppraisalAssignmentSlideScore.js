@@ -31,30 +31,6 @@ var validationAssignmentFn = function(data){
 	var count=0;
 	errorData=stripJsonToString(data['data']);
 	
-//$.each(data['data'],function(index,indexEntry){	
-//		if(index==0){
-//		
-//			errorData+="<b>"+indexEntry['item_id']+" ";
-//			errorData+=indexEntry['item_name']+"</b> ";
-//			
-//			$.each(indexEntry['data'],function(index2,indexEntry2){
-//				//errorData+=" "+index2;
-//				errorData+=" "+indexEntry2;
-//			});
-//
-//		}
-//		
-//		else{
-//			errorData+="<br><b>"+indexEntry['item_id']+"-";
-//			errorData+=indexEntry['item_name']+"</b> ";
-//			
-//			$.each(indexEntry['data'],function(index2,indexEntry2){
-//				//errorData+=" "+index2;
-//				errorData+=" "+indexEntry2;
-//			});
-//		}
-
-//});
 	
 	return errorData;
 	
@@ -77,7 +53,7 @@ var embedParamCheckboxAppraisalItem = function(id){
 	var count = 0;
 	$.each($(".embed_appraisal_id-"+structure_id).get(),function(index,indexEnry){
 	//à¸–à¹‰à¸² id à¸—à¸µà¹ˆà¸§à¸™ == id à¸—à¸µà¹ˆà¸¡à¸µ	
-		//console.log($(indexEnry).val());
+		
 		if($(indexEnry).val()==appraisal_id){
 			count+=1;
 		}
@@ -97,34 +73,6 @@ var setDataToTemplateFn = function(data,actionType){
 	var head = data['head'][0]
 	var data = data['data'];
 	
-	/*
-	 
-	employee_code
-	section
-	appraisal_type
-	employee_name
-	department
-	period
-	start_working_date
-	chief_employee_code
-	position
-	chief_employee_name
-	
-	
-	
-	appraisal_period_desc
-	appraisal_type_name
-	chief_emp_id
-	chief_emp_name
-	department_name
-	emp_id
-	emp_name
-	position_name
-	section_name
-	stage_id
-	status
-	working_start_date
-	 */
 	/*information start*/
 	
 	if($("#embed_appraisal_type_id").val()==2){
@@ -148,7 +96,7 @@ var setDataToTemplateFn = function(data,actionType){
 	}else{
 		$("#empInformation").hide();
 		$("#orgInformation").show();
-		$("#titlePanelInformation").html("Organization Information");
+		$("#titlePanelInformation").html(Liferay.Language.get('organization-information'));
 		
 		$("#organizationCodeLabelOrg").html(head['org_code']);
 		$("#organizationNameLabelOrg").html(head['org_name']);
@@ -177,34 +125,17 @@ var setDataToTemplateFn = function(data,actionType){
 	
 	//Stage History List Data..
 	
-	/*information end*/
-	
-	
-	
-	//get data assignTo and action for edit start
-	/*
-	dropDrowAsignToEditFn(head['stage_id']);
-	$("#assignTo").off('change');
-	$("#assignTo").on('change',function(){
-		dropDrowActionEditFn(head['stage_id'],$(this).val());
-	});
-	
-	$("#assignTo").change();
-	*/
 	dropDrowActionEditFn(head['stage_id']);
 	
 	
 	
 	//set premission button management start
-	//alert(head['stage_id']);
+	
 	if(   head['status']=='Accepted' || actionType=='view'){
-//		$(".btnAssignment").hide();
-//		$("#btnSubmit").hide();
+
 		$("#ModalAssignment").find('input[type="text"]').attr('disabled', 'disabled'); 
 		$("#ModalAssignment").find('input[type="checkbox"]').attr('disabled', 'disabled'); 
 	}else{
-//		$(".btnAssignment").show();
-//		$("#btnSubmit").show();
 		
 		//Check TEXT Disabled Start
 		if($("#ModalAssignment").find('input[class="disabledInputText"]')){
@@ -214,76 +145,11 @@ var setDataToTemplateFn = function(data,actionType){
 		//Check TEXT Disabled End
 
 		$("#ModalAssignment").find('input[type="checkbox"]').removeAttr('disabled'); 
-		
-//		if(sessionStorage.getItem("is_coporate_kpi")==1){
-//			//total_weigth_quantity
-//			$(".total_weigth_quantity").prop("disabled",true);
-//		}else{
-//			$(".total_weigth_quantity").removeAttr('disabled'); 
-//		}
+	
 	}
-	
-	
 	
 	//set premission button management end		
 	
-	
-	
-	
-	
-//	dropDrowAsignToFn();
-//	$("#assignTo").off("change");
-//	$("#assignTo").change(function(){
-//		//alert($(this).val());
-//		dropDrowActionFn($(this).val());
-//		
-//	});
-//	$("#assignTo").change();
-	
-	
-/*
-actual_value
-item_id
-item_name
-item_result_id
-created_by
-created_dttm
-deduct_score_unit
-emp_id
-emp_result_id
-max_value
-over_value
-period_id
-score0: '',
-score1: '',
-score2: '',
-score3: '',        
-score4: '',          
-score5: '', 
-target_value
-updated_by
-updated_dttm
-weigh_score
-weight_percent
-
-
-
-nof_target_score: '',  
-form_id: '',      
-item_id: '',
-item_name: '',
-target_value: '',
-kpi_type_id: '',
-score0: '',
-score1: '',
-score2: '',
-score3: '',        
-score4: '',          
-score5: '',            
-forecast_value: '',                                                   
-weight_percent: '',   
-
-*/
 	$(".cus_information_area").show();
 	$(".embed_appraisal_id").remove();
 	$.each(data,function(index,indexEntry){
@@ -322,26 +188,10 @@ weight_percent: '',
 		
 	});
 	
-//	if(actionType=='view'){
-//	alert("view 1");	
-//		$(".btnAssignment").hide();
-//		$("#btnSubmit").hide();
-//		$("#ModalAssignment").find('input[type="text"]').attr('disabled', 'disabled'); 
-//		$("#ModalAssignment").find('input[type="checkbox"]').attr('disabled', 'disabled'); 
-//	}else if(actionType=='edit'){
-//	alert("view 2");
-//		$(".btnAssignment").show();
-//		$("#btnSubmit").show();
-//		$("#ModalAssignment").find('input[type="text"]').removeAttr('disabled'); 
-//		$("#ModalAssignment").find('input[type="checkbox"]').removeAttr('disabled');
-//	
-//	}
 	
 }
 
 var findOneFn = function(id,actionType){
-	//alert(id);
-	
 	
 	//get structure
 	getTemplateFn(id);
@@ -375,7 +225,7 @@ var findOneFn = function(id,actionType){
 				}
 				
 			}else{
-				callFlashSlide("Data is empty.");
+				callFlashSlide(Liferay.Language.get('data-is-empty'));
 				return false;
 			}
 			
@@ -444,7 +294,7 @@ var deleteFn = function(id) {
 	  success:function(data){ 
 		if(data['status']==200){
 			
-			   callFlashSlide("Delete Successfully.");
+			   callFlashSlide(Liferay.Language.get('delete-successfully'));
 			   getDataFn($("#pageNumber").val(),$("#rpp").val());
 			   $("#confrimModal").modal('hide');
 			   
@@ -475,9 +325,6 @@ var listDataFn = function(data) {
 		} else {
 			statusAction ="style=\"margin-bottom: 5px;\"";
 		}
-		//console.log(index);
-//	console.log(indexEntry['items']);
-//	console.log(indexEntry['appraisal_period_desc']);
 	
 	htmlHTML+="<div class=\"row-fluid\">";
 	htmlHTML+="<div class=\"span12\">";
@@ -487,7 +334,7 @@ var listDataFn = function(data) {
 			htmlHTML+="<div class=\"titlePanel2\">"+indexEntry['appraisal_period_desc']+" </div> ";
 		} else {
 			htmlHTML+="<div class=\"titlePanel2\">"+indexEntry['appraisal_period_desc']+" ";
-			htmlHTML+="<button "+statusAction+" type=\"button\" class=\"btn btn-primary input-sm\" name=\"btnAction"+index+"\" id=\"btnAction"+index+"\"><i class=\"fa fa-sign-in\"></i>&nbsp;Action</button>";
+			htmlHTML+="<button "+statusAction+" type=\"button\" class=\"btn btn-primary input-sm\" name=\"btnAction"+index+"\" id=\"btnAction"+index+"\"><i class=\"fa fa-sign-in\"></i>&nbsp;"+Liferay.Language.get('action')+"</button>";
 			htmlHTML+="</div>";
 		}
 	} else {
@@ -520,26 +367,23 @@ var listDataFn = function(data) {
 			
 			if($("#embed_appraisal_type_id").val()==2){
 				
-				htmlHTML+=" <th style=\"width:8%\">Status</th>";
-				htmlHTML+=" <th style=\"width:10%\">Emp Code</th>";
-				htmlHTML+=" <th style=\"width:10%\">Emp Name</th>";
-				htmlHTML+=" <th style=\"width:15%\">Organization</th>";
-				htmlHTML+=" <th style=\"width:15%\">Position</th>";
+				htmlHTML+=" <th style=\"width:8%\">"+Liferay.Language.get('status')+"</th>";
+				htmlHTML+=" <th style=\"width:10%\">"+Liferay.Language.get('emp-code')+"</th>";
+				htmlHTML+=" <th style=\"width:10%\">"+Liferay.Language.get('emp-name')+"</th>";
+				htmlHTML+=" <th style=\"width:15%\">"+Liferay.Language.get('organization')+"</th>";
+				htmlHTML+=" <th style=\"width:15%\">"+Liferay.Language.get('position')+"</th>";
 							
 			}else if($("#embed_appraisal_type_id").val()==1){
 				
-				htmlHTML+=" <th style=\"width:8%\">Status</th>";
-				htmlHTML+=" <th style=\"width:10%\">Org Code</th>";
-				htmlHTML+=" <th style=\"width:15%\">Organization</th>";
+				htmlHTML+=" <th style=\"width:8%\">"+Liferay.Language.get('status')+"</th>";
+				htmlHTML+=" <th style=\"width:10%\">"+Liferay.Language.get('organization-code')+"</th>";
+				htmlHTML+=" <th style=\"width:15%\">"+Liferay.Language.get('organization')+"</th>";
 
 				
 			}
-				
-				
-				
-				
+
 			if(index!='p0'){
-				htmlHTML+=" <th style=\"width:7%; text-align:center;\">Manage</th>";
+				htmlHTML+=" <th style=\"width:7%; text-align:center;\">"+Liferay.Language.get('manage')+"</th>";
 			}else{
 				htmlHTML+=" <th style=\"width:7%; text-align:center;\"></th>";
 			}
@@ -560,7 +404,6 @@ var listDataFn = function(data) {
 							htmlHTML+="	<td class='object-center' style='text-align:center;'><input class='action_emp"+index+"' id='id-"+itemEntry['emp_id']+"' type='checkbox' value="+itemEntry['emp_id']+"-"+itemEntry['emp_code']+" data-id='"+itemEntry['emp_result_id']+"-"+itemEntry['stage_id']+"'></td>";
 						}else if($("#embed_appraisal_type_id").val()==1){
 							htmlHTML+="	<td class='object-center' style='text-align:center;'><input class='action_emp"+index+"' id='id-"+itemEntry['org_id']+"' type='checkbox' value="+itemEntry['org_id']+"-"+itemEntry['org_code']+" data-id='"+itemEntry['emp_result_id']+"-"+itemEntry['stage_id']+"'></td>";
-							//alert(itemEntry['org_id']);
 						}
 					}
 						
@@ -570,7 +413,6 @@ var listDataFn = function(data) {
 						htmlHTML+="	<td class='object-center' style='text-align:center;'><input class='asign_emp' id='id-"+itemEntry['emp_id']+"' type='checkbox' value="+itemEntry['emp_id']+"-"+itemEntry['emp_code']+"></td>";
 					}else if($("#embed_appraisal_type_id").val()==1){
 						htmlHTML+="	<td class='object-center' style='text-align:center;'><input class='asign_emp' id='id-"+itemEntry['org_id']+"' type='checkbox' value="+itemEntry['org_id']+"-"+itemEntry['org_code']+"></td>";
-						//alert(itemEntry['org_id']);
 					}
 				}
 				
@@ -609,13 +451,13 @@ var listDataFn = function(data) {
 					//itemEntry['status']
 					if(is_hr==1 &&  itemEntry['status']=='Accepted'){
 						//htmlHTML+="  <i title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\" &lt;button class='btn btn-info btn-small btn-gear view' id='view-"+itemEntry['emp_id']+"' data-target=#addModalRule data-toggle='modal'&gt;View&lt;/button&gt;   &lt;button class='btn btn-warning btn-small btn-gear edit' id='edit-"+itemEntry['emp_id']+"' data-target=#addModalRule data-toggle='modal'&gt;Edit&lt;/button&gt;&nbsp;&lt;button id='del-"+itemEntry['emp_id']+"' class='btn btn-danger btn-small btn-gear del'&gt;Delete&lt;/button&gt;\"></i>";
-						htmlHTML+="  <i data-trigger=\"focus\" tabindex=\""+index2+"\" title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\"  data-content=\" &lt;button class='btn btn-info btn-small btn-gear view' id='view-"+itemEntry['emp_id']+"-"+itemEntry['org_id']+"' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-target=#addModalRule data-toggle='modal'&gt;View\"></i>";
+						htmlHTML+="  <i data-trigger=\"focus\" tabindex=\""+index2+"\" title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\"  data-content=\" &lt;button class='btn btn-info btn-small btn-gear view' id='view-"+itemEntry['emp_id']+"-"+itemEntry['org_id']+"' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-target=#addModalRule data-toggle='modal'&gt;"+Liferay.Language.get('view')+"\"></i>";
 					}else if(is_hr==1 &&  itemEntry['status']!='Accepted'){
-						htmlHTML+="  <i data-trigger=\"focus\" tabindex=\""+index2+"\" title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\" &lt;button class='btn btn-warning btn-small btn-gear edit' id='edit-"+itemEntry['emp_id']+"-"+itemEntry['org_id']+"' data-target=#addModalRule data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;Edit&lt;/button&gt;&nbsp;&lt;button id='del-"+itemEntry['emp_id']+"' class='btn btn-danger btn-small btn-gear del'&gt;Delete&lt;/button&gt;\"></i>";
+						htmlHTML+="  <i data-trigger=\"focus\" tabindex=\""+index2+"\" title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\" &lt;button class='btn btn-warning btn-small btn-gear edit' id='edit-"+itemEntry['emp_id']+"-"+itemEntry['org_id']+"' data-target=#addModalRule data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;"+Liferay.Language.get('edit')+"&lt;/button&gt;&nbsp;&lt;button id='del-"+itemEntry['emp_id']+"' class='btn btn-danger btn-small btn-gear del'&gt;"+Liferay.Language.get('delete')+"&lt;/button&gt;\"></i>";
 						
 						
 					}else if(is_hr==0){
-						htmlHTML+="  <i data-trigger=\"focus\" tabindex=\""+index2+"\" title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\" &lt;button class='btn btn-info btn-small btn-gear view' id='view-"+itemEntry['emp_id']+"-"+itemEntry['org_id']+"' data-target=#addModalRule data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;View\"></i>";
+						htmlHTML+="  <i data-trigger=\"focus\" tabindex=\""+index2+"\" title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\" &lt;button class='btn btn-info btn-small btn-gear view' id='view-"+itemEntry['emp_id']+"-"+itemEntry['org_id']+"' data-target=#addModalRule data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;"+Liferay.Language.get('view')+"\"></i>";
 						
 					}
 				}
@@ -632,39 +474,6 @@ var listDataFn = function(data) {
 			htmlHTML+="</div>";
 		htmlHTML+="</div>";
 	htmlHTML+="</div>";
-		/*
-		appraisal_type_name
-		department_name
-		emp_id
-		emp_name
-		emp_result_id
-		position_name
-		section_name
-		status
-		*/
-//		
-//		htmlHTML+="<tr>";
-//		htmlHTML+="	<td class='object-center'><input class='asign_emp' id='id-"+indexEntry['emp_id']+"' type='checkbox' value="+indexEntry['emp_id']+"></td>";
-//		htmlHTML+="  <td id='status-"+indexEntry['emp_id']+"'>"+indexEntry['status']+"";
-//		htmlHTML+="  <input type='hidden' id='emp_result_id-"+indexEntry['emp_id']+"' name='emp_result_id-"+indexEntry['emp_id']+"' value='"+indexEntry['emp_result_id']+"'>";
-//		htmlHTML+="  </td>";
-//		htmlHTML+="  <td>"+indexEntry['emp_id']+"</td>";
-//		htmlHTML+="  <td>"+indexEntry['emp_name']+"</td>";
-//		htmlHTML+="  <td>"+indexEntry['department_name']+"</td>";
-//		htmlHTML+="	<td>"+indexEntry['section_name']+"</td>";
-//		htmlHTML+="	<td>"+indexEntry['appraisal_type_name']+"</td>";
-//		htmlHTML+="	<td>"+indexEntry['position_name']+"</td>";
-//		htmlHTML+="  <td style=\"text-align:center\">";
-//		
-//		if(is_hr==1){
-//			//htmlHTML+="  <i title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\" &lt;button class='btn btn-info btn-small btn-gear view' id='view-"+indexEntry['emp_id']+"' data-target=#addModalRule data-toggle='modal'&gt;View&lt;/button&gt;   &lt;button class='btn btn-warning btn-small btn-gear edit' id='edit-"+indexEntry['emp_id']+"' data-target=#addModalRule data-toggle='modal'&gt;Edit&lt;/button&gt;&nbsp;&lt;button id='del-"+indexEntry['emp_id']+"' class='btn btn-danger btn-small btn-gear del'&gt;Delete&lt;/button&gt;\"></i>";
-//			htmlHTML+="  <i title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\" &lt;button class='btn btn-warning btn-small btn-gear edit' id='edit-"+indexEntry['emp_id']+"' data-target=#addModalRule data-toggle='modal'&gt;Edit&lt;/button&gt;&nbsp;&lt;button id='del-"+indexEntry['emp_id']+"' class='btn btn-danger btn-small btn-gear del'&gt;Delete&lt;/button&gt;\"></i>";
-//		}else if(is_hr==0){
-//			htmlHTML+="  <i title=\"\" data-original-title=\"\" class=\"fa fa-cog font-gear popover-edit-del\" data-html=\"true\" data-toggle=\"popover\" data-placement=\"top\" data-content=\" &lt;button class='btn btn-info btn-small btn-gear view' id='view-"+indexEntry['emp_id']+"' data-target=#addModalRule data-toggle='modal'&gt;View&lt;/button&gt;&nbsp;&lt;button id='del-"+indexEntry['emp_id']+"' class='btn btn-danger btn-small btn-gear del'&gt;Delete&lt;/button&gt;\"></i>";
-//		}
-//		
-//		htmlHTML+="  </td>";
-//		htmlHTML+="</tr>";
 		
 	});
 	
@@ -719,38 +528,23 @@ var listDataFn = function(data) {
 						}
 					});
 				if(emp_result_id_action.length==0){
-					callFlashSlide("Please choose Employees or Organization for Action.");
+					callFlashSlide(Liferay.Language.get('please-choose-employees-or-organization-for-action'));
 					return false;
-				}else{
-		//			sessionStorage.setItem('is_coporate_kpi',$("#is_coporate_kpi-"+empldoyees_id[0]).val());
-					
+				}else{					
 		
 					$(".cus_information_area").hide();
 					//Default start
 					$("#btnSubmitAction").removeAttr("disabled");
 					$("#btnAddAnother").removeAttr("disabled");
 					//Default end
-					//getTemplateFn();
 					
-					
-					/*dropDrowAsignToFn();
-					$("#assignTo").off("change");
-					$("#assignTo").change(function(){
-						dropDrowActionFn($(this).val());
-					});
-					$("#assignTo").change();
-					*/
-					//var Emp_Code = JSON.stringify(empldoyees_code[0]);
-					//console.log(empldoyees_code[0])
-					//dropDrowActionFn(empldoyees_code[0]);
 					dropDrowActionEditFn2(stage_id_action[0]);
 					if($("#actionAction").val()==null){
 						$("#btnSubmitAction").attr("disabled","disabled");
 					} else {
 						$("#btnSubmitAction").removeAttr("disabled");
 					}
-					//dropDrowActionFn($(this).val());
-					
+										
 					$("#ModalAction").modal({
 						"backdrop" : setModalPopup[0],
 						"keyboard" : setModalPopup[1]
@@ -770,13 +564,6 @@ var listDataFn = function(data) {
 					
 					});
 				}
-				//$(".scoreText0").attr("disabled","disabled");
-				/*
-				console.log(empldoyees_id);
-				console.log(empldoyees_code);
-				*/
-				//auto click
-				//$("#tableQuality .appraisalItem-checkbox,#tableDeduct .appraisalItem-checkbox,#fixClickKPI-2 .appraisalItem-checkbox").click();
 				
 			});
 		
@@ -825,7 +612,7 @@ var listDataFn = function(data) {
 			$(".information").hide();
 			var status= $(this).parent().parent().parent().parent().children().eq(1).text();
 			if(status.trim()=="Unassigned"){
-				callFlashSlide("Can't edit. because unassigned status.","error");
+				callFlashSlide(Liferay.Language.get('can-not-edit-because-unassigned-status')+".","error");
 				$(this).parent().parent().parent().children().click();
 			}else{
 				//var emp_result_id = $("#emp_result_id-"+id).val();
@@ -841,13 +628,7 @@ var listDataFn = function(data) {
 			}
 		});
 		$(".view").on("click",function() {
-//			var view=this.id.split("-");
-//			var id=view[1];
-//			if($("#status-"+id).text().trim()=="Unassigned"){
-//				callFlashSlide("Can't edit. because unassigned status.","error");
-//				$(this).parent().parent().parent().children().click();
-//			}else{
-				//console.log($(this).parent().parent().parent().parent().children().eq(1).children().val());
+
 				var view=this.id.split("-");
 				org_id_to_assign=[];
 				org_id_to_assign.push(view[2]);
@@ -886,7 +667,7 @@ var actionActionAssignmentFn = function() {
 			if(data['status']==200){
 				   //callFlashSlideInModal("Updated","#information2");
 			       getDataFn($("#pageNumber").val(),$("#rpp").val());
-			       callFlashSlide("Updated Successfully.");
+			       callFlashSlide(Liferay.Language.get('update-successfully'));
 				   $("#ModalAction").modal('hide');
 				   $("#action").val("add");
 				   appraisalStatusFn();
@@ -1111,17 +892,13 @@ var actionAssignmentFn = function(param){
 			}
 			
 		employees+="}";
-		//employee.push({'emp_id':indexEntry});
+
 	});
 	employees+="]";
-	
-	//console.log("--------------");
-	//console.log(employees);
-	        
+
 	//loop structure
 	$.each($(".structure_id").get(),function(index,structureEntry){
-		//console.log($(indexEntry).val());
-		//console.log($("#form-"+$(indexEntry).val()).val());
+
 		
 		
 		if($("#form-"+$(structureEntry).val()).val()=="form1"){
@@ -1133,9 +910,7 @@ var actionAssignmentFn = function(param){
 				}else{
 					appraisal_items+=",{";	
 				}
-				
-				
-				
+
 					appraisal_items+="\"nof_target_score\":\""+$("#id-"+$(appraisalItemEntry).val()+"-"+$(structureEntry).val()+"-nof_target_score").val()+"\",";
 					appraisal_items+="\"kpi_type_id\":\""+$("#id-"+$(appraisalItemEntry).val()+"-"+$(structureEntry).val()+"-kpi_type_id").val()+"\",";
 					appraisal_items+="\"form_id\":\"1\",";
@@ -1219,14 +994,6 @@ var actionAssignmentFn = function(param){
 		async:false,
 		headers:{Authorization:"Bearer "+tokenID.token},
 		
-		
-		/*
-		appraisal_type_id: '',
-        frequency_id: '',
-        appraisal_year: '',
-        period: '',
-        action_to: '',
-		 */
 		data:{"head_params":
 			{
 			"appraisal_type_id":$("#embed_appraisal_type_id").val(),
@@ -1248,14 +1015,14 @@ var actionAssignmentFn = function(param){
 				   
 				   
 				   if(param !="saveAndAnother"){
-					   callFlashSlide("Insert Successfully.");
+					   callFlashSlide(Liferay.Language.get('insert-successfully'));
 					   getDataFn($("#pageNumber").val(),$("#rpp").val());
 					   $("#ModalAssignment").modal('hide');
 					   $("#action").val("add");		 	    
 					}else{
 						
 						getDataFn($("#pageNumber").val(),$("#rpp").val());
-						callFlashSlideInModal("Insert Data is Successfully.","#information");
+						callFlashSlideInModal(Liferay.Language.get('insert-successfully'),"#information");
 						$("#action").val("add");
 						clearFn();
 						
@@ -1263,7 +1030,6 @@ var actionAssignmentFn = function(param){
 				   
 				   appraisalStatusFn();
 			}else if(data['status']=="400"){
-				//callFlashSlideInModal(validationFn(data),"#information","error");Â Â 
 				callFlashSlideInModal(validationAssignmentFn(data),"#information","error");
 				return false;
 				
@@ -1330,7 +1096,6 @@ var appraisalLevelListFn = function(nameArea,id){
 	}
 	
 	$.ajax({
-		//url:restfulURL+"/"+serviceName+"/public/appraisal_item/al_list",
 		url:restfulURL+"/"+serviceName+"/public/appraisal_assignment/al_list",
 		type:"get",
 		dataType:"json",
@@ -1386,14 +1151,12 @@ var appraisalTypeFn = function(nameArea,id){
 	}
 	
 	$.ajax({
-		//http://192.168.1.52/"+serviceName+"/public/appraisal_assignment/appraisal_type_list
 		url:restfulURL+"/"+serviceName+"/public/appraisal_assignment/appraisal_type_list",
 		type:"get",
 		dataType:"json",
 		async:false,
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success:function(data){
-			//var data=['à¸—à¸”à¸¥à¸­à¸‡à¸‡à¸²à¸™','à¸›à¸£à¸°à¸ˆà¸³à¸›à¸µ','à¸£à¸±à¸�à¸©à¸²à¸�à¸²à¸£'];
 			var htmlOption="";
 			$.each(data,function(index,indexEntry){
 				if(id==indexEntry['appraisal_type_id']){
@@ -1448,28 +1211,18 @@ var appraisalStatusFn = function(nameArea,id){
 }
 
 var periodFrequencyFn = function(nameArea){
-//	var data=['à¸—à¸¸à¸�à¹€à¸”à¸·à¸­à¸™','à¸—à¸¸à¸� 3 à¹€à¸”à¸·à¸­à¸™','à¸—à¸¸à¸� 6 à¹€à¸”à¸·à¸­à¸™','à¸—à¸¸à¸� 12 à¹€à¸”à¸·à¸­à¸™'];
-//	var htmlOption="";
-//	$.each(data,function(index,indexEntry){
-//		htmlOption+="<option>"+indexEntry+"</option>";
-//	});
-//	$("#periodFrequency").html(htmlOption);
-	
-
 
 	if(nameArea==undefined){
 		nameArea="";
 	}
 	
 	$.ajax({
-		//http://192.168.1.52/"+serviceName+"/public/appraisal_assignment/frequency_list
 		url:restfulURL+"/"+serviceName+"/public/appraisal_assignment/frequency_list",
 		type:"get",
 		dataType:"json",
 		async:false,
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success:function(data){
-			//var data=['à¸—à¸”à¸¥à¸­à¸‡à¸‡à¸²à¸™','à¸›à¸£à¸°à¸ˆà¸³à¸›à¸µ','à¸£à¸±à¸�à¸©à¸²à¸�à¸²à¸£'];
 			var htmlOption="";
 			$.each(data,function(index,indexEntry){
 			
@@ -1486,7 +1239,6 @@ var periodFrequencyFn = function(nameArea){
 var dropDrowDepartmentFn = function(id){
 
 	$.ajax({
-		//url:restfulURL+"/"+serviceName+"/public/appraisal_item/department_list",
 		url:restfulURL+"/"+serviceName+"/public/appraisal/dep_list",
 		type:"get",
 		dataType:"json",
@@ -1517,7 +1269,7 @@ var dropDrowOrgFn = function(appraisalLevelId){
 		data:{"level_id":appraisalLevelId},
 		success:function(data){
 			var htmlOption="";
-			htmlOption+="<option value=''>All Organization</option>";
+			htmlOption+="<option value=''>"+Liferay.Language.get('all-organization')+"</option>";
 			$.each(data,function(index,indexEntry){
 				if(id==indexEntry['org_id']){
 					htmlOption+="<option selected='selected' value="+indexEntry['org_id']+">"+indexEntry['org_name']+"</option>";
@@ -1532,20 +1284,6 @@ var dropDrowOrgFn = function(appraisalLevelId){
 
 var dropDrowPeriodFn = function(paramPeriod,paramAssignFrequency){
 	
-//	var htmlOption="";
-//	
-//	var periodFrequency = parseFloat(paramPeriod);
-//	var period = 12/periodFrequency;
-//	
-//	if(paramAssignFrequency==1){
-//
-//		htmlOption+="<option value=''>à¸—à¸¸à¸�à¸£à¸­à¸šà¸�à¸²à¸£à¸›à¸£à¸°à¹€à¸¡à¸´à¸™</option>";
-//	}else{
-//		for(var i=1;i<=period;i++){	
-//			htmlOption+="<option value="+i+">à¸£à¸­à¸šà¸�à¸²à¸£à¸›à¸£à¸°à¹€à¸¡à¸´à¸™à¸—à¸µà¹ˆ "+i+"</option>";
-//		}
-//	}
-//	$("#period").html(htmlOption);
 	var htmlOption="";
 	
 	
@@ -1563,7 +1301,7 @@ var dropDrowPeriodFn = function(paramPeriod,paramAssignFrequency){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		data:{"appraisal_year":$("#YearList").val(),"frequency_id":$("#periodFrequency").val()},
 		success:function(data){
-			//var data=['à¸—à¸”à¸¥à¸­à¸‡à¸‡à¸²à¸™','à¸›à¸£à¸°à¸ˆà¸³à¸›à¸µ','à¸£à¸±à¸�à¸©à¸²à¸�à¸²à¸£'];
+			
 			
 			$.each(data,function(index,indexEntry){
 				if(id==indexEntry['period_id']){
@@ -1602,7 +1340,7 @@ var dropDrowAsignToFn = function(nameArea){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		data:{"appraisal_level_id":$("#embed_appraisal_level_id").val()},
 		success:function(data){
-			//var data=['à¸—à¸”à¸¥à¸­à¸‡à¸‡à¸²à¸™','à¸›à¸£à¸°à¸ˆà¸³à¸›à¸µ','à¸£à¸±à¸�à¸©à¸²à¸�à¸²à¸£'];
+			
 			var htmlOption="";
 			$.each(data,function(index,indexEntry){
 				if(id==indexEntry['to_appraisal_level_id']){
@@ -1617,8 +1355,6 @@ var dropDrowAsignToFn = function(nameArea){
 }
 var dropDrowAsignToEditFn = function(paramStageID){
 
-
-
 	$.ajax({
 		url:restfulURL+"/"+serviceName+"/public/appraisal_assignment/edit_assign_to",
 		type:"get",
@@ -1627,7 +1363,6 @@ var dropDrowAsignToEditFn = function(paramStageID){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		data:{"stage_id":paramStageID},
 		success:function(data){
-			//var data=['à¸—à¸”à¸¥à¸­à¸‡à¸‡à¸²à¸™','à¸›à¸£à¸°à¸ˆà¸³à¸›à¸µ','à¸£à¸±à¸�à¸©à¸²à¸�à¸²à¸£'];
 			if(data=="" || data==null || data==[]){
 				
 				$("#btnSubmit").attr("disabled","disabled");	
@@ -1668,7 +1403,7 @@ var dropDrowActionFn = function(paramStageID,nameArea){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		data:{"stage_id":paramStageID,"appraisal_type_id":$("#embed_appraisal_type_id").val()},
 		success:function(data){
-			//var data=['à¸—à¸”à¸¥à¸­à¸‡à¸‡à¸²à¸™','à¸›à¸£à¸°à¸ˆà¸³à¸›à¸µ','à¸£à¸±à¸�à¸©à¸²à¸�à¸²à¸£'];
+			
 			var htmlOption="";
 			$.each(data,function(index,indexEntry){
 				if(id==indexEntry['stage_id']){
@@ -1683,9 +1418,6 @@ var dropDrowActionFn = function(paramStageID,nameArea){
 }
 
 var dropDrowActionEditFn = function(paramStageID,paramToAppraisalLevel){
-
-
-
 	
 	$.ajax({
 		url:restfulURL+"/"+serviceName+"/public/appraisal_assignment/edit_action_to",
@@ -1695,7 +1427,6 @@ var dropDrowActionEditFn = function(paramStageID,paramToAppraisalLevel){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		data:{"stage_id":paramStageID,"to_appraisal_level_id":paramToAppraisalLevel},
 		success:function(data){
-			//var data=['à¸—à¸”à¸¥à¸­à¸‡à¸‡à¸²à¸™','à¸›à¸£à¸°à¸ˆà¸³à¸›à¸µ','à¸£à¸±à¸�à¸©à¸²à¸�à¸²à¸£'];
 			var htmlOption="";
 			$.each(data,function(index,indexEntry){
 				if(id==indexEntry['stage_id']){
@@ -1710,21 +1441,14 @@ var dropDrowActionEditFn = function(paramStageID,paramToAppraisalLevel){
 }
 
 var dropDrowActionEditFn2 = function(paramStageID){
-//	console.log(employee_code,'employee_code?')
-//	console.log(paramStageID,'paramStageID?')
-//	console.log(org_code,'org_code?')
-
 	$.ajax({
 		url:restfulURL+"/"+serviceName+"/public/appraisal_assignment/edit_action_to",
 		type:"get",
 		dataType:"json",
 		async:false,
 		headers:{Authorization:"Bearer "+tokenID.token},
-		//data:{"stage_id":paramStageID,"to_appraisal_level_id":paramToAppraisalLevel},
 		data:{"stage_id":paramStageID},
 		success:function(data){
-			//console.log(data)
-			//var data=['à¸—à¸”à¸¥à¸­à¸‡à¸‡à¸²à¸™','à¸›à¸£à¸°à¸ˆà¸³à¸›à¸µ','à¸£à¸±à¸�à¸©à¸²à¸�à¸²à¸£'];
 			var htmlOption="";
 			$.each(data,function(index,indexEntry){
 				if(id==indexEntry['stage_id']){
@@ -1743,12 +1467,6 @@ var dropDrowActionEditFn2 = function(paramStageID){
 
 
 var periodFn = function(nameArea){
-//	var data=['à¸—à¸¸à¸�à¹€à¸”à¸·à¸­à¸™','à¸—à¸¸à¸� 3 à¹€à¸”à¸·à¸­à¸™','à¸—à¸¸à¸� 6 à¹€à¸”à¸·à¸­à¸™','à¸—à¸¸à¸� 12 à¹€à¸”à¸·à¸­à¸™'];
-//	var htmlOption="";
-//	$.each(data,function(index,indexEntry){
-//		htmlOption+="<option>"+indexEntry+"</option>";
-//	});
-//	$("#periodFrequency").html(htmlOption);
 
 	
 	if(nameArea==undefined){
@@ -1756,7 +1474,6 @@ var periodFn = function(nameArea){
 	}
 	
 	$.ajax({
-		//http://192.168.1.52/"+serviceName+"/public/appraisal_assignment/period_list
 		url:restfulURL+"/"+serviceName+"/public/appraisal_assignment/period_list",
 		type:"get",
 		dataType:"json",
@@ -1767,7 +1484,6 @@ var periodFn = function(nameArea){
 			"frequency_id":$("#periodFrequency").val()
 		},
 		success:function(data){
-			//var data=['à¸—à¸”à¸¥à¸­à¸‡à¸‡à¸²à¸™','à¸›à¸£à¸°à¸ˆà¸³à¸›à¸µ','à¸£à¸±à¸�à¸©à¸²à¸�à¸²à¸£'];
 			var htmlOption="";
 			$.each(data,function(index,indexEntry){
 				if(id==indexEntry['period_id']){
@@ -1792,7 +1508,7 @@ var assignTemplateQualityFn = function(structureName,data){
 
 	
 	htmlTemplateQuality+="<div class='titlePanel'>"+structureName+"</div>";
-		htmlTemplateQuality+="<div class='totalWeight'><span  class='displayWeightOnMobile' id='weigth_total_quality_moblie_percentage-"+data['structure_id']+"'></span><span  class='checkWeigthOver' id='weigth_total_quality_percentage-"+data['structure_id']+"'></span>Total Weight <span id='weigth_total_quality_percentage_target-"+data['structure_id']+"'>"+data['total_weight']+"%<span></div>";
+		htmlTemplateQuality+="<div class='totalWeight'><span  class='displayWeightOnMobile' id='weigth_total_quality_moblie_percentage-"+data['structure_id']+"'></span><span  class='checkWeigthOver' id='weigth_total_quality_percentage-"+data['structure_id']+"'></span>"+Liferay.Language.get('total-weight')+" <span id='weigth_total_quality_percentage_target-"+data['structure_id']+"'>"+data['total_weight']+"%<span></div>";
 		
 	htmlTemplateQuality+="</div>";
 	htmlTemplateQuality+="<div class=\"ibox-content\">";
@@ -1800,10 +1516,10 @@ var assignTemplateQualityFn = function(structureName,data){
 	htmlTemplateQuality+="<table id=\"tableQuality\" style='top: -37px; max-width: none;'  class=\"table table-striped tableQuality fixedHeader\">";
 	htmlTemplateQuality+="<thead>";
 		htmlTemplateQuality+="<tr>";
-			htmlTemplateQuality+="<th style=\"width:3%\"><b>Select</b></th>";
-			htmlTemplateQuality+="<th style=\"width:67%\"><b>Appraisal Item Name</b></th>";
-			htmlTemplateQuality+="<th style=\"width:15%; text-align:center;\"><b>Target </b></th>";
-			htmlTemplateQuality+="<th style=\"width:15%; text-align:center;\"><b>%Weight</b></th>  ";      
+			htmlTemplateQuality+="<th style=\"width:3%\"><b>"+Liferay.Language.get('select')+"</b></th>";
+			htmlTemplateQuality+="<th style=\"width:67%\"><b>"+Liferay.Language.get('ppraisal-item-name')+"</b></th>";
+			htmlTemplateQuality+="<th style=\"width:15%; text-align:center;\"><b>"+Liferay.Language.get('target')+"</b></th>";
+			htmlTemplateQuality+="<th style=\"width:15%; text-align:center;\"><b>"+Liferay.Language.get('percent-weight')+"</b></th>  ";      
 			htmlTemplateQuality+="</tr>";
 				htmlTemplateQuality+="</thead>";
 					htmlTemplateQuality+="<tbody id=\"listthreshould\">";
@@ -1843,7 +1559,7 @@ var assignTemplateDeductFn = function(structureName,data){
 	htmlTemplateDeduct+="<div class=\"span12\">";
 	htmlTemplateDeduct+="<div class=\"ibox-title2\">";
 	htmlTemplateDeduct+="<div class='titlePanel'>"+structureName+"</div>";
-	htmlTemplateDeduct+="<div class='totalWeight'><span class='sum_d' style='display:none;' id='weigth_total_deduct_percentage-"+data['structure_id']+"'>"+data['total_weight']+"</span>Total Weight <span class='weigth_total_deduct_percentage_target' id='weigth_total_deduct_percentage_target-"+data['structure_id']+"'>"+data['total_weight']+"%</span></div>";
+	htmlTemplateDeduct+="<div class='totalWeight'><span class='sum_d' style='display:none;' id='weigth_total_deduct_percentage-"+data['structure_id']+"'>"+data['total_weight']+"</span>"+Liferay.Language.get('total-weight')+" <span class='weigth_total_deduct_percentage_target' id='weigth_total_deduct_percentage_target-"+data['structure_id']+"'>"+data['total_weight']+"%</span></div>";
 	
 	htmlTemplateDeduct+="</div>";
 		
@@ -1853,10 +1569,10 @@ var assignTemplateDeductFn = function(structureName,data){
               		
 		htmlTemplateDeduct+="<thead>";
 			htmlTemplateDeduct+="<tr>";
-				htmlTemplateDeduct+="<th style=\"width:3%\"><b>Select</b></th>";
+				htmlTemplateDeduct+="<th style=\"width:3%\"><b>"+Liferay.Language.get('select')+"</b></th>";
 				htmlTemplateDeduct+="<th style=\"width:67%\"><b>Appraisal checkWeigthOverItem Name</b></th>";
-				htmlTemplateDeduct+="<th style=\"width:15%; text-align:center;\"><b>Max Value </b></th>";
-				htmlTemplateDeduct+="<th style=\"width:15%; text-align:center;\"><b>Deduct Score/Unit </b></th>";
+				htmlTemplateDeduct+="<th style=\"width:15%; text-align:center;\"><b>"+Liferay.Language.get('max-value')+"</b></th>";
+				htmlTemplateDeduct+="<th style=\"width:15%; text-align:center;\"><b>"+Liferay.Language.get('deduct-score')+"</b></th>";
 				htmlTemplateDeduct+="</tr>";
 					htmlTemplateDeduct+="</thead>";
 					htmlTemplateDeduct+="<tbody id=\"\">";
@@ -1904,18 +1620,18 @@ var assignTemplateQuantityFn = function(structureName,data){
 			htmlTemplateQuantity+="  <div class=\"ibox-title2\">";
 			
 			htmlTemplateQuantity+="      <div class='titlePanel'>"+structureName+"</div>";
-			htmlTemplateQuantity+="      <div class='totalWeight'><span  class='displayWeightOnMobile' id='weigth_total_quantity_moblie_percentage-"+data['structure_id']+"'></span><span class='checkWeigthOver weigth_total_quantity_percentage' id='weigth_total_quantity_percentage-"+data['structure_id']+"'></span>Total Weight <span id='weigth_total_quantity_percentage_target-"+data['structure_id']+"'>"+data['total_weight']+"%</span></div>";
+			htmlTemplateQuantity+="      <div class='totalWeight'><span  class='displayWeightOnMobile' id='weigth_total_quantity_moblie_percentage-"+data['structure_id']+"'></span><span class='checkWeigthOver weigth_total_quantity_percentage' id='weigth_total_quantity_percentage-"+data['structure_id']+"'></span>"+Liferay.Language.get('total-weight')+" <span id='weigth_total_quantity_percentage_target-"+data['structure_id']+"'>"+data['total_weight']+"%</span></div>";
 			htmlTemplateQuantity+="  </div>";
 			htmlTemplateQuantity+="	<div class=\"ibox-content\">";
 			htmlTemplateQuantity+=" <div class=\"table-responsive scrollbar-inner\">";
 			htmlTemplateQuantity+="<table style='width:100%; top: -38px; max-width: none;' id=\"tableQauntity\" class=\"table table-striped tableQauntity fixedHeader\">";
 			htmlTemplateQuantity+="<thead>";
 				htmlTemplateQuantity+="<tr>";
-					htmlTemplateQuantity+="<th style=\"width:3%;  text-align:center;\" class=''><b>Select</b></th>";
-					htmlTemplateQuantity+="<th style=\"width:20%\" class=''><b>Appraisal Item Name</b></th>";
-					htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>Target</b> </th>";
-					htmlTemplateQuantity+="<th style=\"width:5%;min-width: 60px !important;  text-align:center;\" class=''><b>หน่วยวัด</b> </th>";
-					htmlTemplateQuantity+="<th style=\"width:10%;  text-align:center;\" class='thBox'><b>Forecast Value</b> </th>";
+					htmlTemplateQuantity+="<th style=\"width:3%;  text-align:center;\" class=''><b>"+Liferay.Language.get('select')+"</b></th>";
+					htmlTemplateQuantity+="<th style=\"width:20%\" class=''><b>"+Liferay.Language.get('appraisal-item-name')+"</b></th>";
+					htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>"+Liferay.Language.get('target')+"</b> </th>";
+					htmlTemplateQuantity+="<th style=\"width:5%;min-width: 60px !important;  text-align:center;\" class=''><b>"+Liferay.Language.get('uom')+"</b> </th>";
+					htmlTemplateQuantity+="<th style=\"width:10%;  text-align:center;\" class='thBox'><b>"+Liferay.Language.get('forecast')+"</b> </th>";
 					
 					
 					htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class='thBox'><div style='background:#"+data['threshold_color'][0]['color_code']+"' class='redBOxL'>1</div></th>";
@@ -1926,7 +1642,7 @@ var assignTemplateQuantityFn = function(structureName,data){
 					htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class='thBox'><div style='background:#"+data['threshold_color'][4]['color_code']+"' class='veryGreenBOxR'>&nbsp;</div> </th>";
 					
 					
-					htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>%Weight</b></th>";
+					htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>"+Liferay.Language.get('percent-weight')+"</b></th>";
 					//htmlTemplateQuantity+="<th style=\"width:3%;  text-align:center;\" class=''></th>";
 					htmlTemplateQuantity+="</tr>";
 					htmlTemplateQuantity+="</thead>";
@@ -1995,19 +1711,19 @@ var assignTemplateQuantityFn = function(structureName,data){
 		
 		
 		htmlTemplateQuantity+="      <div class='titlePanel'>"+structureName+"</div>";
-		htmlTemplateQuantity+="      <div class='totalWeight'><span  class='displayWeightOnMobile' id='weigth_total_quantity_moblie_percentage-"+data['structure_id']+"'></span><span class='checkWeigthOver weigth_total_quantity_percentage' id='weigth_total_quantity_percentage-"+data['structure_id']+"'></span>Total Weight <span id='weigth_total_quantity_percentage_target-"+data['structure_id']+"'>"+data['total_weight']+"%</span></div>";
+		htmlTemplateQuantity+="      <div class='totalWeight'><span  class='displayWeightOnMobile' id='weigth_total_quantity_moblie_percentage-"+data['structure_id']+"'></span><span class='checkWeigthOver weigth_total_quantity_percentage' id='weigth_total_quantity_percentage-"+data['structure_id']+"'></span>"+Liferay.Language.get('total-weight')+" <span id='weigth_total_quantity_percentage_target-"+data['structure_id']+"'>"+data['total_weight']+"%</span></div>";
 		htmlTemplateQuantity+="  </div>";
 		htmlTemplateQuantity+="	<div class=\"ibox-content\">";
 		htmlTemplateQuantity+=" <div class=\"table-responsive scrollbar-inner\"  style='overflow:auto;'>";
 		htmlTemplateQuantity+="<table style='width:100%; top: -38px; max-width: none;' id=\"tableQauntity\" class=\"table table-striped tableQauntity fixedHeader\">";
 		htmlTemplateQuantity+="<thead>";
 			htmlTemplateQuantity+="<tr>";
-				htmlTemplateQuantity+="<th style=\"width:3%; text-align:center;\" class=''><b>Select</b></th>";
-				htmlTemplateQuantity+="<th style=\"width:30%\" class=''><b>Appraisal Item Name</b></th>";
-				htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>Target</b> </th>";
-				htmlTemplateQuantity+="<th style=\"width:5%;min-width: 60px !important;  text-align:center;\" class=''><b>หน่วยวัด</b> </th>";
-				htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>Forecast Value</b> </th>";
-				htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>%Weight</b></th>";
+				htmlTemplateQuantity+="<th style=\"width:3%; text-align:center;\" class=''><b>"+Liferay.Language.get('select')+"</b></th>";
+				htmlTemplateQuantity+="<th style=\"width:30%\" class=''><b>"+Liferay.Language.get('appraisal-item-name')+"</b></th>";
+				htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>"+Liferay.Language.get('target')+"</b> </th>";
+				htmlTemplateQuantity+="<th style=\"width:5%;min-width: 60px !important;  text-align:center;\" class=''><b>"+Liferay.Language.get('uom')+"</b> </th>";
+				htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>"+Liferay.Language.get('forecast')+"</b> </th>";
+				htmlTemplateQuantity+="<th style=\"width:5%;  text-align:center;\" class=''><b>"+Liferay.Language.get('percent-weight')+"</b></th>";
 				htmlTemplateQuantity+="</tr>";
 				htmlTemplateQuantity+="</thead>";
 				htmlTemplateQuantity+="<tbody id=\"\">";
@@ -2065,8 +1781,7 @@ var assignTemplateQuantityFn = function(structureName,data){
 		//if 1 enable 0,1
 		//if 2 enable 0,1,2
 	}
-	//console.log(data['count']);
-	//console.log(data['structure_id']);
+
 	
 }
 var calculationGrandTotalDefaultFn = function(id){
@@ -2079,20 +1794,17 @@ var calculationGrandTotalDefaultFn = function(id){
 		if($(indexEntry).val().trim()!=""){
 			
 			grandTotalWieght+=(parseFloat($(indexEntry).val()));
-			//alert(grandTotalWieght);
 			
 		}
 		
 	});
 	
 	$.each($(".weigth_total_deduct_percentage_target").get(),function(index,indexEntry){
-		//parseFloat($("#weigth_total_deduct_percentage").text());
 		deductTotalWieght+=parseFloat($(indexEntry).text());
 		
 	});
 	grandTotalWieghtTotal=(deductTotalWieght+grandTotalWieght);
 	$("#grandTotalWeight").html(parseFloat(grandTotalWieghtTotal).toFixed(2));
-	//$("#grandTotalWeight").html(grandTotalWieght);
 	
 }
 function getNum(val) {
@@ -2112,7 +1824,7 @@ var calculationGrandTotalFn = function(id){
 	var globalStructure_id=globalDataId[2];
 	//Start Default weight form quantity is 0%
 	$("#weigth_total_quantity_percentage-"+globalStructure_id)
-	.html("Cannot Assignment Because Weight% not equal to "+parseFloat($("#weigth_total_quantity_percentage_target-"+globalStructure_id).text()).toFixed(2)+"% [0%]")
+	.html(Liferay.Language.get('cannot-assignment-because-weight-percent-not-equal-to')+" "+parseFloat($("#weigth_total_quantity_percentage_target-"+globalStructure_id).text()).toFixed(2)+"% [0%]")
 	.css({"color":"#FF0000"}).
 	addClass("weightIsOver");
 	//End Default weight form quantity is 0%
@@ -2138,41 +1850,31 @@ var calculationGrandTotalFn = function(id){
 	//weigth_total_quality_percentage_target
 	
 	//################ Calculation Quantity Start####################### 
-	//var totalWeigthQuantity=0;
+
 	$.each($(".embed_appraisal_id").get(),function(index,indexEntry){
 		var dataId1=this.id.split("-");;
 		var apprailsal_item_id1=dataId1[1];
 		var structure_id1=dataId1[2];
 		var totalWeigthQuantity=0;
-		//$.each($(".total_weigth_quantity").get(),function(index,indexEntry){
+
 		$.each($(".id-"+structure_id1+"-weight").get(),function(index,indexEntry){
 			
 			var dataId=this.id.split("-");;
 			var apprailsal_item_id=dataId[1];
 			var structure_id=dataId[2];
 			
-			//console.log("structure_id1="+structure_id1);
-			//console.log("structure_id="+structure_id);
-			
-			//if(apprailsal_item_id==apprailsal_item_id1 && structure_id==structure_id1){
-				
-				//console.log(indexEntry);
-			
-			
+						
 				if($(indexEntry).val().trim()!="" && $("#id-"+apprailsal_item_id+"-"+structure_id+"-checkbox").prop("checked")==true){
 					totalWeigthQuantity+=(parseFloat($(indexEntry).val().replace(',', '')));
-					//alert(grandTotalWieght);
 					if(totalWeigthQuantity != parseFloat($("#weigth_total_quantity_percentage_target-"+structure_id).text())){
 						
 						$("#weigth_total_quantity_percentage-"+structure_id)
-						.html("Cannot Assignment Because Weight% not equal to "+parseFloat($("#weigth_total_quantity_percentage_target-"+structure_id).text()).toFixed(2)+"% ["+addCommas(parseFloat(totalWeigthQuantity).toFixed(2))+"%]")
+						.html(Liferay.Language.get('cannot-assignment-because-weight-percent-not-equal-to')+" "+parseFloat($("#weigth_total_quantity_percentage_target-"+structure_id).text()).toFixed(2)+"% ["+addCommas(parseFloat(totalWeigthQuantity).toFixed(2))+"%]")
 						.css({"color":"#FF0000"}).
 						addClass("weightIsOver");
 						
 						$("#weigth_total_quantity_moblie_percentage-"+structure_id).html("["+addCommas(totalWeigthQuantity)+"%]")
 						.css({"color":"#FF0000"});
-						
-						//var weightStructureHTML="<input type='hidden' name='weigth_quantity_over-"+structure_id+"' id='weigth_quantity_over-"+structure_id+"' class='weigth_quantity_over' value='"+totalWeigthQuantity+"'>";
 						
 					}else{
 						$("#weigth_total_quantity_percentage-"+structure_id)
@@ -2193,34 +1895,28 @@ var calculationGrandTotalFn = function(id){
 	//################ Calculation Quality Start####################### 
 	//Start Default weight form Quality is 0%
 	$("#weigth_total_quality_percentage-"+globalStructure_id)
-	.html("Cannot Assignment Because Weight% not equal to "+parseFloat($("#weigth_total_quality_percentage_target-"+globalStructure_id).text())+"% [0%]")
+	.html(Liferay.Language.get('cannot-assignment-because-weight-percent-not-equal-to')+" "+parseFloat($("#weigth_total_quality_percentage_target-"+globalStructure_id).text())+"% [0%]")
 	.css({"color":"#FF0000"}).
 	addClass("weightIsOver");
 	//End Default weight form Quality is 0%
-	//var total_weigth_quality=0;
 	$.each($(".embed_appraisal_id").get(),function(index,indexEntry){
 		var dataId1=this.id.split("-");
 		var apprailsal_item_id1=dataId1[1];
 		var structure_id1=dataId1[2];
 		var total_weigth_quality=0;
 		
-		
-			//$.each($(".total_weigth_quality").get(),function(index,indexEntry){
 			$.each($(".id-"+structure_id1+"-weight").get(),function(index,indexEntry){
 				
 				var dataId=this.id.split("-");;
 				var apprailsal_item_id=dataId[1];
 				var structure_id=dataId[2];
-				//if(apprailsal_item_id==apprailsal_item_id1 && structure_id==structure_id1){
 					if($(indexEntry).val().trim()!="" && $("#id-"+apprailsal_item_id+"-"+structure_id+"-checkbox").prop("checked")==true){
 						total_weigth_quality=(parseFloat(Number(total_weigth_quality).toFixed(2)))+(parseFloat($(indexEntry).val().replace(',', '')));
-						//alert(grandTotalWieght);
-						//$("#weigth_total_quality_percentage").html( "["+total_weigth_quality+"]");
-						
+						 
 						if(total_weigth_quality != parseFloat($("#weigth_total_quality_percentage_target-"+structure_id).text())){
-							//alert(total_weigth_quality);
+
 							$("#weigth_total_quality_percentage-"+structure_id)
-							.html("Cannot Assignment Because Weight% not equal to "+parseFloat($("#weigth_total_quality_percentage_target-"+structure_id).text())+"% ["+addCommas(parseFloat(total_weigth_quality).toFixed(2))+"%]")
+							.html(Liferay.Language.get('cannot-assignment-because-weight-percent-not-equal-to')+" "+parseFloat($("#weigth_total_quality_percentage_target-"+structure_id).text())+"% ["+addCommas(parseFloat(total_weigth_quality).toFixed(2))+"%]")
 							.css({"color":"#FF0000"}).
 							addClass("weightIsOver");
 							
@@ -2295,10 +1991,8 @@ var bindingSlideScoreBarFn = function(){
 var createTemplateAssignmentFn = function(data){
 	$("#appraisal_template_area").empty();
 	$.each(data['group'],function(index,indexEntry){
-		//console.log(indexEntry['form_url']);
 		
-		if(indexEntry['form_url']=='quantity'){			
-			//$("#appraisal_template_area").append(assignTemplateQuantityFn(index,indexEntry));
+		if(indexEntry['form_url']=='quantity'){	
 			assignTemplateQuantityFn(index,indexEntry);
 			
 		
@@ -2312,19 +2006,6 @@ var createTemplateAssignmentFn = function(data){
 		}
 		
 		setThemeColorFn(tokenID.theme_color);
-		
-		
-		
-		
-		
-		//bindingSlideScoreBarFn();
-	   
-		
-//	    $('.scrollbar-inner').slimScroll({
-//	        height: '200px',
-//	        alwaysVisible: true,
-//	        railVisible: true
-//	    });
 	    
 		var getSelectionStart = function (o) {
 			if (o.createTextRange) {
@@ -2361,15 +2042,11 @@ var createTemplateAssignmentFn = function(data){
 		calculationGrandTotalFn(this.id);
 	})
 	$(".addComma").keyup(function(){
-		//Comma();
 		$(this).val(Comma($(this).val()));
-		//console.log(Comma($(this).val()));
 	})
 	
 	$(".appraisalItem-checkbox").click(function(){
-		//alert("hello");
 		if($(this).hasClass('notCal')){
-			//console.log("notCal");
 			
 		}else{
 			//alert("11");
@@ -2380,7 +2057,6 @@ var createTemplateAssignmentFn = function(data){
 	
 	//sum grand total end
 
-	//alert($(".no_weight").val());
 	if($(".no_weight").val()==1){
 		$(".totalWeight").hide();
 		$(".grandTotalWeight").hide();
@@ -2397,7 +2073,6 @@ var createTemplateAssignmentFn = function(data){
 };
 var getTemplateFn = function(emp_result_id){
 	$.ajax({
-		//http://192.168.1.52/"+serviceName+"/public/appraisal_assignment/period_list
 		url:restfulURL+"/"+serviceName+"/public/appraisal_assignment/template",
 		type:"get",
 		dataType:"json",
@@ -2410,16 +2085,8 @@ var getTemplateFn = function(emp_result_id){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success:function(data){
 			
-			//console.log(data);
 			createTemplateAssignmentFn(data);
 		
-			//SET FIXED HEADER 
-//			var widthScreen= $(".fht-table-wrapper").width();	
-//			$('table.fixedHeader').fixedHeaderTable({ height: '250', fixedColumn: false})
-//			.css({"width":"auto","position":"absolute"});
-//			$(".fht-tbody table.fixedHeader thead").css({"opacity":"0"});
-//			$(".fht-table-wrapper").css({"height":"310px"," overflow":"hidden","min-width":"1100px"});
-			
 		}
 	});
 };
@@ -2568,44 +2235,8 @@ if(username!="" && username!=null & username!=[] && username!=undefined ){
 		$(".app_url_hidden").show();
 		
 	
-		//Org Autocomplete Start
-		/*
-		$("#organization").autocomplete({
-	        source: function (request, response) {
-	        	$.ajax({
-					 url:restfulURL+"/"+serviceName+"/public/org/auto_org_name",
-					 type:"post",
-					 dataType:"json",
-					 headers:{Authorization:"Bearer "+tokenID.token},
-					 data:{"org_name":request.term,"level_id":$("#appraisalLevel").val()},
-					 //async:false,
-	                 error: function (xhr, textStatus, errorThrown) {
-	                        console.log('Error: ' + xhr.responseText);
-	                    },
-					 success:function(data){
-							response($.map(data, function (item) {
-	                            return {
-	                                label: item.org_id+"-"+item.org_name,
-	                                value: item.org_id+"-"+item.org_name
-	                            };
-	                        }));
-					},
-					beforeSend:function(){
-						$("body").mLoading('hide');	
-					}
-					
-					});
-	        }
-	    });
-	    */
-		//Org Autocomplete End
-		
-	
 	
 	$("#periodFrequency").change(function(){
-		
-		
-		//alert(period);
 		
 		dropDrowPeriodFn($(this).val(),$("#assignFrequency").val());
 		appraisalStatusFn();
@@ -2613,8 +2244,6 @@ if(username!="" && username!=null & username!=[] && username!=undefined ){
 	});
 	
 	$("#YearList").change(function(){
-		
-		//alert(period);
 		
 		dropDrowPeriodFn($("#periodFrequency").val(),$("#assignFrequency").val());
 		appraisalStatusFn();
@@ -2727,7 +2356,7 @@ if(username!="" && username!=null & username!=[] && username!=undefined ){
 				}
 			});
 		if(empldoyees_id.length==0){
-			callFlashSlide("Please choose Employees or Organization for Assignment.");
+			callFlashSlide(Liferay.Language.get('please-choose-employees-or-organization-for-assignment'));
 			return false;
 		}else{
 
@@ -2785,8 +2414,7 @@ if(username!="" && username!=null & username!=[] && username!=undefined ){
 	//btn action assign start
 		$("#btnSubmit").click(function(){
 					
-//					alert($("#actionAssign option:selected").text());
-//					alert($("#remark_footer").val());
+
 					
 					if(($("#actionAssign option:selected").text()=="Reject") && ($("#remark_footer").val()=="")){
 						callFlashSlideInModal("Please fill Remark for Reject Workflow State.","#information","error");
@@ -2797,10 +2425,10 @@ if(username!="" && username!=null & username!=[] && username!=undefined ){
 					
 						if($(".checkWeigthOver").hasClass('weightIsOver')==true){
 							
-							callFlashSlideInModal("<b>Cannot Assign Structure not equal to Weight Total<b>","#information","error");
+							callFlashSlideInModal("<b>"+Liferay.Language.get('cannot-assign-structure-not-equal-to-weight-total')+"<b>","#information","error");
 							
 						}else if(parseFloat($("#grandTotalWeight").text())!=100){
-							callFlashSlideInModal("<b>Grand Total Weight is Not 100%.<b>","#information","error");
+							callFlashSlideInModal("<b>"+Liferay.Language.get('grand-total-weight-is-not-100-percent')+"<b>","#information","error");
 							
 						}else{
 							
@@ -2811,7 +2439,7 @@ if(username!="" && username!=null & username!=[] && username!=undefined ){
 									actionUpdateAssignmentFn();
 								}
 							}else{
-								callFlashSlideInModal("Please choose Appraisal item ID.","#information","error");
+								callFlashSlideInModal(Liferay.Language.get('please-choose-appraisal-item-id'),"#information","error");
 							}
 						}
 					}else{
@@ -2825,7 +2453,7 @@ if(username!="" && username!=null & username!=[] && username!=undefined ){
 								actionUpdateAssignmentFn();
 							}
 						}else{
-							callFlashSlideInModal("Please choose Appraisal item ID.","#information","error");
+							callFlashSlideInModal(Liferay.Language.get('please-choose-appraisal-item-id'),"#information","error");
 						}
 						
 					}
@@ -2834,7 +2462,7 @@ if(username!="" && username!=null & username!=[] && username!=undefined ){
 		
 		$("#btnSubmitAction").click(function(){
 			if(($("#actionAction option:selected").text()=="Reject") && ($("#remark_footer_action").val()=="")){
-				callFlashSlideInModal("Please fill Remark for Reject Workflow State.","#information2","error");
+				callFlashSlideInModal(Liferay.Language.get('please-fill-remark-for-reject-workflow-state'),"#information2","error");
 				return false;
 			}
 			actionActionAssignmentFn();
@@ -2848,17 +2476,17 @@ if(username!="" && username!=null & username!=[] && username!=undefined ){
 			
 			if($(".checkWeigthOver").hasClass('weightIsOver')==true){
 				
-				callFlashSlideInModal("<b>Cannot Assign Structure not equal to Weight Total<b>","#information","error");
+				callFlashSlideInModal("<b>"+Liferay.Language.get('cannot-assign-structure-not-equal-to-weight-total')+"<b>","#information","error");
 				
 			}else if(parseFloat($("#grandTotalWeight").text())!=100){
-				callFlashSlideInModal("<b>Grand Total Weight is Not 100%.</b>","#information","error");
+				callFlashSlideInModal("<b>"+Liferay.Language.get('grand-total-weight-is-not-100-percent')+"</b>","#information","error");
 			
 			}else{
 			
 				if($(".embed_appraisal_id").get().length>0){
 					actionAssignmentFn("saveAndAnother");	
 				}else{
-					callFlashSlideInModal("Please choose Appraisal item ID.","#information","error");
+					callFlashSlideInModal(Liferay.Language.get('please-choose-appraisal-item-id'),"#information","error");
 				}
 			}
 		});
@@ -2886,16 +2514,9 @@ if(username!="" && username!=null & username!=[] && username!=undefined ){
 		//Button Click Stage History Start.
 		
 		$("#slideUpDownStageHistory").click(function(){
-			//alert("hello jquery");
+
 			$("#slideStageHistory").slideToggle();
-			
-			/*
-			$(window).scrollTop(1000000);
-			setTimeout(function(){
-				$(".modal-body").scrollTop(1000000);
-				$(".fht-tbody").scrollTop(1000000);
-			},3000);
-			*/
+
 			return false;
 		});
 		

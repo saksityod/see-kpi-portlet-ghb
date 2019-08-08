@@ -126,8 +126,8 @@
 			accordionHtml += "	<div style='margin-bottom: auto; margin-top: auto;'><span class='fa fa-caret-right'></span> "+data['org_name']+"&emsp;</div>";
 			accordionHtml += "</div>";
 			accordionHtml += "<div class='accordion-btn'>";
-			accordionHtml += "<button id='btn_extract' type='button' class='btn btn-xs btn-white' style='margin-top: -1px;font-weight: 700;'> <i class='fa fa-plus-square' aria-hidden='true'></i> Expand</button>";
-			accordionHtml += "<button id='btn_kpi' type='button'  class='btn btn-xs btn-white' style='margin-top: -1px;margin-left: 5px;font-weight: 700;'> <i class='fa fa-table fa-table' aria-hidden='true'></i> All KPI</button>";
+			accordionHtml += "<button id='btn_extract' type='button' class='btn btn-xs btn-white' style='margin-top: -1px;font-weight: 700;'> <i class='fa fa-plus-square' aria-hidden='true'></i>"+Liferay.Language.get('expand')+"</button>";
+			accordionHtml += "<button id='btn_kpi' type='button'  class='btn btn-xs btn-white' style='margin-top: -1px;margin-left: 5px;font-weight: 700;'> <i class='fa fa-table fa-table' aria-hidden='true'></i>"+Liferay.Language.get('all-kpi')+"</button>";
 			accordionHtml += "</div>";
 		}else{
 			accordionHtml += "<span class='fa fa-caret-right'></span> "+data['org_name']+"&emsp;";	
@@ -139,7 +139,7 @@
 		accordionHtml += "	<div id='bodyOrg-"+(type == "org" ? data['org_id'] : data['emp_id'] )+"' class='panel-collapse collapse' role='tabpanel' aria-labelledby='headOrg-"+(type == "org" ? data['org_id'] : data['emp_id'] )+"'>";	
 		accordionHtml += "		<div class='panel-body'>";
 		//#Start Body Accordion
-		accordionHtml += "				<div class='span12 graphLTopHeader'>"+data['perspective_name']+" - "+data['item_name']+" (หน่วย : "+data['uom_name']+") "+"<span class='LastUpdateText'>As of: "+data['etl_dttm']+"</spen></div>";
+		accordionHtml += "				<div class='span12 graphLTopHeader'>"+data['perspective_name']+" - "+data['item_name']+" ("+Liferay.Language.get('unit')+" : "+data['uom_name']+") "+"<span class='LastUpdateText'>"+Liferay.Language.get('as-of')+": "+data['etl_dttm']+"</spen></div>";
 		accordionHtml += "<div style='"+styleInDashboard+"'>"+styleInDashboardText+"</div>";
 		//styleInDashboard in main.js
 		//#btn next & previous kpi
@@ -156,15 +156,15 @@
 		//accordionHtml += "				<div class='graphLTopHeader'>Perspective: "+data['perspective_name']+"</div>";
 		accordionHtml += "					<div>";
 		accordionHtml += "						<div class='graphLTop'>";
-		accordionHtml += "							<div class='textGRaphTop'>Target</div>";
+		accordionHtml += "							<div class='textGRaphTop'>"+Liferay.Language.get('target')+"</div>";
 		accordionHtml += "							<div class='textGRaphTop'>"+addCommas(data['dual_chart']['data']['target'])+"</div>";
 		accordionHtml += "						</div>";
 		accordionHtml += "						<div class='graphLTop'>";
-		accordionHtml += "							<div class='textGRaphTop'>Forecast</div>";
+		accordionHtml += "							<div class='textGRaphTop'>"+Liferay.Language.get('forecast')+"</div>";
 		accordionHtml += "							<div class='textGRaphTop'>"+addCommas(data['dual_chart']['data']['forecast'])+"</div>";
 		accordionHtml += "						</div>";
 		accordionHtml += "						<div class='graphLTop'>";
-		accordionHtml += "							<div class='textGRaphTop'>Actual</div>";
+		accordionHtml += "							<div class='textGRaphTop'>"+Liferay.Language.get('actual')+"</div>";
 		accordionHtml += "							<div class='textGRaphTop'>"+addCommas(data['dual_chart']['data']['actual_value'])+"</div>";
 		accordionHtml += "						</div>";
 		accordionHtml += "						<br style='clear: both'>";
@@ -1015,15 +1015,15 @@ var listHeaderFn=function(galbalOrg){
 	 var htmlHeaderSummary2 = "";
 	 var org= ($("#param_emp").val() == "" ? $("#param_org_id").val() :$("#param_emp").val());
 	 htmlHeader1+="<th style='width:120px;'>";
-	 htmlHeader1+="<div class='fontBold '> Perspective</div>";
+	 htmlHeader1+="<div class='fontBold '>"+Liferay.Language.get('perspective')+"</div>";
 	 htmlHeader1+="</th>";
 	 
 	 htmlHeader1+="<th style='width:237px;'>";
-	 htmlHeader1+="<div class='fontBold '>KPI</div>";
+	 htmlHeader1+="<div class='fontBold '>"+Liferay.Language.get('kpi')+"</div>";
 	 htmlHeader1+="</th>";
 	 
 	 htmlHeader1+="<th style='width:73px;'>";
-	 htmlHeader1+="<div class='fontBold '>UOM</div>";
+	 htmlHeader1+="<div class='fontBold '>"+Liferay.Language.get('uom')+"</div>";
 	 htmlHeader1+="</th>";
 	 
 	 $.each(galbalOrg,function(index,indexEntry){
@@ -1199,7 +1199,7 @@ var listDashBoardAllKPIFn = function(data){
 	  htmlData1+="<tr>";
 	  htmlData3+="<tr>";
 	   htmlData1+="<td>"+indexEntry['perspective']+"</td>";//etl_dttm
-	   htmlData1+="<td>"+indexEntry['item']+"<br><span class='LastUpdateText'>As of: "+indexEntry['etl_dttm']+"</span></td>";
+	   htmlData1+="<td>"+indexEntry['item']+"<br><span class='LastUpdateText'>"+Liferay.Language.get('as-of')+": "+indexEntry['etl_dttm']+"</span></td>";
 	   htmlData1+="<td>"+indexEntry['uom']+"</td>";
 	   
 	   //loop here..
@@ -1218,9 +1218,9 @@ var listDashBoardAllKPIFn = function(data){
 	    htmlData2+="<table class='tableInside table-striped'>";
 	    htmlData2+="<thead>";
 	    htmlData2+="<tr>";
-	    htmlData2+="<th><div class='fontBold ' style='min-width:145px'>Target</div></th>";
-	    htmlData2+="<th><div class='fontBold '  style='min-width:110px'>Forecast</div></th>";
-	    htmlData2+="<th><div class='fontBold ' style='min-width:85px'>Actual</div></th>";
+	    htmlData2+="<th><div class='fontBold ' style='min-width:145px'>"+Liferay.Language.get('target')+"</div></th>";
+	    htmlData2+="<th><div class='fontBold '  style='min-width:110px'>"+Liferay.Language.get('forecast')+"</div></th>";
+	    htmlData2+="<th><div class='fontBold ' style='min-width:85px'>"+Liferay.Language.get('actual')+"</div></th>";
 	      htmlData2+="</tr>";
 	     htmlData2+="</thead>";
 	     htmlData2+="<tbody>";
@@ -1230,11 +1230,11 @@ var listDashBoardAllKPIFn = function(data){
 	      htmlData2+="<td style='text-align:right;'>"+actual+"</td>";
 	      htmlData2+="</tr>";
 	      htmlData2+="<tr>";
-	      htmlData2+="<td>%Target<span style='float:right'>"+percent_target+"</span></td>";
+	      htmlData2+="<td>"+Liferay.Language.get('percent-target')+"<span style='float:right'>"+percent_target+"</span></td>";
 	      htmlData2+="<td colspan='2'><div class='sparkline' id='perTarget"+index+"-Item-"+indexEntry['item_id']+"-Org-"+indexEntry2['org_code']+"'>"+indexEntry2['percent_target_str']+"</div></td>";
 	      htmlData2+="</tr>";
 	      htmlData2+="<tr>";
-	      htmlData2+="<td>%Forecast<span style='float:right'>"+percent_forecast+"</span></td>";
+	      htmlData2+="<td>"+Liferay.Language.get('percent-forecast')+"<span style='float:right'>"+percent_forecast+"</span></td>";
 	      htmlData2+="<td colspan='2'><div class='sparkline' id='perForecast"+index+"-Item-"+indexEntry['item_id']+"-Org-"+indexEntry2['org_code']+"'>"+indexEntry2['percent_forecast_str']+"</div></td>";  
 	      htmlData2+="</tr>";
 	     htmlData2+="</tbody>";
@@ -1248,9 +1248,9 @@ var listDashBoardAllKPIFn = function(data){
 	    htmlData3+="<table class='tableInside table-striped'>";
 	    htmlData3+="<thead>";
 	     htmlData3+="<tr>";
-	      htmlData3+="<th><div class='fontBold ' style='min-width:145px;'>Target</div></th>";
-	      htmlData3+="<th><div class='fontBold ' style='min-width:110px;'>Forecast</div></th>";
-	      htmlData3+="<th><div class='fontBold ' style='min-width:85px;'>Actual</div></th>";
+	      htmlData3+="<th><div class='fontBold ' style='min-width:145px;'>"+Liferay.Language.get('target')+"</div></th>";
+	      htmlData3+="<th><div class='fontBold ' style='min-width:110px;'>"+Liferay.Language.get('forecast')+"</div></th>";
+	      htmlData3+="<th><div class='fontBold ' style='min-width:85px;'>"+Liferay.Language.get('actual')+"</div></th>";
 	      htmlData3+="</tr>";
 	    htmlData3+="</thead>";
 	     htmlData3+="<tbody>";
@@ -1260,11 +1260,11 @@ var listDashBoardAllKPIFn = function(data){
 	      htmlData3+="<td style='text-align:right;'>"+actual+"</td>";
 	      htmlData3+="</tr>";
 	      htmlData3+="<tr>";
-	       htmlData3+="<td>%Target<span style='float:right'>"+percent_target+"</span></td>";
+	       htmlData3+="<td>"+Liferay.Language.get('percent-target')+"<span style='float:right'>"+percent_target+"</span></td>";
 	       htmlData3+="<td colspan='2'><div class='sparkline' id='perTarget"+index+"-Item-"+indexEntry['item_id']+"-Org-"+indexEntry2['org_code']+"'>"+indexEntry2['percent_target_str']+"</div></td>";
 	      htmlData3+="</tr>";
 	      htmlData3+="<tr>";
-	       htmlData3+="<td>%Forecast<span style='float:right'>"+percent_forecast+"</span></td>";
+	       htmlData3+="<td>"+Liferay.Language.get('percent-forecast')+"<span style='float:right'>"+percent_forecast+"</span></td>";
 	       htmlData3+="<td colspan='2'><div class='sparkline' id='perForecast"+index+"-Item-"+indexEntry['item_id']+"-Org-"+indexEntry2['org_code']+"'>"+indexEntry2['percent_forecast_str']+"</div></td>";   
 	      htmlData3+="</tr>";
 	      htmlData3+="</tbody>";

@@ -286,10 +286,10 @@ var listDataPerformanceDetailFn = function(data,district,type){
 	mainArea+="<h3 style='text-align:center;color:black;font-size: 22px;margin: 0px;' id='BranchPerTitle'></h3>";
 	mainArea+="<div id='detailPerfomanceArea'></div>";
 	if(data == null || data == undefined || data =="" ){
-		mainArea+="<div id='noData'>No data to display.</div>";
+		mainArea+="<div id='noData'>"+Liferay.Language.get('no-data-to-display')+"</div>";
 	}
 	$("#detailArea").html(mainArea);
-	$("#BranchPerTitle").html("Branch Performance:"+district);
+	$("#BranchPerTitle").html(Liferay.Language.get('branch-performance')+":"+district);
 	//console.log(data);
 	$.each(data,function(index,indexEntry){
 	
@@ -306,9 +306,9 @@ var listDataPerformanceDetailFn = function(data,district,type){
 			dataTableHTML+="<thead>";
 				dataTableHTML+="<tr>";
 //					dataTableHTML+="<th>Perspective</th>";
-					dataTableHTML+="<th style='min-width: 270px;font-weight: 700;font-size: 17px;'>KPI</th>";
-					dataTableHTML+="<th style='min-width: 70px;font-weight: 900;font-size: 17px;'>หน่วยวัด</th>";
-					dataTableHTML+="<th style='text-align:center;min-width: 250px;font-weight: 700;font-size: 17px;'>KPI Result</th>";	
+					dataTableHTML+="<th style='min-width: 270px;font-weight: 700;font-size: 17px;'>"+Liferay.Language.get('kpi')+"</th>";
+					dataTableHTML+="<th style='min-width: 70px;font-weight: 900;font-size: 17px;'>"+Liferay.Language.get('uom')+"</th>";
+					dataTableHTML+="<th style='text-align:center;min-width: 250px;font-weight: 700;font-size: 17px;'>"+Liferay.Language.get('kpi-result')+"</th>";	
 			dataTableHTML+="</tr>";
 			dataTableHTML+="</thead>";
 			dataTableHTML+="<tbody>";
@@ -365,16 +365,16 @@ var listDataPerformanceDetailFn = function(data,district,type){
 				
 				dataTableHTML+="<tr>";
 //					dataTableHTML+="<td>"+indexEntry2['perspective_name']+" </td>";
-					dataTableHTML+="<td>"+indexEntry2['item_name']+"<br><span class='LastUpdateText'>As of: "+indexEntry2['etl_dttm']+"</span></td>";
+					dataTableHTML+="<td>"+indexEntry2['item_name']+"<br><span class='LastUpdateText'>"+Liferay.Language.get('as-of')+": "+indexEntry2['etl_dttm']+"</span></td>";
 					dataTableHTML+="<td>"+indexEntry2['uom_name']+" </td>";
 					dataTableHTML+="<td>";
 					
 					dataTableHTML+="<table class='tableInside table-striped'>";
 						dataTableHTML+="<thead>";
 							dataTableHTML+="<tr>";
-								dataTableHTML+="<th style='min-width: 90px;font-weight: 700;font-size: 15px;'>Target</th>";
-								dataTableHTML+="<th style='min-width: 60px;font-weight: 700;font-size: 15px;'>Forecast</th>";
-								dataTableHTML+="<th style='min-width: 60px;font-weight: 700;font-size: 15px;'>Actual</th>";
+								dataTableHTML+="<th style='min-width: 90px;font-weight: 700;font-size: 15px;'>"+Liferay.Language.get('target')+"</th>";
+								dataTableHTML+="<th style='min-width: 60px;font-weight: 700;font-size: 15px;'>"+Liferay.Language.get('forecast')+"</th>";
+								dataTableHTML+="<th style='min-width: 60px;font-weight: 700;font-size: 15px;'>"+Liferay.Language.get('actual')+"</th>";
 							dataTableHTML+="</tr>";
 							dataTableHTML+="</thead>";
 							dataTableHTML+="<tbody>";
@@ -697,7 +697,7 @@ var createJvectorMap = function(objColorData,objDataAvg){
   				$("body").mLoading();
   		    },
     	    onRegionTipShow: function (e, el, code) {
-    	        el.html(el.html() + ' , Avg. : '+(notNullFn(objDataAvg[code]) == "NaN"? '0.00':notNullFn(objDataAvg[code])));
+    	        el.html(el.html() + ' , '+Liferay.Language.get('avg')+' : '+(notNullFn(objDataAvg[code]) == "NaN"? '0.00':notNullFn(objDataAvg[code])));
     	    }
     	
     	});

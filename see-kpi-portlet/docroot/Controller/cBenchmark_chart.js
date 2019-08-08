@@ -26,12 +26,12 @@ const search_kpi = () => {
             var list_kpi;
             if (result.nodata) {
                 list_kpi +=
-                    '<option value="">Select KPI</option>'
+                    '<option value="">'+ Liferay.Language.get('select-kpi')+'</option>'
                     ;
             }
             else {
                 list_kpi +=
-                    '<option value="">Select KPI</option>'
+                    '<option value="">'+ Liferay.Language.get('select-kpi')+'</option>'
                     ;
                 $.each(result.kpi, function (key, value) {
                     list_kpi +=
@@ -64,11 +64,11 @@ $(document).ready(function () {
             async: false,
             success: function (result) {
                 if (result.nodata) {
-                    $('#s_yr1').append('<option value="" disabled="" selected>ไม่มีข้อมูลปี</option>');
-                    $('#s_yr2').append('<option value="" disabled="" selected>ไม่มีข้อมูลปี</option>');
-                    $('#s_type').append('<option value="" disabled="" selected>ไม่มีข้อมูล</option>');
+                    $('#s_yr1').append('<option value="" disabled="" selected>'+ Liferay.Language.get('no-year-data')+'</option>');
+                    $('#s_yr2').append('<option value="" disabled="" selected>'+ Liferay.Language.get('no-year-data')+'</option>');
+                    $('#s_type').append('<option value="" disabled="" selected>'+ Liferay.Language.get('no-data')+'</option>');
                     // $('#s_type_value').append('<option value="" disabled="" selected>ไม่มีข้อมูล</option>');
-                    $('#s_kpi').append('<option value="" disabled="" selected>ไม่มีข้อมูล KPI</option>');
+                    $('#s_kpi').append('<option value="" disabled="" selected>'+ Liferay.Language.get('no-kpi-data')+'</option>');
                 }
                 else {
                     year = result.year
@@ -81,7 +81,7 @@ $(document).ready(function () {
                     $('#s_yr1').append(list_year);
                     $('#s_yr2').append(list_year);
 
-                    list_type += '<option value="">Select Type</option>';
+                    list_type += '<option value="">'+ Liferay.Language.get('select-type')+'</option>';
                     $.each(result.type, (key, value) => {
                         list_type += `<option value="${value}">${value}</option>`;
                     })
@@ -100,14 +100,14 @@ $(document).ready(function () {
                     // $('#s_type_value').append(`<option value="">Select Filter</option>`);
 
                     var list_kpi;
-                    list_kpi += '<option value="">Select KPI</option>';
+                    list_kpi += '<option value="">'+ Liferay.Language.get('select-kpi')+'</option>';
                     $('#s_kpi').append(list_kpi);
                 }
             }
         });
         //search kpi
         $("#s_yr1").change(function () {
-            let yearOptions = `<option value="">End Year</option>`
+            let yearOptions = '<option value="">'+ Liferay.Language.get('end-year')+'</option>'
             $("#s_yr2").empty()
 
             year.filter(value => {

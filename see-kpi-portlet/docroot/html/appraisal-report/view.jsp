@@ -5,12 +5,14 @@
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 <%@ page import="com.liferay.portal.kernel.util.WebKeys" %>
 <%@ page import="com.liferay.portal.util.PortalUtil" %>
+<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <liferay-theme:defineObjects />
 <portlet:defineObjects />
   
 <%
 	String username = themeDisplay.getUser().getScreenName();
 	String password = (String) request.getSession().getAttribute(WebKeys.USER_PASSWORD);
+	String currentLocale = themeDisplay.getLanguageId();
 	layout = themeDisplay.getLayout();
 	plid = layout.getPlid();
 	
@@ -29,6 +31,7 @@
 <input type="hidden" id="get_org_id" name="get_org_id" value="<%= PortalUtil.getOriginalServletRequest(request).getParameter("param_org_id")%>">
 <input type="hidden" id="get_item_id" name="get_item_id" value="<%=PortalUtil.getOriginalServletRequest(request).getParameter("param_item")%>">
 <input type="hidden" id="get_sending_status" name="get_sending_status" value="<%=PortalUtil.getOriginalServletRequest(request).getParameter("sending_status")%>">
+<input type="hidden" id="user_locale" name="user_locale" value="<%=currentLocale%>">
 <style>
 .aui #breadcrumbs {
 	margin-bottom: 0px;
@@ -457,7 +460,7 @@
 			<div class="ibox float-e-margins">
 				<div class="ibox-title"
 					style="background-color: rgb(83, 120, 253); border-color: rgb(83, 120, 253); min-height: 0px;">
-					<div class="titlePanelSearch">Advance Search</div>
+					<div class="titlePanelSearch"><liferay-ui:message key="advanced-search"/></div>
 				</div>
 
 				<div class="ibox-content breadcrumbs2 advance-search"
@@ -469,7 +472,7 @@
 							class="form-group pull-left span3" id="yearArea">
 							<select name="year" id="year" class="input form-control input-sm"
 								title="" data-toggle="tooltip" style="cursor: pointer;"
-								data-original-title="Year">
+								data-original-title="<liferay-ui:message key="year"/>">
 								<option value="2017">2017</option>
 
 							</select>
@@ -479,7 +482,7 @@
 							<select name="period" id="period"
 								class="input form-control input-sm" title=""
 								data-toggle="tooltip" style="cursor: pointer;"
-								data-original-title="Period">
+								data-original-title="<liferay-ui:message key="period"/>">
 
 								<option value="">Period</option>
 
@@ -490,7 +493,7 @@
 							<select name="apprasiaLevel" id="apprasiaLevel"
 								class="input form-control input-sm" title=""
 								data-toggle="tooltip" style="cursor: pointer;"
-								data-original-title="Level" >
+								data-original-title="<liferay-ui:message key="level"/>" >
 
 								<option value="">Level</option>
 
@@ -501,7 +504,7 @@
 							<select name="organization" id="organization"
 								class="input form-control input-sm" title=""
 								data-toggle="tooltip" style="cursor: pointer;"
-								data-original-title="Organization" >
+								data-original-title="<liferay-ui:message key="organization"/>" >
 
 								<option value="">Organization 1</option>
 								<option value="">Organization 2</option>
@@ -514,14 +517,14 @@
 							class="form-group pull-left span3" id="kpiArea">
 							<select name="kpi_type" id="kpi_type" class="input form-control input-sm"
 								title="" data-toggle="tooltip" style="cursor: pointer;"
-								data-original-title="KPI Type">
+								data-original-title="<liferay-ui:message key="kpi-type"/>">
 							</select>
 						</div>
 						<div style="margin-left: 5px; margin-bottom: 3px;"
 							class="form-group pull-left span3" id="kpiArea">
 							<select name="kpi" id="kpi" class="input form-control input-sm"
 								title="" data-toggle="tooltip" style="cursor: pointer;"
-								data-original-title="KPI">
+								data-original-title="<liferay-ui:message key="kpi"/>">
 
 								<option value="">KPI1</option>
 								<option value="">KPI2</option>
@@ -532,7 +535,7 @@
 							class="form-group pull-left span3" id="kpiArea">
 							<select name="output_type" id="output_type" class="input form-control input-sm"
 								title="" data-toggle="tooltip" style="cursor: pointer;"
-								data-original-title="Output Type">
+								data-original-title="<liferay-ui:message key="output-type"/>">
 								<option value="pdf">PDF</option>
 								<option value="xls">Excel</option>
 
@@ -541,7 +544,7 @@
 
 
 						<div style="margin-left: 5px; margin-bottom: 3px;" class="form-group pull-left span3">
-    						<button id="btnSearchAdvance" name="btnSearchAdvance" class="btn btn-info input-sm" type="button"> <i class="fa fa-search"></i>&nbsp;Search </button>
+    						<button id="btnSearchAdvance" name="btnSearchAdvance" class="btn btn-info input-sm" type="button"> <i class="fa fa-search"></i>&nbsp;<liferay-ui:message key="search"/> </button>
 						</div>
 					</div>
 

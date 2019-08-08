@@ -4,6 +4,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 <%@ page import="com.liferay.portal.kernel.util.WebKeys" %>
+<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
     <liferay-theme:defineObjects />
     <portlet:defineObjects />
 <%
@@ -441,23 +442,23 @@ plid = layout.getPlid();
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Advance Search</h5>
+                    <h5><liferay-ui:message key="advanced-search"/></h5>
                 </div>
                 <div class="ibox-content breadcrumbs2">
                     <div class="row-fluid ">
                         <!-- param year -->
                         <div style="margin-left: 5px; margin-bottom: 3px;" class="form-group pull-left span4">
-                            <select name="year1" id="s_yr1" class="input form-control input-sm" title="" data-toggle="tooltip" style="cursor: pointer; width: 100%" data-original-title="Year">
-                                <option value="">Start Year</option>
+                            <select name="year1" id="s_yr1" class="input form-control input-sm" title="" data-toggle="tooltip" style="cursor: pointer; width: 100%" data-original-title="<liferay-ui:message key="year"/>">
+                                <option value=""><liferay-ui:message key="start-year"/></option>
                             </select>
                         </div>
                         <div style="margin-left: 5px; margin-bottom: 3px;" class="form-group pull-left span4">
-                            <select name="year2" id="s_yr2" class="input form-control input-sm" title="" data-toggle="tooltip" style="cursor: pointer; width: 100%" data-original-title="Year">
-                                <option value="">End Year</option>
+                            <select name="year2" id="s_yr2" class="input form-control input-sm" title="" data-toggle="tooltip" style="cursor: pointer; width: 100%" data-original-title="<liferay-ui:message key="year"/>">
+                                <option value=""><liferay-ui:message key="end-year"/></option>
                             </select>
                         </div>
                         <div style="margin-left: 5px; margin-bottom: 3px;" class="form-group pull-left span4">
-                            <select name="type" id="s_type" class="input form-control input-sm" title="" data-toggle="tooltip" style="cursor: pointer; width: 100%" data-original-title="type">
+                            <select name="type" id="s_type" class="input form-control input-sm" title="" data-toggle="tooltip" style="cursor: pointer; width: 100%" data-original-title="<liferay-ui:message key="type"/>">
                             </select>
                         </div>
                         <!-- <div style="margin-left: 5px; margin-bottom: 3px;" class="form-group pull-left span2">
@@ -466,12 +467,12 @@ plid = layout.getPlid();
                         </div> -->
                         <!-- param kpi -->
                         <div style="margin-left: 5px; margin-bottom: 3px;" class="form-group pull-left span11" id="kpiArea">
-                            <select name="kpi" id="s_kpi" class="input form-control input-sm" title="" data-toggle="tooltip" style="cursor: pointer; width: 100%" data-original-title="KPI">
+                            <select name="kpi" id="s_kpi" class="input form-control input-sm" title="" data-toggle="tooltip" style="cursor: pointer; width: 100%" data-original-title="<liferay-ui:message key="kpi"/>">
                             </select>
                         </div>
                         <div style="margin-bottom: 5px;" class="form-group pull-right m-b-none ">
                             <button id="btnSearchAdvance" onclick="search_chart()" name="btnSearchAdvance" class="btn btn-info input-sm" type="button">
-                                <i class="fa fa-search"></i>&nbsp;Search
+                                <i class="fa fa-search"></i>&nbsp;<liferay-ui:message key="search"/>
                             </button>
                         </div>
                     </div>
@@ -486,7 +487,7 @@ plid = layout.getPlid();
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Benchmark</h5>
+                    <h5><liferay-ui:message key="benchmark"/></h5>
                 </div>
                 <div class="ibox-content breadcrumbs2">
                     <div class="row-fluid p-t-xxs">
