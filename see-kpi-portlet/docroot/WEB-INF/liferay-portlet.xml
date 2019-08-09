@@ -1058,7 +1058,7 @@
 		<footer-portlet-javascript>/js/bootstrap-modal/js/bootstrap-modalmanager.js</footer-portlet-javascript>	 
 	    <footer-portlet-javascript>/js/bootstrap-modal/js/bootstrap-modal.js</footer-portlet-javascript>
 		
-		<footer-portlet-javascript>
+		<!-- <footer-portlet-javascript>
 			/js/fusioncharts/js/fusioncharts.js               
 		</footer-portlet-javascript>    
 		<footer-portlet-javascript> 
@@ -1070,14 +1070,17 @@
 		</footer-portlet-javascript> 
 		<footer-portlet-javascript> 
 			/js/fusioncharts/js/themes/fusioncharts.theme.fint.js
-		</footer-portlet-javascript> 
-		       
-		   
-		<!-- 
- 		<footer-portlet-javascript> 
-			 /js/fusioncharts-jquery-plugin.js
-		</footer-portlet-javascript>    
-		-->   
+		</footer-portlet-javascript>  -->
+		
+		
+		<!-- [Start] fusioncharts version 3.14.0-sr.1 -->
+		<footer-portlet-javascript>/js/plugins/fusioncharts-3-14/fusioncharts.js</footer-portlet-javascript>
+		<footer-portlet-javascript>/js/plugins/fusioncharts-3-14/fusioncharts.charts.js</footer-portlet-javascript>
+		<footer-portlet-javascript>/js/plugins/fusioncharts-3-14/fusioncharts.widgets.js</footer-portlet-javascript>
+		<footer-portlet-javascript>/js/plugins/fusioncharts-3-14/themes/fusioncharts.theme.fint.js</footer-portlet-javascript>
+		<footer-portlet-javascript>/js/plugins/fusioncharts-3-14/themes/fusioncharts.theme.fusion.js</footer-portlet-javascript>
+		<!-- [End] fusioncharts version 3.14.0-sr.1 --> 
+		        
 		 
 	    <footer-portlet-javascript>/Controller/cConfig.js</footer-portlet-javascript>
 	    <footer-portlet-javascript>/Controller/cMain.js</footer-portlet-javascript> 
