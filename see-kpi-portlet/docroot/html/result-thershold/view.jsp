@@ -91,6 +91,16 @@ plid = layout.getPlid();
                 <!-- content start -->
                 <div class="row-fluid">
                 	<div class="span12 form-horizontal p-t-xxs">
+                	<div class="form-group">
+							<label class="control-label">Value Type Name:<span
+								class="redFont " style="position:absolute;margin-left:4px">*</span>
+							</label>
+							<div class="controls">
+								<select type="dropdown" name="ValueTypeName" id="ValueTypeName"
+									style="width: 100%">
+								</select>
+							</div>
+						</div>
                 		<div class="form-group">
 							<label class="control-label">Group Name:<span
 								class="redFont " style="position:absolute;margin-left:4px">*</span>
@@ -115,6 +125,7 @@ plid = layout.getPlid();
 								<thead>
 									<tr>
 										<th style='width: 10%;'>No.</th>
+										<th style='width: auto'>Value Type Name</th>
 										<th style='width: auto'>Group Name</th>
 										<th style='width: 15%;'>Is Active</th>
 										<th style='width: 15%'>Manage</th>
@@ -163,6 +174,16 @@ plid = layout.getPlid();
                 <!-- form start -->
                 <div class="row-fluid">
                 	<div class="span12 form-horizontal p-t-xxs">
+                	<div class="form-group">
+							<label class="control-label">Value Type Name:<span
+								class="redFont " style="position:absolute;margin-left:4px">*</span>
+							</label>
+							<div class="controls">
+								<select type="dropdown" name="EditValueType" id="EditValueType"
+									style="width: 200px">
+								</select>
+							</div>
+						</div>
 						<div class="form-group p-xxs">
 							<label class="control-label">Group Name<span
 								class="redFont "style="position:absolute;margin-left:4px">*</span>
