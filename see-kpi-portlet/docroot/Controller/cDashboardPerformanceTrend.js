@@ -196,63 +196,64 @@
 			 "code": "#"+indexEntry['color']
 		 	});
 	 });
-		    var cSatScoreChart = new FusionCharts({
-		        type: 'angulargauge',
-		        dataLoadStartMessage: "Loading chart. Please wait",
-			    baseChartMessageFont: "Arial",
-			    baseChartMessageFontSize: "18",
-			    baseChartMessageColor: "#993300",
-		        renderAt:  "chartOrgGauge-"+(type == "org" ? data['org_id'] : data['emp_id'] ),
-		        width: '100%',
-		        height: '200',
-		        dataFormat: 'json',
-		        dataSource: {
-		            "chart": {
-		                 "baseFontSize":"11",
-		                 "captionFontSize":"14",
-		                 //"lowerLimit": "0",
-		                 //"upperLimit": "120000",
-		                 "gaugeFillMix": "{dark-30},{light-60},{dark-10}",
-		                 "gaugeFillRatio": "15",
-		                 "majorTMNumber": "7",
-		                 "majorTMColor": "#333",
-		                 "majorTMAlpha": "100",
-		                 "majorTMHeight": "15",
-		                 "majorTMThickness": "2",  
-		                 "showValue": "1",
-		                 "theme": "fint",
-		                 "exportEnabled" :"0",
-		                 "valueBelowPivot": "1",
-		                 "bgColor": "#ffffff",
-		                 "chartTopMargin":"0",
-		                 "chartRightMargin":"0",
-		                 "chartLeftMargin":"0",
-		            },
-		            "colorRange": {
-		                "color": color
-		            },
-		            "dials": {
-		                "dial": [{
-		                    //"value": (data['dual_chart']['data']['actual_value']/data['dual_chart']['data']['target'])*100
-		                	"value": (data['dual_chart']['data']['percent_achievement'])
-		                }]
-		            },
-		            "trendpoints": {
-		                "point": [
-		                    {
-		                        "thickness": "3.5",
-		                        "radius": "152",
-		                        "innerRadius": "78",
-		                        "alpha": "100"
-		                    }
-		                ]    
-		            }
-		        }
-		}).render(); 
-		
-		
-	 return false;
- };
+	 var cSatScoreChart = new FusionCharts({
+	        type: 'angulargauge',
+	        dataLoadStartMessage: "Loading chart. Please wait",
+		    baseChartMessageFont: "Arial",
+		    baseChartMessageFontSize: "18",
+		    baseChartMessageColor: "#993300",
+	        renderAt:  "chartOrgGauge-"+(type == "org" ? data['org_id'] : data['emp_id'] ),
+	        width: '100%',
+	        height: '200',
+	        dataFormat: 'json',
+	        dataSource: {
+	            "chart": {
+	                 "baseFontSize":"11.5",
+	                 "captionFontSize":"14",
+	                 //"lowerLimit": "0",
+	                 //"upperLimit": "120000",
+	                 "gaugeFillMix": "{dark-30},{light-60},{dark-10}", 
+	                 "gaugeFillRatio": "15", 	
+	                 "majorTMNumber": "7",
+	                 "majorTMColor": "#333",
+	                 "majorTMAlpha": "100",
+	                 "majorTMHeight": "10",
+	                 "majorTMThickness": "2",  
+	                 "showValue": "1",
+	                 "theme": "fint",
+	                 "exportEnabled" :"0",
+	                 "valueBelowPivot": "1",
+	                 "bgColor": "#ffffff",
+	                 "chartTopMargin":"0",
+	                 "chartRightMargin":"0",
+	                 "chartLeftMargin":"0",
+	                 //"valuefontsize": "13"
+	            },
+	            "colorRange": {
+	                "color": color
+	            },
+	            "dials": {
+	                "dial": [{
+	                    //"value": (data['dual_chart']['data']['actual_value']/data['dual_chart']['data']['target'])*100
+	                	"value": (data['dual_chart']['data']['percent_achievement'])
+	                }]
+	            },
+	            "trendpoints": {
+	                "point": [
+	                    {
+	                        "thickness": "3.5",
+	                        "radius": "152",
+	                        "innerRadius": "78",
+	                        "alpha": "100"
+	                    }
+	                ]    
+	            }
+	        }
+	}).render(); 
+	
+	
+return false;
+};
  
  var generateChartBulletFn = function(id,data,color){
 	    var revBulletChart = new FusionCharts({
@@ -419,6 +420,9 @@
 	            "chart": {
 	            	"caption": " ",
 		            "subCaption": " ",
+		            "theme": "fusion",
+	            	"baseFont": "Arial",
+	            	"baseFontSize": "11.5",
 	            	"xAxisname": "Month",
 	                "yAxisName": "Monthly Actual",
 	                "xAxisNameFont": "Arial",
@@ -545,6 +549,7 @@
 	    }).render();
 	 return false;
  };
+ 
  var generateChartBarLineDualFn = function(data,type){	
 	 
 	 var salesAnlysisChart = new FusionCharts({//scrollcombidy2d mscombidy2d  mscombi2d
@@ -561,6 +566,9 @@
 	        dataSource: {
 	            "chart": {
 	            	"caption": " ",
+	            	"theme": "fusion",
+	            	"baseFont": "Arial",
+	            	"baseFontSize": "11.5",
 		            //"subCaption": " ",
 	            	"xAxisname": "Month",
 	                "yAxisName": "Monthly Actual",
@@ -578,12 +586,12 @@
 	                "yAxisNameAlpha": "80",
 	                "sYAxisName": (data['is_show_variance'] == "1" ? "Diff":"Growth"),
 	                //Font properties for secondary y-axis
-                	"sYAxisNameFont": "Arial",
-                	"sYAxisNameFontSize": "14",
-                	"sYAxisNameFontColor": "#993300",
-                	"sYAxisNameFontBold": "1",
-                	"sYAxisNameFontItalic": "1",
-                	"sYAxisNameAlpha": "80",
+             	"sYAxisNameFont": "Arial",
+             	"sYAxisNameFontSize": "14",
+             	"sYAxisNameFontColor": "#993300",
+             	"sYAxisNameFontBold": "1",
+             	"sYAxisNameFontItalic": "1",
+             	"sYAxisNameAlpha": "80",
 	                //"numberPrefix": "$",
 	               	"sNumberSuffix" : (data['is_show_variance'] == "1" ? "":"%"),
 	                //"sYAxisMaxValue" : "50",
@@ -636,7 +644,7 @@
 					//"numVisiblePlot": "6",
 					"flatScrollBars": "1",
 					"scrollPadding":"10",
-					"trendValueFontSize": "0.1",
+					"trendValueFontSize": "0.1"
 					
 	            },
 	            "categories": data['bar_chart']['categories'],
@@ -644,23 +652,22 @@
 	            "trendlines": data['bar_chart']['trendlines'],
 	            "annotations": data['annotations']
 	        },
-
-            
 	        "events": {
 	            "annotationclick" : function(ev, props) {
 	              
 	            	$("#param_item_result_id").val("");
-                 	$("#param_item_result_id").val(props.groupId.split("-")[0]);
-                 	//$("#param_link").val("email");
-        			$("form#linkParam").attr("action","https://"+window.location.host+"/web/guest/kpi-result");
-        			$("form#linkParam").submit();
-        		  return false;
+              	$("#param_item_result_id").val(props.groupId.split("-")[0]);
+              	//$("#param_link").val("email");
+     			$("form#linkParam").attr("action","https://"+window.location.host+"/web/guest/kpi-result");
+     			$("form#linkParam").submit();
+     		  return false;
 	             
 	    		}    
 	        }
 	    }).render();
 	 return false;
- };
+};
+
 var generateSubTableKPIFn = function(item,data){
 	var ContentHTML = "";
 	
