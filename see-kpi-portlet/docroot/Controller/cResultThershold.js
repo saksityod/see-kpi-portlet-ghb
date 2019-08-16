@@ -37,6 +37,7 @@ var findOneGroupFn = function(id) {
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success : function(data) {		
 	
+			$("#EditValueType").val(data['value_type_id']);
 			$("#form_threshold_name").val(data['result_threshold_group_name']);
 
 			//IsAction
@@ -63,6 +64,7 @@ var listGroupFn = function (data){
 		}
 		htmlTable += "<tr class='rowSearch'>";
 		htmlTable += "<td class='columnSearch' style=\"vertical-align: middle;\">"+ count + "</td>";
+		htmlTable += "<td class='columnSearch' style=\"vertical-align: middle;\">"+ indexEntry["value_type_name"]+ "</td>";
 		htmlTable += "<td class='columnSearch' style=\"vertical-align: middle;\">"+ indexEntry["result_threshold_group_name"]+ "</td>";
 		htmlTable += "<td id=\"objectCenter\" >"+IsActive+"</td>";
 		
@@ -161,8 +163,6 @@ var listGroupFn = function (data){
 };
 var updateGroupFn = function () {
 
-	
-
 	var IsAction="";
 	
 	if($("#form_is_active:checked").is(":checked")){
@@ -177,7 +177,8 @@ var updateGroupFn = function () {
 		dataType : "json",
 		data : {
 			"result_threshold_group_name":$("#form_threshold_name").val(),
-			"is_active":IsAction
+			"is_active":IsAction,
+			"value_type_id":$("#EditValueType").val()
 		},	
 		async:false,
 		//headers:{Authorization:"Bearer "+tokenID.token},
@@ -198,7 +199,28 @@ var updateGroupFn = function () {
 	return false;
 }
 
-
+var valuetypeListFn = function(id){
+	$.ajax({
+		url:restfulURL+"/"+serviceName+"/public/result_threshold/value_type",
+		type:"get",
+		dataType:"json",
+		async:false,
+		headers:{Authorization:"Bearer "+tokenID.token},
+		success:function(data){
+			var htmlOption="";
+			$.each(data,function(index,indexEntry){
+				if(id==indexEntry['value_type_id']){
+					htmlOption+="<option selected value='"+indexEntry['value_type_id']+"'>"+indexEntry['value_type_name']+"</option>";
+				}else{
+					htmlOption+="<option  value='"+indexEntry['value_type_id']+"'>"+indexEntry['value_type_name']+"</option>";
+					
+				}
+			});
+			$("#ValueTypeName,#EditValueType").html(htmlOption);
+		}
+	});
+	
+}
 $(document).ready(function(){
 	 var username = $('#user_portlet').val();
 	 var password = $('#pass_portlet').val();
@@ -206,7 +228,8 @@ $(document).ready(function(){
 	 if(username!="" && username!=null & username!=[] && username!=undefined ){
 	 	
 		 if(connectionServiceFn(username,password,plid)==true){
-    	
+			 
+		
     	//alert(createTableFn());
     	var options={
     			"colunms":[
@@ -223,11 +246,42 @@ $(document).ready(function(){
 		     				"label":"End Threshold","inputType":"text","placeholder":"End Threshold",
 		     				"id":"end_threshold","width":"200px","dataTypeInput":"number","required":true
 		     				},
-    	  
-    	    			    {
-    	    				"label":"Group","inputType":"dropdown",
-        	    			"id":"result_threshold_group_id","width":"200px","url":""+restfulURL+"/"+serviceName+"/public/result_threshold/group"
-        	    			},
+		     			/*	{
+	        	    			"label":"Value Type","initValue":"","inputType":"cascades",
+	        	    			"id":"value_type_id","width":"350px",
+	        	    			"cascades":{
+	        	    							"id"		:	"result_threshold_group_id",
+	        	    							"listData"	:	"result_group"
+	        	    						}
+	        	    		},*/
+		     				/*{
+			     			"label":"Value Type","inputType":"dropdown",
+			     			"id":"value_type_id","width":"200px","url":""+restfulURL+"/"+serviceName+"/public/result_threshold/value_type","disabled": true,
+			     			},*/
+//    	    			    {
+//    	    				"label":"Group","inputType":"dropdown","initValue":"","updateList":true,
+//        	    			"id":"result_threshold_group_id","width":"200px","url":""+restfulURL+"/"+serviceName+"/public/result_threshold/group"
+//        	    			},
+//        	    			{
+//        	    			"label":"Value Type","initValue":"","inputType":"cascades",
+//        	    			"id":"value_type_id","width":"350px"/*, 
+//        	    			"cascades":{
+//        	    							"id"		:	"result_threshold_group_id",
+//        	    							"listData"	:	"result_group"
+//        	    						}*/
+//        	    			},
+		     				{
+		        				"label":"Group","inputType":"dropdown","updateList":true,
+		        				"id":"result_threshold_group_id","width":"250px","url":""+restfulURL+"/"+serviceName+"/public/result_threshold/group"
+		        				},
+		        				{
+		        	    			"label":"Value Type","inputType":"cascades",
+		        	    			"id":"value_type_id","width":"250px",
+		        	    			"cascades":{
+		        	    							"id"		:	"result_threshold_group_id",
+		        	    							"listData"	:	"result_group"
+		        	    						}
+		        	    		},
         	    			{
         	    			"label":"Color","inputType":"color",
         	    			"id":"color_code","width":"70px","height":"27px","dataTypeInput":"color"
@@ -284,6 +338,7 @@ $(document).ready(function(){
  		});
     	$(document).on('click','#btnCreateGroup',function(){
     		clearGroupFn();
+    		valuetypeListFn();
     		gobalDataGroup['first'] = true;
     		gobalDataGroup['Modal'] = "off";
     		getDataGroupFn();
@@ -311,7 +366,7 @@ $(document).ready(function(){
     					 url:restfulURL+"/"+serviceName+"/public/result_threshold/group",
     					 type : "POST",
     					 dataType:"json",
-    					 data:{"result_threshold_group_name" : $("#createThreshold_name").val(),"is_active":"1"},
+    					 data:{"result_threshold_group_name" : $("#createThreshold_name").val(),"is_active":"1","value_type_id":$("#ValueTypeName").val()},
     					 async:false,
     					 headers:{Authorization:"Bearer "+tokenID.token},
     					success:function(data){    
@@ -329,6 +384,7 @@ $(document).ready(function(){
     					    	}
     					 }
     				});
+    				
     				
     			});
      			
