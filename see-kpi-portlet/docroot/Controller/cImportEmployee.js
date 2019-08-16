@@ -3,10 +3,12 @@ var restfulPathAppraisalLevel="/"+serviceName+"/public/appraisal_level";
 var restfulPathDropDownOrganization="/"+serviceName+"/public/org";
 var restfulPathPositionAutocomplete="/"+serviceName+"/public/position/auto";
 var restfulPathEmployeeAutocomplete="/"+serviceName+"/public/import_employee/auto_employee_name";
+var restfulPathOrgList="/"+serviceName+"/public/import_employee/org_list";
 //Global variable
 var galbalDataImportEmp=[];
 var galbalDataTemp = [];
 var pageNumberDefault=1;
+var dataOrg;
 
 //Check Validation Start
 var validationFn = function(data){
@@ -136,8 +138,8 @@ var clearFn = function() {
 	$("#from_emp_email").val("");
 	$("#from_emp_salary").val("");
 	$("#from_emp_erp_user").val("");
+	$("#from_multi_org").val([]).select2();
 	
-
 	$("#from_checkboxIs_active").prop("checked",false);
 	$("#from_checkboxIs_Show_Corporate").prop("checked",false);
 	
@@ -208,7 +210,9 @@ var findOneFn = function(id) {
 				$("#from_emp_salary").val(data['s_amount']);
 				$("#from_emp_erp_user").val(data['erp_user']);
 				$("#from_emp_type").val(data['emp_type']);
-
+				$("#from_multi_org").val(data['multi_org'] == null ? [] : data['multi_org'].split(",")).select2();
+				
+				
 				
 				//IsAction
 				if(data['is_active']==1){
@@ -296,6 +300,9 @@ var listImportEmployeeFn = function(data) {
 			$(".btnModalClose").click();
 			$(this).parent().parent().parent().children().click();
 			dropDownEmpType();
+			
+		    
+			
 			findOneFn(this.id);
 			
 			$("#from_emp_wsd").datepicker();
@@ -308,8 +315,7 @@ var listImportEmployeeFn = function(data) {
 			
 			$("#id").val(this.id);
 			$("#action").val("edit");
-			$("#btnSubmit").val("Edit");		
-			
+			$("#btnSubmit").val("Edit");	
 			
 		});
 		
@@ -438,6 +444,7 @@ var updateFn = function () {
 			"s_amount":$("#from_emp_salary").val(),
 			"erp_user":$("#from_emp_erp_user").val(),
 			"emp_type":$("#from_emp_type").val(),
+			"multi_org": $("#from_multi_org").val(),
 			"is_active":isActive,
 			"is_show_corporate":isShowCorporate
 		},	
@@ -504,7 +511,6 @@ var insertRoleFn = function () {
 	return false;
 }
 // -------- Update Role End
-
 //DropDownList Organization
 var dropDownListOrganization = function(param){
 	var html="";
@@ -532,6 +538,22 @@ var dropDownListOrganization = function(param){
 	});	
 
 	return html;
+};
+
+//List Organization for Multiple Select
+var getListOrganizationForMultipleSelect = function(){
+	$.ajax ({
+		url:restfulURL+restfulPathOrgList ,
+		type:"get" ,
+		dataType:"json" ,
+		headers:{Authorization:"Bearer "+tokenID.token},
+		async:true,
+		success:function(data){
+			dataOrg = data;
+			
+		}
+	});	
+
 };
 
 //DropDownList Emp Type
@@ -567,13 +589,14 @@ $(document).ready(function() {
 	$("#search_position_id").val("");
 	$("#search_emp_name").val("");
 	$("#search_emp_id").val("");
+	getListOrganizationForMultipleSelect();
 	$("#search_org").html(dropDownListOrganization('All'));
 	$("#from_org_id").html(dropDownListOrganization());
 	listAppraisalLevel();
 
 	$("#countPaginationTop").val( $("#countPaginationTop option:first-child").val());
 	$("#countPaginationBottom").val( $("#countPaginationBottom option:first-child").val());
-
+	
 
 
 
@@ -814,6 +837,8 @@ $(document).ready(function() {
          }
     });
     
+	
+	
   //Auto Complete Employee Name end
 	
 	$("#exportToExcel").click(function(){
@@ -975,8 +1000,17 @@ $(document).ready(function() {
          }
      });
 		
-
-
-    
+     
+     
+     /* Set Data For Multiple Org*/
+     $("#from_multi_org").select2({
+    	  placeholder: "Select an Organization",data: dataOrg,
+    	  //escapeMarkup: function(markup) {return markup;},
+    	  //templateResult: function(data) {
+    		//  var html = "<div is_active='"+data.is_active+"'>"+data.text+"</div>";
+    		//  return html;
+    	  //},
+    	 // templateSelection: function(data) {return data.text;}
+    	});
 	
 });

@@ -406,6 +406,18 @@ plid = layout.getPlid();
 	}
 }
 
+/* Select2 */
+.select2-search__field {
+	margin-bottom: 0px !important;
+	margin-top: 10px !important;
+	box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0),0 0 8px rgba(255, 255, 255, 0) !important;
+}
+.select2-results__options{margin-left: 0px !important;}
+li[aria-disabled=true]{
+	display: none;
+} 
+
+
 </style>
 
 <div id="container1" >
@@ -818,6 +830,70 @@ plid = layout.getPlid();
                 					</label>
 								</div>
 							</div>
+							<div class="form-group p-xxs" style=""  >
+								<label class="control-label">Multi Org:</label>
+								<div class="controls">
+								<select data-toggle="tooltip" multiple="multiple"
+									class="input span12 m-b-n" id="from_multi_org"
+									name="from_multi_org" style="margin-bottom: 5px !important;">
+									<!-- <option value="">All Organization</option>
+									<option value="1009">สนับสนุนสาขานครหลวง(เขต)</option>
+									<option value="600001">เขตเชียงใหม่ (บภ.)</option>
+									<option value="600002">เขตเชียงราย (บภ.)</option>
+									<option value="600003">เขตพิษณุโลก (บภ.)</option>
+									<option value="600004">เขตขอนแก่น (บภ.)</option>
+									<option value="600005">เขตอุดรธานี (บภ.)</option>
+									<option value="600006">เขตนครราชสีมา (บภ.)</option>
+									<option value="600007">เขตอุบลราชธานี (บภ.)</option>
+									<option value="600008">เขตสระบุรี (บภ.)</option>
+									<option value="600009">เขตชลบุรี (บภ.)</option>
+									<option value="600010">เขตระยอง (บภ.)</option>
+									<option value="600011">เขตสมุทรสาคร (บภ.)</option>
+									<option value="600012">เขตประจวบคีรีขันธ์ (บภ.)</option>
+									<option value="600013">เขตนครศรีธรรมราช (บภ.)</option>
+									<option value="600014">เขตหาดใหญ่ (บภ.)</option>
+									<option value="600083">สาย1บป.1 (บป.)</option>
+									<option value="600084">สาย1บป.2 (บป.)</option>
+									<option value="600085">สาย1บป.3 (บป.)</option>
+									<option value="600086">สาย1บป.4 (บป.)</option>
+									<option value="600087">สาย2บป.1 (บป.)</option>
+									<option value="600088">สาย2บป.2 (บป.)</option>
+									<option value="600089">สาย2บป.3 (บป.)</option>
+									<option value="600090">สาย2บป.4 (บป.)</option>
+									<option value="600091">สาย3บป.1 (บป.)</option>
+									<option value="600092">สาย3บป.2 (บป.)</option>
+									<option value="600093">สาย3บป.3 (บป.)</option>
+									<option value="600094">สาย3บป.4 (บป.)</option>
+									<option value="600095">สาย3บป.5 (บป.)</option>
+									<option value="77021">เขตกรุงเทพ-ตะวันตก</option>
+									<option value="77022">เขตกรุงเทพ-เหนือ</option>
+									<option value="77031">เขตเชียงใหม่</option>
+									<option value="77032">เขตเชียงราย</option>
+									<option value="77033">เขตพิษณุโลก</option>
+									<option value="77034">เขตนครสวรรค์</option>
+									<option value="77035">เขตลำปาง</option>
+									<option value="77041">เขตสระบุรี</option>
+									<option value="77042">เขตชลบุรี</option>
+									<option value="77043">เขตพัทยา</option>
+									<option value="77044">เขตระยอง</option>
+									<option value="77046">เขตฉะเชิงเทรา</option>
+									<option value="77471">เขตกรุงเทพ-ใต้</option>
+									<option value="77472">เขตกรุงเทพ-ตะวันออก</option>
+									<option value="77481">เขตอุดรธานี</option>
+									<option value="77482">เขตขอนแก่น</option>
+									<option value="77483">เขตนครราชสีมา</option>
+									<option value="77484">เขตอุบลราชธานี</option>
+									<option value="77485">เขตสกลนคร</option>
+									<option value="77491">เขตสมุทรสาคร</option>
+									<option value="77492">เขตประจวบคีรีขันธ์</option>
+									<option value="77493">เขตสุราษฎร์ธานี</option>
+									<option value="77494">เขตนครศรีธรรมราช</option>
+									<option value="77495">เขตหาดใหญ่</option> -->
+									</select>
+							</div>
+							</div>
+							
+							
 							<div class="form-group p-xxs">
 								<label class="control-label">Is Active:</label>
 								<div class="controls">
