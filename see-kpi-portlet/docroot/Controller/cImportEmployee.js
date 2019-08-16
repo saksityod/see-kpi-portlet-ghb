@@ -408,7 +408,9 @@ var listAppraisalLevel = function() {
 //-------- Update Start
 var updateFn = function () {
 
-
+	var multi_org=[];
+	// Get value multi_org in array
+	$.each($('#from_multi_org').select2("data"), function() {multi_org.push(this.id);}); 
 	
 	var isActive="";
 	//IsAction
@@ -444,7 +446,7 @@ var updateFn = function () {
 			"s_amount":$("#from_emp_salary").val(),
 			"erp_user":$("#from_emp_erp_user").val(),
 			"emp_type":$("#from_emp_type").val(),
-			"multi_org": $("#from_multi_org").val(),
+			"multi_org": multi_org,
 			"is_active":isActive,
 			"is_show_corporate":isShowCorporate
 		},	
