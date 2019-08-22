@@ -2,7 +2,11 @@
 var galbalDataCDSResult=[];
 var golbalDataError=[];
 var galbalDataTemp = [];
+var galbalDataItemDesc = [];
 var pageNumberDefault=1;
+var is_edit_cds_value = 0;
+var is_edit_forecast = 0;
+var is_edit_forecast_bu = 0;
 var restfulPathCdsResult="/"+serviceName+"/public/cds_result";
 var restfulPathAppraisal="/"+serviceName+"/public/appraisal";
 
@@ -26,11 +30,11 @@ var getDataFn = function(page,rpp){
 	var emp_name= $("#param_emp_id").val();
 	
 	if(app_type == "2"){
-		$("#tableCdsResult thead tr").find("th:first").html(Liferay.Language.get('emp-code'));
-		$("#tableCdsResult thead tr").find("th:first").next().html(Liferay.Language.get('emp-name'));
+		$("#tableCdsResult thead tr").find("th:first").html(Liferay.Language.get('emp-name'));
+		$("#tableCdsResult thead tr").find("th:first").next().html(Liferay.Language.get('cds-name'));
 	}else if(app_type == "1"){
-		$("#tableCdsResult thead tr").find("th:first").html(Liferay.Language.get('org-code'));
-		$("#tableCdsResult thead tr").find("th:first").next().html(Liferay.Language.get('org-name'));
+		$("#tableCdsResult thead tr").find("th:first").html(Liferay.Language.get('org-name'));
+		$("#tableCdsResult thead tr").find("th:first").next().html(Liferay.Language.get('cds-name'));
 	}
 	$.ajax({
 		url : restfulURL+restfulPathCdsResult,
@@ -52,6 +56,7 @@ var getDataFn = function(page,rpp){
 			listCdsResultFn(data['data']);
 			galbalDataCDSResult=data;
 			paginationSetUpFn(galbalDataCDSResult['current_page'],galbalDataCDSResult['last_page'],galbalDataCDSResult['last_page']);
+			showCdsResultFn();
 		}
 	});
 	
@@ -79,61 +84,635 @@ var searchAdvanceFn = function (year,month,app_lv,app_type,org_id,position,emp_n
 	getDataFn(pageNumberDefault,$("#rpp").val());
 }
 
+var suneditorFn = function() {
+	var htmlOption = '<textarea id="datail_name" style="width: 95%" class=""></textarea>';
+	$("#sunEdit").html(htmlOption);
+	editorDetailName = SUNEDITOR.create('datail_name', {
+	   height: 250,
+	   width: '100%',
+
+	   // new CSS font properties
+	   addFont: null,
+
+	   // width/heigh of the video
+	   videoX: 560,
+	   videoY: 315,
+
+	   // image file input
+	   imageFileInput: undefined,
+
+	   // image url input
+	   imageUrlInput: undefined,
+
+	   // image size
+	   imageSize: '350px',
+	   
+	   // image upload url
+	   imageUploadUrl: null,
+
+	   // font list
+	   fontList: null,
+	   
+	   // font size list
+	   fontSizeList: null,
+
+	   // show/hide toolbar icons
+	   buttonList: [
+	     ['undo', 'redo'],
+	     ['fontSize', 'formats'],
+	     ['bold', 'underline', 'italic', 'strike', 'removeFormat'],
+	     ['fontColor', 'hiliteColor'],
+	     ['indent', 'outdent'],
+	     ['align', 'line', 'list'],
+	     //['align', 'line', 'list', 'table'],
+	   //['link', 'image', 'video'],
+	     ['fullScreen'] //,['fullScreen', 'codeView'],
+	    // ['preview', 'print']
+	   ]
+	   
+	 });
+}
+
+var clearFormDetailFn = function(){
+	suneditorFn();
+    $("#detail_id_edit").val("");
+    $("#detail_action").val("add");
+    //$("#detail_cds_result_id").val("");
+}
+
+var deleteDetailFn = function (id) {
+    $.ajax({
+        url: restfulURL+restfulPathCdsResult+"/detail/"+id,
+        type: "DELETE",
+        dataType: "json",
+        headers: { Authorization: "Bearer " + tokenID.token },
+        success: function (data) {
+            if (data['status'] == 200) {
+
+                callFlashSlide(Liferay.Language.get('delete-successfully'));
+                getDetailFn($("#detail_cds_result_id").val());
+                $("#confrimModal").modal('hide');
+
+            } else if (data['status'] == "400") {
+
+                callFlashSlide("<font color=''>" + data['data'] + "</font>", "error");
+            }
+        }
+    });
+}
+
+var findOneDetailFn = function (id) {
+    $.ajax({
+        url: restfulURL+restfulPathCdsResult+"/detail/"+ $("#detail_cds_result_id").val() +"/"+id,
+        type: "get",
+        dataType: "json",
+        async: false,
+        headers: { Authorization: "Bearer " + tokenID.token },
+        success: function (data) {
+        	editorDetailName.setContent(data['reason_cds_result_name']);
+            $("#detail_action").val("edit");
+            $("#detail_id_edit").val(id);
+        }
+    });
+}
+
+var listDetailFn = function (data) {
+    var htmlTR = "";
+
+    var i = 0 ;
+    $.each(data, function (index, indexEntry) {
+    	i = i+1;
+        htmlTR += "<tr>";
+        htmlTR += "<td>" + i + "</td>";
+        htmlTR += "<td>" + indexEntry['reason_cds_result_name'] + "</td>";
+        htmlTR += "<td style='text-align:center;'>";
+        htmlTR += "<span>&nbsp;&nbsp;</span><i data-trigger=\"focus\" tabindex=\""+index+"\" data-content=\"&lt;button style='width:100%;' class='btn btn-warning btn-small btn-gear detailEdit' id='edit_detail-"+indexEntry['reason_cds_result_id']+"' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;"+Liferay.Language.get('edit')+"&lt;/button&gt;  &lt;button id='delete_detail-"+indexEntry['reason_cds_result_id']+"' style='width:100%;' class='btn btn-danger btn-small btn-gear detailDel'&gt;"+Liferay.Language.get('delete')+"&lt;/button&gt; \" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-edit-del\" data-original-title=\"\" title=\"\"></i>";
+//        htmlTR += " <i data-trigger=\"focus\" tabindex=\"" + index + "\" data-content=\"&lt;button class='btn btn-warning btn-small btn-gear detailEdit' style=\"width:100%;\" id=edit_detail-" + indexEntry['reason_cds_result_id'] + " data-target='' data-toggle='modal'&gt;" + Liferay.Language.get('detail') + "&lt;/button&gt;&nbsp;&lt;button id=del_detail-" + indexEntry['reason_cds_result_id'] + " class='btn btn-danger btn-small btn-gear detailDel'&gt;" + Liferay.Language.get('delete') + "&lt;/button&gt;\" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-edit-del\" data-original-title=\"\" title=\"\"></i>";
+        htmlTR += "</td>";
+        htmlTR += "</tr>";
+    });
+
+    $("#listDataDetail").html(htmlTR);
+
+    /*bindding popover start*/
+    if( /iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
+		$(".popover-edit-del").popover({
+			delay : {
+				hide : 100
+			},
+			container: '.ibox-content'
+		});
+		
+	} else {
+		$(".popover-edit-del").popover({
+			delay : {
+				hide : 100
+			}
+		});
+	}
+    
+    $("#listDataDetail").off("click", ".popover-edit-del");
+    $("#listDataDetail").on("click", ".popover-edit-del", function () {
+        //Delete Start
+        $(".detailDel").on("click", function () {
+            $("#informConfirm").empty();
+            var id = this.id.split("-");
+            id = id[1];
+            $("#confrimModal").modal({
+                "backdrop": setModalPopup[0],
+                "keyboard": setModalPopup[1]
+            }).css({ "margin-top": "0px" });
+            $(document).off("click", "#btnConfirmOK");
+            $(document).on("click", "#btnConfirmOK", function () {
+                deleteDetailFn(id);
+            });
+        });
+
+        //findOne Start
+        $(".detailEdit").on("click", function () {
+
+//            $(window).scrollTop(0);
+            var edit = this.id.split("-");
+            var id = edit[1];
+            findOneDetailFn(id);
+//            $(".modal-body").scrollTop(0);
+        });
+    });
+    /*bindding popover end*/
+}
+
+var getDetailFn = function(id){
+	$.ajax({
+		url:restfulURL+restfulPathCdsResult+"/detail/"+id,
+		type:"get",
+		dataType:"json",
+		async:false,
+		headers:{Authorization:"Bearer "+tokenID.token},
+		success:function(data){
+			listDetailFn(data);
+		}
+	});
+}
+
+var getItemDescFn = function(id){
+    $.ajax({
+        url:restfulURL+restfulPathCdsResult+"/item_desc/"+id,
+        type:"get",
+        dataType:"json",
+        async:false,
+        data:{
+            "current_appraisal_year" : $("#param_year").val(),
+            "month_id" : $("#param_month").val(),
+            "appraisal_type_id" : $("#param_app_type").val()
+        },
+        headers:{Authorization:"Bearer "+tokenID.token},
+        success:function(data){
+            listPeriodItemDescFn(data);
+        }
+    });
+}
+
+var listPeriodItemDescFn = function(data){
+
+    galbalDataItemDesc = data;
+    var htmlPeriod = "";
+
+    //htmlPeriod += "<select id=\"period_item\" data-toggle=\"tooltip\" title=\""+Liferay.Language.get('period')+"\" name=\"period\">";
+    $.each(data,function(index,indexEntry){
+        $("#htmlInfoItemName").html(indexEntry["item_name"]);
+        htmlPeriod += "<option  value="+indexEntry["period_id"]+">"+indexEntry["appraisal_period_desc"]+"</option>";         
+    });
+    //htmlPeriod += "</select>";
+    $("#period_item").html(htmlPeriod);
+
+    changeItemDescFn($("#period_item").val());
+}
+
+var changeItemDescFn = function(period_id){
+	$("#htmlInfoItem").empty();
+    $.each(galbalDataItemDesc,function(index,indexEntry){
+        if (period_id == indexEntry["period_id"]){
+            $("#htmlInfoItem").html(indexEntry["item_desc"]);
+        }           
+    });
+}
+
 var listCdsResultFn = function (data) {
 	var htmlTable = "";
 	$.each(data,function(index,indexEntry) {
+		
+		is_edit_forecast = indexEntry["is_edit_forecast"];
+		is_edit_forecast_bu = indexEntry["is_edit_forecast_bu"];
+		is_edit_cds_value = indexEntry["is_edit_cds_value"];
 	
 		htmlTable += "<tr class='rowSearch'>";
 		if($("#param_app_type").val() == "2"){
-			htmlTable += "<td class='columnSearch'>"+ indexEntry["emp_code"]+ "</td>";
-			htmlTable += "<td class='columnSearch'>"+ indexEntry["emp_name"]+ "</td>";
+			htmlTable += "<td class='Search'>"+ indexEntry["emp_name"]+ "</td>";
+			
+			htmlTable += "<input type='hidden' class='cdsResult' id='emp_id' value='"+indexEntry['emp_id']+"'>";
 		}else if($("#param_app_type").val() == "1"){
-			htmlTable += "<td class='columnSearch'>"+ indexEntry["org_code"]+ "</td>";
-			htmlTable += "<td class='columnSearch'>"+ indexEntry["org_name"]+ "</td>";
+			htmlTable += "<td class='Search'>"+ indexEntry["org_name"]+ "</td>";
+			
+			htmlTable += "<input type='hidden' class='cdsResult' id='org_id' value='"+indexEntry['org_id']+"'>";
 		};
-		htmlTable += "<td class='columnSearch'>"+ indexEntry["cds_name"]+ "</td>";
-		htmlTable += "<td class='columnSearch'>"+ indexEntry["uom_name"]+ "</td>";
-		htmlTable += "<td class='columnSearch'>"+ indexEntry["year"]+ "</td>";
-		htmlTable += "<td class='columnSearch'>"+ galbalDataTemp["month_name"] + "</td>";
-		htmlTable += "<td class='columnSearch' style='text-align: right;padding-right: 10px;'>"+ notNullTextFn(addCommas(parseFloat(indexEntry["cds_value"]).toFixed(2)))+ "</td>";
-		htmlTable += "<td class='columnSearch' style=\"vertical-align: middle;text-align: center;\"><i id='"+ indexEntry["cds_result_id"]+ "' class='fa fa-trash del' style='color: red; cursor: pointer;'></i></td>";
+		
+		if (indexEntry["is_item_desc"] == "1"){
+			htmlTable += "<td class='Search'>"+ indexEntry["cds_name"]+ " <span style='position: relative;' data-info='' class='icon-info-circled iconItemDesc' id='item_desc-"+indexEntry['cds_result_id']+"'></span> </td> ";
+		}else {
+			htmlTable += "<td class='Search'>"+ indexEntry["cds_name"]+ "</td>";
+		}
+		
+		htmlTable += "<td class='Search'>"+ indexEntry["uom_name"]+ "</td>";
+		htmlTable += "<td class='Search'>"+ indexEntry["year"]+ "</td>";
+		htmlTable += "<td class='Search'>"+ galbalDataTemp["month_name"] + "</td>";
+		
+		htmlTable += "<input type='hidden' class='cdsResult' id='year' value='"+indexEntry['year']+"'>";
+		htmlTable += "<input type='hidden' class='cdsResult' id='appraisal_month_no' value='"+indexEntry['month']+"'>";
+		htmlTable += "<input type='hidden' class='cdsResult' id='appraisal_month_name' value='"+galbalDataTemp["month_name"]+"'>";
+		htmlTable += "<input type='hidden' class='cdsResult' id='position_id' value='"+indexEntry['position_id']+"'>";
+		htmlTable += "<input type='hidden' class='cdsResult' id='level_id' value='"+indexEntry['level_id']+"'>";
+		htmlTable += "<input type='hidden' class='cdsResult' id='cds_id' value='"+indexEntry['cds_id']+"'>";
+		htmlTable += "<input type='hidden' class='cdsResult' id='appraisal_type_id' value='"+$("#param_app_type").val()+"'>";
+		
+		// field forecast
+		htmlTable += "<td class='columnSearch_forecast' style='text-align: right;padding-right: 10px;'>"+ notNullTextFn(addCommas(parseFloat(indexEntry["forecast"]).toFixed(2))) + "</td>";
+		if (indexEntry['cds_result_id'] == null){
+			htmlTable += "<td class='columnEdit_forecast'><input style=\"height:20px; width:80px; float:right; text-align:right;\" type='text' class='cdsResult' id='forecast-"+indexEntry['cds_id']+"' name='forecast-new' value='"+indexEntry['forecast']+"'></td>";
+		}else {
+			htmlTable += "<td class='columnEdit_forecast'><input style=\"height:20px; width:80px; float:right; text-align:right;\" type='text' class='cdsResult' id='forecast-"+indexEntry['cds_result_id']+"' name='forecast-"+indexEntry['cds_result_id']+"' value='"+indexEntry['forecast']+"'></td>";
+		}
+		
+		// field forecast_bu
+		htmlTable += "<td class='columnSearch_forecast_bu' style='text-align: right;padding-right: 10px;'>"+ notNullTextFn(addCommas(parseFloat(indexEntry["forecast_bu"]).toFixed(2))) + "</td>";
+		if (indexEntry['cds_result_id'] == null){
+			htmlTable += "<td class='columnEdit_forecast_bu'><input style=\"height:20px; width:80px; float:right; text-align:right;\" type='text' class='cdsResult' id='forecast_bu-"+indexEntry['cds_id']+"' name='forecast_bu-new' value='"+indexEntry['forecast_bu']+"'></td>";
+		}else {
+			htmlTable += "<td class='columnEdit_forecast_bu'><input style=\"height:20px; width:80px; float:right; text-align:right;\" type='text' class='cdsResult' id='forecast_bu-"+indexEntry['cds_result_id']+"' name='forecast_bu-"+indexEntry['cds_result_id']+"' value='"+indexEntry['forecast_bu']+"'></td>";
+		}
+		
+		// field cds_value
+		htmlTable += "<td class='columnSearch_cds_value' style='text-align: right;padding-right: 10px;'>"+ notNullTextFn(addCommas(parseFloat(indexEntry["cds_value"]).toFixed(2)))+ "</td>";
+		if (indexEntry['cds_result_id'] == null){
+			htmlTable += "<td class='columnEdit_cds_value'><input style=\"height:20px; width:80px; float:right; text-align:right;\" type='text' class='cdsResult' id='cds_value-"+indexEntry['cds_id']+"' name='cds_value-new' value='"+indexEntry['cds_value']+"'></td>";
+		}else {
+			htmlTable += "<td class='columnEdit_cds_value'><input style=\"height:20px; width:80px; float:right; text-align:right;\" type='text' class='cdsResult' id='cds_value-"+indexEntry['cds_result_id']+"' name='cds_value-"+indexEntry['cds_result_id']+"' value='"+indexEntry['cds_value']+"'></td>";
+		}
+		
+		if (indexEntry['cds_result_id'] == null){
+			htmlTable += "<td></td>";
+		}else {
+			htmlTable += "<td style=\"vertical-align: middle; text-align:center; display: flex; justify-content: space-between;\">";
+			htmlTable += "<span>&nbsp;&nbsp;</span><i data-trigger=\"focus\" tabindex=\""+index+"\" data-content=\"&lt;button style='width:100%;' class='btn btn-success btn-small btn-gear detail' id='detail-"+indexEntry['cds_result_id']+"' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;"+Liferay.Language.get('detail')+"&lt;/button&gt;  &lt;button id='delete-"+indexEntry['cds_result_id']+"' style='width:100%;' class='btn btn-danger btn-small btn-gear delete'&gt;"+Liferay.Language.get('delete')+"&lt;/button&gt; \" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-detail-del\" data-original-title=\"\" title=\"\"></i>";		
+			htmlTable += "</td>";	
+		}
+		//htmlTable += "<td class='columnSearch' style=\"vertical-align: middle;text-align: center;\"><i id='"+ indexEntry["cds_result_id"]+ "' class='fa fa-trash del' style='color: red; cursor: pointer;'></i></td>";
 		htmlTable += "</tr>";////parseFloat().toLocaleString()
 	});
 	$("#listCdsResult").html(htmlTable);
-	$(".del").on("click",function(){
-		var id = this.id;
-		 
-		$("#confrimModal").modal({
+	
+	// start item desc
+	$(".iconItemDesc").off("click");
+	$(".iconItemDesc").on("click",function() {
+		
+		$("#htmlInfoItemName").empty();
+        $("#htmlInfoItem").empty();
+        
+	    $("#infoItemModal").modal({
+	        "backdrop": setModalPopup[0],
+	        "keyboard": setModalPopup[1]
+	    });
+
+	    var id=this.id.split("-");
+	    id=id[1];
+
+	    getItemDescFn(id);
+	    
+	});
+	
+	$("#period_item").click(function() {
+	    changeItemDescFn($("#period_item").val());
+	});
+	// end item desc
+	
+	/*bindding popover start*/
+	//Using
+	if( /iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
+		$(".popover-detail-del").popover({
+			delay : {
+				hide : 100
+			},
+			container: '.ibox-content'
+		});
+		
+	} else {
+		$(".popover-detail-del").popover({
+			delay : {
+				hide : 100
+			}
+		});
+	}
+	
+	$(".CdsResult").off("click",".popover-detail-del");
+	$(".CdsResult").on("click",".popover-detail-del",function(){
+		
+		if( /iPhone|iPad|iPod/i.test(navigator.userAgent) ) {
+			$(".popover").css({"text-align":"center","width": "120px","margin-left":"78px"});
+		} else {
+			$(".popover").css({"text-align":"center"});
+		}
+
+		//detail Start
+		$(".detail").on("click",function() {
+			
+			var id=this.id.split("-");
+			id=id[1];	
+			
+			$("#detailModal").modal({
+				"backdrop" : setModalPopup[0],
+				"keyboard" : setModalPopup[1]
+			}).css({"margin-top":"0px"});
+			clearFormDetailFn();
+			$("#detail").off("fucus");
+			$("#detail_cds_result_id").val(id);
+			getDetailFn(id);
+		});
+
+		// delete start
+		$(".delete").on("click",function(){
+			var id=this.id.split("-");
+			id=id[1];
+			 
+			$("#confrimModal").modal({
+				"backdrop" : setModalPopup[0],
+				"keyboard" : setModalPopup[1]
+			});
+			$(document).off("click","#btnConfirmOK");
+			$(document).on("click","#btnConfirmOK",function(){
+			
+				$.ajax({
+					 url:restfulURL+restfulPathCdsResult+"/"+id,
+					 type : "delete",
+					 dataType:"json",
+					 headers:{Authorization:"Bearer "+tokenID.token},
+					 success:function(data){    
+				    	 
+					     if(data['status']==200){
+					    	 
+					       callFlashSlide(Liferay.Language.get('delete-successfully')+".");
+					       getDataFn($("#pageNumber").val(),$("#rpp").val()); 
+					       $("#confrimModal").modal('hide');
+					       
+					     }else if (data['status'] == "400"){
+					    	 $("#confrimModal").modal('hide');
+					    	 callFlashSlide(data['data'],"error");
+					     }
+					     
+					     $("#btnEditCdsResult").prop("disabled",false);
+					     $("#btnSaveCdsResult").prop("disabled",true);
+					     $("#btnCancelCdsResult").prop("disabled",true);
+							
+					     showCdsResultFn();
+//							
+//					     $(".columnEdit_forecast").hide();
+//					     $(".columnEdit_forecast_bu").hide();
+//					     $(".columnEdit_cds_value").hide();
+					 }
+				});
+				
+			});
+			
+		});	
+		
+		
+		
+	});
+	/*bindding popover end*/
+
+}
+
+var clearCdsResultFn = function (data){
+	$.each($(".rowSearch").get(),function(index,indexEntry){
+
+		var forecast_id = $(this).find("td.columnEdit_forecast").find("input").attr("id");
+		var forecast_bu_id = $(this).find("td.columnEdit_forecast_bu").find("input").attr("id");
+		var cds_value_id = $(this).find("td.columnEdit_cds_value").find("input").attr("id");
+
+		$("#"+forecast_id).val("");
+		$("#"+forecast_bu_id).val("");
+		$("#"+cds_value_id).val("");
+
+	});
+}
+
+function isEmptyObject(obj){
+	var i = 0;
+	$.each(obj, function( index, value ) {
+		if (jQuery.isEmptyObject(obj[index])){
+			i = i+1;
+		}
+	});
+	return ((i > 0) ? true : false );
+}
+
+var showCdsResultFn = function () {
+	$(".columnSearch_forecast").show();
+	$(".columnSearch_forecast_bu").show();
+	$(".columnSearch_cds_value").show();
+	
+	$(".columnEdit_forecast").hide();
+	$(".columnEdit_forecast_bu").hide();
+	$(".columnEdit_cds_value").hide();
+}
+
+var inputEditCdsResultFn = function () {	
+	// manage tag forecast
+	if (is_edit_forecast == '1'){
+		$(".columnEdit_forecast").show();
+		$(".columnSearch_forecast").hide();
+	}else if (is_edit_forecast == '0'){
+		$(".columnEdit_forecast").hide();
+		$(".columnSearch_forecast").show();
+	}
+
+	// manage tag forecast_bu  
+	if (is_edit_forecast_bu == '1'){
+		$(".columnEdit_forecast_bu").show();
+		$(".columnSearch_forecast_bu").hide();
+	}else if (is_edit_forecast_bu == '0'){
+		$(".columnEdit_forecast_bu").hide();
+		$(".columnSearch_forecast_bu").show();
+	}
+
+	// manage tag cds_value
+	if (is_edit_cds_value == '1'){
+		$(".columnEdit_cds_value").show();
+		$(".columnSearch_cds_value").hide();
+	}else if (is_edit_cds_value == '0'){
+		$(".columnEdit_cds_value").hide();
+		$(".columnSearch_cds_value").show();
+	}
+}
+
+var editCdsResultFn = function () {
+	var cdsResult = ""; 
+	cdsResult += "[";
+
+	$.each($(".rowSearch").get(),function(index,indexEntry){
+
+		if(index==0){
+			cdsResult += "{";
+		}else{
+			cdsResult += ",{";
+		}
+
+		//----------- [start] get id tag input -----------
+
+		var forecast_id = $(this).find("td.columnEdit_forecast").find("input").attr("id");
+		var forecast_bu_id = $(this).find("td.columnEdit_forecast_bu").find("input").attr("id");
+		var cds_value_id = $(this).find("td.columnEdit_cds_value").find("input").attr("id");
+
+		//----------- [end] get id tag input -----------
+
+		if (($("#"+forecast_id).val() != "") || ($("#"+forecast_bu_id).val() != "") || ($("#"+cds_value_id).val() != "")) {
+			var id = $(this).find("td.columnEdit_forecast").find("input").attr("name");
+			id = id.split("-");
+			id = id[1];
+
+			if (id == "new"){
+				cdsResult += "\"cds_result_id\":\"\",";
+				cdsResult += "\"create_cds_result\":\"1\",";
+			} else if (id != "new"){
+				cdsResult += "\"cds_result_id\":\""+id+"\",";
+				cdsResult += "\"create_cds_result\":\"0\",";
+			}
+
+			//----------- [start] get value show data -----------
+			var appraisal_type_id = $(this).find("input#appraisal_type_id").attr("value");
+
+			cdsResult += "\"year\":\""+$(this).find("input#year").attr("value")+"\",";
+			cdsResult += "\"appraisal_month_no\":\""+$(this).find("input#appraisal_month_no").attr("value")+"\",";
+			cdsResult += "\"appraisal_month_name\":\""+$(this).find("input#appraisal_month_name").attr("value")+"\",";
+			cdsResult += "\"position_id\":\""+$(this).find("input#position_id").attr("value")+"\",";
+			cdsResult += "\"level_id\":\""+$(this).find("input#level_id").attr("value")+"\",";
+			cdsResult += "\"appraisal_type_id\":\""+$(this).find("input#appraisal_type_id").attr("value")+"\",";
+			cdsResult += "\"cds_id\":\""+$(this).find("input#cds_id").attr("value")+"\",";
+
+			if (appraisal_type_id == "1"){
+				cdsResult += "\"org_id\":\""+$(this).find("input#org_id").attr("value")+"\",";
+			}else if (appraisal_type_id == "2"){
+				cdsResult += "\"emp_id\":\""+$(this).find("input#emp_id").attr("value")+"\",";
+			}
+			//----------- [end] get value show data -----------
+
+			//----------- [start] get value tag input -----------
+			cdsResult += "\"forecast\":\""+$("#"+forecast_id).val()+"\",";
+			cdsResult += "\"forecast_bu\":\""+$("#"+forecast_bu_id).val()+"\",";
+			cdsResult += "\"cds_value\":\""+$("#"+cds_value_id).val()+"\"";
+			//----------- [end] get value tag input -----------
+			
+		} // end if emtry
+
+		cdsResult += "}";
+	});
+	
+	cdsResult += "]";
+	var cdsResultObject=eval("("+cdsResult+")");
+	
+	// ---- [start] check value tag input empty ----
+	var empty = isEmptyObject(cdsResultObject);
+	
+	if (empty){
+		$("#confrimCdsResultModal").modal({
 			"backdrop" : setModalPopup[0],
 			"keyboard" : setModalPopup[1]
 		});
-		$(document).off("click","#btnConfirmOK");
-		$(document).on("click","#btnConfirmOK",function(){
-		
-			$.ajax({
-				 url:restfulURL+restfulPathCdsResult+"/"+id,
-				 type : "delete",
-				 dataType:"json",
-				 headers:{Authorization:"Bearer "+tokenID.token},
-				success:function(data){    
-			    	 
-				     if(data['status']==200){
-				    	 
-				       callFlashSlide(Liferay.Language.get('delete-successfully')+".");
-				       getDataFn($("#pageNumber").val(),$("#rpp").val()); 
-				       $("#confrimModal").modal('hide');
-				       
-				     }else if (data['status'] == "400"){
-				    	 $("#confrimModal").modal('hide');
-				    	 callFlashSlide(data['data'],"error");
-				    	}
-				 }
-			});
+	
+		$(document).off("click","#btnConfirmCdsResultOK");
+		$(document).on("click","#btnConfirmCdsResultCancel",function(){
+			$("#confrimCdsResultModal").modal('hide');
+			inputEditCdsResultFn();
 			
+			$("#btnEditCdsResult").prop("disabled",true);
+			$("#btnSaveCdsResult").prop("disabled",false);
+			$("#btnCancelCdsResult").prop("disabled",false);
 		});
-		
-	});	
+		$(document).on("click","#btnConfirmCdsResultOK",function(){	
+			editDataCdsResult(cdsResultObject);			
+		});
+	}
+	else {
+		editDataCdsResult(cdsResultObject);
+	}
+	// ---- [end] check value tag input empty ----
 }
+
+var editDataCdsResult = function(data){
+	var CdsResultObject = data;
+	
+	$.ajax({
+		url:restfulURL+restfulPathCdsResult,
+		type:"patch",
+		dataType:"json",
+		async:false,
+		data:{
+			"cdsResult":CdsResultObject
+		},
+		headers:{Authorization:"Bearer "+tokenID.token},
+		success:function(data){
+			if(data['status']==200){	
+				$("#confrimCdsResultModal").modal('hide');
+				clearCdsResultFn();
+			    getDataFn($("#pageNumber").val(),$("#rpp").val());	
+			    callFlashSlide(Liferay.Language.get('update-successfully')+".");
+			}else if(data['status']==400){
+				$("#confrimCdsResultModal").modal('hide');
+				callFlashSlide(data['data'],"error");
+			}
+			showCdsResultFn();
+		}
+	});
+}
+
+var editDetailFn = function (){
+	if ($("#detail_action").val() == "add") {
+        $.ajax({
+            url: restfulURL+restfulPathCdsResult+ "/detail/" + $("#detail_cds_result_id").val(),
+            type: "POST",
+            dataType: "json",
+            /*เวลา copy จาก description อื่นมาจะเพิ่มอักขระพิเศษไว้ข้างหน้า พอไปออกรายงานแล้วแสดงเป็นกล่อง สี่เหลี่ยม แต่ที่หน้า description ไม่แสดง จึงจำเป็นต้อง replace อักขระพิเศษ ออก */
+            data: { "detail_name": rmSlashDesc(editorDetailName.getContent()) },
+            headers: { Authorization: "Bearer " + tokenID.token },
+            success: function (data, status) {
+                if (data['status'] == 200) {
+                    getDetailFn($("#detail_cds_result_id").val());
+                    clearFormDetailFn();
+                } else if (data['status'] == "400") {
+                    callFlashSlide("<font color=''>" + data['data'] + "</font>", "error");
+                }
+            }
+        });
+
+    } else {
+
+        $.ajax({
+            url: restfulURL+restfulPathCdsResult+ "/detail/" + $("#detail_cds_result_id").val(),
+            type: "PATCH",
+            dataType: "json",
+            /*เวลา copy จาก description อื่นมาจะเพิ่มอักขระพิเศษไว้ข้างหน้า พอไปออกรายงานแล้วแสดงเป็นกล่อง สี่เหลี่ยม แต่ที่หน้า description ไม่แสดง จึงจำเป็นต้อง replace อักขระพิเศษ ออก */
+            data: { "detail_name": rmSlashDesc(editorDetailName.getContent()), "reason_cds_result_id": $("#detail_id_edit").val() },
+            headers: { Authorization: "Bearer " + tokenID.token },
+            success: function (data, status) {
+                if (data['status'] == 200) {
+                	getDetailFn($("#detail_cds_result_id").val());
+                    clearFormDetailFn();
+                } else if (data['status'] == "400") {
+                    callFlashSlide("<font color=''>" + data['data'] + "</font>", "error");
+                }
+            }
+        });
+    }
+}
+
 
 //-------------------  Appraisal Data FN END ---------------------
 var addCommas =  function(nStr)
@@ -360,6 +939,7 @@ $(document).ready(function() {
 	$("#countPaginationTop").val( $("#countPaginationTop option:first-child").val());
 	$("#countPaginationBottom").val( $("#countPaginationBottom option:first-child").val());
 	
+	
 	$("#app_lv").change(function(){
 		$("#drop_down_list_organization").html(dropDownListOrganization());
 	});
@@ -375,10 +955,55 @@ $(document).ready(function() {
 				$("#app_type").val(),
 				$("#org_id").val(),
 				$("#position_id").val(),
-				$("#emp_name_id").val());
+				$("#emp_name_id").val()
+		);
+		
+		$("#btnEditCdsResult").prop("disabled",false);
+		$("#btnSaveCdsResult").prop("disabled",true);
+		$("#btnCancelCdsResult").prop("disabled",true);
+		
+		showCdsResultFn();	
+		
 		$("#cds_result_list_content").show();
 		getBrowserWidth();
 		return false;
+	});
+	
+	// start button CDSResult
+	$("#btnEditCdsResult").click(function() {
+		$("#btnEditCdsResult").prop("disabled",true);
+		$("#btnSaveCdsResult").prop("disabled",false);
+		$("#btnCancelCdsResult").prop("disabled",false);
+		
+		inputEditCdsResultFn();
+	});
+	
+	$("#btnCancelCdsResult").click(function() {
+		$("#btnEditCdsResult").prop("disabled",false);
+		$("#btnSaveCdsResult").prop("disabled",true);
+		$("#btnCancelCdsResult").prop("disabled",true);
+		
+		showCdsResultFn();
+	});
+	
+	$("#btnSaveCdsResult").click(function() {
+		
+		editCdsResultFn();
+		
+		$("#btnEditCdsResult").prop("disabled",false);
+		$("#btnSaveCdsResult").prop("disabled",true);
+		$("#btnCancelCdsResult").prop("disabled",true);
+
+	});
+	// end button CDSResult
+	
+	// start button DetailCDSResult
+	$(document).on("click", "#btnSaveDetail", function () {
+		editDetailFn();
+	});
+	
+	$(document).on("click", "#btnCancelDetail", function () {
+		clearFormDetailFn();
 	});
 	
 	
@@ -492,6 +1117,7 @@ $(document).ready(function() {
     });
     
   //Auto Complete Employee Name end
+
 	
 	$("#app_type").change(function(){
 		if($("#app_type").val() == "2"){
@@ -586,9 +1212,7 @@ $(document).ready(function() {
 			contentType: false, // Set content type to false as jQuery will tell the server its a query string request
 			headers:{Authorization:"Bearer "+tokenID.token},
 			success: function(data, textStatus, jqXHR)
-			{
-				
-				
+			{								
 				if(data['status']==200 && data['errors'].length==0){
 					
 					callFlashSlide(Liferay.Language.get('import-cds-result-successfully'));
@@ -602,6 +1226,7 @@ $(document).ready(function() {
 					getDataFn($(".pagination .active").attr( "data-lp" ),$("#rpp").val());
 					$("body").mLoading('hide');
 				}
+				showCdsResultFn();
 			},
 			error: function(jqXHR, textStatus, errorThrown)
 			{

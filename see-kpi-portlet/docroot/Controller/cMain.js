@@ -598,6 +598,10 @@ var setThemeColorFn = function(color){
 };
 //******************** updateTheme end********//
 
+var rmSlashDesc = function(data){
+	return data.replace(new RegExp(String.fromCharCode(65279), 'g'), "");
+}
+
 
 
 
