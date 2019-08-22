@@ -53,7 +53,11 @@ plid = layout.getPlid();
 }
 
 .popover {
-	width: 208px;
+	width: 120px;
+}
+
+.aui .popover-content {
+    padding: 5px;
 }
 
 .aui .pagination {
@@ -370,11 +374,13 @@ plid = layout.getPlid();
 								<h5><liferay-ui:message key="advanced-search"/></h5>
 							</div>
 				<div class="ibox-content breadcrumbs2">
+				
 					<div class="row-fluid p-t-xxs cSearchAdvance">
-					<div id="drop_down_list_year" class="form-group pull-left span3"
+					 <div class="form-group">
+						<div id="drop_down_list_year" class="form-group pull-left span3"
 							style="margin-left: 5px">
 							<select class="input span12 m-b-n" ></select>
-							</div>
+						</div>
 						<div id="drop_down_list_month" class="form-group pull-left span3"
 							style="margin-left: 5px"><select class="input span12 m-b-n" ></select>
 						</div>
@@ -389,6 +395,9 @@ plid = layout.getPlid();
 								type="text"> <input class="form-control input-sm"
 								id="emp_name_id" name="emp_name_id" value="" type="hidden">
 						</div>
+					</div>	
+					<div class="form-group">				
+					<!-- <div class="row-fluid p-t-xxs cSearchAdvance"> -->
 						<div class="form-group pull-left span3" style="margin-left: 5px" >
 							<input data-toggle="tooltip" data-placement="top"
 								title="<liferay-ui:message key="position"/>" class="span12 m-b-n ui-autocomplete-input"
@@ -406,6 +415,7 @@ plid = layout.getPlid();
 							class="form-group pull-left span3" style="margin-left: 5px">
 							<select class="input span12 m-b-n" ></select>
 						</div>
+					  </div>
 <!-- 						<div class="form-group pull-left span3" style="margin-left: 5px"> -->
 <!-- 							<input data-toggle="tooltip" data-placement="top" -->
 <!-- 								title="Organization" class="span12 m-b-n ui-autocomplete-input" -->
@@ -465,6 +475,24 @@ plid = layout.getPlid();
 								<div class="height-32-px"></div>
 						</div>
 							<!-- start table -->
+							
+							<!-- start button -->
+							<div class="row-fluid">
+								<div class='span6'>
+									<button type="button" class="btn btn-warning input-sm" name="btn-" id="btnEditCdsResult">
+										<liferay-ui:message key="edit"/>
+									</button>
+									<button type="button" class="btn btn-info  input-sm" name="btn-" id="btnSaveCdsResult">
+										<liferay-ui:message key="save"/>
+									</button>
+									<button type="button" class="btn btn-danger input-sm" name="btn-" id="btnCancelCdsResult">
+										<liferay-ui:message key="cancel"/>
+									</button>
+								</div>
+							</div>
+							<!-- end button -->
+							
+							
 						<!-- pagination start -->
 							<div class="row-fluid">
 								<div id="width-100-persen" class="span9 m-b-xs">
@@ -505,17 +533,18 @@ plid = layout.getPlid();
 								<table class="table table-striped " id="tableCdsResult" style="max-width: none;">
 									<thead>
 										<tr style="white-space: nowrap;">
-											<th style='width: auto'><liferay-ui:message key="emp-code"/>&emsp;</th>
 											<th style='width: auto;min-width: 200px;"'><liferay-ui:message key="emp-name"/></th>
 											<th style='width: auto;min-width: 320px;'><liferay-ui:message key="cds-name"/></th>
 											<th style='width: auto'><liferay-ui:message key="uom"/></th>
 											<th style='width: auto'><liferay-ui:message key="year"/></th>
-											<th style='width: auto'><liferay-ui:message key="month"/></th>
+											<th style='width: auto'><liferay-ui:message key="month"/></th>			
+											<th style='width:auto;text-align: right;'><liferay-ui:message key="forecast"/></th>
+											<th style='width:auto;text-align: right;'><liferay-ui:message key="forecast-bu"/></th>
 											<th style='width:auto;text-align: right;'><liferay-ui:message key="cds-value"/></th>
 											<th style='width: auto; text-align: center;'><liferay-ui:message key="manage"/></th>
 										</tr>
 									</thead>
-									<tbody id="listCdsResult">
+									<tbody id="listCdsResult" class="CdsResult">
 
 									</tbody>
 								</table>
@@ -630,7 +659,7 @@ plid = layout.getPlid();
 	</div>
 	<!-- Modal End  -->
 	
-		<!-- Modal Confirm Start -->
+	<!-- Modal Confirm Start -->
 	<div aria-hidden="true" role="dialog" tabindex="-1" id="confrimModal"
 		class="modal inmodal in" style="width:400px;left:calc;display: none;">
 		<div class="modal-dialog">
@@ -672,3 +701,139 @@ plid = layout.getPlid();
 		</div>
 	</div>
 	<!-- Modal Confirm End -->
+	
+	<!-- Modal Confirm CdsResult Start -->
+	<div aria-hidden="true" role="dialog" tabindex="-1" id="confrimCdsResultModal"
+		class="modal inmodal in" style="width:400px;left:calc;display: none;">
+		<div class="modal-dialog">
+			<div class="modal-content  bounceInRight">
+				<div class="modal-header">
+					<h5 class="modal-title"><liferay-ui:message key="confirm-dialog"/></h5>
+				</div>
+				<div class="modal-body">
+					<!-- content start -->
+					<!-- <h2><i class="fa fa fa-pencil-square-o icon-title"></i> ADD NEW GRADE</h2>
+                <hr>
+                 -->
+					<!-- form start -->
+					<div class="form-kpi-mangement">
+						<div class="form-kpi-label" align="center">
+
+							<label><liferay-ui:message key="confirm-report-for-kpi-incomplete"/> ?</label>
+						</div>
+					</div>
+
+					<!-- form start -->
+					<!-- content end -->
+				</div>
+				<div class="modal-footer">
+					<div align="center">
+						<button class="btn btn-success" id="btnConfirmCdsResultOK" type="button">
+							&nbsp;&nbsp;<i class="fa fa-check-circle"></i>&nbsp;&nbsp;<liferay-ui:message key="yes"/>&nbsp;&nbsp;
+						</button>
+						&nbsp;&nbsp;
+						<button data-dismiss="modal" id="btnConfirmCdsResultCancel" class="btn btn-danger" type="button">
+							<i class="fa fa-times-circle"></i>&nbsp;<liferay-ui:message key="cancel"/>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal Confirm CdsResult End -->
+	
+
+<!-- Modal Detail Start -->
+<div aria-hidden="true" role="dialog" tabindex="-1" id="detailModal" class="modal inmodal " style="display: none; margin-top: 0px;">
+    <div class="modal-dialog">
+    <div class="modal-content animated bounceInRight">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only"></span></button>
+                <h5 class="modal-title"><liferay-ui:message key="detail"/></h5>
+            </div>
+            <div class="modal-body">
+
+<div style='margin-bottom:5px;'>
+	<b><liferay-ui:message key="detail"/></b>
+	<table style='width:100%; margin-bottom: 4px;'>
+		<tr>
+			<td id="sunEdit">
+			</td>
+		</tr>
+	</table>
+	<div align="right">
+	     <button class="btn btn-success" id="btnSaveDetail" type="button">&nbsp;&nbsp;<i class="fa fa-check-circle"></i>&nbsp;&nbsp;<liferay-ui:message key="save"/>&nbsp;&nbsp;</button>&nbsp;&nbsp;
+	     <button class="btn btn-danger" id='btnCancelDetail' type="button"><i class="fa fa-times-circle"></i>&nbsp;<liferay-ui:message key="cancel"/></button>
+	</div>
+</div>
+			<table class='table'>
+				<thead>
+					<tr>
+						<th style='width:10%;'>
+						<b><liferay-ui:message key="no-dot"/></b>
+						</th>
+						<th style='width:30%;'>
+						<b><liferay-ui:message key="detail"/></b>
+						</th>
+						<th style='text-align:center; width:15%;'>
+						<b><liferay-ui:message key="manage"/></b>
+						</th>
+					</tr>
+				</thead>
+				<tbody id='listDataDetail'>
+
+				</tbody> 
+
+				<input type="hidden" name="detail_id_edit" id="detail_id_edit" value="">
+				<input type="hidden" name="detail_action" id="detail_action" value="add">
+				<input type="hidden" name="detail_cds_result_id" id="detail_cds_result_id" value="">
+
+
+			</table>
+
+                <!-- form start -->
+                <!-- content end -->
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Modal Detail End -->
+
+<!-- Modal infoItem Start -->
+<div aria-hidden="true" role="dialog" tabindex="-1" id="infoItemModal" class="modal inmodal " style="display: none;">
+    <div class="modal-dialog ">
+    <div class="modal-content animated bounceInRight">
+            <div class="modal-header">
+                <button style="padding-top:5px" type="button" class="close" data-dismiss="modal"><span aria-hidden="true"><i class="fa fa-times"></i></span><span class="sr-only"></span></button>
+                <h4 class="modal-title"><liferay-ui:message key="description"/></h4>
+            </div>
+            <div class="modal-body">
+                <!-- content start -->
+                <!-- <h2><i class="fa fa fa-pencil-square-o icon-title"></i> ADD NEW GRADE</h2>
+                <hr>
+                 -->
+                <!-- form start -->
+                <div class="alert alert-info" id="htmlInfoItemName">
+			     
+			    </div>
+			    
+			    <div class="row-fluid">
+					<liferay-ui:message key="period"/>: 
+	 				<select id="period_item" data-toggle="tooltip" title="<liferay-ui:message key="period"/>" name="period_item">
+					</select>
+				</div>
+						
+                <div class="form-kpi-mangement" style="margin-top: 20px;">
+	                <div id="htmlInfoItem">
+	                </div>
+                </div>
+
+                <!-- form start -->
+                <!-- content end -->
+            </div>
+            
+        </div>
+    </div>
+</div>
+<!-- Modal infoItem End -->
