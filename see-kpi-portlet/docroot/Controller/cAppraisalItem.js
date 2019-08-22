@@ -695,7 +695,7 @@ var dropDrowOrgFn = function(nameArea,id,defaultAll){
 		nameArea="";
 	}
 	$.ajax({
-		url:restfulURL+"/"+serviceName+"/public/org",
+		url:restfulURL+"/"+serviceName+"/public/org/org_kpi",
 		type:"get",
 		dataType:"json",
 		async:true,
@@ -708,15 +708,26 @@ var dropDrowOrgFn = function(nameArea,id,defaultAll){
 			if(defaultAll==true){
 				htmlOption+="<option value=''>All Org</option>";
 			}
+
 			$.each(data,function(index,indexEntry){
+				if (indexEntry['is_active']==1){
 				if(id==indexEntry['org_id']){
 					htmlOption+="<option selected='selected' value="+indexEntry['org_id']+">"+indexEntry['org_name']+"</option>";
 				}else{
 					htmlOption+="<option value="+indexEntry['org_id']+">"+indexEntry['org_name']+"</option>";
 				}
+				}
+				else {
+					if(id==indexEntry['org_id']){
+						htmlOption+="<option selected='selected'disabled='disabled' value="+indexEntry['org_id']+">"+indexEntry['org_name']+"</option>";
+					}else{
+						htmlOption+="<option disabled='disabled' value="+indexEntry['org_id']+">"+indexEntry['org_name']+"</option>";
+					}
+				}
 			});
 			htmlOption+="</select>";
 			
+
 			$("#org"+nameArea+"Form").html(htmlOption);
 			$("#organization"+nameArea).val(org_array);
 			$('select[name="organization'+nameArea+'[]"]').bootstrapDualListbox({
