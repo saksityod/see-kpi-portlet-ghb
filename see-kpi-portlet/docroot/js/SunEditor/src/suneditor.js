@@ -1483,6 +1483,7 @@ SUNEDITOR.defaultLang = {
 
                     dom.removeClass(element.firstElementChild, 'ico_full_screen_e');
                     dom.addClass(element.firstElementChild, 'ico_full_screen_i');
+                    hideButtonFn(); //cCdsResult.js
                 }
                 else {
                     context.element.topArea.style.cssText = this._variable.originCssText;
@@ -1490,6 +1491,7 @@ SUNEDITOR.defaultLang = {
 
                     dom.removeClass(element.firstElementChild, 'ico_full_screen_i');
                     dom.addClass(element.firstElementChild, 'ico_full_screen_e');
+                    showButtonFn(); //cCdsResult.js
                 }
 
                 this._variable.isFullScreen = !this._variable.isFullScreen;
