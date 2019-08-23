@@ -133,6 +133,20 @@ var suneditorFn = function() {
 	 });
 }
 
+// call by suneditor.js
+var hideButtonFn = function () {
+	$(".popover-edit-del").hide();
+	$("#btnSaveDetail").hide();
+	$("#btnCancelDetail").hide();
+}
+
+//call by suneditor.js
+var showButtonFn = function () {
+	$(".popover-edit-del").show();
+	$("#btnSaveDetail").show();
+	$("#btnCancelDetail").show();
+}
+
 var clearFormDetailFn = function(){
 	suneditorFn();
     $("#detail_id_edit").val("");
@@ -335,33 +349,36 @@ var listCdsResultFn = function (data) {
 		htmlTable += "<input type='hidden' class='cdsResult' id='appraisal_type_id' value='"+$("#param_app_type").val()+"'>";
 		
 		// field forecast
-		htmlTable += "<td class='columnSearch_forecast' style='text-align: right;padding-right: 10px;'>"+ notNullTextFn(addCommas(parseFloat(indexEntry["forecast"]).toFixed(2))) + "</td>";
+		//htmlTable += "<td class='columnSearch_forecast' style='text-align: right;padding-right: 10px;'>"+ notNullTextFn(addCommas(parseFloat(indexEntry["forecast"]).toFixed(2))) + "</td>";
+		htmlTable += "<td class='columnSearch_forecast'><input style=\"height:20px; width:80px; float:right; text-align:right;\" type='text' value='"+notNullTextFn(addCommas(parseFloat(indexEntry["forecast"]).toFixed(2)))+"' disabled></td>";
 		if (indexEntry['cds_result_id'] == null){
-			htmlTable += "<td class='columnEdit_forecast'><input style=\"height:20px; width:80px; float:right; text-align:right;\" type='text' class='cdsResult' id='forecast-"+indexEntry['cds_id']+"' name='forecast-new' value='"+indexEntry['forecast']+"'></td>";
+			htmlTable += "<td class='columnEdit_forecast'><input style=\"height:20px; width:80px; float:right; text-align:right;\" type='text' class='cdsResult' id='forecast-"+indexEntry['cds_id']+"' name='forecast-new' value='"+notNullTextFn(addCommas(parseFloat(indexEntry["forecast"]).toFixed(2)))+"'></td>";
 		}else {
-			htmlTable += "<td class='columnEdit_forecast'><input style=\"height:20px; width:80px; float:right; text-align:right;\" type='text' class='cdsResult' id='forecast-"+indexEntry['cds_result_id']+"' name='forecast-"+indexEntry['cds_result_id']+"' value='"+indexEntry['forecast']+"'></td>";
+			htmlTable += "<td class='columnEdit_forecast'><input style=\"height:20px; width:80px; float:right; text-align:right;\" type='text' class='cdsResult' id='forecast-"+indexEntry['cds_result_id']+"' name='forecast-"+indexEntry['cds_result_id']+"' value='"+notNullTextFn(addCommas(parseFloat(indexEntry["forecast"]).toFixed(2)))+"'></td>";
 		}
 		
 		// field forecast_bu
-		htmlTable += "<td class='columnSearch_forecast_bu' style='text-align: right;padding-right: 10px;'>"+ notNullTextFn(addCommas(parseFloat(indexEntry["forecast_bu"]).toFixed(2))) + "</td>";
+		//htmlTable += "<td class='columnSearch_forecast_bu' style='text-align: right;padding-right: 10px;'>"+ notNullTextFn(addCommas(parseFloat(indexEntry["forecast_bu"]).toFixed(2))) + "</td>";
+		htmlTable += "<td class='columnSearch_forecast_bu'><input style=\"height:20px; width:80px; float:right; text-align:right;\" type='text' value='"+notNullTextFn(addCommas(parseFloat(indexEntry["forecast_bu"]).toFixed(2)))+"' disabled></td>";
 		if (indexEntry['cds_result_id'] == null){
-			htmlTable += "<td class='columnEdit_forecast_bu'><input style=\"height:20px; width:80px; float:right; text-align:right;\" type='text' class='cdsResult' id='forecast_bu-"+indexEntry['cds_id']+"' name='forecast_bu-new' value='"+indexEntry['forecast_bu']+"'></td>";
+			htmlTable += "<td class='columnEdit_forecast_bu'><input style=\"height:20px; width:80px; float:right; text-align:right;\" type='text' class='cdsResult' id='forecast_bu-"+indexEntry['cds_id']+"' name='forecast_bu-new' value='"+notNullTextFn(addCommas(parseFloat(indexEntry["forecast_bu"]).toFixed(2)))+"'></td>";
 		}else {
-			htmlTable += "<td class='columnEdit_forecast_bu'><input style=\"height:20px; width:80px; float:right; text-align:right;\" type='text' class='cdsResult' id='forecast_bu-"+indexEntry['cds_result_id']+"' name='forecast_bu-"+indexEntry['cds_result_id']+"' value='"+indexEntry['forecast_bu']+"'></td>";
+			htmlTable += "<td class='columnEdit_forecast_bu'><input style=\"height:20px; width:80px; float:right; text-align:right;\" type='text' class='cdsResult' id='forecast_bu-"+indexEntry['cds_result_id']+"' name='forecast_bu-"+indexEntry['cds_result_id']+"' value='"+notNullTextFn(addCommas(parseFloat(indexEntry["forecast_bu"]).toFixed(2)))+"'></td>";
 		}
 		
 		// field cds_value
-		htmlTable += "<td class='columnSearch_cds_value' style='text-align: right;padding-right: 10px;'>"+ notNullTextFn(addCommas(parseFloat(indexEntry["cds_value"]).toFixed(2)))+ "</td>";
+		//htmlTable += "<td class='columnSearch_cds_value' style='text-align: right;padding-right: 10px;'>"+ notNullTextFn(addCommas(parseFloat(indexEntry["cds_value"]).toFixed(2)))+ "</td>";
+		htmlTable += "<td class='columnSearch_cds_value'><input style=\"height:20px; width:80px; float:right; text-align:right;\" type='text' value='"+notNullTextFn(addCommas(parseFloat(indexEntry["cds_value"]).toFixed(2)))+"' disabled></td>";
 		if (indexEntry['cds_result_id'] == null){
-			htmlTable += "<td class='columnEdit_cds_value'><input style=\"height:20px; width:80px; float:right; text-align:right;\" type='text' class='cdsResult' id='cds_value-"+indexEntry['cds_id']+"' name='cds_value-new' value='"+indexEntry['cds_value']+"'></td>";
+			htmlTable += "<td class='columnEdit_cds_value'><input style=\"height:20px; width:80px; float:right; text-align:right;\" type='text' class='cdsResult' id='cds_value-"+indexEntry['cds_id']+"' name='cds_value-new' value='"+notNullTextFn(addCommas(parseFloat(indexEntry["cds_value"]).toFixed(2)))+"'></td>";
 		}else {
-			htmlTable += "<td class='columnEdit_cds_value'><input style=\"height:20px; width:80px; float:right; text-align:right;\" type='text' class='cdsResult' id='cds_value-"+indexEntry['cds_result_id']+"' name='cds_value-"+indexEntry['cds_result_id']+"' value='"+indexEntry['cds_value']+"'></td>";
+			htmlTable += "<td class='columnEdit_cds_value'><input style=\"height:20px; width:80px; float:right; text-align:right;\" type='text' class='cdsResult' id='cds_value-"+indexEntry['cds_result_id']+"' name='cds_value-"+indexEntry['cds_result_id']+"' value='"+notNullTextFn(addCommas(parseFloat(indexEntry["cds_value"]).toFixed(2)))+"'></td>";
 		}
 		
 		if (indexEntry['cds_result_id'] == null){
 			htmlTable += "<td></td>";
 		}else {
-			htmlTable += "<td style=\"vertical-align: middle; text-align:center; display: flex; justify-content: space-between;\">";
+			htmlTable += "<td style=\"text-align:center; justify-content: space-between;\">";
 			htmlTable += "<span>&nbsp;&nbsp;</span><i data-trigger=\"focus\" tabindex=\""+index+"\" data-content=\"&lt;button style='width:100%;' class='btn btn-success btn-small btn-gear detail' id='detail-"+indexEntry['cds_result_id']+"' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;"+Liferay.Language.get('detail')+"&lt;/button&gt;  &lt;button id='delete-"+indexEntry['cds_result_id']+"' style='width:100%;' class='btn btn-danger btn-small btn-gear delete'&gt;"+Liferay.Language.get('delete')+"&lt;/button&gt; \" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-detail-del\" data-original-title=\"\" title=\"\"></i>";		
 			htmlTable += "</td>";	
 		}
