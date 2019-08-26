@@ -672,7 +672,7 @@ var dropDrowDepartmentFn = function(nameArea,id,defaultAll){
 
 var dropDrowOrgFn = function(nameArea,id,defaultAll){
 	
-	
+//	console.log(id);
 	/*
 		org_id": 3,
         "org_code": "003",
@@ -689,7 +689,6 @@ var dropDrowOrgFn = function(nameArea,id,defaultAll){
 		});
 		//console.log(org_array);
 	}
-	
 	
 	if(nameArea==undefined){
 		nameArea="";
@@ -710,6 +709,24 @@ var dropDrowOrgFn = function(nameArea,id,defaultAll){
 			}
 
 			$.each(data,function(index,indexEntry){
+
+/*				if(id==indexEntry['org_id']){ //multiselect right
+				     htmlOption+="<option selected='selected' value="+indexEntry['org_id']+">"+indexEntry['org_name']+"-*</option>";
+				    }else{  //multiselect left
+				     htmlOption+="<option value="+indexEntry['org_id']+">"+indexEntry['org_name']+"-/</option>"; 
+				    }*/
+			
+				
+			/*	if(id==indexEntry['org_id']){ //multiselect right
+				     htmlOption+="<option selected='selected' value="+indexEntry['org_id']+">"+indexEntry['org_name']+"</option>";
+				    }else{  //multiselect left
+				     if(indexEntry['is_active']==1){
+				      htmlOption+="<option value="+indexEntry['org_id']+">"+indexEntry['org_name']+"</option>";
+				     }else {
+				      htmlOption+="<option disabled='disabled' value="+indexEntry['org_id']+">"+indexEntry['org_name']+"</option>";
+				     } 
+				    }*/
+				
 				if (indexEntry['is_active']==1){
 				if(id==indexEntry['org_id']){
 					htmlOption+="<option selected='selected' value="+indexEntry['org_id']+">"+indexEntry['org_name']+"</option>";
@@ -735,6 +752,7 @@ var dropDrowOrgFn = function(nameArea,id,defaultAll){
 				moveOnSelect: false,
 				preserveSelectionOnMove: 'moved'
 			});
+			$("#orgQuantityForm .box2 [disabled=disabled]").removeAttr("disabled");
 			$(".move,.moveall,.remove,.removeall").css("width", "50%");
 		}
 	});
