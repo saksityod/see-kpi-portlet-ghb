@@ -769,6 +769,11 @@ overflow-y: visible;
     display: none;
 }
 
+#positionQuantityForm .box1 [disabled=disabled] {
+    background-color: red;
+    display: none;
+}
+
 </style>
 <body class=" gray-bg ">
 <!--  #####################Content data here ######################-->
