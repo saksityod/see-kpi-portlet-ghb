@@ -764,6 +764,11 @@ overflow-y: visible;
 .ui-state-default{
 	width: 100% !important;
 }
+#orgQuantityForm .box1 [disabled=disabled] {
+    background-color: red;
+    display: none;
+}
+
 </style>
 <body class=" gray-bg ">
 <!--  #####################Content data here ######################-->
