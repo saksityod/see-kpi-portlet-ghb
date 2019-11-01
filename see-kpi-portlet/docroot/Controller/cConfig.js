@@ -1,8 +1,8 @@
 var restfulURL 			= "";
 var restfulURL_IMPkpi 	= "";
 var lifeRayApiUrl 		= "";
-//var serviceName			= "ghb/dev/see-kpi-service-ghb/ghb_api";
-var serviceName         = "see_api_ghb_505/see-kpi-service-ghb/ghb_api";
+var serviceName			= "ghb/dev/see-kpi-service-ghb/ghb_api";
+// var serviceName         = "see_api_ghb_505/see-kpi-service-ghb/ghb_api";
 var serviceName_IMPkpi 	= "impexpservices_api/public";
 var servicePort 		= (document.location.protocol == "https:" ? ":8443" : ":80"); // HTTP default port :80
 
