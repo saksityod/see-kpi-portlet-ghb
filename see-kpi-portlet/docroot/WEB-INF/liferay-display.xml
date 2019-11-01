@@ -28,6 +28,7 @@
 		<portlet id="import-assignment"></portlet>
 		<portlet id="import-employee"></portlet>
 		<portlet id="cds-result"></portlet>
+		<portlet id="cds-result-v2"></portlet>
 		<portlet id="appraisal-data"></portlet>
 		<!-- 	<portlet id="apraisal-item-ifame"></portlet>
 			<portlet id="apraisal-assignment-ifame"></portlet>
