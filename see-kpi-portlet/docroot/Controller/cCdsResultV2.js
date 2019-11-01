@@ -92,7 +92,7 @@ $(document).ready(() => {
 
       if (appraisalLevelDropdown) {
         methods.renderSearchDropdownList(
-          'public/appraisal/al_list',
+          'public/cds_result/al_list_v2',
           {},
           appraisalLevelDropdown,
           'level_id',
@@ -412,7 +412,10 @@ $(document).ready(() => {
           cdsValueInputs.attr('disabled', false)
           forecastValueInputs.attr('disabled', false)
           forecastBUInputs.attr('disabled', false)
-
+        } else if (tokenID.is_show_corporate === 0 && state.filterAppraisalLevel == 2) {
+          cdsValueInputs.attr('disabled', true)
+          forecastValueInputs.attr('disabled', true)
+          forecastBUInputs.attr('disabled', true)
         } else {
           cdsValueInputs.map((index, item) => {
             item = $(item)
