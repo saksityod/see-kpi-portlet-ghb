@@ -98,7 +98,7 @@ $(document).ready(function () {
       }
 
       if (appraisalLevelDropdown) {
-        methods.renderSearchDropdownList('public/appraisal/al_list', {}, appraisalLevelDropdown, 'level_id', 'appraisal_level_name', 'filterAppraisalLevel', !!tokenID.is_hr, 'All Level');
+        methods.renderSearchDropdownList('public/cds_result/al_list_v2', {}, appraisalLevelDropdown, 'level_id', 'appraisal_level_name', 'filterAppraisalLevel', !!tokenID.is_hr, 'All Level');
         appraisalLevelDropdown.on('change', function (e) {
           state.filterAppraisalLevel = e.target.value;
           methods.renderSearchDropdownList('public/org', {
@@ -396,6 +396,10 @@ $(document).ready(function () {
           cdsValueInputs.attr('disabled', false);
           forecastValueInputs.attr('disabled', false);
           forecastBUInputs.attr('disabled', false);
+        } else if (tokenID.is_show_corporate === 0 && state.filterAppraisalLevel == 2) {
+          cdsValueInputs.attr('disabled', true);
+          forecastValueInputs.attr('disabled', true);
+          forecastBUInputs.attr('disabled', true);
         } else {
           cdsValueInputs.map(function (index, item) {
             item = $(item);
