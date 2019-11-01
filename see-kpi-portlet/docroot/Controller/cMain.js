@@ -2,6 +2,93 @@
 var tokenID= [];
 var is_hr = [];
 const setModalPopup = ['static','false'];
+
+const MONTHS_ARRAY = [
+	{
+		id: 1, 
+		label_en: 'January',
+		label_th: 'มกราคม',
+		label_en_short: 'Jan',
+		label_th_short: 'ม.ค.'
+	},
+	{
+		id: 2, 
+		label_en: 'Febuary',
+		label_th: 'กุมภาพันธ์',
+		label_en_short: 'Feb',
+		label_th_short: 'ก.พ.'
+	},
+	{
+		id: 3, 
+		label_en: 'March',
+		label_th: 'มีนาคม',
+		label_en_short: 'Mar',
+		label_th_short: 'มี.ค.'
+	},
+	{
+		id: 4, 
+		label_en: 'April',
+		label_th: 'เมษายน',
+		label_en_short: 'Apr',
+		label_th_short: 'เม.ย.'
+	},
+	{
+		id: 5, 
+		label_en: 'May',
+		label_th: 'พฤษภาคม',
+		label_en_short: 'May',
+		label_th_short: 'พ.ค.'
+	},
+	{
+		id: 6, 
+		label_en: 'June',
+		label_th: 'มิถุนายน',
+		label_en_short: 'Jun',
+		label_th_short: 'มิ.ย.'
+	},
+	{
+		id: 7, 
+		label_en: 'July',
+		label_th: 'กรกฏาคม',
+		label_en_short: 'Jul',
+		label_th_short: 'ก.ค.'
+	},
+	{
+		id: 8, 
+		label_en: 'August',
+		label_th: 'สิงหาคม',
+		label_en_short: 'Aug',
+		label_th_short: 'ส.ค.'
+	},
+	{
+		id: 9, 
+		label_en: 'September',
+		label_th: 'กันยายน',
+		label_en_short: 'Sep',
+		label_th_short: 'ก.ย.'
+	},
+	{
+		id: 10, 
+		label_en: 'October',
+		label_th: 'คุลาคม',
+		label_en_short: 'Oct',
+		label_th_short: 'ต.ค.'
+	},
+	{
+		id: 11, 
+		label_en: 'November',
+		label_th: 'พฤษจิกายน',
+		label_en_short: 'Nov',
+		label_th_short: 'พ.ย.'
+	},
+	{
+		id: 12, 
+		label_en: 'December',
+		label_th: 'ธันวาคม',
+		label_en_short: 'Dec',
+		label_th_short: 'ธ.ค.'
+	},
+]
 //const setModalPopup = ['""','""'];
 $(".noteInDashboard").css({
 	   'font-size' : '11.5px',
