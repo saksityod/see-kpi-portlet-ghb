@@ -549,7 +549,7 @@ var getListOrganizationForMultipleSelect = function(){
 		type:"get" ,
 		dataType:"json" ,
 		headers:{Authorization:"Bearer "+tokenID.token},
-		async:true,
+		async:false,
 		success:function(data){
 			dataOrg = data;
 			
