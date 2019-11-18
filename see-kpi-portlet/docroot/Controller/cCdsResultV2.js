@@ -1,16 +1,15 @@
 $(document).ready(() => {
-  const cdsResultAPIPath = `${serviceName}/public/cds_result`
-  const cdsResultAPIPathV2 = `${serviceName}/public/cds_result_v2`
+  const cdsResultAPIPath = `${serviceName}/public/cds_result`;
+  const cdsResultAPIPathV2 = `${serviceName}/public/cds_result_v2`;
 
-  const username = $('#user_portlet').val()
-  const password = $('#pass_portlet').val()
-  const plid = $('#plid_portlet').val()
-  const documentBody = $('body')
+  const username = $('#user_portlet').val();
+  const password = $('#pass_portlet').val();
+  const plid = $('#plid_portlet').val();
+  const documentBody = $('body');
 
   const methods = {
     pageInit: () => {
-      if (username != "" && username != null & username != [] && username != undefined) {
-
+      if (username != '' && (username != null) & (username != []) && username != undefined) {
         if (connectionServiceFn(username, password, plid) == false) {
           return false;
         }
@@ -20,45 +19,45 @@ $(document).ready(() => {
         headers: {
           Authorization: `Bearer ${tokenID.token}`
         }
-      })
+      });
 
-      $('[data-toggle="tooltip"]').css({ "cursor": "pointer" });
+      $('[data-toggle="tooltip"]').css({ cursor: 'pointer' });
       $('[data-toggle="tooltip"]').tooltip({
         html: true
-      })
+      });
       $('.dropify').dropify();
-      $(".app_url_hidden").show()
-      $(".sr-only").hide();
-      methods.getBrowserWidth()
+      $('.app_url_hidden').show();
+      $('.sr-only').hide();
+      methods.getBrowserWidth();
 
-      $(window).on('resize', () => methods.getBrowserWidth())
+      $(window).on('resize', () => methods.getBrowserWidth());
     },
     getBrowserWidth: () => {
       let wSearchAdvance = $('.cSearchAdvance').width() - 4;
       let wTarget = $('#drop_down_list_appraisal_type').width();
       let wCalTarget = $('#drop_down_list_appraisal_type').width() * 4 + 20;
       let height = $('#drop_down_list_appraisal_type').height() + 0.25;
-      let empInput = $("#txtEmpInput")
+      let empInput = $('#txtEmpInput');
 
       if (window.innerWidth < 980) {
-        empInput.css({ "width": "" });
-        empInput.css({ "height": "" });
+        empInput.css({ width: '' });
+        empInput.css({ height: '' });
       } else if (window.innerWidth < 1366) {
         empInput.width(wSearchAdvance - wCalTarget + wTarget);
-        empInput.css({ "height": height });
+        empInput.css({ height: height });
       } else {
         empInput.width(wSearchAdvance - wCalTarget + wTarget);
-        empInput.css({ "height": height });
+        empInput.css({ height: height });
       }
     },
     applySearchListeners: () => {
-      const yearDropdown = $("#year")
-      const monthDropdown = $("#month")
-      const appraisalTypeDropdown = $("#app_type")
-      const employeeNameInput = $("#emp_name")
-      const positionInput = $("#position")
-      const appraisalLevelDropdown = $("#app_lv")
-      const organizationDropdown = $("#org_id")
+      const yearDropdown = $('#year');
+      const monthDropdown = $('#month');
+      const appraisalTypeDropdown = $('#app_type');
+      const employeeNameInput = $('#emp_name');
+      const positionInput = $('#position');
+      const appraisalLevelDropdown = $('#app_lv');
+      const organizationDropdown = $('#org_id');
 
       if (yearDropdown) {
         methods.renderSearchDropdownList(
@@ -68,11 +67,11 @@ $(document).ready(() => {
           'current_appraisal_year',
           'current_appraisal_year',
           'filterYear'
-        )
+        );
 
         yearDropdown.on('change', e => {
-          state.filterYear = e.target.value
-        })
+          state.filterYear = e.target.value;
+        });
       }
 
       if (monthDropdown) {
@@ -83,11 +82,11 @@ $(document).ready(() => {
           'month_id',
           'month_name',
           'filterMonth'
-        )
+        );
 
         monthDropdown.on('change', e => {
-          state.filterMonth = e.target.value
-        })
+          state.filterMonth = e.target.value;
+        });
       }
 
       if (appraisalLevelDropdown) {
@@ -99,13 +98,15 @@ $(document).ready(() => {
           'appraisal_level_name',
           'filterAppraisalLevel',
           !!tokenID.is_hr,
-          'All Level'
-        )
+          'All Level',
+          true
+        );
 
         appraisalLevelDropdown.on('change', e => {
-          state.filterAppraisalLevel = e.target.value
+          state.filterAppraisalLevel = e.target.value;
+
           methods.renderSearchDropdownList(
-            'public/org',
+            'public/cds_result/org_list_v2',
             { level_id: e.target.value },
             organizationDropdown,
             'org_id',
@@ -113,25 +114,14 @@ $(document).ready(() => {
             'filterOrganization',
             !!tokenID.is_hr,
             'All Organization'
-          )
-        })
+          );
+        });
       }
 
       if (organizationDropdown) {
-        methods.renderSearchDropdownList(
-          'public/org',
-          { level_id: '', is_hr: tokenID.is_hr },
-          organizationDropdown,
-          'org_id',
-          'org_name',
-          'filterOrganization',
-          !!tokenID.is_hr,
-          'All Organization'
-        )
-
         organizationDropdown.on('change', e => {
-          state.filterOrganization = e.target.value
-        })
+          state.filterOrganization = e.target.value;
+        });
       }
 
       if (appraisalTypeDropdown) {
@@ -142,21 +132,21 @@ $(document).ready(() => {
           'appraisal_type_id',
           'appraisal_type_name',
           'filterAppraisalType'
-        )
+        );
 
         appraisalTypeDropdown.on('change', e => {
-          state.filterAppraisalType = e.target.value
+          state.filterAppraisalType = e.target.value;
 
           if (e.target.value == 2) {
-            $('#orgOrEmp').text('Emp Name')
-            employeeNameInput.attr('disabled', false)
-            positionInput.attr('disabled', false)
+            $('#orgOrEmp').text('Emp Name');
+            employeeNameInput.attr('disabled', false);
+            positionInput.attr('disabled', false);
           } else {
-            $('#orgOrEmp').text('Org Name')
-            employeeNameInput.attr('disabled', true)
-            positionInput.attr('disabled', true)
+            $('#orgOrEmp').text('Org Name');
+            employeeNameInput.attr('disabled', true);
+            positionInput.attr('disabled', true);
           }
-        })
+        });
       }
 
       if (employeeNameInput) {
@@ -164,45 +154,47 @@ $(document).ready(() => {
           source: (req, res) => {
             $.ajax({
               url: `${restfulURL}/${cdsResultAPIPath}/auto_emp_name`,
-              type: "POST",
-              dataType: "json",
+              type: 'POST',
+              dataType: 'json',
               data: {
-                "emp_name": req.term
+                emp_name: req.term
               },
               error: (xhr, textStatus, errorThrown) => {
                 console.log('Error: ' + xhr.responseText);
               },
               success: data => {
-                res(data.map(item => {
-                  return {
-                    label: item.emp_name,
-                    value: item.emp_name,
-                    emp_id: item.emp_id
-                  }
-                }))
+                res(
+                  data.map(item => {
+                    return {
+                      label: item.emp_name,
+                      value: item.emp_name,
+                      emp_id: item.emp_id
+                    };
+                  })
+                );
               },
               beforeSend: () => documentBody.mLoading('hide')
-            })
+            });
           },
           select: (e, ui) => {
             state.filterEmp = {
               id: ui.item.emp_id,
               name: ui.item.value
-            }
-            employeeNameInput.val(state.filterEmp.name)
+            };
+            employeeNameInput.val(state.filterEmp.name);
             return false;
           },
           change: (e, ui) => {
             if (employeeNameInput.val() == state.filterEmp.name) {
-              console.log(state.filterEmp)
+              console.log(state.filterEmp);
             } else if (ui.item != null) {
-              console.log(ui.item)
-              state.filterEmp = { id: ui.item.emp_id, name: ui.item.emp_name }
+              console.log(ui.item);
+              state.filterEmp = { id: ui.item.emp_id, name: ui.item.emp_name };
             } else {
-              state.filterEmp = { id: '', name: '' }
+              state.filterEmp = { id: '', name: '' };
             }
           }
-        })
+        });
       }
 
       if (positionInput) {
@@ -210,75 +202,77 @@ $(document).ready(() => {
           source: (req, res) => {
             $.ajax({
               url: `${restfulURL}/${cdsResultAPIPath}/auto_position_name`,
-              type: "POST",
-              dataType: "json",
+              type: 'POST',
+              dataType: 'json',
               data: {
-                "position_name": req.term
+                position_name: req.term
               },
               error: (xhr, textStatus, errorThrown) => {
                 console.log('Error: ' + xhr.responseText);
               },
               success: data => {
-                res(data.map(item => {
-                  return {
-                    label: item.position_name,
-                    value: item.position_name,
-                    position_id: item.position_id
-                  }
-                }))
+                res(
+                  data.map(item => {
+                    return {
+                      label: item.position_name,
+                      value: item.position_name,
+                      position_id: item.position_id
+                    };
+                  })
+                );
               },
               beforeSend: () => documentBody.mLoading('hide')
-            })
+            });
           },
           select: (e, ui) => {
-            console.log(e, ui)
+            console.log(e, ui);
             state.filterPosition = {
               id: ui.item.position_id,
               name: ui.item.position_value
-            }
+            };
             return false;
           },
           change: (e, ui) => {
-            console.log(e, ui)
+            console.log(e, ui);
             if (positionInput.val() == state.filterPosition.name) {
-              console.log('test')
+              console.log('test');
             } else if (ui.item != null) {
-              state.filterPosition = { id: ui.item.position_id, name: ui.item.position_name }
+              state.filterPosition = { id: ui.item.position_id, name: ui.item.position_name };
             } else {
-              state.filterEmp = { id: '', name: '' }
+              state.filterEmp = { id: '', name: '' };
             }
           }
-        })
+        });
       }
     },
     applyImportModalListeners: () => {
-      const importCdsButton = $("#btn_import")
-      const importModal = $('#ModalImport')
-      const importFileForm = $('form#fileImportCdsResult')
-      const importFileInput = $("#file")
+      const importCdsButton = $('#btn_import');
+      const importModal = $('#ModalImport');
+      const importFileForm = $('form#fileImportCdsResult');
+      const importFileInput = $('#file');
 
       importModal.on('hidden.bs.modal', () => {
-        state.importFormData = null
-        importFileInput.val("")
+        state.importFormData = null;
+        importFileInput.val('');
         documentBody.mLoading('hide');
-      })
+      });
 
       importFileInput.on('change', e => {
-        let importFormData = new FormData()
-        let stagingFile = e.target.files[0]
-        importFormData.append('file', stagingFile)
-        state.importFormData = importFormData
-      })
+        let importFormData = new FormData();
+        let stagingFile = e.target.files[0];
+        importFormData.append('file', stagingFile);
+        state.importFormData = importFormData;
+      });
 
       importFileForm.on('submit', e => {
-        e.preventDefault()
-        e.stopPropagation()
+        e.preventDefault();
+        e.stopPropagation();
 
-        documentBody.mLoading()
+        documentBody.mLoading();
 
         if (!state.importFormData || !state.importFormData.getAll('file').length) {
-          importModal.modal('hide')
-          return false
+          importModal.modal('hide');
+          return false;
         }
 
         $.ajax({
@@ -290,49 +284,57 @@ $(document).ready(() => {
           success: (data, textStatus, jqXHR) => {
             if (data.status == 200 && data.errors.length == 0) {
               callFlashSlide(Liferay.Language.get('import-cds-result-successfully'));
-              methods.refreshData(1, state.pagination.perPage)
+              methods.refreshData(1, state.pagination.perPage);
             } else {
-              let validateFile = ""
+              let validateFile = '';
 
               data.errors.map((err, index) => {
                 if (err[Object.keys(err)[0]] !== undefined || err[Object.keys(err)[0]] === null) {
                   if (err[Object.keys(err)[0]] === null) {
-                    validateFile += "<font color='#FFC446'><i class='fa fa-exclamation-triangle'></i></font> " + Object.keys(err)[0] + " : null <i class='fa fa-level-down'></i><br>"
+                    validateFile +=
+                      "<font color='#FFC446'><i class='fa fa-exclamation-triangle'></i></font> " +
+                      Object.keys(err)[0] +
+                      " : null <i class='fa fa-level-down'></i><br>";
                   } else {
-                    validateFile += "<font color='#FFC446'><i class='fa fa-exclamation-triangle'></i></font> " + Object.keys(err)[0] + ": " + data.errors[index][Object.keys(err)[0]] + " <i class='fa fa-level-down'></i><br>"
+                    validateFile +=
+                      "<font color='#FFC446'><i class='fa fa-exclamation-triangle'></i></font> " +
+                      Object.keys(err)[0] +
+                      ': ' +
+                      data.errors[index][Object.keys(err)[0]] +
+                      " <i class='fa fa-level-down'></i><br>";
                   }
                 }
                 data.errors.map((data, index) => {
-                  validateFile += "<font color='red'>&emsp;*</font> " + indexEntry2 + "<br>"
-                })
-              })
+                  validateFile += "<font color='red'>&emsp;*</font> " + indexEntry2 + '<br>';
+                });
+              });
 
-              callFlashSlideInModal(validateFile, "#information", "error")
+              callFlashSlideInModal(validateFile, '#information', 'error');
             }
-            methods.refreshData(1, state.pagination.perPage)
+            methods.refreshData(1, state.pagination.perPage);
             // TODO --- Test Case 1: Without error, Case 2: With errors
           },
-          error: function (jqXHR, textStatus, errorThrown) {
-            callFlashSlide('Format Error : ' + textStatus)
+          error: function(jqXHR, textStatus, errorThrown) {
+            callFlashSlide('Format Error : ' + textStatus);
           },
           complete: () => {
-            importModal.modal('hide')
+            importModal.modal('hide');
           }
-        })
+        });
         return false;
-      })
+      });
 
-      importCdsButton.click(function () {
-        $(".btnModalClose").click()
-        $(".dropify-clear").click()
+      importCdsButton.click(function() {
+        $('.btnModalClose').click();
+        $('.dropify-clear').click();
         importCdsButton.attr({
-          "data-backdrop": setModalPopup[0],
-          "data-keyboard": setModalPopup[1]
-        })
-      })
+          'data-backdrop': setModalPopup[0],
+          'data-keyboard': setModalPopup[1]
+        });
+      });
     },
     applyExportButtonListeners: () => {
-      const exportButton = $("#exportToExcel")
+      const exportButton = $('#exportToExcel');
 
       if (exportButton) {
         exportButton.on('click', () => {
@@ -344,115 +346,115 @@ $(document).ready(() => {
             org_id: state.filterOrgLevel,
             position_id: state.filterPosition.id,
             emp_id: state.filterEmp.id
-          }
+          };
 
-          let xhr
+          let xhr;
 
           if (window.XMLHttpRequest) {
-            xhr = new XMLHttpRequest()
+            xhr = new XMLHttpRequest();
           } else {
-            xhr = new ActiveXObject("Microsoft.XMLHTTP")
+            xhr = new ActiveXObject('Microsoft.XMLHTTP');
           }
-          xhr.open('POST', `${restfulURL}/${cdsResultAPIPath}/export`, true)
-          xhr.setRequestHeader('Authorization', "Bearer " + tokenID.token)
-          xhr.setRequestHeader('Content-Type', 'application/json')
+          xhr.open('POST', `${restfulURL}/${cdsResultAPIPath}/export`, true);
+          xhr.setRequestHeader('Authorization', 'Bearer ' + tokenID.token);
+          xhr.setRequestHeader('Content-Type', 'application/json');
 
-          xhr.responseType = 'blob'
+          xhr.responseType = 'blob';
           xhr.onload = () => {
-            let blob = xhr.response
-            let a = document.createElement('a')
-            a.href = window.URL.createObjectURL(blob)
-            a.download = 'CDS_Result'
-            a.click()
-            callFlashSlide('Saved')
-          }
+            let blob = xhr.response;
+            let a = document.createElement('a');
+            a.href = window.URL.createObjectURL(blob);
+            a.download = 'CDS_Result';
+            a.click();
+            callFlashSlide('Saved');
+          };
           xhr.onerror = err => {
-            console.log(err)
-          }
-          xhr.send(JSON.stringify(requestData))
-        })
+            console.log(err);
+          };
+          xhr.send(JSON.stringify(requestData));
+        });
       }
     },
     applySearchButtonListeners: () => {
-      const searchButton = $('#btnSearchAdvance')
+      const searchButton = $('#btnSearchAdvance');
 
       if (searchButton) {
         searchButton.on('click', () => {
-          methods.refreshData()
+          methods.refreshData();
 
-          if ($("#app_type").val() == 2) {
-            $('#orgOrEmp').text('Emp Name')
+          if ($('#app_type').val() == 2) {
+            $('#orgOrEmp').text('Emp Name');
           } else {
-            $('#orgOrEmp').text('Org Name')
+            $('#orgOrEmp').text('Org Name');
           }
-        })
+        });
       }
     },
     applyEditListeners: () => {
-      let toggleEditButton = $('#btnEditCdsResult')
-      let cancelButton = $("#btnCancelCdsResult")
-      let saveButton = $("#btnSaveCdsResult")
+      let toggleEditButton = $('#btnEditCdsResult');
+      let cancelButton = $('#btnCancelCdsResult');
+      let saveButton = $('#btnSaveCdsResult');
 
-      toggleEditButton.off('click')
-      cancelButton.off('click')
-      saveButton.off('click')
+      toggleEditButton.off('click');
+      cancelButton.off('click');
+      saveButton.off('click');
 
       toggleEditButton.on('click', () => {
-        let cdsValueInputs = $('.cdsValueInput')
-        let forecastValueInputs = $('.cdsForecastValueInput')
-        let forecastBUInputs = $('.cdsForecastBUInput')
+        let cdsValueInputs = $('.cdsValueInput');
+        let forecastValueInputs = $('.cdsForecastValueInput');
+        let forecastBUInputs = $('.cdsForecastBUInput');
 
-        state.cdsEditing = true
+        state.cdsEditing = true;
 
-        $("#btnEditCdsResult").prop("disabled", state.cdsEditing)
-        $("#btnSaveCdsResult").prop("disabled", !state.cdsEditing)
-        $("#btnCancelCdsResult").prop("disabled", !state.cdsEditing)
+        toggleEditButton.prop('disabled', state.cdsEditing);
+        saveButton.prop('disabled', !state.cdsEditing);
+        cancelButton.prop('disabled', !state.cdsEditing);
 
         if (tokenID.is_hr === 1) {
-          cdsValueInputs.attr('disabled', false)
-          forecastValueInputs.attr('disabled', false)
-          forecastBUInputs.attr('disabled', false)
-        } else if (tokenID.is_show_corporate === 0 && state.filterAppraisalLevel == 2) {
-          cdsValueInputs.attr('disabled', true)
-          forecastValueInputs.attr('disabled', true)
-          forecastBUInputs.attr('disabled', true)
+          cdsValueInputs.attr('disabled', false);
+          forecastValueInputs.attr('disabled', false);
+          forecastBUInputs.attr('disabled', false);
+        } else if (tokenID.is_show_corporate === 1 && state.filterAppraisalLevel == 2) {
+          cdsValueInputs.attr('disabled', true);
+          forecastValueInputs.attr('disabled', true);
+          forecastBUInputs.attr('disabled', true);
         } else {
           cdsValueInputs.map((index, item) => {
-            item = $(item)
+            item = $(item);
             if (item.data('monthid') == state.filterMonth) {
-              item.attr('disabled', false)
+              item.attr('disabled', false);
             } else {
-              item.attr('disabled', true)
+              item.attr('disabled', true);
             }
-          })
+          });
 
           forecastValueInputs.map((index, item) => {
-            item = $(item)
+            item = $(item);
             if (item.data('monthid') >= state.filterMonth) {
-              item.attr('disabled', false)
+              item.attr('disabled', false);
             } else {
-              item.attr('disabled', true)
+              item.attr('disabled', true);
             }
-          })
+          });
 
           forecastBUInputs.map((index, item) => {
-            item = $(item)
+            item = $(item);
             if (item.data('monthid') >= state.filterMonth) {
-              item.attr('disabled', false)
+              item.attr('disabled', false);
             } else {
-              item.attr('disabled', true)
+              item.attr('disabled', true);
             }
-          })
+          });
         }
-      })
+      });
       cancelButton.on('click', () => {
-        state.cdsEditing = false
+        state.cdsEditing = false;
 
-        $("#btnEditCdsResult").prop("disabled", state.cdsEditing)
-        $("#btnSaveCdsResult").prop("disabled", !state.cdsEditing)
-        $("#btnCancelCdsResult").prop("disabled", !state.cdsEditing)
-        methods.renderData(state.originalData)
-      })
+        $('#btnEditCdsResult').prop('disabled', state.cdsEditing);
+        $('#btnSaveCdsResult').prop('disabled', !state.cdsEditing);
+        $('#btnCancelCdsResult').prop('disabled', !state.cdsEditing);
+        methods.renderData(state.originalData);
+      });
       saveButton.on('click', () => {
         $.ajax({
           url: `${restfulURL}/${cdsResultAPIPathV2}`,
@@ -462,15 +464,25 @@ $(document).ready(() => {
           },
           success: (data, status, xhr) => {
             if (xhr.status === 200) {
-              methods.refreshData(1, state.pagination.perPage)
-            } else if (data.status == "400") {
-              callFlashSlide("<font color=''>" + data.data + "</font>", "error")
+              methods.refreshData(1, state.pagination.perPage);
+            } else if (data.status == '400') {
+              callFlashSlide("<font color=''>" + data.data + '</font>', 'error');
             }
           }
-        })
-      })
+        });
+      });
     },
-    renderSearchDropdownList: (apiPath, apiData = {}, targetNode, dataValueKey, dataLabelKey, stateFilterName, all, allLabel) => {
+    renderSearchDropdownList: (
+      apiPath,
+      apiData = {},
+      targetNode,
+      dataValueKey,
+      dataLabelKey,
+      stateFilterName,
+      all,
+      allLabel,
+      triggerChange
+    ) => {
       $.ajax({
         type: 'GET',
         url: `${restfulURL}/${serviceName}/${apiPath}`,
@@ -478,41 +490,51 @@ $(document).ready(() => {
         data: apiData,
         success: (data, status, xhr) => {
           if (xhr.status === 200) {
-            let optionTemplate = `<option value=$objectValue>$objectLabel</option>`
-            let optionsString = ''
-            targetNode.empty()
+            let optionTemplate = `<option value=$objectValue>$objectLabel</option>`;
+            let optionsString = '';
+            targetNode.empty();
 
             data.map(item => {
               optionsString += optionTemplate
                 .replace('$objectValue', item[dataValueKey])
-                .replace('$objectLabel', item[dataLabelKey])
-            })
+                .replace('$objectLabel', item[dataLabelKey]);
+            });
 
             if (all) {
-              targetNode.append(
-                optionTemplate
-                  .replace('$objectValue', '')
-                  .replace('$objectLabel', allLabel)
-              )
-              state[stateFilterName] = ''
+              targetNode.append(optionTemplate.replace('$objectValue', '').replace('$objectLabel', allLabel));
+              state[stateFilterName] = '';
             } else {
-              state[stateFilterName] = data[0][dataValueKey]
+              state[stateFilterName] = data[0][dataValueKey];
             }
 
-            targetNode.append(optionsString)
+            if (triggerChange) {
+              methods.renderSearchDropdownList(
+                'public/cds_result/org_list_v2',
+                { level_id: all ? '' : data[0][dataValueKey] },
+                $('#org_id'),
+                'org_id',
+                'org_name',
+                'filterOrganization',
+                !!tokenID.is_hr,
+                'All Organization'
+              );
+            }
+
+            targetNode.append(optionsString);
           }
         },
         error: xhr => {
-          targetNode.append('<option>-</option>')
+          targetNode.append('<option>-</option>');
         }
-      })
+      });
     },
     refreshData: (page = 1, size = 10) => {
       $.ajax({
         url: `${restfulURL}/${cdsResultAPIPathV2}`,
         type: 'GET',
         data: {
-          page, size,
+          page,
+          size,
           current_appraisal_year: state.filterYear,
           month_id: state.filterMonth,
           appraisal_type_id: state.filterAppraisalType,
@@ -524,32 +546,36 @@ $(document).ready(() => {
         success: (data, status, xhr) => {
           if (xhr.status === 200) {
             if (data.data) {
-              state.originalData = [...data.data]
-              state.modifiedData = [...data.data]
+              state.originalData = [...data.data];
+              state.modifiedData = [...data.data];
             }
 
             state.pagination = {
               perPage: data.per_page,
               currentPage: data.current_page,
               total: data.total
+            };
+
+            state.cdsEditing = false;
+
+            if (tokenID.is_show_corporate === 1 && state.filterAppraisalLevel == 2 && tokenID.is_hr !== 1) {
+              $('#btnEditCdsResult').prop('disabled', true);
+            } else {
+              $('#btnEditCdsResult').prop('disabled', state.cdsEditing);
             }
+            $('#btnSaveCdsResult').prop('disabled', !state.cdsEditing);
+            $('#btnCancelCdsResult').prop('disabled', !state.cdsEditing);
+            methods.renderData(state.originalData);
+            methods.setupPagination(state.pagination);
 
-            state.cdsEditing = false
-
-            $("#btnEditCdsResult").prop("disabled", state.cdsEditing)
-            $("#btnSaveCdsResult").prop("disabled", !state.cdsEditing)
-            $("#btnCancelCdsResult").prop("disabled", !state.cdsEditing)
-            methods.renderData(state.originalData)
-            methods.setupPagination(state.pagination)
-
-            $("#cds_result_list_content").show()
-            methods.getBrowserWidth()
+            $('#cds_result_list_content').show();
+            methods.getBrowserWidth();
           }
         }
-      })
+      });
     },
     renderData: records => {
-      let htmlTable = ``
+      let htmlTable = ``;
       const dataRowString = `
       <tr class="rowSearch" data-recordid="$cdsId" data-toggle="collapse" data-target="#collapse-$cdsId$orgId$levelId">
         <td class="expandButton text-center" style="cursor: pointer;">
@@ -610,17 +636,17 @@ $(document).ready(() => {
           </div>
         </td>
       </tr>
-      `
+      `;
       records.map(item => {
-        let monthsTableHead = ''
-        let cdsValueInputsString = ''
-        let cdsForecastValueInputsString = ''
-        let cdsForecastBUInputsString = ''
-        let months = [...MONTHS_ARRAY]
-        let filteringMonth = item.months.find(i => i.appraisal_month_no == state.filterMonth)
+        let monthsTableHead = '';
+        let cdsValueInputsString = '';
+        let cdsForecastValueInputsString = '';
+        let cdsForecastBUInputsString = '';
+        let months = [...MONTHS_ARRAY];
+        let filteringMonth = item.months.find(i => i.appraisal_month_no == state.filterMonth);
         months.map(month => {
-          let monthItem = item.months.find(i => i.appraisal_month_no == month.id)
-          monthsTableHead += `<th class="colHead">${month.label_th_short}</th>`
+          let monthItem = item.months.find(i => i.appraisal_month_no == month.id);
+          monthsTableHead += `<th class="colHead">${month.label_th_short}</th>`;
           cdsValueInputsString += `
           <td>
             <input type='text' 
@@ -634,7 +660,7 @@ $(document).ready(() => {
               class="cdsValueInput colCdsData" 
               value="${monthItem ? monthItem.cds_value || '' : ''}" 
               ${state.cdsEditing ? '' : 'disabled'} />
-          </td>`
+          </td>`;
           cdsForecastValueInputsString += `
           <td>
             <input type='text' 
@@ -648,7 +674,7 @@ $(document).ready(() => {
               class="cdsForecastValueInput colCdsData" 
               value="${monthItem ? monthItem.corporate_forecast_value || '' : ''}"
               ${state.cdsEditing ? '' : 'disabled'} />
-          </td>`
+          </td>`;
           cdsForecastBUInputsString += `
             <td>
               <input type='text' 
@@ -662,8 +688,8 @@ $(document).ready(() => {
                 class="cdsForecastBUInput colCdsData" 
                 value="${monthItem ? monthItem.bu_forecast_value || '' : ''}" 
                 ${state.cdsEditing ? '' : 'disabled'} />
-            </td>`
-        })
+            </td>`;
+        });
 
         htmlTable += dataRowString
           .replace('$orgOrEmpName', state.filterAppraisalType == '2' ? item.emp_name : item.org_name)
@@ -678,79 +704,89 @@ $(document).ready(() => {
           .replace('$cdsValueInputsString', cdsValueInputsString)
           .replace('$cdsForecastValueInputsString', cdsForecastValueInputsString)
           .replace('$cdsForecastBUInputsString', cdsForecastBUInputsString)
-          .replace('$isHidden', filteringMonth ? '' : 'hide')
-      })
+          .replace('$isHidden', filteringMonth ? '' : 'hide');
+      });
 
-      let tableBody = $('#listCdsResult')
+      let tableBody = $('#listCdsResult');
 
-      tableBody.empty()
-      tableBody.append(htmlTable)
+      tableBody.empty();
+      tableBody.append(htmlTable);
 
-      let expendableColumns = $(".expandButton")
+      let expendableColumns = $('.expandButton');
 
       if (expendableColumns) {
         expendableColumns.children().on('click', e => {
-          e.preventDefault()
-          e.stopPropagation()
+          e.preventDefault();
+          e.stopPropagation();
 
-          let expandIcon = $(e.target)
+          let expandIcon = $(e.target);
 
-          let subCdsRowSelector = expandIcon.parent().parent().data('target')
-          let subCdsRow = $(subCdsRowSelector).children().children()
+          let subCdsRowSelector = expandIcon
+            .parent()
+            .parent()
+            .data('target');
+          let subCdsRow = $(subCdsRowSelector)
+            .children()
+            .children();
 
           if (expandIcon.hasClass('fa-plus')) {
-            expandIcon.removeClass('fa-plus').addClass('fa-minus')
-            subCdsRow.removeClass('collapse-hide').addClass('collapse-show')
+            expandIcon.removeClass('fa-plus').addClass('fa-minus');
+            subCdsRow.removeClass('collapse-hide').addClass('collapse-show');
           } else {
-            expandIcon.removeClass('fa-minus').addClass('fa-plus')
-            subCdsRow.removeClass('collapse-show').addClass('collapse-hide')
+            expandIcon.removeClass('fa-minus').addClass('fa-plus');
+            subCdsRow.removeClass('collapse-show').addClass('collapse-hide');
           }
-        })
+        });
 
         expendableColumns.on('click', e => {
-          e.preventDefault()
+          e.preventDefault();
 
-          let expandIcon = $(e.target).children()
+          let expandIcon = $(e.target).children();
 
-          let subCdsRowSelector = expandIcon.parent().parent().data('target')
-          let subCdsRow = $(subCdsRowSelector).children().children()
+          let subCdsRowSelector = expandIcon
+            .parent()
+            .parent()
+            .data('target');
+          let subCdsRow = $(subCdsRowSelector)
+            .children()
+            .children();
 
           if (expandIcon.hasClass('fa-plus')) {
-            expandIcon.removeClass('fa-plus').addClass('fa-minus')
-            subCdsRow.removeClass('collapse-hide').addClass('collapse-show')
+            expandIcon.removeClass('fa-plus').addClass('fa-minus');
+            subCdsRow.removeClass('collapse-hide').addClass('collapse-show');
           } else {
-            expandIcon.removeClass('fa-minus').addClass('fa-plus')
-            subCdsRow.removeClass('collapse-show').addClass('collapse-hide')
+            expandIcon.removeClass('fa-minus').addClass('fa-plus');
+            subCdsRow.removeClass('collapse-show').addClass('collapse-hide');
           }
-        })
+        });
       }
 
-      let cdsValueInputs = $('.cdsValueInput')
-      let forecastValueInputs = $('.cdsForecastValueInput')
-      let forecastBUInputs = $('.cdsForecastBUInput')
+      let cdsValueInputs = $('.cdsValueInput');
+      let forecastValueInputs = $('.cdsForecastValueInput');
+      let forecastBUInputs = $('.cdsForecastBUInput');
 
-      cdsValueInputs.off('change')
-      forecastValueInputs.off('change')
-      forecastBUInputs.off('change')
+      cdsValueInputs.off('change');
+      forecastValueInputs.off('change');
+      forecastBUInputs.off('change');
 
       cdsValueInputs.on('change', e => {
-        let cdsId = e.target.dataset.cds_id
-        let orgId = e.target.dataset.org_id
-        let levelId = e.target.dataset.level_id
-        let empId = e.target.dataset.emp_id
-        let monthId = e.target.dataset.monthid
-        let newValue = e.target.value
+        let cdsId = e.target.dataset.cds_id;
+        let orgId = e.target.dataset.org_id;
+        let levelId = e.target.dataset.level_id;
+        let empId = e.target.dataset.emp_id;
+        let monthId = e.target.dataset.monthid;
+        let newValue = e.target.value;
 
         state.modifiedData = state.modifiedData.map(item => {
           if (item.appraisal_type_id == 1) {
             if (item.cds_id == cdsId && item.org_id == orgId && item.level_id == levelId) {
-              let monthIndex = item.months.findIndex(month => month.appraisal_month_no == monthId)
+              let monthIndex = item.months.findIndex(month => month.appraisal_month_no == monthId);
               if (monthIndex >= 0 && item.months[monthIndex]) {
-                let oldData = item.months[monthIndex]
-                item.months[monthIndex] = { ...oldData, cds_value: newValue }
+                let oldData = item.months[monthIndex];
+                item.months[monthIndex] = { ...oldData, cds_value: newValue };
               } else {
-                let { cds_id, year, level_id, org_id, appraisal_type_id, position_id, emp_id } = item
-                let targetMonth = MONTHS_ARRAY.find(month => month.id == monthId)
+                let { cds_id, year, level_id, org_id, appraisal_type_id, position_id, emp_id } = item;
+                let targetMonth = MONTHS_ARRAY.find(month => month.id == monthId);
                 let updatedMonth = {
                   cds_result_id: null,
                   appraisal_month_no: monthId,
@@ -763,19 +799,19 @@ $(document).ready(() => {
                   position_id,
                   appraisal_type_id,
                   emp_id
-                }
-                item.months = [...item.months, updatedMonth]
+                };
+                item.months = [...item.months, updatedMonth];
               }
             }
           } else {
             if (item.cds_id == cdsId && item.emp_id == empId) {
-              let monthIndex = item.months.findIndex(month => month.appraisal_month_no == monthId)
+              let monthIndex = item.months.findIndex(month => month.appraisal_month_no == monthId);
               if (monthIndex >= 0 && item.months[monthIndex]) {
-                let oldData = item.months[monthIndex]
-                item.months[monthIndex] = { ...oldData, cds_value: newValue }
+                let oldData = item.months[monthIndex];
+                item.months[monthIndex] = { ...oldData, cds_value: newValue };
               } else {
-                let { cds_id, year, level_id, org_id, appraisal_type_id, position_id, emp_id } = item
-                let targetMonth = MONTHS_ARRAY.find(month => month.id == monthId)
+                let { cds_id, year, level_id, org_id, appraisal_type_id, position_id, emp_id } = item;
+                let targetMonth = MONTHS_ARRAY.find(month => month.id == monthId);
                 let updatedMonth = {
                   cds_result_id: null,
                   appraisal_month_no: monthId,
@@ -788,33 +824,33 @@ $(document).ready(() => {
                   position_id,
                   appraisal_type_id,
                   emp_id
-                }
-                item.months = [...item.months, updatedMonth]
+                };
+                item.months = [...item.months, updatedMonth];
               }
             }
           }
-          return item
-        })
-      })
+          return item;
+        });
+      });
 
       forecastValueInputs.on('change', e => {
-        let cdsId = e.target.dataset.cds_id
-        let orgId = e.target.dataset.org_id
-        let levelId = e.target.dataset.level_id
-        let empId = e.target.dataset.emp_id
-        let monthId = e.target.dataset.monthid
-        let newValue = e.target.value
+        let cdsId = e.target.dataset.cds_id;
+        let orgId = e.target.dataset.org_id;
+        let levelId = e.target.dataset.level_id;
+        let empId = e.target.dataset.emp_id;
+        let monthId = e.target.dataset.monthid;
+        let newValue = e.target.value;
 
         state.modifiedData = state.modifiedData.map(item => {
           if (item.appraisal_type_id == 1) {
             if (item.cds_id == cdsId && item.org_id == orgId && item.level_id == levelId) {
-              let monthIndex = item.months.findIndex(month => month.appraisal_month_no == monthId)
+              let monthIndex = item.months.findIndex(month => month.appraisal_month_no == monthId);
               if (monthIndex >= 0 && item.months[monthIndex]) {
-                let oldData = item.months[monthIndex]
-                item.months[monthIndex] = { ...oldData, corporate_forecast_value: newValue }
+                let oldData = item.months[monthIndex];
+                item.months[monthIndex] = { ...oldData, corporate_forecast_value: newValue };
               } else {
-                let { cds_id, year, level_id, org_id, appraisal_type_id, position_id, emp_id } = item
-                let targetMonth = MONTHS_ARRAY.find(month => month.id == monthId)
+                let { cds_id, year, level_id, org_id, appraisal_type_id, position_id, emp_id } = item;
+                let targetMonth = MONTHS_ARRAY.find(month => month.id == monthId);
                 let updatedMonth = {
                   cds_result_id: null,
                   appraisal_month_no: monthId,
@@ -827,19 +863,19 @@ $(document).ready(() => {
                   position_id,
                   appraisal_type_id,
                   emp_id
-                }
-                item.months = [...item.months, updatedMonth]
+                };
+                item.months = [...item.months, updatedMonth];
               }
             }
           } else {
             if (item.cds_id == cdsId && item.emp_id == empId) {
-              let monthIndex = item.months.findIndex(month => month.appraisal_month_no == monthId)
+              let monthIndex = item.months.findIndex(month => month.appraisal_month_no == monthId);
               if (monthIndex >= 0 && item.months[monthIndex]) {
-                let oldData = item.months[monthIndex]
-                item.months[monthIndex] = { ...oldData, corporate_forecast_value: newValue }
+                let oldData = item.months[monthIndex];
+                item.months[monthIndex] = { ...oldData, corporate_forecast_value: newValue };
               } else {
-                let { cds_id, year, level_id, org_id, appraisal_type_id, position_id, emp_id } = item
-                let targetMonth = MONTHS_ARRAY.find(month => month.id == monthId)
+                let { cds_id, year, level_id, org_id, appraisal_type_id, position_id, emp_id } = item;
+                let targetMonth = MONTHS_ARRAY.find(month => month.id == monthId);
                 let updatedMonth = {
                   cds_result_id: null,
                   appraisal_month_no: monthId,
@@ -852,33 +888,33 @@ $(document).ready(() => {
                   position_id,
                   appraisal_type_id,
                   emp_id
-                }
-                item.months = [...item.months, updatedMonth]
+                };
+                item.months = [...item.months, updatedMonth];
               }
             }
           }
-          return item
-        })
-      })
+          return item;
+        });
+      });
 
       forecastBUInputs.on('change', e => {
-        let cdsId = e.target.dataset.cds_id
-        let orgId = e.target.dataset.org_id
-        let levelId = e.target.dataset.level_id
-        let empId = e.target.dataset.emp_id
-        let monthId = e.target.dataset.monthid
-        let newValue = e.target.value
+        let cdsId = e.target.dataset.cds_id;
+        let orgId = e.target.dataset.org_id;
+        let levelId = e.target.dataset.level_id;
+        let empId = e.target.dataset.emp_id;
+        let monthId = e.target.dataset.monthid;
+        let newValue = e.target.value;
 
         state.modifiedData = state.modifiedData.map(item => {
           if (item.appraisal_type_id == 1) {
             if (item.cds_id == cdsId && item.org_id == orgId && item.level_id == levelId) {
-              let monthIndex = item.months.findIndex(month => month.appraisal_month_no == monthId)
+              let monthIndex = item.months.findIndex(month => month.appraisal_month_no == monthId);
               if (monthIndex >= 0 && item.months[monthIndex]) {
-                let oldData = item.months[monthIndex]
-                item.months[monthIndex] = { ...oldData, bu_forecast_value: newValue }
+                let oldData = item.months[monthIndex];
+                item.months[monthIndex] = { ...oldData, bu_forecast_value: newValue };
               } else {
-                let { cds_id, year, level_id, org_id, appraisal_type_id, position_id, emp_id } = item
-                let targetMonth = MONTHS_ARRAY.find(month => month.id == monthId)
+                let { cds_id, year, level_id, org_id, appraisal_type_id, position_id, emp_id } = item;
+                let targetMonth = MONTHS_ARRAY.find(month => month.id == monthId);
                 let updatedMonth = {
                   cds_result_id: null,
                   appraisal_month_no: monthId,
@@ -891,18 +927,18 @@ $(document).ready(() => {
                   position_id,
                   appraisal_type_id,
                   emp_id
-                }
-                item.months = [...item.months, updatedMonth]
+                };
+                item.months = [...item.months, updatedMonth];
               }
             } else {
               if (item.cds_id == cdsId && item.emp_id == empId) {
-                let monthIndex = item.months.findIndex(month => month.appraisal_month_no == monthId)
+                let monthIndex = item.months.findIndex(month => month.appraisal_month_no == monthId);
                 if (monthIndex >= 0 && item.months[monthIndex]) {
-                  let oldData = item.months[monthIndex]
-                  item.months[monthIndex] = { ...oldData, bu_forecast_value: newValue }
+                  let oldData = item.months[monthIndex];
+                  item.months[monthIndex] = { ...oldData, bu_forecast_value: newValue };
                 } else {
-                  let { cds_id, year, level_id, org_id, appraisal_type_id, position_id, emp_id } = item
-                  let targetMonth = MONTHS_ARRAY.find(month => month.id == monthId)
+                  let { cds_id, year, level_id, org_id, appraisal_type_id, position_id, emp_id } = item;
+                  let targetMonth = MONTHS_ARRAY.find(month => month.id == monthId);
                   let updatedMonth = {
                     cds_result_id: null,
                     appraisal_month_no: monthId,
@@ -915,95 +951,103 @@ $(document).ready(() => {
                     position_id,
                     appraisal_type_id,
                     emp_id
-                  }
-                  item.months = [...item.months, updatedMonth]
+                  };
+                  item.months = [...item.months, updatedMonth];
                 }
               }
             }
           }
-          return item
-        })
-      })
+          return item;
+        });
+      });
 
       if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-        $(".popover-detail-del").popover({
+        $('.popover-detail-del').popover({
           delay: {
             hide: 100
           },
           container: '.ibox-content'
-        })
+        });
       } else {
-        $(".popover-detail-del").popover({
+        $('.popover-detail-del').popover({
           delay: {
             hide: 100
           }
-        })
+        });
       }
 
-      let cdsItem = $(".CdsResult")
+      let cdsItem = $('.CdsResult');
 
-      cdsItem.off("click", ".popover-detail-del")
-      cdsItem.on("click", ".popover-detail-del", () => {
-        let cdsDetailButtons = $('.cdsDetailButton')
-        let cdsDeleteButtons = $('.cdsDeleteButton')
+      cdsItem.off('click', '.popover-detail-del');
+      cdsItem.on('click', '.popover-detail-del', () => {
+        let cdsDetailButtons = $('.cdsDetailButton');
+        let cdsDeleteButtons = $('.cdsDeleteButton');
 
-        cdsDetailButtons.off('click')
+        cdsDetailButtons.off('click');
         cdsDetailButtons.on('click', e => {
-          let targetCdsId = e.target.id
-          let targetOrgId = e.target.dataset.orgid
-          let targetLevelId = e.target.dataset.levelid
-          let targetEmpId = e.target.dataset.empid
-          let cdsRecord = state.originalData.find(record =>
-            record.cds_id == targetCdsId &&
-            (record.appraisal_type_id == 1 ? record.org_id == targetOrgId : record.emp_id == targetEmpId) &&
-            record.level_id == targetLevelId
-          )
+          let targetCdsId = e.target.id;
+          let targetOrgId = e.target.dataset.orgid;
+          let targetLevelId = e.target.dataset.levelid;
+          let targetEmpId = e.target.dataset.empid;
+          let cdsRecord = state.originalData.find(
+            record =>
+              record.cds_id == targetCdsId &&
+              (record.appraisal_type_id == 1 ? record.org_id == targetOrgId : record.emp_id == targetEmpId) &&
+              record.level_id == targetLevelId
+          );
 
           if (cdsRecord) {
-            let cdsResultRecord = cdsRecord.months.find(cdsResult =>
-              cdsResult.appraisal_month_no == state.filterMonth &&
-              cdsResult.cds_id == targetCdsId &&
-              (cdsResult.appraisal_type_id == 1 ? cdsResult.org_id == targetOrgId : cdsResult.emp_id == targetEmpId) &&
-              cdsResult.level_id == cdsRecord.level_id
-            )
+            let cdsResultRecord = cdsRecord.months.find(
+              cdsResult =>
+                cdsResult.appraisal_month_no == state.filterMonth &&
+                cdsResult.cds_id == targetCdsId &&
+                (cdsResult.appraisal_type_id == 1
+                  ? cdsResult.org_id == targetOrgId
+                  : cdsResult.emp_id == targetEmpId) &&
+                cdsResult.level_id == cdsRecord.level_id
+            );
 
             if (cdsResultRecord.cds_result_id) {
-              methods.openEditDetailModal(cdsResultRecord.cds_result_id)
+              methods.openEditDetailModal(cdsResultRecord.cds_result_id);
             }
           }
-        })
+        });
 
-        cdsDeleteButtons.off('click')
+        cdsDeleteButtons.off('click');
         cdsDeleteButtons.on('click', e => {
-          let targetCdsId = e.target.id
-          let targetOrgId = e.target.dataset.orgid
-          let targetLevelId = e.target.dataset.levelid
-          let cdsRecord = state.originalData.find(record =>
-            record.cds_id == targetCdsId &&
-            (record.appraisal_type_id == 1 ? record.org_id == targetOrgId : record.emp_id == targetEmpId) &&
-            record.level_id == targetLevelId
-          )
+          let targetCdsId = e.target.id;
+          let targetOrgId = e.target.dataset.orgid;
+          let targetLevelId = e.target.dataset.levelid;
+          let cdsRecord = state.originalData.find(
+            record =>
+              record.cds_id == targetCdsId &&
+              (record.appraisal_type_id == 1 ? record.org_id == targetOrgId : record.emp_id == targetEmpId) &&
+              record.level_id == targetLevelId
+          );
 
           if (cdsRecord) {
-            let cdsResultRecord = cdsRecord.months.find(cdsResult =>
-              cdsResult.appraisal_month_no == state.filterMonth &&
-              cdsResult.cds_id == targetCdsId &&
-              (cdsResult.appraisal_type_id == 1 ? cdsResult.org_id == targetOrgId : cdsResult.emp_id == targetEmpId) &&
-              cdsResult.level_id == cdsRecord.level_id
-            )
+            let cdsResultRecord = cdsRecord.months.find(
+              cdsResult =>
+                cdsResult.appraisal_month_no == state.filterMonth &&
+                cdsResult.cds_id == targetCdsId &&
+                (cdsResult.appraisal_type_id == 1
+                  ? cdsResult.org_id == targetOrgId
+                  : cdsResult.emp_id == targetEmpId) &&
+                cdsResult.level_id == cdsRecord.level_id
+            );
 
             if (cdsResultRecord.cds_result_id) {
-              methods.openDeleteModal(cdsResultRecord.cds_result_id)
+              methods.openDeleteModal(cdsResultRecord.cds_result_id);
             }
           }
-        })
-      })
+        });
+      });
     },
     setupPagination: pagination => {
       if (pagination.total == 0) {
-        pagination.total = 1
+        pagination.total = 1;
       }
-      $('.pagination_top,.pagination_bottom').off("page");
+      $('.pagination_top,.pagination_bottom').off('page');
       $('.pagination_top,.pagination_bottom').bootpag({
         total: pagination.total,
         page: pagination.currentPage,
@@ -1021,38 +1065,40 @@ $(document).ready(() => {
         prev: 'prev',
         lastClass: 'last',
         firstClass: 'first'
-      })
-      $('.pagination_top,.pagination_bottom').on("page", function (event, pageNo) {
-        methods.refreshData(pageNo, pagination.perPage)
-      })
+      });
+      $('.pagination_top,.pagination_bottom').on('page', function(event, pageNo) {
+        methods.refreshData(pageNo, pagination.perPage);
+      });
 
-      $(".countPagination").off("change")
-      $(".countPagination").on("change", e => {
-        let currentPerPage = e.target.value
+      $('.countPagination').off('change');
+      $('.countPagination').on('change', e => {
+        let currentPerPage = e.target.value;
 
         state.pagination = {
           ...pagination,
           perPage: currentPerPage
-        }
+        };
 
-        $("#countPaginationTop").val(currentPerPage)
-        $("#countPaginationBottom").val(currentPerPage)
+        $('#countPaginationTop').val(currentPerPage);
+        $('#countPaginationBottom').val(currentPerPage);
 
         methods.refreshData(1, currentPerPage);
-      })
+      });
     },
     openEditDetailModal: cdsResultId => {
-      const detailModal = $('#detailModal')
-      state.sunEditorInstance = null
-      detailModal.modal({
-        "backdrop": setModalPopup[0],
-        "keyboard": setModalPopup[1]
-      }).css({
-        "margin-top": "0px"
-      })
+      const detailModal = $('#detailModal');
+      state.sunEditorInstance = null;
+      detailModal
+        .modal({
+          backdrop: setModalPopup[0],
+          keyboard: setModalPopup[1]
+        })
+        .css({
+          'margin-top': '0px'
+        });
 
-      let htmlOption = `<textarea id="datail_name" style="width: 95%" class=""></textarea>`
-      $("#sunEdit").html(htmlOption)
+      let htmlOption = `<textarea id="datail_name" style="width: 95%" class=""></textarea>`;
+      $('#sunEdit').html(htmlOption);
 
       let editorDetailName = SUNEDITOR.create('datail_name', {
         height: 250,
@@ -1065,92 +1111,96 @@ $(document).ready(() => {
           ['indent', 'outdent'],
           ['align', 'line', 'list']
         ]
-      })
+      });
 
-      state.sunEditorInstance = editorDetailName
+      state.sunEditorInstance = editorDetailName;
 
-      methods.renderCdsResultDetails(cdsResultId)
+      methods.renderCdsResultDetails(cdsResultId);
 
       $('#btnSaveDetail').on('click', () => {
         if (state.saveDetailAction === 'add') {
           $.ajax({
             url: `${restfulURL}/${cdsResultAPIPath}/detail/${cdsResultId}`,
-            type: "POST",
-            dataType: "json",
+            type: 'POST',
+            dataType: 'json',
             data: { detail_name: editorDetailName.getContent() },
-            success: function (data, status) {
+            success: function(data, status) {
               if (data.status == 200) {
-                methods.renderCdsResultDetails(cdsResultId)
+                methods.renderCdsResultDetails(cdsResultId);
 
-                editorDetailName.setContent('')
-                state.saveDetailAction = 'add'
-              } else if (data.status == "400") {
-                callFlashSlide("<font color=''>" + data.data + "</font>", "error")
+                editorDetailName.setContent('');
+                state.saveDetailAction = 'add';
+              } else if (data.status == '400') {
+                callFlashSlide("<font color=''>" + data.data + '</font>', 'error');
               }
             }
-          })
+          });
         } else if (state.saveDetailAction === 'edit') {
           $.ajax({
             url: `${restfulURL}/${cdsResultAPIPath}/detail/${cdsResultId}`,
-            type: "PATCH",
-            dataType: "json",
-            data: { detail_name: editorDetailName.getContent(), reason_cds_result_id: state.selectingReasonCdsResultId },
-            success: function (data, status) {
+            type: 'PATCH',
+            dataType: 'json',
+            data: {
+              detail_name: editorDetailName.getContent(),
+              reason_cds_result_id: state.selectingReasonCdsResultId
+            },
+            success: function(data, status) {
               if (data.status == 200) {
-                methods.renderCdsResultDetails(cdsResultId)
+                methods.renderCdsResultDetails(cdsResultId);
 
-                editorDetailName.setContent('')
-                state.saveDetailAction = 'add'
-                state.selectingReasonCdsResultId = null
-              } else if (data.status == "400") {
-                callFlashSlide("<font color=''>" + data.data + "</font>", "error")
+                editorDetailName.setContent('');
+                state.saveDetailAction = 'add';
+                state.selectingReasonCdsResultId = null;
+              } else if (data.status == '400') {
+                callFlashSlide("<font color=''>" + data.data + '</font>', 'error');
               }
             }
-          })
+          });
         }
-      })
+      });
 
       $('#btnCancelDetail').on('click', () => {
-        state.sunEditorInstance.setContent('')
-        state.saveDetailAction = 'add'
-        state.selectingReasonCdsResultId = null
-      })
+        state.sunEditorInstance.setContent('');
+        state.saveDetailAction = 'add';
+        state.selectingReasonCdsResultId = null;
+      });
     },
     openDeleteModal: cdsResultId => {
-      $("#informConfirm").empty()
+      $('#informConfirm').empty();
 
-      $("#confrimModal").modal({
-        "backdrop": setModalPopup[0],
-        "keyboard": setModalPopup[1]
-      }).css({ "margin-top": "0px" })
+      $('#confrimModal')
+        .modal({
+          backdrop: setModalPopup[0],
+          keyboard: setModalPopup[1]
+        })
+        .css({ 'margin-top': '0px' });
 
-      $(document).off("click", "#btnConfirmOK")
-      $(document).on("click", "#btnConfirmOK", () => {
+      $(document).off('click', '#btnConfirmOK');
+      $(document).on('click', '#btnConfirmOK', () => {
         $.ajax({
           url: `${restfulURL}/${cdsResultAPIPath}/${cdsResultId}`,
-          type: "DELETE",
-          dataType: "json",
-          success: (data) => {
+          type: 'DELETE',
+          dataType: 'json',
+          success: data => {
             if (data.status == 200) {
-              callFlashSlide(Liferay.Language.get('delete-successfully'))
-              methods.refreshData(1, state.pagination.perPage)
-              $("#confrimModal").modal('hide')
-
-            } else if (data.status == "400") {
-              callFlashSlide("<font color=''>" + data.data + "</font>", "error")
+              callFlashSlide(Liferay.Language.get('delete-successfully'));
+              methods.refreshData(1, state.pagination.perPage);
+              $('#confrimModal').modal('hide');
+            } else if (data.status == '400') {
+              callFlashSlide("<font color=''>" + data.data + '</font>', 'error');
             }
           }
-        })
-      })
+        });
+      });
     },
-    renderCdsResultDetails: (cdsResultId) => {
+    renderCdsResultDetails: cdsResultId => {
       $.ajax({
         url: `${restfulURL}/${cdsResultAPIPath}/detail/${cdsResultId}`,
-        type: "get",
-        dataType: "json",
+        type: 'get',
+        dataType: 'json',
         success: data => {
-          const detailContainer = $('#listDataDetail')
-          let detailRows = ""
+          const detailContainer = $('#listDataDetail');
+          let detailRows = '';
           let rowTemplate = `
           <tr>
             <td>$index</td>
@@ -1186,7 +1236,7 @@ $(document).ready(() => {
                 data-original-title="" title="">
               </i>
             </td>
-          </tr> `
+          </tr> `;
 
           if (data) {
             data.map((item, index) => {
@@ -1197,80 +1247,82 @@ $(document).ready(() => {
                 .replace(/\$setModalPopupFunction0/g, setModalPopup[0])
                 .replace(/\$setModalPopupFunction1/g, setModalPopup[1])
                 .replace(/\$liferayEditText/g, Liferay.Language.get('edit'))
-                .replace(/\$liferayDeleteText/g, Liferay.Language.get('delete'))
-            })
+                .replace(/\$liferayDeleteText/g, Liferay.Language.get('delete'));
+            });
           }
 
-          detailContainer.html(detailRows)
+          detailContainer.html(detailRows);
 
           if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-            $(".popover-edit-del").popover({
+            $('.popover-edit-del').popover({
               delay: {
                 hide: 100
               },
               container: '.ibox-content'
-            })
+            });
           } else {
-            $(".popover-edit-del").popover({
+            $('.popover-edit-del').popover({
               delay: {
                 hide: 100
               }
-            })
+            });
           }
 
-          detailContainer.off('click', ".popover-edit-del")
-          detailContainer.on("click", ".popover-edit-del", () => {
-            $(".detailDel").off("click")
-            $(".detailDel").on("click", e => {
-              $("#informConfirm").empty()
+          detailContainer.off('click', '.popover-edit-del');
+          detailContainer.on('click', '.popover-edit-del', () => {
+            $('.detailDel').off('click');
+            $('.detailDel').on('click', e => {
+              $('#informConfirm').empty();
 
-              let id = e.target.dataset.recordid
+              let id = e.target.dataset.recordid;
 
-              $("#confrimModal").modal({
-                "backdrop": setModalPopup[0],
-                "keyboard": setModalPopup[1]
-              }).css({ "margin-top": "0px" })
+              $('#confrimModal')
+                .modal({
+                  backdrop: setModalPopup[0],
+                  keyboard: setModalPopup[1]
+                })
+                .css({ 'margin-top': '0px' });
 
-              $(document).off("click", "#btnConfirmOK")
-              $(document).on("click", "#btnConfirmOK", () => {
+              $(document).off('click', '#btnConfirmOK');
+              $(document).on('click', '#btnConfirmOK', () => {
                 $.ajax({
                   url: `${restfulURL}/${cdsResultAPIPath}/detail/${id}`,
-                  type: "DELETE",
-                  dataType: "json",
-                  success: (data) => {
+                  type: 'DELETE',
+                  dataType: 'json',
+                  success: data => {
                     if (data.status == 200) {
-                      callFlashSlide(Liferay.Language.get('delete-successfully'))
+                      callFlashSlide(Liferay.Language.get('delete-successfully'));
 
-                      methods.renderCdsResultDetails(cdsResultId)
+                      methods.renderCdsResultDetails(cdsResultId);
 
-                      $("#confrimModal").modal('hide')
-                    } else if (data.status == "400") {
-                      callFlashSlide("<font color=''>" + data.data + "</font>", "error")
+                      $('#confrimModal').modal('hide');
+                    } else if (data.status == '400') {
+                      callFlashSlide("<font color=''>" + data.data + '</font>', 'error');
                     }
                   }
                 });
-              })
-            })
+              });
+            });
 
-            $(".detailEdit").off("click")
-            $(".detailEdit").on("click", e => {
-              let id = e.target.dataset.recordid
+            $('.detailEdit').off('click');
+            $('.detailEdit').on('click', e => {
+              let id = e.target.dataset.recordid;
               $.ajax({
                 url: `${restfulURL}/${cdsResultAPIPath}/detail/${cdsResultId}/${id}`,
-                type: "get",
-                dataType: "json",
+                type: 'get',
+                dataType: 'json',
                 success: data => {
-                  state.sunEditorInstance.setContent(data.reason_cds_result_name)
-                  state.saveDetailAction = 'edit'
-                  state.selectingReasonCdsResultId = id
+                  state.sunEditorInstance.setContent(data.reason_cds_result_name);
+                  state.saveDetailAction = 'edit';
+                  state.selectingReasonCdsResultId = id;
                 }
-              })
-            })
-          })
+              });
+            });
+          });
         }
-      })
+      });
     }
-  }
+  };
 
   const state = {
     filterYear: '',
@@ -1292,12 +1344,12 @@ $(document).ready(() => {
     saveDetailAction: 'add',
     sunEditorInstance: null,
     selectingReasonCdsResultId: null
-  }
+  };
 
-  methods.pageInit()
-  methods.applySearchListeners()
-  methods.applyImportModalListeners()
-  methods.applyExportButtonListeners()
-  methods.applySearchButtonListeners()
-  methods.applyEditListeners()
-})
+  methods.pageInit();
+  methods.applySearchListeners();
+  methods.applyImportModalListeners();
+  methods.applyExportButtonListeners();
+  methods.applySearchButtonListeners();
+  methods.applyEditListeners();
+});

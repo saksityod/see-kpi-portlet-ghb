@@ -23,7 +23,7 @@ $(document).ready(function () {
   var documentBody = $('body');
   var methods = {
     pageInit: function pageInit() {
-      if (username != "" && username != null & username != [] && username != undefined) {
+      if (username != '' && username != null & username != [] && username != undefined) {
         if (connectionServiceFn(username, password, plid) == false) {
           return false;
         }
@@ -35,14 +35,14 @@ $(document).ready(function () {
         }
       });
       $('[data-toggle="tooltip"]').css({
-        "cursor": "pointer"
+        cursor: 'pointer'
       });
       $('[data-toggle="tooltip"]').tooltip({
         html: true
       });
       $('.dropify').dropify();
-      $(".app_url_hidden").show();
-      $(".sr-only").hide();
+      $('.app_url_hidden').show();
+      $('.sr-only').hide();
       methods.getBrowserWidth();
       $(window).on('resize', function () {
         return methods.getBrowserWidth();
@@ -53,35 +53,35 @@ $(document).ready(function () {
       var wTarget = $('#drop_down_list_appraisal_type').width();
       var wCalTarget = $('#drop_down_list_appraisal_type').width() * 4 + 20;
       var height = $('#drop_down_list_appraisal_type').height() + 0.25;
-      var empInput = $("#txtEmpInput");
+      var empInput = $('#txtEmpInput');
 
       if (window.innerWidth < 980) {
         empInput.css({
-          "width": ""
+          width: ''
         });
         empInput.css({
-          "height": ""
+          height: ''
         });
       } else if (window.innerWidth < 1366) {
         empInput.width(wSearchAdvance - wCalTarget + wTarget);
         empInput.css({
-          "height": height
+          height: height
         });
       } else {
         empInput.width(wSearchAdvance - wCalTarget + wTarget);
         empInput.css({
-          "height": height
+          height: height
         });
       }
     },
     applySearchListeners: function applySearchListeners() {
-      var yearDropdown = $("#year");
-      var monthDropdown = $("#month");
-      var appraisalTypeDropdown = $("#app_type");
-      var employeeNameInput = $("#emp_name");
-      var positionInput = $("#position");
-      var appraisalLevelDropdown = $("#app_lv");
-      var organizationDropdown = $("#org_id");
+      var yearDropdown = $('#year');
+      var monthDropdown = $('#month');
+      var appraisalTypeDropdown = $('#app_type');
+      var employeeNameInput = $('#emp_name');
+      var positionInput = $('#position');
+      var appraisalLevelDropdown = $('#app_lv');
+      var organizationDropdown = $('#org_id');
 
       if (yearDropdown) {
         methods.renderSearchDropdownList('public/cds_result/year_list', {}, yearDropdown, 'current_appraisal_year', 'current_appraisal_year', 'filterYear');
@@ -98,20 +98,16 @@ $(document).ready(function () {
       }
 
       if (appraisalLevelDropdown) {
-        methods.renderSearchDropdownList('public/cds_result/al_list_v2', {}, appraisalLevelDropdown, 'level_id', 'appraisal_level_name', 'filterAppraisalLevel', !!tokenID.is_hr, 'All Level');
+        methods.renderSearchDropdownList('public/cds_result/al_list_v2', {}, appraisalLevelDropdown, 'level_id', 'appraisal_level_name', 'filterAppraisalLevel', !!tokenID.is_hr, 'All Level', true);
         appraisalLevelDropdown.on('change', function (e) {
           state.filterAppraisalLevel = e.target.value;
-          methods.renderSearchDropdownList('public/org', {
+          methods.renderSearchDropdownList('public/cds_result/org_list_v2', {
             level_id: e.target.value
           }, organizationDropdown, 'org_id', 'org_name', 'filterOrganization', !!tokenID.is_hr, 'All Organization');
         });
       }
 
       if (organizationDropdown) {
-        methods.renderSearchDropdownList('public/org', {
-          level_id: '',
-          is_hr: tokenID.is_hr
-        }, organizationDropdown, 'org_id', 'org_name', 'filterOrganization', !!tokenID.is_hr, 'All Organization');
         organizationDropdown.on('change', function (e) {
           state.filterOrganization = e.target.value;
         });
@@ -139,10 +135,10 @@ $(document).ready(function () {
           source: function source(req, res) {
             $.ajax({
               url: "".concat(restfulURL, "/").concat(cdsResultAPIPath, "/auto_emp_name"),
-              type: "POST",
-              dataType: "json",
+              type: 'POST',
+              dataType: 'json',
               data: {
-                "emp_name": req.term
+                emp_name: req.term
               },
               error: function error(xhr, textStatus, errorThrown) {
                 console.log('Error: ' + xhr.responseText);
@@ -193,10 +189,10 @@ $(document).ready(function () {
           source: function source(req, res) {
             $.ajax({
               url: "".concat(restfulURL, "/").concat(cdsResultAPIPath, "/auto_position_name"),
-              type: "POST",
-              dataType: "json",
+              type: 'POST',
+              dataType: 'json',
               data: {
-                "position_name": req.term
+                position_name: req.term
               },
               error: function error(xhr, textStatus, errorThrown) {
                 console.log('Error: ' + xhr.responseText);
@@ -244,13 +240,13 @@ $(document).ready(function () {
       }
     },
     applyImportModalListeners: function applyImportModalListeners() {
-      var importCdsButton = $("#btn_import");
+      var importCdsButton = $('#btn_import');
       var importModal = $('#ModalImport');
       var importFileForm = $('form#fileImportCdsResult');
-      var importFileInput = $("#file");
+      var importFileInput = $('#file');
       importModal.on('hidden.bs.modal', function () {
         state.importFormData = null;
-        importFileInput.val("");
+        importFileInput.val('');
         documentBody.mLoading('hide');
       });
       importFileInput.on('change', function (e) {
@@ -280,21 +276,21 @@ $(document).ready(function () {
               callFlashSlide(Liferay.Language.get('import-cds-result-successfully'));
               methods.refreshData(1, state.pagination.perPage);
             } else {
-              var validateFile = "";
+              var validateFile = '';
               data.errors.map(function (err, index) {
                 if (err[Object.keys(err)[0]] !== undefined || err[Object.keys(err)[0]] === null) {
                   if (err[Object.keys(err)[0]] === null) {
                     validateFile += "<font color='#FFC446'><i class='fa fa-exclamation-triangle'></i></font> " + Object.keys(err)[0] + " : null <i class='fa fa-level-down'></i><br>";
                   } else {
-                    validateFile += "<font color='#FFC446'><i class='fa fa-exclamation-triangle'></i></font> " + Object.keys(err)[0] + ": " + data.errors[index][Object.keys(err)[0]] + " <i class='fa fa-level-down'></i><br>";
+                    validateFile += "<font color='#FFC446'><i class='fa fa-exclamation-triangle'></i></font> " + Object.keys(err)[0] + ': ' + data.errors[index][Object.keys(err)[0]] + " <i class='fa fa-level-down'></i><br>";
                   }
                 }
 
                 data.errors.map(function (data, index) {
-                  validateFile += "<font color='red'>&emsp;*</font> " + indexEntry2 + "<br>";
+                  validateFile += "<font color='red'>&emsp;*</font> " + indexEntry2 + '<br>';
                 });
               });
-              callFlashSlideInModal(validateFile, "#information", "error");
+              callFlashSlideInModal(validateFile, '#information', 'error');
             }
 
             methods.refreshData(1, state.pagination.perPage); // TODO --- Test Case 1: Without error, Case 2: With errors
@@ -309,16 +305,16 @@ $(document).ready(function () {
         return false;
       });
       importCdsButton.click(function () {
-        $(".btnModalClose").click();
-        $(".dropify-clear").click();
+        $('.btnModalClose').click();
+        $('.dropify-clear').click();
         importCdsButton.attr({
-          "data-backdrop": setModalPopup[0],
-          "data-keyboard": setModalPopup[1]
+          'data-backdrop': setModalPopup[0],
+          'data-keyboard': setModalPopup[1]
         });
       });
     },
     applyExportButtonListeners: function applyExportButtonListeners() {
-      var exportButton = $("#exportToExcel");
+      var exportButton = $('#exportToExcel');
 
       if (exportButton) {
         exportButton.on('click', function () {
@@ -336,11 +332,11 @@ $(document).ready(function () {
           if (window.XMLHttpRequest) {
             xhr = new XMLHttpRequest();
           } else {
-            xhr = new ActiveXObject("Microsoft.XMLHTTP");
+            xhr = new ActiveXObject('Microsoft.XMLHTTP');
           }
 
           xhr.open('POST', "".concat(restfulURL, "/").concat(cdsResultAPIPath, "/export"), true);
-          xhr.setRequestHeader('Authorization', "Bearer " + tokenID.token);
+          xhr.setRequestHeader('Authorization', 'Bearer ' + tokenID.token);
           xhr.setRequestHeader('Content-Type', 'application/json');
           xhr.responseType = 'blob';
 
@@ -368,7 +364,7 @@ $(document).ready(function () {
         searchButton.on('click', function () {
           methods.refreshData();
 
-          if ($("#app_type").val() == 2) {
+          if ($('#app_type').val() == 2) {
             $('#orgOrEmp').text('Emp Name');
           } else {
             $('#orgOrEmp').text('Org Name');
@@ -378,8 +374,8 @@ $(document).ready(function () {
     },
     applyEditListeners: function applyEditListeners() {
       var toggleEditButton = $('#btnEditCdsResult');
-      var cancelButton = $("#btnCancelCdsResult");
-      var saveButton = $("#btnSaveCdsResult");
+      var cancelButton = $('#btnCancelCdsResult');
+      var saveButton = $('#btnSaveCdsResult');
       toggleEditButton.off('click');
       cancelButton.off('click');
       saveButton.off('click');
@@ -388,15 +384,15 @@ $(document).ready(function () {
         var forecastValueInputs = $('.cdsForecastValueInput');
         var forecastBUInputs = $('.cdsForecastBUInput');
         state.cdsEditing = true;
-        $("#btnEditCdsResult").prop("disabled", state.cdsEditing);
-        $("#btnSaveCdsResult").prop("disabled", !state.cdsEditing);
-        $("#btnCancelCdsResult").prop("disabled", !state.cdsEditing);
+        toggleEditButton.prop('disabled', state.cdsEditing);
+        saveButton.prop('disabled', !state.cdsEditing);
+        cancelButton.prop('disabled', !state.cdsEditing);
 
         if (tokenID.is_hr === 1) {
           cdsValueInputs.attr('disabled', false);
           forecastValueInputs.attr('disabled', false);
           forecastBUInputs.attr('disabled', false);
-        } else if (tokenID.is_show_corporate === 0 && state.filterAppraisalLevel == 2) {
+        } else if (tokenID.is_show_corporate === 1 && state.filterAppraisalLevel == 2) {
           cdsValueInputs.attr('disabled', true);
           forecastValueInputs.attr('disabled', true);
           forecastBUInputs.attr('disabled', true);
@@ -432,9 +428,9 @@ $(document).ready(function () {
       });
       cancelButton.on('click', function () {
         state.cdsEditing = false;
-        $("#btnEditCdsResult").prop("disabled", state.cdsEditing);
-        $("#btnSaveCdsResult").prop("disabled", !state.cdsEditing);
-        $("#btnCancelCdsResult").prop("disabled", !state.cdsEditing);
+        $('#btnEditCdsResult').prop('disabled', state.cdsEditing);
+        $('#btnSaveCdsResult').prop('disabled', !state.cdsEditing);
+        $('#btnCancelCdsResult').prop('disabled', !state.cdsEditing);
         methods.renderData(state.originalData);
       });
       saveButton.on('click', function () {
@@ -449,8 +445,8 @@ $(document).ready(function () {
           success: function success(data, status, xhr) {
             if (xhr.status === 200) {
               methods.refreshData(1, state.pagination.perPage);
-            } else if (data.status == "400") {
-              callFlashSlide("<font color=''>" + data.data + "</font>", "error");
+            } else if (data.status == '400') {
+              callFlashSlide("<font color=''>" + data.data + '</font>', 'error');
             }
           }
         });
@@ -464,6 +460,7 @@ $(document).ready(function () {
       var stateFilterName = arguments.length > 5 ? arguments[5] : undefined;
       var all = arguments.length > 6 ? arguments[6] : undefined;
       var allLabel = arguments.length > 7 ? arguments[7] : undefined;
+      var triggerChange = arguments.length > 8 ? arguments[8] : undefined;
       $.ajax({
         type: 'GET',
         url: "".concat(restfulURL, "/").concat(serviceName, "/").concat(apiPath),
@@ -483,6 +480,12 @@ $(document).ready(function () {
               state[stateFilterName] = '';
             } else {
               state[stateFilterName] = data[0][dataValueKey];
+            }
+
+            if (triggerChange) {
+              methods.renderSearchDropdownList('public/cds_result/org_list_v2', {
+                level_id: all ? '' : data[0][dataValueKey]
+              }, $('#org_id'), 'org_id', 'org_name', 'filterOrganization', !!tokenID.is_hr, 'All Organization');
             }
 
             targetNode.append(optionsString);
@@ -523,12 +526,18 @@ $(document).ready(function () {
               total: data.total
             };
             state.cdsEditing = false;
-            $("#btnEditCdsResult").prop("disabled", state.cdsEditing);
-            $("#btnSaveCdsResult").prop("disabled", !state.cdsEditing);
-            $("#btnCancelCdsResult").prop("disabled", !state.cdsEditing);
+
+            if (tokenID.is_show_corporate === 1 && state.filterAppraisalLevel == 2 && tokenID.is_hr !== 1) {
+              $('#btnEditCdsResult').prop('disabled', true);
+            } else {
+              $('#btnEditCdsResult').prop('disabled', state.cdsEditing);
+            }
+
+            $('#btnSaveCdsResult').prop('disabled', !state.cdsEditing);
+            $('#btnCancelCdsResult').prop('disabled', !state.cdsEditing);
             methods.renderData(state.originalData);
             methods.setupPagination(state.pagination);
-            $("#cds_result_list_content").show();
+            $('#cds_result_list_content').show();
             methods.getBrowserWidth();
           }
         }
@@ -562,7 +571,7 @@ $(document).ready(function () {
       var tableBody = $('#listCdsResult');
       tableBody.empty();
       tableBody.append(htmlTable);
-      var expendableColumns = $(".expandButton");
+      var expendableColumns = $('.expandButton');
 
       if (expendableColumns) {
         expendableColumns.children().on('click', function (e) {
@@ -877,23 +886,23 @@ $(document).ready(function () {
       });
 
       if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-        $(".popover-detail-del").popover({
+        $('.popover-detail-del').popover({
           delay: {
             hide: 100
           },
           container: '.ibox-content'
         });
       } else {
-        $(".popover-detail-del").popover({
+        $('.popover-detail-del').popover({
           delay: {
             hide: 100
           }
         });
       }
 
-      var cdsItem = $(".CdsResult");
-      cdsItem.off("click", ".popover-detail-del");
-      cdsItem.on("click", ".popover-detail-del", function () {
+      var cdsItem = $('.CdsResult');
+      cdsItem.off('click', '.popover-detail-del');
+      cdsItem.on('click', '.popover-detail-del', function () {
         var cdsDetailButtons = $('.cdsDetailButton');
         var cdsDeleteButtons = $('.cdsDeleteButton');
         cdsDetailButtons.off('click');
@@ -942,7 +951,7 @@ $(document).ready(function () {
         pagination.total = 1;
       }
 
-      $('.pagination_top,.pagination_bottom').off("page");
+      $('.pagination_top,.pagination_bottom').off('page');
       $('.pagination_top,.pagination_bottom').bootpag({
         total: pagination.total,
         page: pagination.currentPage,
@@ -961,17 +970,17 @@ $(document).ready(function () {
         lastClass: 'last',
         firstClass: 'first'
       });
-      $('.pagination_top,.pagination_bottom').on("page", function (event, pageNo) {
+      $('.pagination_top,.pagination_bottom').on('page', function (event, pageNo) {
         methods.refreshData(pageNo, pagination.perPage);
       });
-      $(".countPagination").off("change");
-      $(".countPagination").on("change", function (e) {
+      $('.countPagination').off('change');
+      $('.countPagination').on('change', function (e) {
         var currentPerPage = e.target.value;
         state.pagination = _objectSpread({}, pagination, {
           perPage: currentPerPage
         });
-        $("#countPaginationTop").val(currentPerPage);
-        $("#countPaginationBottom").val(currentPerPage);
+        $('#countPaginationTop').val(currentPerPage);
+        $('#countPaginationBottom').val(currentPerPage);
         methods.refreshData(1, currentPerPage);
       });
     },
@@ -979,13 +988,13 @@ $(document).ready(function () {
       var detailModal = $('#detailModal');
       state.sunEditorInstance = null;
       detailModal.modal({
-        "backdrop": setModalPopup[0],
-        "keyboard": setModalPopup[1]
+        backdrop: setModalPopup[0],
+        keyboard: setModalPopup[1]
       }).css({
-        "margin-top": "0px"
+        'margin-top': '0px'
       });
       var htmlOption = "<textarea id=\"datail_name\" style=\"width: 95%\" class=\"\"></textarea>";
-      $("#sunEdit").html(htmlOption);
+      $('#sunEdit').html(htmlOption);
       var editorDetailName = SUNEDITOR.create('datail_name', {
         height: 250,
         width: '100%',
@@ -997,8 +1006,8 @@ $(document).ready(function () {
         if (state.saveDetailAction === 'add') {
           $.ajax({
             url: "".concat(restfulURL, "/").concat(cdsResultAPIPath, "/detail/").concat(cdsResultId),
-            type: "POST",
-            dataType: "json",
+            type: 'POST',
+            dataType: 'json',
             data: {
               detail_name: editorDetailName.getContent()
             },
@@ -1007,16 +1016,16 @@ $(document).ready(function () {
                 methods.renderCdsResultDetails(cdsResultId);
                 editorDetailName.setContent('');
                 state.saveDetailAction = 'add';
-              } else if (data.status == "400") {
-                callFlashSlide("<font color=''>" + data.data + "</font>", "error");
+              } else if (data.status == '400') {
+                callFlashSlide("<font color=''>" + data.data + '</font>', 'error');
               }
             }
           });
         } else if (state.saveDetailAction === 'edit') {
           $.ajax({
             url: "".concat(restfulURL, "/").concat(cdsResultAPIPath, "/detail/").concat(cdsResultId),
-            type: "PATCH",
-            dataType: "json",
+            type: 'PATCH',
+            dataType: 'json',
             data: {
               detail_name: editorDetailName.getContent(),
               reason_cds_result_id: state.selectingReasonCdsResultId
@@ -1027,8 +1036,8 @@ $(document).ready(function () {
                 editorDetailName.setContent('');
                 state.saveDetailAction = 'add';
                 state.selectingReasonCdsResultId = null;
-              } else if (data.status == "400") {
-                callFlashSlide("<font color=''>" + data.data + "</font>", "error");
+              } else if (data.status == '400') {
+                callFlashSlide("<font color=''>" + data.data + '</font>', 'error');
               }
             }
           });
@@ -1041,26 +1050,26 @@ $(document).ready(function () {
       });
     },
     openDeleteModal: function openDeleteModal(cdsResultId) {
-      $("#informConfirm").empty();
-      $("#confrimModal").modal({
-        "backdrop": setModalPopup[0],
-        "keyboard": setModalPopup[1]
+      $('#informConfirm').empty();
+      $('#confrimModal').modal({
+        backdrop: setModalPopup[0],
+        keyboard: setModalPopup[1]
       }).css({
-        "margin-top": "0px"
+        'margin-top': '0px'
       });
-      $(document).off("click", "#btnConfirmOK");
-      $(document).on("click", "#btnConfirmOK", function () {
+      $(document).off('click', '#btnConfirmOK');
+      $(document).on('click', '#btnConfirmOK', function () {
         $.ajax({
           url: "".concat(restfulURL, "/").concat(cdsResultAPIPath, "/").concat(cdsResultId),
-          type: "DELETE",
-          dataType: "json",
+          type: 'DELETE',
+          dataType: 'json',
           success: function success(data) {
             if (data.status == 200) {
               callFlashSlide(Liferay.Language.get('delete-successfully'));
               methods.refreshData(1, state.pagination.perPage);
-              $("#confrimModal").modal('hide');
-            } else if (data.status == "400") {
-              callFlashSlide("<font color=''>" + data.data + "</font>", "error");
+              $('#confrimModal').modal('hide');
+            } else if (data.status == '400') {
+              callFlashSlide("<font color=''>" + data.data + '</font>', 'error');
             }
           }
         });
@@ -1069,11 +1078,11 @@ $(document).ready(function () {
     renderCdsResultDetails: function renderCdsResultDetails(cdsResultId) {
       $.ajax({
         url: "".concat(restfulURL, "/").concat(cdsResultAPIPath, "/detail/").concat(cdsResultId),
-        type: "get",
-        dataType: "json",
+        type: 'get',
+        dataType: 'json',
         success: function success(data) {
           var detailContainer = $('#listDataDetail');
-          var detailRows = "";
+          var detailRows = '';
           var rowTemplate = "\n          <tr>\n            <td>$index</td>\n            <td>$cds_detail_name</td>\n            <td style=\"text-align: center;\">\n              <i \n                data-trigger=\"focus\" \n                tabindex=\"$index\" \n                data-content=\"\n                  <button \n                    style='width:100%;' \n                    class='btn btn-warning btn-small btn-gear detailEdit' \n                    id='edit_detail-$cds_detail_id' \n                    data-recordid='$cds_detail_id'\n                    data-target='' \n                    data-backdrop='$setModalPopupFunction0' \n                    data-keyboard='$setModalPopupFunction1' \n                    data-toggle='modal'>\n                      $liferayEditText\n                  </button>\n                  <button \n                    id='delete_detail-$cds_detail_id' \n                    style='width:100%;' \n                    data-recordid='$cds_detail_id'\n                    class='btn btn-danger btn-small btn-gear detailDel'\n                    >\n                      $liferayDeleteText\n                  </button>\" \n                data-placement=\"top\" \n                data-toggle=\"popover\" \n                data-html=\"true\" \n                class=\"fa fa-cog font-gear popover-edit-del\" \n                data-original-title=\"\" title=\"\">\n              </i>\n            </td>\n          </tr> ";
 
           if (data) {
@@ -1085,57 +1094,57 @@ $(document).ready(function () {
           detailContainer.html(detailRows);
 
           if (/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-            $(".popover-edit-del").popover({
+            $('.popover-edit-del').popover({
               delay: {
                 hide: 100
               },
               container: '.ibox-content'
             });
           } else {
-            $(".popover-edit-del").popover({
+            $('.popover-edit-del').popover({
               delay: {
                 hide: 100
               }
             });
           }
 
-          detailContainer.off('click', ".popover-edit-del");
-          detailContainer.on("click", ".popover-edit-del", function () {
-            $(".detailDel").off("click");
-            $(".detailDel").on("click", function (e) {
-              $("#informConfirm").empty();
+          detailContainer.off('click', '.popover-edit-del');
+          detailContainer.on('click', '.popover-edit-del', function () {
+            $('.detailDel').off('click');
+            $('.detailDel').on('click', function (e) {
+              $('#informConfirm').empty();
               var id = e.target.dataset.recordid;
-              $("#confrimModal").modal({
-                "backdrop": setModalPopup[0],
-                "keyboard": setModalPopup[1]
+              $('#confrimModal').modal({
+                backdrop: setModalPopup[0],
+                keyboard: setModalPopup[1]
               }).css({
-                "margin-top": "0px"
+                'margin-top': '0px'
               });
-              $(document).off("click", "#btnConfirmOK");
-              $(document).on("click", "#btnConfirmOK", function () {
+              $(document).off('click', '#btnConfirmOK');
+              $(document).on('click', '#btnConfirmOK', function () {
                 $.ajax({
                   url: "".concat(restfulURL, "/").concat(cdsResultAPIPath, "/detail/").concat(id),
-                  type: "DELETE",
-                  dataType: "json",
+                  type: 'DELETE',
+                  dataType: 'json',
                   success: function success(data) {
                     if (data.status == 200) {
                       callFlashSlide(Liferay.Language.get('delete-successfully'));
                       methods.renderCdsResultDetails(cdsResultId);
-                      $("#confrimModal").modal('hide');
-                    } else if (data.status == "400") {
-                      callFlashSlide("<font color=''>" + data.data + "</font>", "error");
+                      $('#confrimModal').modal('hide');
+                    } else if (data.status == '400') {
+                      callFlashSlide("<font color=''>" + data.data + '</font>', 'error');
                     }
                   }
                 });
               });
             });
-            $(".detailEdit").off("click");
-            $(".detailEdit").on("click", function (e) {
+            $('.detailEdit').off('click');
+            $('.detailEdit').on('click', function (e) {
               var id = e.target.dataset.recordid;
               $.ajax({
                 url: "".concat(restfulURL, "/").concat(cdsResultAPIPath, "/detail/").concat(cdsResultId, "/").concat(id),
-                type: "get",
-                dataType: "json",
+                type: 'get',
+                dataType: 'json',
                 success: function success(data) {
                   state.sunEditorInstance.setContent(data.reason_cds_result_name);
                   state.saveDetailAction = 'edit';
