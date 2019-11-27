@@ -1,5 +1,111 @@
 var galbalDashboard=[];
-var galbalDataTemp = [];
+var configs = {sparkline:"active",orgGaugeList:[]};
+var tempPerf = {
+		org_id : null,
+		org_name : null,
+        pct : null,
+        color_code : null,
+        main_area : null,
+		print_header(){
+        	var config = liquidFillGaugeDefaultSettings();
+            config.circleColor = this.color_code;
+            config.textColor = "black";
+            config.textSize = 0.9;
+            config.waveTextColor = "black";
+            config.waveColor = this.color_code;
+
+            config.circleThickness = 0.2;
+            config.textVertPosition = 0.5;
+            config.waveAnimateTime = 8000;
+            config.waveHeight = 0.15;
+            config.waveOffset = 0.25;
+            config.circleThickness = 0.05;
+	
+            configs.orgGaugeList.push({
+                    id : 'fillgauge'+this.org_id,
+                    pct : notNullFn(this.pct),
+                    config : config
+            });
+			return `<h3 data-sparkline='${configs.sparkline}'>
+					<span style='padding-top:10px;font-weight: 900;font-size: 19px;' 
+						id='bpf_org_id-${this.org_id}'>${this.org_name}
+					</span>
+					<div class='branchPerformance'>
+						<svg id='fillgauge${this.org_id}'
+							width='100px' height='100px'>
+						</svg>
+					</div>
+					<br style='clear:both'>
+				</h3>
+				<div  under_org_id="${this.org_id}">
+					<div id="underOrgId${this.org_id}" class='detailPerfomanceArea'></div>
+				</div>
+				`;
+		
+		},
+        clear(){
+			this.org_id = this.org_name = this.pct = this.color_code = this.main_area=null;
+		}
+	}
+var tempBranchKpi = {
+        item_name : '',
+        etl_dttm : '',
+        uom_name : '',
+        target : null,
+        forecast : null,
+        actual : null,
+        table : null,
+        main_table :  `
+			<table class='table table-bordered' style='width:100%;'>
+			 <thead>
+			  <tr>
+			   <th style='min-width: 122px;font-weight: 700;font-size: 17px;'>${Liferay.Language.get('kpi')}</th>
+			   <th style='min-width: 70px;font-weight: 900;font-size: 17px;'>${Liferay.Language.get('uom')}</th>
+			   <th style='text-align:center;min-width: 250px;font-weight: 700;font-size: 17px;'>
+				${Liferay.Language.get('kpi-result')}
+			   </th>
+			  </tr>
+			 </thead>
+			<tbody>
+			</tbody>
+			</table>
+		`,
+        print_tbody(){
+                target = this.target ? addCommas(notNullFn(this.target)) : '&nbsp;' ;
+                forecast = this.forecast ? addCommas(notNullFn(this.forecast)) : '&nbsp;';
+                actual = this.actual ? addCommas(notNullFn(this.actual)) : '&nbsp;';
+				
+                return `
+                <tr>
+                  <td>
+                        ${this.item_name}<br>
+                		<span class='LastUpdateText'>
+                			${Liferay.Language.get('as-of')}: ${this.etl_dttm}
+                		</span>
+                  </td>
+                  <td>${this.uom_name}</td>
+                  <td>
+                        <table class='tableInside table-striped'>
+                         <thead>
+                           <tr>
+                                  <th style='min-width: 90px;font-weight: 700;font-size: 15px;'>${Liferay.Language.get('target')}</th>
+                                  <th style='min-width: 71px;font-weight: 700;font-size: 15px;'>${Liferay.Language.get('forecast')}</th>
+                                  <th style='min-width: 60px;font-weight: 700;font-size: 15px;'>${Liferay.Language.get('actual')}</th>
+                          </tr>
+                         </thead>
+                         <tbody>
+                           <tr>
+                                  <td style=' text-align: right !important;'>${target}</td>
+                                  <td style=' text-align: right !important;'>${forecast}</td>
+                                  <td style=' text-align: right !important;'>${actual}</td>
+                           </tr>
+                         </tbody>
+                        </tabel>
+                  </td>
+                </tr>
+                `
+        }
+}
 var generateDropDownList = function(url,type,request,initValue){
  	var html="";
  	
@@ -165,7 +271,7 @@ var pinSymbol = function (color) {
 				$.each(data['google_map'],function(index,indexEntry){
 					locations.push([indexEntry['org_id']+"-"+indexEntry['org_name'],parseFloat(indexEntry['latitude']),parseFloat(indexEntry['longitude']),indexEntry['color_code'],[indexEntry]]);
 				});
-				console.log(locations);
+				//console.log(locations);
 				data['longitude']
 				data['latitude']
 				var mapOptions = {
@@ -195,14 +301,14 @@ var pinSymbol = function (color) {
 							  info.setContent(locations[i][0].split("-")[1]);
 							  info.open(maps, marker);
 							  
-							  console.log(marker.title);
-							  console.log(locations[i][4]);
-							  $("body").mLoading();
-							  listDataPerformanceDetailFn(locations[i][4],marker.title,"gmap");
-							  
-							  //$("body").mLoading('hide');
-							  //alert(locations[i][0].split("-")[0]);
+							  //console.log(marker.title);
 							  //console.log(locations[i][4]);
+							  //console.log(locations[i][4][0]['org_id']);
+							  $("body").mLoading();
+							  //listDataPerformanceDetailFn(locations[i][4],marker.title,"gmap");
+							  //listAllDataPerformanceDetailFn(locations[i][4],"gmap");
+							  showPerformanceDetail2Fn(null,locations[i][4][0]['org_id'],"gmap");
+							  
 							}
 						  })(marker, i));
 
@@ -212,7 +318,7 @@ var pinSymbol = function (color) {
 						//maps.panToBounds(bounds); 	// # auto-center 
 				
 				
-						listDataPerformanceDetailFn(data['google_map'],$("#embed_region_name").val(),"gmap");
+						//listDataPerformanceDetailFn(data['google_map'],$("#embed_region_name").val(),"gmap");
 				
 			}
 		});
@@ -290,16 +396,28 @@ var listDataPerformanceDetailFn = function(data,district,type){
 	}
 	$("#detailArea").html(mainArea);
 	$("#BranchPerTitle").html(Liferay.Language.get('branch-performance')+":"+district);
-	//console.log(data);
+	//console.log("Loop",data);
 	$.each(data,function(index,indexEntry){
-	
+	var BeginAccordion = (index == 0 ? "active":"");
 	var dataTableHTML="";
-	dataTableHTML+="<h3 data-sparkline='"+(index == 0 ? "active":"")+"'><span style='padding-top:10px;font-weight: 900;font-size: 19px;' id='bpf_org_id-"+indexEntry['org_id']+"'>"+indexEntry['org_name']+"</span>";
-	dataTableHTML+="<div class='branchPerformance'>";
-	dataTableHTML+="<svg id=\"fillgauge"+indexEntry['org_id']+"\" width=\"100px\" height=\"100px\" onclick=\"gauge"+indexEntry['org_id']+".update(NewValue());\"></svg>";
-	dataTableHTML+="</div>";
-	dataTableHTML+="<br style='clear:both'>";
-	dataTableHTML+="</h3>";
+	dataTableHTML+=`
+		<h3 data-sparkline='${BeginAccordion}'>
+			<span 	style='padding-top:10px;font-weight: 900;font-size: 19px;' 
+					id='bpf_org_id-${indexEntry.org_id}'>${indexEntry.org_name}
+			</span>
+			<div class='branchPerformance'>
+				<svg id='fillgauge${indexEntry.org_id}' width='100px' height='100px' onclick='gauge${indexEntry.org_id}.update(NewValue());'></svg>
+			</div>
+			<br style='clear:both'>
+		</h3>
+	`
+	
+//	dataTableHTML+="<h3 data-sparkline='"+(index == 0 ? "active":"")+"'><span style='padding-top:10px;font-weight: 900;font-size: 19px;' id='bpf_org_id-"+indexEntry['org_id']+"'>"+indexEntry['org_name']+"</span>";
+//	dataTableHTML+="<div class='branchPerformance'>";
+//	dataTableHTML+="<svg id=\"fillgauge"+indexEntry['org_id']+"\" width=\"100px\" height=\"100px\" onclick=\"gauge"+indexEntry['org_id']+".update(NewValue());\"></svg>";
+//	dataTableHTML+="</div>";
+//	dataTableHTML+="<br style='clear:both'>";
+//	dataTableHTML+="</h3>";
   
 	dataTableHTML+="<div>";
 		dataTableHTML+="<table class='table table-bordered' style='width:100%;'>";
@@ -420,51 +538,69 @@ var listDataPerformanceDetailFn = function(data,district,type){
     config.circleThickness = 0.05;
     
 	var gauge = loadLiquidFillGauge("fillgauge"+indexEntry['org_id'], notNullFn(indexEntry['pct']),config);
+	});
 	
 	
+	$("#detailPerfomanceArea" ).accordion({
+	    heightStyle: "content",
+	    collapsible: true,
+	    beforeActivate: function(event, ui) {
+	        // The accordion believes a panel is being opened
+	       if (ui.newHeader[0]) {
+	           var currHeader  = ui.newHeader;
+	           var currContent = currHeader.next('.ui-accordion-content');
+	        // The accordion believes a panel is being closed
+	       } else {
+	           var currHeader  = ui.oldHeader;
+	           var currContent = currHeader.next('.ui-accordion-content');
+	       }
+	        // Since we've changed the default behavior, this detects the actual status
+	       var isPanelSelected = currHeader.attr('aria-selected') == 'true';
+	       
+	        // Toggle the panel's header
+	       currHeader.toggleClass('ui-corner-all',isPanelSelected).toggleClass('accordion-header-active ui-state-active ui-corner-top',!isPanelSelected).attr('aria-selected',((!isPanelSelected).toString()));
+	       
+	       // Toggle the panel's icon
+	       currHeader.children('.ui-icon').toggleClass('ui-icon-triangle-1-e',isPanelSelected).toggleClass('ui-icon-triangle-1-s',!isPanelSelected);
+	       
+	        // Toggle the panel's content
+	       currContent.toggleClass('accordion-content-active',!isPanelSelected)    
+	       if (isPanelSelected) { currContent.slideUp(); }  else { currContent.slideDown(); }
 
-	
+	       return false; // Cancels the default action
+	   }
+	});
 
-});
 
+	$(".ui-accordion-header").click(function(){
+		//console.log($(this).attr("data-sparkline"));
+		if($(this).attr("data-sparkline") != "active" ){
+			var e_this =  "#"+$(this).next()[0].id;
+			//console.log($(e_this +" .sparkline"));
+			$(e_this +" .sparkline").sparkline('html', {
+		        type: 'bullet',
+		        width:'120',
+		        height: '20',
+		        targetWidth: '6',
+			    targetColor: '#fefefe',
+			    performanceColor: '#282a4b',
+		        rangeColors: rangeColorsThreshold
+			}).css("opacity","1");
+			$(this).attr("data-sparkline","active" )
+		}
+		
+	});
 
+	setTimeout(function(){
+		
+//		$(".sparkline").sparkline([10,12,12,9,7], {
+//		    type: 'bullet',
+//		    rangeColors: ['#d3dafe','#a8b6ff','red ']
+//		}).css("opacity","1");
+		    
 
-$("#detailPerfomanceArea" ).accordion({
-    heightStyle: "content",
-    collapsible: true,
-    beforeActivate: function(event, ui) {
-        // The accordion believes a panel is being opened
-       if (ui.newHeader[0]) {
-           var currHeader  = ui.newHeader;
-           var currContent = currHeader.next('.ui-accordion-content');
-        // The accordion believes a panel is being closed
-       } else {
-           var currHeader  = ui.oldHeader;
-           var currContent = currHeader.next('.ui-accordion-content');
-       }
-        // Since we've changed the default behavior, this detects the actual status
-       var isPanelSelected = currHeader.attr('aria-selected') == 'true';
-       
-        // Toggle the panel's header
-       currHeader.toggleClass('ui-corner-all',isPanelSelected).toggleClass('accordion-header-active ui-state-active ui-corner-top',!isPanelSelected).attr('aria-selected',((!isPanelSelected).toString()));
-       
-       // Toggle the panel's icon
-       currHeader.children('.ui-icon').toggleClass('ui-icon-triangle-1-e',isPanelSelected).toggleClass('ui-icon-triangle-1-s',!isPanelSelected);
-       
-        // Toggle the panel's content
-       currContent.toggleClass('accordion-content-active',!isPanelSelected)    
-       if (isPanelSelected) { currContent.slideUp(); }  else { currContent.slideDown(); }
-
-       return false; // Cancels the default action
-   }
-});
-
-$(".ui-accordion-header").click(function(){
-	//console.log($(this).attr("data-sparkline"));
-	if($(this).attr("data-sparkline") != "active" ){
-		var e_this =  "#"+$(this).next()[0].id;
-		//console.log($(e_this +" .sparkline"));
-		$(e_this +" .sparkline").sparkline('html', {
+		
+		$(".sparkline").sparkline('html', {
 	        type: 'bullet',
 	        width:'120',
 	        height: '20',
@@ -473,86 +609,27 @@ $(".ui-accordion-header").click(function(){
 		    performanceColor: '#282a4b',
 	        rangeColors: rangeColorsThreshold
 		}).css("opacity","1");
-		$(this).attr("data-sparkline","active" )
+		$("body").mLoading('hide');
+		},1000);
+
+	/*
+	 .sparkline(ragneValue1, {
+		        type: 'bullet',
+		        width:'80',
+		        targetColor: rageGreenColor,
+		        performanceColor: 'blue',
+		        rangeColors: rangeColorsThreshold});
+		        
+	 */
+
+
+
+
+	$("#detailArea").show();
+	if(type == "gmap"){
+		  $("#mapGoogle").css({"width" : ""});
 	}
-	
-});
 
-setTimeout(function(){
-	
-//	$(".sparkline").sparkline([10,12,12,9,7], {
-//	    type: 'bullet',
-//	    rangeColors: ['#d3dafe','#a8b6ff','red ']
-//	}).css("opacity","1");
-	    
-
-	
-	$(".sparkline").sparkline('html', {
-        type: 'bullet',
-        width:'120',
-        height: '20',
-        targetWidth: '6',
-	    targetColor: '#fefefe',
-	    performanceColor: '#282a4b',
-        rangeColors: rangeColorsThreshold
-	}).css("opacity","1");
-	$("body").mLoading('hide');
-	},1000);
-
-/*
- .sparkline(ragneValue1, {
-	        type: 'bullet',
-	        width:'80',
-	        targetColor: rageGreenColor,
-	        performanceColor: 'blue',
-	        rangeColors: rangeColorsThreshold});
-	        
- */
-
-
-
-
-$("#detailArea").show();
-if(type == "gmap"){
-	  $("#mapGoogle").css({"width" : ""});
-}
-
-if(window.innerWidth >= 768 && (data !="" )){
-	
-	
-	scroll = $(window).scrollTop();
-	if (scroll >= 290) {
-		  scrollID.addClass('fixed');
-		  if(type == "gmap"){
-			  $("#mapGoogle").css({"width" : "43%"});
-		  }	
-	  }
-	  else {
-		  scrollID.removeClass('fixed');
-		  if(type == "gmap"){
-		  $("#mapGoogle").css({"width" : ""});
-	  }	}
-	$(window).scroll(function(){
-		scroll = $(window).scrollTop();
-	  
-	  
-	  if (scroll >= 290) {
-		  scrollID.addClass('fixed');
-		  if(type == "gmap"){
-			  $("#mapGoogle").css({"width" : "43%"});
-		  }	
-	  }
-	  else {
-		  scrollID.removeClass('fixed');
-		  if(type == "gmap"){
-		  $("#mapGoogle").css({"width" : ""});
-	  }	}
-	});
-}
-
-$(window).on('resize',function(){
-	
-	
 	if(window.innerWidth >= 768 && (data !="" )){
 		
 		
@@ -568,8 +645,6 @@ $(window).on('resize',function(){
 			  if(type == "gmap"){
 			  $("#mapGoogle").css({"width" : ""});
 		  }	}
-		$(window).off("scroll");
-		$(window).on("scroll");
 		$(window).scroll(function(){
 			scroll = $(window).scrollTop();
 		  
@@ -586,22 +661,233 @@ $(window).on('resize',function(){
 			  $("#mapGoogle").css({"width" : ""});
 		  }	}
 		});
-	}else{
-		$(window).off("scroll");
+	}
+
+	$(window).on('resize',function(){
+		
+		
+		if(window.innerWidth >= 768 && (data !="" )){
+			
+			
+			scroll = $(window).scrollTop();
+			if (scroll >= 290) {
+				  scrollID.addClass('fixed');
+				  if(type == "gmap"){
+					  $("#mapGoogle").css({"width" : "43%"});
+				  }	
+			  }
+			  else {
+				  scrollID.removeClass('fixed');
+				  if(type == "gmap"){
+				  $("#mapGoogle").css({"width" : ""});
+			  }	}
+			$(window).off("scroll");
+			$(window).on("scroll");
+			$(window).scroll(function(){
+				scroll = $(window).scrollTop();
+			  
+			  
+			  if (scroll >= 290) {
+				  scrollID.addClass('fixed');
+				  if(type == "gmap"){
+					  $("#mapGoogle").css({"width" : "43%"});
+				  }	
+			  }
+			  else {
+				  scrollID.removeClass('fixed');
+				  if(type == "gmap"){
+				  $("#mapGoogle").css({"width" : ""});
+			  }	}
+			});
+		}else{
+			$(window).off("scroll");
+			$(window).on("scroll");
+			scrollID.removeClass('fixed');
+			if(type == "gmap"){
+				  $("#mapGoogle").css({"width" : ""});
+			}
+		}
+		
+		
+		
+	});
+
+
+
+	  
+}
+
+
+var renderBranchDetaill = (items,parent_org_id) => {
+	$.each(items,(k,v)=>{
+		tempPerf.main_area.find(`#underOrgId${parent_org_id}`).append(tempPerf.print_header.bind(v)());
+        
+		if(v.org_list)renderBranchDetaill(v.org_list,v.org_id);
+        else renderKpiDetaill(v.branch_details,v.org_id);  
+    });
+};
+
+
+var renderKpiDetaill = (items,parent_org_id) => {
+    tempPerf.main_area.find(`#underOrgId${parent_org_id}`).attr("class","");
+    tempBranchKpi.table = $(tempBranchKpi.main_table);
+    
+    $.each(items,(k,v)=>{
+    	tempBranchKpi.table.find(`tbody`).append(tempBranchKpi.print_tbody.bind(v)())
+    });
+    
+    tempPerf.main_area.find(`#underOrgId${parent_org_id}`).append(tempBranchKpi.table);
+};
+
+	
+var listAllDataPerformanceDetailFn = function(data,type){
+		$("#detailArea").empty();
+		var scrollID =  $('#mapArea').children();
+		var scroll;
+		$(window).off("scroll","resize");
 		$(window).on("scroll");
 		scrollID.removeClass('fixed');
+
+		tempPerf.clear();
+    	tempPerf.main_area=$(`<div id='detailPerfomanceArea' class='detailPerfomanceArea'></div>`);
+
+    	if(data.length)tempPerf.main_area.append(`<div id='noData'>${Liferay.Language.get('no-data-to-display')}</div>`);
+       
+		configs.sparkline = 'active';
+		configs.orgGaugeList = [];
+		
+		$.each(data,(k,v)=>{
+			tempPerf.main_area.append(tempPerf.print_header.bind(v)());
+            configs.sparkline = '';
+            
+			if(v.org_list)renderBranchDetaill(v.org_list,v.org_id);
+			else renderKpiDetaill(v.branch_details,v.org_id);
+		});
+		
+		$("#detailArea").html(tempPerf.main_area);
+		
+		$.each(configs.orgGaugeList,(k,v)=>{
+			var gauge = loadLiquidFillGauge(v.id, v.pct ,v.config);
+		});
+		
+		$(".detailPerfomanceArea" ).accordion({
+		    heightStyle: "content",
+		    collapsible: true,
+		    beforeActivate: function(event, ui) {
+		        // The accordion believes a panel is being opened
+		       if (ui.newHeader[0]) {
+		           var currHeader  = ui.newHeader;
+		           var currContent = currHeader.next('.ui-accordion-content');
+		        // The accordion believes a panel is being closed
+		       } else {
+		           var currHeader  = ui.oldHeader;
+		           var currContent = currHeader.next('.ui-accordion-content');
+		       }
+		        // Since we've changed the default behavior, this detects the actual status
+		       var isPanelSelected = currHeader.attr('aria-selected') == 'true';
+		       
+		        // Toggle the panel's header
+		       currHeader.toggleClass('ui-corner-all',isPanelSelected).toggleClass('accordion-header-active ui-state-active ui-corner-top',!isPanelSelected).attr('aria-selected',((!isPanelSelected).toString()));
+		       
+		       // Toggle the panel's icon
+		       currHeader.children('.ui-icon').toggleClass('ui-icon-triangle-1-e',isPanelSelected).toggleClass('ui-icon-triangle-1-s',!isPanelSelected);
+		       
+		        // Toggle the panel's content
+		       currContent.toggleClass('accordion-content-active',!isPanelSelected)    
+		       if (isPanelSelected) { currContent.slideUp(); }  else { currContent.slideDown(); }
+
+		       return false; // Cancels the default action
+		   }
+		});
+		
+		$("[aria-selected=true]").click();
+		$("#detailArea").show();
+		
 		if(type == "gmap"){
 			  $("#mapGoogle").css({"width" : ""});
 		}
-	}
-	
-	
-	
-});
 
+		if(window.innerWidth >= 768 && (data !="" )){
+			
+			
+			scroll = $(window).scrollTop();
+			if (scroll >= 290) {
+				  scrollID.addClass('fixed');
+				  if(type == "gmap"){
+					  $("#mapGoogle").css({"width" : "43%"});
+				  }	
+			  }
+			  else {
+				  scrollID.removeClass('fixed');
+				  if(type == "gmap"){
+				  $("#mapGoogle").css({"width" : ""});
+			  }	}
+			$(window).scroll(function(){
+				scroll = $(window).scrollTop();
+			  
+			  
+			  if (scroll >= 290) {
+				  scrollID.addClass('fixed');
+				  if(type == "gmap"){
+					  $("#mapGoogle").css({"width" : "43%"});
+				  }	
+			  }
+			  else {
+				  scrollID.removeClass('fixed');
+				  if(type == "gmap"){
+				  $("#mapGoogle").css({"width" : ""});
+			  }	}
+			});
+		}
 
-
-  
+		$(window).on('resize',function(){
+			
+			
+			if(window.innerWidth >= 768 && (data !="" )){
+				
+				
+				scroll = $(window).scrollTop();
+				if (scroll >= 290) {
+					  scrollID.addClass('fixed');
+					  if(type == "gmap"){
+						  $("#mapGoogle").css({"width" : "43%"});
+					  }	
+				  }
+				  else {
+					  scrollID.removeClass('fixed');
+					  if(type == "gmap"){
+					  $("#mapGoogle").css({"width" : ""});
+				  }	}
+				$(window).off("scroll");
+				$(window).on("scroll");
+				$(window).scroll(function(){
+					scroll = $(window).scrollTop();
+				  
+				  
+				  if (scroll >= 290) {
+					  scrollID.addClass('fixed');
+					  if(type == "gmap"){
+						  $("#mapGoogle").css({"width" : "43%"});
+					  }	
+				  }
+				  else {
+					  scrollID.removeClass('fixed');
+					  if(type == "gmap"){
+					  $("#mapGoogle").css({"width" : ""});
+				  }	}
+				});
+			}else{
+				$(window).off("scroll");
+				$(window).on("scroll");
+				scrollID.removeClass('fixed');
+				if(type == "gmap"){
+					  $("#mapGoogle").css({"width" : ""});
+				}
+			}
+			
+			
+			
+		});
 }
 var showPerformanceDetailFn=function(district,province){
 	var dataDetails="";
@@ -623,7 +909,35 @@ var showPerformanceDetailFn=function(district,province){
 		success:function(data){
 				
 				listDataPerformanceDetailFn(data,province);
-				//console.log(data);
+			
+		}
+	});
+	
+}
+var showPerformanceDetail2Fn=function(district,org,type){
+	var dataDetails="";
+	var period= $("#embed_period").val();
+	var kpi= $("#embed_kpi").val();
+	var level = $("#embed_level").val();
+	
+	$.ajax({
+		url:restfulURL+"/"+serviceName+"/public/dashboard/branch_details2",
+		type:"get",
+		dataType:"json",
+		data : {
+			"province_code"		:  	district,
+				"period_id"		:	period,
+				"item_id"		:	kpi,
+				"level_id"		: 	level,
+				"org_id"		:   org
+				
+			
+		},
+		async:false,
+		headers:{Authorization:"Bearer "+tokenID.token},
+		success:function(data){
+				
+			listAllDataPerformanceDetailFn(data,type);
 			
 		}
 	});
@@ -693,8 +1007,9 @@ var createJvectorMap = function(objColorData,objDataAvg){
   				
   				var district = code.substring(3);
   				//$("body").mLoading();
-  				showPerformanceDetailFn(district,$("#districtNameHi").val());
-  				$("body").mLoading();
+  				//showPerformanceDetailFn(district,$("#districtNameHi").val());
+  				showPerformanceDetail2Fn(district,null,"mapTH");
+  				//$("body").mLoading();
   		    },
     	    onRegionTipShow: function (e, el, code) {
     	        el.html(el.html() + ' , '+Liferay.Language.get('avg')+' : '+(notNullFn(objDataAvg[code]) == "NaN"? '0.00':notNullFn(objDataAvg[code])));
@@ -721,6 +1036,7 @@ var searchAdvanceFn = function() {
 	embedParam+="<input type='hidden' class='embed_param_search' id='embed_region_name' name='embed_region_name' value='"+$("#region option:selected").text()+"'>";
 	embedParam+="<input type='hidden' class='embed_param_search' id='embed_district' name='embed_district' value='"+$("#district").val()+"'>";
 	embedParam+="<input type='hidden' class='embed_param_search' id='embed_kpi' name='embed_kpi' value='"+$("#kpi").val()+"'>";
+	embedParam+="<input type='hidden' class='embed_param_search' id='embed_level' name='embed_level' value='"+$("#level").val()+"'>";
 
 	$("#embedParamSearch").html(embedParam);
 	
@@ -730,12 +1046,14 @@ var searchAdvanceFn = function() {
 		$("#mapPerfomanceArea").show();
 		$("#mapGooglePerfomanceArea").hide();
 		getColorJvectorMap();
+		showPerformanceDetail2Fn(null,null,"mapTH");
 	}else{
 		
 		$("#mapArea").html("<div id='mapGoogle'><div id='mapGooglePerfomanceArea' style='width:100%; height:500px;'></div></div>");
 		$("#mapPerfomanceArea").hide();
 		$("#mapGooglePerfomanceArea").show();
 		initGoogleMap();
+		showPerformanceDetail2Fn(null,null,"gmap");
 	}
 
 }; 
@@ -749,12 +1067,28 @@ $("document").ready(function(){
 		 if(connectionServiceFn(username,password,plid)==false){
 	 		return false;
 	 	}
-		 
+		 	configs = {
+		 		sparkline : "active",
+		 		gaugeOption : liquidFillGaugeDefaultSettings(),
+		 		orgGaugeList : []
+		 	};
+		 	
+		 	configs.gaugeOption.textColor = "black";
+		 	configs.gaugeOption.waveTextColor = "black";
+		 	configs.gaugeOption.circleThickness = 0.2;
+		 	configs.gaugeOption.textVertPosition = 0.5;
+		 	configs.gaugeOption.waveAnimateTime = 8000;
+		 	configs.gaugeOption.waveHeight = 0.15;
+		 	configs.gaugeOption.waveOffset = 0.25;
+		 	configs.gaugeOption.circleThickness = 0.05;
+		 	
+		 	
 		 	$("#year").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/year_list","GET"));
 			$("#period").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/period_list","POST",{"appraisal_year":$("#year").val()}));
 			$("#region").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/region_list","GET",{},"All Region"));
 		 	$("#district").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/district_list","get",{"org_code":$("#region").val()},"All District"));
 		 	$("#kpi").html((generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/kpi_map_list","POST",{"region_code":$("#region").val(),"district_code":$("#district").val(),"year":$("#year").val(),"period":$("#period").val()})));
+		 	$("#level").html((generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/level_list","GET",{})));
 			
 		 	//#Change Param Function
 			$("#year").change(function(){
@@ -861,3 +1195,37 @@ $("document").ready(function(){
 	
 	    
 });
+
+/*
+
+$("#detailPerfomanceArea" ).accordion({
+	    heightStyle: "content",
+	    collapsible: true,
+	    beforeActivate: function(event, ui) {
+	        // The accordion believes a panel is being opened
+	       if (ui.newHeader[0]) {
+	           var currHeader  = ui.newHeader;
+	           var currContent = currHeader.next('.ui-accordion-content');
+	        // The accordion believes a panel is being closed
+	       } else {
+	           var currHeader  = ui.oldHeader;
+	           var currContent = currHeader.next('.ui-accordion-content');
+	       }
+	        // Since we've changed the default behavior, this detects the actual status
+	       var isPanelSelected = currHeader.attr('aria-selected') == 'true';
+	       
+	        // Toggle the panel's header
+	       currHeader.toggleClass('ui-corner-all',isPanelSelected).toggleClass('accordion-header-active ui-state-active ui-corner-top',!isPanelSelected).attr('aria-selected',((!isPanelSelected).toString()));
+	       
+	       // Toggle the panel's icon
+	       currHeader.children('.ui-icon').toggleClass('ui-icon-triangle-1-e',isPanelSelected).toggleClass('ui-icon-triangle-1-s',!isPanelSelected);
+	       
+	        // Toggle the panel's content
+	       currContent.toggleClass('accordion-content-active',!isPanelSelected)    
+	       if (isPanelSelected) { currContent.slideUp(); }  else { currContent.slideDown(); }
+
+	       return false; // Cancels the default action
+	   }
+	});
+*/
+
