@@ -440,7 +440,7 @@ overflow:hidden !important;
    		<div id='mapGooglePerfomanceArea' style='width:500px; height:500px;'></div>
    	    -->
 	</div>
-	<div class='span6' id='detailArea' style='display: none;'>
+	<div class='span6' id='detailArea' style='display: none;min-height: 550px;'>
 
 
 		<h3 style='text-align: center; color: black;' id='BranchPerTitle'></h3>
