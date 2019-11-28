@@ -16,11 +16,9 @@ String pwd = (String) portletSession1.getAttribute("password", PortletSession.AP
 out.print(pwd);
 String password=PortalUtil.getUser(request).getPassword();
 */
-
 String username = themeDisplay.getUser().getScreenName();
 String password = (String)request.getSession().getAttribute(WebKeys.USER_PASSWORD);
 //out.print(username);
-
 String param_link = PortalUtil.getOriginalServletRequest(request).getParameter("param_link");
 String param_item_result_id = PortalUtil.getOriginalServletRequest(request).getParameter("param_item_result_id");
 layout = themeDisplay.getLayout();
@@ -60,7 +58,6 @@ plid = layout.getPlid();
 	
 	#actionPlanModal{
 		margin-top:0px;
-
 	}
 	.moblieArea{
 		display:none;
@@ -83,8 +80,6 @@ plid = layout.getPlid();
 	.aui .row-fluid#advanceSearchAppraisal .span3{
 		width: 24.5%;
 	}
-
-
 	 
   }
   /* Large desktop End######################################*/
@@ -175,7 +170,6 @@ plid = layout.getPlid();
 	#actionPlanModal{
 		margin-top:0px;
 	}
-
 	
 	
 	.moblieArea{
@@ -369,12 +363,10 @@ plid = layout.getPlid();
 	}
 	/*btn area end*/
  
-
   }
   /* Landscape phones and down End##########################*/
   
   
-
 .ibox-content {
     background-color: #fff;
     border: 1px solid #ffe57f;
@@ -383,7 +375,6 @@ plid = layout.getPlid();
     padding-left: 15px;
     padding-right: 15px;
 }
-
 #countPaginationTop{
 	width:60px;
 }
@@ -422,7 +413,6 @@ plid = layout.getPlid();
     border-radius: 0;
    
 }
-
 /*
 .aui .modal {
     background-clip: padding-box;
@@ -442,7 +432,6 @@ plid = layout.getPlid();
 .aui input, .aui textarea, .aui .uneditable-input {
    /* width: 47px;*/
 }
-
  .aui .table td {
     border-top: 1px solid #ddd;
     line-height: 16px;
@@ -461,12 +450,10 @@ plid = layout.getPlid();
     margin-bottom: 0;
 }
 .breadcrumbs2{
-
 	background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #fff 0px, #f6f6f6 47%, #ededed 100%) repeat scroll 0 0;
     border-radius: 0;
     margin-bottom: 0;
   	/*padding-bottom: 0px*/
-
 }
 .aui .searchAdvanceText{
 	/*width:94%;*/
@@ -486,7 +473,6 @@ plid = layout.getPlid();
  text-align: right;
  font-weight: bold;
 }
-
 .aui .pagination ul > li:last-child > a, .aui .pagination ul > li:last-child > span{
    border-bottom-right-radius: 0;
    border-top-right-radius: 0;
@@ -511,12 +497,10 @@ plid = layout.getPlid();
 .aui #actionToAssign{
 	width:100%;
 }
-
 .aui .row-fluid [class*="span"]{
 min-height: auto;
 margin-bottom:1px;
 }
-
 .textInfo{
 	font-wieght:bold;
 	/*text-align:right;*/
@@ -533,7 +517,6 @@ margin-bottom:1px;
 .aui .textData{
 	  font-weight: bold;
 }
-
 /* Important part */
 .modal-dialog{
     overflow-y: initial !important
@@ -546,7 +529,6 @@ margin-bottom:1px;
 	text-align: '';
 }
 /* Update by au */
-
 .aui .btn {
 	font-size: 14px;
  	padding: 4px 12px; 
@@ -554,17 +536,12 @@ margin-bottom:1px;
 	margin-top: 0px;
 	display: inline;
 }
-
-
 .aui select, .aui textarea, .aui input[type="text"], .aui input[type="password"], .aui input[type="datetime"], .aui input[type="datetime-local"], .aui input[type="date"], .aui input[type="month"], .aui input[type="time"], .aui input[type="week"], .aui input[type="number"], .aui input[type="email"], .aui input[type="url"], .aui input[type="search"], .aui input[type="tel"], .aui input[type="color"], .aui .uneditable-input {
     height: 30px;
     padding: 0 0 0 5px;
     font-size: 14px;
 }
-
-
 /* Modal action plan START */
-
 .boxActionPlainArea{
 	
 }
@@ -574,14 +551,12 @@ margin-bottom:1px;
 	/*border:1px solid #cccccc;*/
 	margin-top: 3px;
 }
-
 .boxActionPlainArea .boxActionR{
 	/*float:right;*/
 	/*width:565px;*/
 	/*width:45%;*/
 	/*border:1px solid #cccccc;*/
 }
-
 .boxTargetArea{
 	width:27%;
 	float:left;
@@ -636,7 +611,6 @@ margin-bottom:1px;
 	text-align:center;
 }
 .actionPlanList{
-
 	padding:5px;
 	border-width: 1px 1px 1px 1px;
 	border-color: #cccccc;
@@ -655,20 +629,15 @@ margin-bottom:1px;
 	color:#555;
 	margin-bottom: 0;
 }
-
-
 .aui select, .aui textarea, .aui input[type="text"], .aui input[type="password"], .aui input[type="datetime"], .aui input[type="datetime-local"], .aui input[type="date"], .aui input[type="month"], .aui input[type="time"], .aui input[type="week"], .aui input[type="number"], .aui input[type="email"], .aui input[type="url"], .aui input[type="search"], .aui input[type="tel"], .aui input[type="color"], .aui .uneditable-input{
 	height:'';
 }
-
 .aui input[type="color"], .aui input[type="date"], .aui input[type="datetime"], .aui input[type="datetime-local"], .aui input[type="email"], .aui input[type="month"], .aui input[type="number"], .aui input[type="password"], .aui input[type="search"], .aui input[type="tel"], .aui input[type="text"], .aui input[type="time"], .aui input[type="url"], .aui input[type="week"], .aui select, .aui textarea, .aui .uneditable-input{
 	margin-bottom: 0px;
 }
-
 .ui-autocomplete{
 	z-index: 999999;
 }
-
 .actionplan_input{
 	display:none;
 }
@@ -686,28 +655,21 @@ margin-bottom:1px;
     */
 }
 /* Modal action plan END */
-
-
 .aui .ca-menu li{
     line-height: 0px;
 }
-
 .aui .appraisal_result .popover{
 	width:120px;
 }
-
 .aui select, .aui input[type="text"] {
     font-size: 13px;
 }
-
 .ca-sub-fixed33 {
 top: 33%
 }
-
 .ca-sub-fixed25 {
 top: 25%
 }
-
 </style>
 
 
@@ -1384,6 +1346,67 @@ Is Active
 </div>
 <!-- Modal attach file End -->
 
+<!-- Modal good practice Start -->
+<div aria-hidden="true" role="dialog" tabindex="-1" id="goodPracticeModal" class="modal inmodal large" style="height:auto;display: none; margin-top: 0px;">
+    <div class="modal-dialog">
+    <div class="modal-content animated bounceInRight" >
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only"></span></button>
+                <h5 class="modal-title"><liferay-ui:message key="แนวทางปฏิบัติ"/></h5>
+            </div>
+            <div class="modal-body">
+               
+			<div style='margin-bottom:5px'>
+				<div id="goodPracticeHead">
+					
+				</div>
+				
+				
+				<div id="goodPracticeBody">
+				
+				</div>
+				
+			</div>
+			
+                <!-- content end -->
+            </div>
+            
+         
+        </div>
+    </div>
+</div>
+<!-- Modal good practice End -->
+
+<!-- Modal Lesson Learn Start -->
+<div aria-hidden="true" role="dialog" tabindex="-1" id="lessonLearnModal" class="modal inmodal large" style="display: none; margin-top: 0px;">
+    <div class="modal-dialog">
+    <div class="modal-content animated bounceInRight">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button"><span aria-hidden="true">×</span><span class="sr-only"></span></button>
+                <h5 class="modal-title"><liferay-ui:message key="lesson-learn"/></h5>
+            </div>
+            <div class="modal-body">
+               
+			<div style='margin-bottom:5px;'>
+			<div id="lessonLearnHead">
+					
+				</div>
+				
+				
+				<div id="lessonLearnBody">
+				
+				</div>
+			</div>
+			
+                <!-- content end -->
+            </div>
+            
+         
+        </div>
+    </div>
+</div>
+<!-- Modal Lesson Learn End -->
+
 
 <!-- Modal Download Attach File Start -->
 <div aria-hidden="true" role="dialog" tabindex="-1" id="downloadAttachFileModal" class="modal inmodal " style="display: none; margin-top: 0px;">
@@ -1932,6 +1955,5 @@ Is Active
     
     	
     
-
 
 

@@ -406,7 +406,7 @@ var assignTemplateQuantityFn = function(structureName,data){
 						
 	
 						htmlTemplateQuantity+="	<td style=\"text-align:center; display: flex; justify-content: space-between;\">";
-						htmlTemplateQuantity+=" <span>&nbsp;&nbsp;&nbsp;&nbsp;</span><i data-trigger=\"focus\" tabindex=\""+index+"\" data-content=\"&lt;button style='width:100%;' class='btn btn-success btn-small btn-gear reason' id='reason-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;"+Liferay.Language.get('detail')+"&lt;/button&gt;  &lt;button id='attach_file-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' style='width:100%;' class='btn btn-success btn-small btn-gear attach_file'&gt;"+Liferay.Language.get('attach-files')+"&lt;/button&gt;&lt;button style='width:100%;' id='action_plan-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' class='btn btn-success btn-small btn-gear action_plan'&gt;"+Liferay.Language.get('action-plan')+"&lt;/button&gt; &lt;button style='width:100%;' class='btn btn-success btn-small btn-gear ganttChart' id='ganttChart-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;"+Liferay.Language.get('gantt-chart')+"&lt;/button&gt;  &lt;button style='width:100%;' class='btn btn-success btn-small btn-gear phase' id='phase-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;"+Liferay.Language.get('phase')+"&lt;/button&gt; \" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-edit-del\" data-original-title=\"\" title=\"\"></i>"+paperclip;						htmlTemplateQuantity+="	</td>";
+						htmlTemplateQuantity+=" <span>&nbsp;&nbsp;&nbsp;&nbsp;</span><i data-trigger=\"focus\" tabindex=\""+index+"\" data-content=\"&lt;\&gt;  &lt;button id='good_practice-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' style='width:100%;' class='btn btn-success btn-small btn-gear good_practice'&gt;"+Liferay.Language.get('Good Practice')+"&lt;/button&gt;  &lt;button id='lesson_learn-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' style='width:100%;' class='btn btn-success btn-small btn-gear lesson_learn'&gt;"+Liferay.Language.get('Lesson Learn')+"&lt;/button&gt;&lt;button style='width:100%;' class='btn btn-success btn-small btn-gear reason' id='reason-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;"+Liferay.Language.get('detail')+"&lt;/button&gt;  &lt;button id='attach_file-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' style='width:100%;' class='btn btn-success btn-small btn-gear attach_file'&gt;"+Liferay.Language.get('attach-files')+"&lt;/button&gt;&lt;button style='width:100%;' id='action_plan-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' class='btn btn-success btn-small btn-gear action_plan'&gt;"+Liferay.Language.get('action-plan')+"&lt;/button&gt; &lt;button style='width:100%;' class='btn btn-success btn-small btn-gear ganttChart' id='ganttChart-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;"+Liferay.Language.get('gantt-chart')+"&lt;/button&gt;  &lt;button style='width:100%;' class='btn btn-success btn-small btn-gear phase' id='phase-"+indexEntry['item_result_id']+"-"+indexEntry['emp_id']+"-"+indexEntry['emp_name']+"' data-target='' data-backdrop='"+setModalPopup[0]+"' data-keyboard='"+setModalPopup[1]+"' data-toggle='modal'&gt;"+Liferay.Language.get('phase')+"&lt;/button&gt; \" data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" class=\"fa fa-cog font-gear popover-edit-del\" data-original-title=\"\" title=\"\"></i>"+paperclip;						htmlTemplateQuantity+="	</td>";
 					htmlTemplateQuantity+="</tr>";
 				}else{
 					//no_weight	
@@ -494,6 +494,274 @@ var dropDrowYearListFn = function(nameArea,id){
 		}
 	});
 }
+
+var HeaderHTML = function(){
+	var html = "";
+	// แนวทางปฏิบัติ
+	html += "<div style='float:left;'>";
+	html += "<p>กลุ่มงาน : กลุ่มงานนครหลวง </p>";
+	html += "<p>ผ่ายงาน : ฝ่ายงานสาขา กทม และ ปริมณฑล 1 </p>";
+	html += "<p>สาขา : สาขา ฟิวเจอร์ปาร์ครังสิต </p>";
+	html += "<p>ตัวชี้วัด : จำนวนสินเชื่อที่อยู่อาศัยปล่อยใหม่</p>";
+	html += "</div>";
+	html += "<div style='float:right;right: 0;'>";
+	html += "<table class='table table-bordered' >";
+	html += "<tr>";
+	html += "<td rowspan='2' style='text-align: center; vertical-align: middle;'><p>ผลงาน</p><h5>0.47</h5></td>";
+	html += "<td style='text-align: center; vertical-align: middle;'><p>คาดการณ์</p><p>0.60</p></td>";
+	html += "<td style='text-align: center; vertical-align: middle;'><p>%ผลงานเทียบค่าคาดการณ์</p><p>76.67%</p></td>";
+	html += "</tr>";
+	html += "<tr>";
+	html += "<td style='text-align: center; vertical-align: middle;'><p>เป้าหมาย</p><p>0.60</p></td>";
+	html += "<td style='text-align: center; vertical-align: middle;'><p>%ผลงานเทียบค่าเป้าหมาย</p><p>76.67%</p></td>";
+	html += "	</tr>";
+	html += "</table>";
+	html += "</div>";
+	
+	return html;
+	
+	
+}
+var GP_in = 1;
+var arrIn= new Array();
+var disable_state_in = new Array();
+var id_in = new Array();
+var addGP_in = function(){
+	var html ="";
+	html += "<tr id='d"+GP_in+"'>";
+	html += "<td style='width:30%'>";
+	html += "<input type='checkbox' class='form-check-input' id='"+GP_in+"' style='pointer-events: all;' >";
+	html += "<select id='s"+GP_in+"' class='form-control form-control-sm' style='min-width:96%' disabled>";
+	html += "<option>1.ปัจจัยภายใน1</option>";
+	html += "<option>2.ปัจจัยภายใน2</option>";
+	html += "<option>3.ปัจจัยภายใน3</option>";
+	html += "<option>4.ปัจจัยภายใน4</option>";
+	html += "</select>";
+	html += "</td>";
+	html += "<td style='width:80%'><textarea id='t"+GP_in+"' style='width:100%;resize: vertical;' disabled></textarea></td>";
+	html += "</tr>";
+	
+	disable_state_in.push(true);
+	id_in.push(GP_in);
+	arrIn.push(html);
+	GP_in++;
+			
+			
+}
+
+var GP_out = 100;
+var arrOut = new Array();
+var disable_state_out =new Array();
+var id_out = new Array();
+var addGP_out = function(){
+	var html ="";
+	html += "<tr id='d"+GP_out+"'>";
+	html += "<td style='width:30%'>";
+	html += "<input type='checkbox' class='form-check-input' id='"+GP_out+"' style='pointer-events: all;' >";
+	html += "<select id='s"+GP_out+"' class='form-control form-control-sm' style='min-width:96%' disabled>";
+	html += "<option>1.ปัจจัยภายนอก1</option>";
+	html += "<option>2.ปัจจัยภายนอก2</option>";
+	html += "<option>3.ปัจจัยภายนอก3</option>";
+	html += "<option>4.ปัจจัยภายนอก4</option>";
+	html += "</select>";
+	html += "</td>";
+	html += "<td style='width:80%'><textarea id='t"+GP_out+"'style='width:100%;resize: vertical; '  disabled></textarea></td>";
+	html += "</tr>";
+	id_out.push(GP_out);
+	disable_state_out.push(true);
+	arrOut.push(html);
+	GP_out++;
+			
+}
+
+
+var goodPracticeBodyHTML = function(){
+	
+	var html = "";
+	html += "<table class='table table-bordered'>";
+	html += "<tr>";
+	html += "<td Colspan = '2' Align = 'Center'>";
+	html += "<div style='float:left'>"; 
+	html += "<strong>Good Practice</strong>";
+	html += "&nbsp;&nbsp;<button type='button' class='btn btn-warning ' id='btnEditGoodP' onclick='btnEditGoodP()'>แก้ไข</button>";
+	html += "&nbsp;&nbsp;<button type='button' class='btn btn-danger' id='btnDeleteGoodP' onclick='btnDeleteGoodP()'>ลบ</button>";
+	html += "</div> ";
+	html += "<div style='float:right'> ";
+	html += "&nbsp;&nbsp;<button type='button' class='btn btn-success' id='btnExportGoodP' onclick='btnExportGoodP()'>Export</button>";
+	html += "&nbsp;&nbsp;<button type='button' class='btn btn-info' id='btnSaveGoodP' onclick='btnSaveGoodP()'>บันทึก</button>";
+	html += "&nbsp;&nbsp;<button class='btn btn-danger'type='button' onclick='btnCancleGoodP()'>ยกเลิก</button>";
+	html += "</div>";
+	html += "</td>";
+	html += "</tr>";
+	html += "<tr>";
+	html += "<td style='width:10%;text-align: center; vertical-align: middle;'>ปัจจัยภายใน</td>";
+	html += "<td>";
+	html +="<table style='width:100%' >";
+	html +="<tbody id='tbodyGoodP'>";
+	html +="<tr>";
+	html +="<td style='text-align: center; vertical-align: middle;'>ปัจจัยความสำเร็จ<span>&nbsp;&nbsp;<button type='button' class='btn btn-success' style='pointer-events: all;' onclick='btnAddGoodPIn()'>เพิ่ม</button></span></td>";
+	html +="<td style='text-align: center; vertical-align: middle;'>รายละเอียด</td>";
+	html +="</tr>";
+	
+	// call add in 
+	for(var i=0;i<arrIn.length;i++){
+		
+		html +=arrIn[i];
+		
+	}
+	
+	
+	html +="</tbody>";
+	html +="</table>";
+	html +="</td>";
+	html +="</tr>";
+	html +="<tr>";
+	html +="<td style='width:10%;text-align: center; vertical-align: middle;'>ปัจจัยภายนอก</td>";
+	html +="<td>";
+	html +="<table style='width:100%' >";
+	html +="<tbody  id='tbodyGoodP2'>";
+	html +="<tr>";
+	html +="<td style='text-align: center; vertical-align: middle;'>ปัจจัยความสำเร็จ<span>&nbsp;&nbsp;<button type='button' class='btn btn-success' style='pointer-events: all;'onclick='btnAddGoodPOut()'>เพิ่ม</button></span></td>";
+	html +="<td style='text-align: center; vertical-align: middle;'>รายละเอียด</td>";
+	html +="</tr>";
+	
+	// call add out
+	
+	for(var i=0;i<arrOut.length;i++){
+		html +=arrOut[i];
+	}
+
+	html +="</tbody>";
+	html +="</table>";
+	html +="</td>";
+	html +="</tr>";
+	html +="</table>";
+	//console.log(html);
+	
+	$("#goodPracticeBody").html(html);
+	
+	
+}
+
+var LL_in = 1;
+var arrInLL= new Array();
+var disable_state_in_ll = new Array();
+var id_in_ll = new Array();
+var addLL_in = function(){
+	var html ="";
+	html += "<tr id='dl"+LL_in+"'>";
+	html += "<td style='width:45%'>";
+	html += "<input type='checkbox' class='form-check-input' id='"+LL_in+"' style='pointer-events: all;' >";
+	html += "<select id='sl"+LL_in+"' class='form-control form-control-sm' style='min-width:97%' disabled>";
+	html += "<option>1.ปัจจัยภายใน1</option>";
+	html += "<option>2.ปัจจัยภายใน2</option>";
+	html += "<option>3.ปัจจัยภายใน3</option>";
+	html += "<option>4.ปัจจัยภายใน4</option>";
+	html += "</select>";
+	html += "</td>";
+	html += "<td style='width:45%'><textarea id='tl"+LL_in+"' style='width:100%;resize: vertical;' disabled></textarea></td>";
+	html += "</tr>";
+	
+	disable_state_in_ll.push(true);
+	id_in_ll.push(LL_in);
+	arrInLL.push(html);
+	LL_in++;
+			
+			
+}
+
+var LL_out = 100;
+var arrOutLL = new Array();
+var disable_state_out_ll =new Array();
+var id_out_ll = new Array();
+var addLL_out = function(){
+	var html ="";
+	html += "<tr id='dl"+LL_out+"'>";
+	html += "<td style='width:45%'>";
+	html += "<input type='checkbox' class='form-check-input' id='"+LL_out+"' style='pointer-events: all;' >";
+	html += "<select id='sl"+LL_out+"' class='form-control form-control-sm' style='min-width:97%' disabled>";
+	html += "<option>1.ปัจจัยภายนอก1</option>";
+	html += "<option>2.ปัจจัยภายนอก2</option>";
+	html += "<option>3.ปัจจัยภายนอก3</option>";
+	html += "<option>4.ปัจจัยภายนอก4</option>";
+	html += "</select>";
+	html += "</td>";
+	html += "<td style='width:45%'><textarea id='tl"+LL_out+"'style='width:100%;resize: vertical;' disabled></textarea></td>";
+	html += "</tr>";
+	id_out_ll.push(LL_out);
+	disable_state_out_ll.push(true);
+	arrOutLL.push(html);
+	LL_out++;
+			
+}
+
+var lessonLearnBodyHTML = function(){
+	
+	var html = "";
+	html += "<table class='table table-bordered'>";
+	html += "<tr>";
+	html += "<td Colspan = '2' Align = 'Center'>";
+	html += "<div style='float:left'>"; 
+	html += "<strong>Lesson Learn</strong>";
+	html += "&nbsp;&nbsp;<button type='button' class='btn btn-warning' id='btnEditLessonL' onclick='btnEditLessonL()'>แก้ไข</button>";
+	html += "&nbsp;&nbsp;<button type='button' class='btn btn-danger' id='btnDeleteLessonL' onclick='btnDeleteLessonL()'>ลบ</button>";
+	html += "</div> ";
+	html += "<div style='float:right'> ";
+	html += "&nbsp;&nbsp;<button type='button' class='btn btn-success' id='btnExportLessonL' onclick='btnExportLessonL()'>Export</button>";
+	html += "&nbsp;&nbsp;<button type='button' class='btn btn-info' id='btnSaveLessonL' onclick='btnSaveLessonL()'>บันทึก</button>";
+	html += "&nbsp;&nbsp;<button data-dismiss='modal' class='btn btn-danger'type='button' onclick='btnCancleLessonL()'>ยกเลิก</button>";
+	html += "</div>";
+	html += "</td>";
+	html += "</tr>";
+	html += "<tr>";
+	html += "<td style='width:10%;text-align: center; vertical-align: middle;'>ปัจจัยภายใน</td>";
+	html += "<td>";
+	html +="<table style='width:100%' >";
+	html +="<tbody id='tbodyGoodl'>";
+	html +="<tr>";
+	html +="<td style='text-align: center; vertical-align: middle;'>ปัจจัยความสำเร็จ<span>&nbsp;&nbsp;<button type='button' class='btn btn-success' style='pointer-events: all;' onclick='btnAddLessonLIn()'>เพิ่ม</button></span></td>";
+	html +="<td style='text-align: center; vertical-align: middle;'>รายละเอียด</td>";
+	html +="</tr>";
+	
+	// call add in 
+	for(var i=0;i<arrInLL.length;i++){
+		
+		html +=arrInLL[i];
+		
+	}
+	
+	
+	html +="</tbody>";
+	html +="</table>";
+	html +="</td>";
+	html +="</tr>";
+	html +="<tr>";
+	html +="<td style='width:10%;text-align: center; vertical-align: middle;'>ปัจจัยภายนอก</td>";
+	html +="<td>";
+	html +="<table style='width:100%' >";
+	html +="<tbody  id='tbodyGoodl2'>";
+	html +="<tr>";
+	html +="<td style='text-align: center; vertical-align: middle;'>ปัจจัยความสำเร็จ<span>&nbsp;&nbsp;<button type='button' class='btn btn-success' style='pointer-events: all;'onclick='btnAddLessonLOut()'>เพิ่ม</button></span></td>";
+	html +="<td style='text-align: center; vertical-align: middle;'>รายละเอียด</td>";
+	html +="</tr>";
+	
+	// call add out
+	
+	for(var i=0;i<arrOutLL.length;i++){
+		html +=arrOutLL[i];
+	}
+
+	html +="</tbody>";
+	html +="</table>";
+	html +="</td>";
+	html +="</tr>";
+	html +="</table>";
+	//console.log(html);
+	$("#lessonLearnBody").html(html);
+	
+	
+}
+
 
 var dropDrowPeriodListFn = function(year,id){
 
@@ -622,11 +890,11 @@ var splitData = function(data){
 }
 
 var listAppraisalDetailFn = function(data){
-
+	
 	$("#appraisal_template_area").empty();
 	$.each(data['group'],function(index,groupEntry){
 		
-		
+		console.log(groupEntry);
 		if(groupEntry['form_url']=='quantity'){			
 			$("#appraisal_template_area").append(assignTemplateQuantityFn(index,groupEntry));
 			
@@ -673,6 +941,7 @@ var listAppraisalDetailFn = function(data){
 					$("#action_actionplan").val("add");
 					
 				});
+				
 				//attach flie start
 				$(".attach_file").click(function(){
 					
@@ -689,7 +958,49 @@ var listAppraisalDetailFn = function(data){
 					
 					
 				});
-			
+				
+				//good practice start
+				$(".good_practice").click(function(){
+					
+					$("#informConfirm").empty();
+					$("#goodPracticeHead").html(HeaderHTML());
+					addGP_in();
+					addGP_in();
+					addGP_out();
+					addGP_out();
+					goodPracticeBodyHTML();
+					
+					
+					$("#goodPracticeModal").modal({
+						"backdrop" : setModalPopup[0],
+						"keyboard" : setModalPopup[1]
+					}).css({"margin-top":"0px"});
+					
+					$('.dropify').dropify();
+					
+					
+				});
+				
+				//lesson learn start
+				$(".lesson_learn").click(function(){
+					
+					$("#informConfirm").empty();
+					$("#lessonLearnHead").html(HeaderHTML());
+					addLL_in();
+					addLL_in();
+					addLL_out();
+					addLL_out();
+					lessonLearnBodyHTML();
+					
+					
+					$("#lessonLearnModal").modal({
+						"backdrop" : setModalPopup[0],
+						"keyboard" : setModalPopup[1]
+					}).css({"margin-top":"0px"});
+					$('.dropify').dropify();
+					
+					
+				});
 				
 			
 				//phase Start
@@ -2155,7 +2466,359 @@ var listViewDailyOrMonthlyFn = function(){
 	$("#selectGanntChartViewDaily").html(html);
 }
 
-$(document).ready(function() {
+var btnEditGoodP = function(){
+	//alert(id_in.length);
+	
+	for(var i=0;i<disable_state_in.length;i++){
+		disable_state_in[i]= false;
+	}
+	for(var i=0;i<id_in.length;i++){
+		var num = parseInt(id_in[i]);
+		console.log(id_in[i]);
+		document.getElementById("s"+num).disabled = disable_state_in[i];
+		document.getElementById("t"+num).disabled = disable_state_in[i];
+	}
+	
+	for(var i=0;i<disable_state_out.length;i++){
+		disable_state_out[i]= false;
+	}
+	for(var i=0;i<id_out.length;i++){
+		var num = parseInt(id_out[i]);
+		console.log(id_out[i]);
+		document.getElementById("s"+num).disabled = disable_state_out[i];
+		document.getElementById("t"+num).disabled = disable_state_out[i];
+	}
+	
+}
+var btnCancleGoodP = function(){
+	arrOut=new Array();
+	disable_state_out=new Array();
+	id_out=new Array();
+	arrIn=new Array();
+	disable_state_in=new Array();
+	id_in=new Array();
+	GP_out=100;
+	GP_in=1;
+	addGP_in();
+	addGP_in();
+	addGP_out();
+	addGP_out();
+	goodPracticeBodyHTML();
+	
+}
+
+var btnDeleteGoodP =function(){
+	console.log(id_in);
+	//alert('D');
+	var checkbox = $('.form-check-input');
+	//console.log(checkbox);
+	$("input[type='checkbox']").each(function () {
+          if($(this).prop("checked")){
+        	  var key=$(this).attr('id');	
+        	  var id = "#d"+key;
+        	  console.log(id);
+        	  if(key>=100){ 
+        		  
+        		  var index = -1;
+        		  for(var i=0;i<id_out.length;i++){
+        			  if(id_out[i]==key){
+        				  index = i;
+        				  break;
+        			  }
+        		  }
+        		  console.log(index);
+        		  arrOut.splice(index,1);
+        		  disable_state_out.splice(index,1);
+        		  id_out.splice(index,1);
+        		  console.log(id_out);
+        	  }else{
+        		  var index = -1;
+        		  for(var i=0;i<id_in.length;i++){
+        			  if(id_in[i]==key){
+        				  index = i;
+        				  break;
+        			  }
+        		  }
+        		  console.log(index);
+        		  arrIn.splice(index,1);
+        		  disable_state_in.splice(index,1);
+        		  id_in.splice(index,1);
+        		  console.log(id_in);
+        	  }
+        	  $(id).remove();
+          }
+         });
+}
+
+var temp_data_out=[];
+var temp_height_out=[];
+var temp_data_in=[];
+var temp_height_in=[];
+var btnAddGoodPIn = function(){
+	 //alert( "A IN" );
+	for(var i=0;i<id_in.length;i++){
+		var num = parseInt(id_in[i]);
+		temp_data_in.push($('#t'+num).val());
+		temp_height_in.push($('#t'+num).innerHeight());
+	}
+	for(var i=0;i<id_out.length;i++){
+		var num = parseInt(id_out[i]);
+		temp_data_out.push($('#t'+num).val());
+		temp_height_out.push($('#t'+num).innerHeight());
+	}
+	addGP_in();
+	disable_state_in[disable_state_in.length-1] = false;
+	goodPracticeBodyHTML();
+	for(var i=0;i<temp_data_in.length;i++){
+		var num = parseInt(id_in[i]);
+		$('#t'+num).val(temp_data_in[i]);
+		$('#t'+num).innerHeight(temp_height_in[i]);
+	}
+	for(var i=0;i<temp_data_out.length;i++){
+		var num = parseInt(id_out[i]);
+		$('#t'+num).val(temp_data_out[i]);
+		$('#t'+num).innerHeight(temp_height_out[i]);
+	}
+	for(var i=0;i<id_in.length;i++){
+		var num = parseInt(id_in[i]);
+		document.getElementById("s"+num).disabled = disable_state_in[i];
+		document.getElementById("t"+num).disabled = disable_state_in[i];
+	}
+	for(var i=0;i<id_out.length;i++){
+		var num = parseInt(id_out[i]);
+		console.log("In",num);
+		document.getElementById("s"+num).disabled = disable_state_out[i];
+		document.getElementById("t"+num).disabled = disable_state_out[i];
+	}
+	console.log("In",disable_state_in);
+	console.log("Out",disable_state_out);
+	temp_data_out=[];
+	temp_height_out=[];
+	temp_data_in=[];
+	temp_height_in=[];
+}
+
+var btnAddGoodPOut = function(){
+	// alert( "A Out" );
+	for(var i=0;i<id_out.length;i++){
+		var num = parseInt(id_out[i]);
+		temp_data_out.push($('#t'+num).val());
+		temp_height_out.push($('#t'+num).innerHeight());
+	}
+	for(var i=0;i<id_in.length;i++){
+		var num = parseInt(id_in[i]);
+		temp_data_in.push($('#t'+num).val());
+		temp_height_in.push($('#t'+num).innerHeight());
+	}
+	addGP_out();
+	goodPracticeBodyHTML();
+	disable_state_out[disable_state_out.length-1] = false;
+	for(var i=0;i<temp_data_in.length;i++){
+		var num = parseInt(id_in[i]);
+		$('#t'+num).val(temp_data_in[i]);
+		$('#t'+num).innerHeight(temp_height_in[i]);
+	}
+	for(var i=0;i<temp_data_out.length;i++){
+		var num = parseInt(id_out[i]);
+		$('#t'+num).val(temp_data_out[i]);
+		$('#t'+num).innerHeight(temp_height_out[i]);
+	}
+	for(var i=0;i<id_in.length;i++){
+		var num = parseInt(id_in[i]);
+		document.getElementById("s"+num).disabled = disable_state_in[i];
+		document.getElementById("t"+num).disabled = disable_state_in[i];
+	}
+	for(var i=0;i<id_out.length;i++){
+		var num = parseInt(id_out[i]);
+		document.getElementById("s"+num).disabled = disable_state_out[i];
+		document.getElementById("t"+num).disabled = disable_state_out[i];
+	}
+	console.log("In",disable_state_in);
+	console.log("Out",disable_state_out);
+	temp_data_out=[];
+	temp_height_out=[];
+	temp_data_in=[];
+	temp_height_in=[];
+}
+
+var btnExportGoodP = function(){
+	//document.getElementById("s1").disabled = true;
+	 alert( "Export" );
+}
+
+var btnSaveGoodP = function(){
+	alert( "Save" );
+}
+
+
+var btnEditLessonL = function(){
+	//alert('E');
+	for(var i=0;i<disable_state_in_ll.length;i++){
+		disable_state_in_ll[i]= false;
+	}
+	for(var i=0;i<id_in_ll.length;i++){
+		var num = parseInt(id_in_ll[i]);
+		document.getElementById("sl"+num).disabled = disable_state_in_ll[i];
+		document.getElementById("tl"+num).disabled = disable_state_in_ll[i];
+	}
+	
+	for(var i=0;i<disable_state_out_ll.length;i++){
+		disable_state_out_ll[i]= false;
+	}
+	for(var i=0;i<id_out_ll.length;i++){
+		var num = parseInt(id_out_ll[i]);
+		document.getElementById("sl"+num).disabled = disable_state_out_ll[i];
+		document.getElementById("tl"+num).disabled = disable_state_out_ll[i];
+	}
+	
+}
+var btnCancleLessonL = function(){
+	arrOutLL=new Array();
+	disable_state_out_ll=new Array();
+	id_out_ll=new Array();
+	arrInLL=new Array();
+	disable_state_in_ll=new Array();
+	id_in_ll=new Array();
+	LL_out=100;
+	LL_in=1;
+	addLL_in();
+	addLL_in();
+	addLL_out();
+	addLL_out();
+	lessonLearnBodyHTML();
+}
+
+var btnDeleteLessonL =function(){
+	//alert('D');
+	var checkbox = $('.form-check-input');
+	//console.log(checkbox);
+	$("input[type='checkbox']").each(function () {
+          if($(this).prop("checked")){
+        	  var key=$(this).attr('id');	
+        	  var id = "#dl"+key;
+        	  console.log(id);
+        	  if(key>=100){
+        		  var index = -1;
+        		  for(var i=0;i<id_out.length;i++){
+        			  if(id_out[i]==key){
+        				  index = i;
+        				  break;
+        			  }
+        		  }
+        		  
+        		  arrOutLL.splice(index,1);
+        		  disable_state_out_ll.splice(index,1);
+        		  id_out_ll.splice(index,1);
+        	  }else{
+        		  var index = -1;
+        		  for(var i=0;i<id_in.length;i++){
+        			  if(id_in[i]==key){
+        				  index = i;
+        				  break;
+        			  }
+        		  }
+        		  arrInLL.splice(index,1);
+        		  disable_state_in_ll.splice(index,1);
+        		  id_in_ll.splice(index,1);
+        	  }
+        	  $(id).remove();
+          }
+         });
+}
+
+var btnAddLessonLIn = function(){
+	 //alert( "A IN" );
+	for(var i=0;i<id_in_ll.length;i++){
+		var num = parseInt(id_in_ll[i]);
+		temp_data_in.push($('#tl'+num).val());
+		temp_height_in.push($('#tl'+num).innerHeight());
+	}
+	for(var i=0;i<id_out_ll.length;i++){
+		var num = parseInt(id_out_ll[i]);
+		temp_data_out.push($('#tl'+num).val());
+		temp_height_out.push($('#tl'+num).innerHeight());
+	}
+	addLL_in();
+	lessonLearnBodyHTML();
+	disable_state_in_ll[disable_state_in_ll.length-1] = false;
+	for(var i=0;i<temp_data_in.length;i++){
+		var num = parseInt(id_in_ll[i]);
+		$('#tl'+num).val(temp_data_in[i]);
+		$('#tl'+num).innerHeight(temp_height_in[i]);
+	}
+	for(var i=0;i<temp_data_out.length;i++){
+		var num = parseInt(id_out_ll[i]);
+		$('#tl'+num).val(temp_data_out[i]);
+		$('#tl'+num).innerHeight(temp_height_out[i]);
+	}
+	for(var i=0;i<id_in_ll.length;i++){
+		var num = parseInt(id_in_ll[i]);
+		document.getElementById("sl"+num).disabled = disable_state_in_ll[i];
+		document.getElementById("tl"+num).disabled = disable_state_in_ll[i];
+	}
+	for(var i=0;i<id_out_ll.length;i++){
+		var num = parseInt(id_out_ll[i]);
+		document.getElementById("sl"+num).disabled = disable_state_out_ll[i];
+		document.getElementById("tl"+num).disabled = disable_state_out_ll[i];
+	}
+	temp_data_out=[];
+	temp_height_out=[];
+	temp_data_in=[];
+	temp_height_in=[];
+}
+
+var btnAddLessonLOut = function(){
+	// alert( "A Out" );
+	for(var i=0;i<id_in_ll.length;i++){
+		var num = parseInt(id_in_ll[i]);
+		temp_data_in.push($('#tl'+num).val());
+		temp_height_in.push($('#tl'+num).innerHeight());
+	}
+	for(var i=0;i<id_out_ll.length;i++){
+		var num = parseInt(id_out_ll[i]);
+		temp_data_out.push($('#tl'+num).val());
+		temp_height_out.push($('#tl'+num).innerHeight());
+	}
+	addLL_out();
+	lessonLearnBodyHTML();
+	disable_state_out_ll[disable_state_out_ll.length-1] = false;
+	for(var i=0;i<temp_data_in.length;i++){
+		var num = parseInt(id_in_ll[i]);
+		$('#tl'+num).val(temp_data_in[i]);
+		$('#tl'+num).innerHeight(temp_height_in[i]);
+	}
+	for(var i=0;i<temp_data_out.length;i++){
+		var num = parseInt(id_out_ll[i]);
+		$('#tl'+num).val(temp_data_out[i]);
+		$('#tl'+num).innerHeight(temp_height_out[i]);
+	}
+	for(var i=0;i<id_in_ll.length;i++){
+		var num = parseInt(id_in_ll[i]);
+		document.getElementById("sl"+num).disabled = disable_state_in_ll[i];
+		document.getElementById("tl"+num).disabled = disable_state_in_ll[i];
+	}
+	for(var i=0;i<id_out_ll.length;i++){
+		var num = parseInt(id_out_ll[i]);
+		document.getElementById("sl"+num).disabled = disable_state_out_ll[i];
+		document.getElementById("tl"+num).disabled = disable_state_out_ll[i];
+	}
+	temp_data_out=[];
+	temp_height_out=[];
+	temp_data_in=[];
+	temp_height_in=[];
+}
+
+var btnExportLessonL = function(){
+	//document.getElementById("s1").disabled = true;
+	 alert( "Export" );
+}
+
+var btnSaveLessonL = function(){
+	alert( "Save" );
+}
+
+
+$(function() {
 	
 	
 	 username = $('#user_portlet').val();
@@ -2184,6 +2847,7 @@ $(document).ready(function() {
 	$("#assignTo").removeAttr("disabled");
 	$("#actionToAssign").removeAttr("disabled");
 	$("#btnSubmit").removeAttr("disabled");
+	
 	
 	//set parameter start
 		dropDrowYearListFn();
