@@ -709,21 +709,39 @@ var dropDrowOrgFn = function(nameArea,id,defaultAll){
 				htmlOption+="<option value=''>All Org</option>";
 			}
 			$.each(data,function(index,indexEntry){
-				if(id==indexEntry['org_id']){
+				/*if(id==indexEntry['org_id']){
 					htmlOption+="<option selected='selected' value="+indexEntry['org_id']+">"+indexEntry['org_name']+"</option>";
 				}else{
 					htmlOption+="<option value="+indexEntry['org_id']+">"+indexEntry['org_name']+"</option>";
 				}
 			});
-			htmlOption+="</select>";
+			htmlOption+="</select>";*/
+				if (indexEntry['is_active']==1){
+					if(id==indexEntry['org_id']){
+						htmlOption+="<option selected='selected' value="+indexEntry['org_id']+">"+indexEntry['org_name']+"</option>";
+					}else{
+						htmlOption+="<option value="+indexEntry['org_id']+">"+indexEntry['org_name']+"</option>";
+					}
+					}
+					else {
+						if(id==indexEntry['org_id']){
+							htmlOption+="<option selected='selected'disabled='disabled' value="+indexEntry['org_id']+">"+indexEntry['org_name']+"</option>";
+						}else{
+							htmlOption+="<option disabled='disabled' value="+indexEntry['org_id']+">"+indexEntry['org_name']+"</option>";
+						}
+					}
+				});
+				htmlOption+="</select>";
 			
 			$("#org"+nameArea+"Form").html(htmlOption);
 			$("#organization"+nameArea).val(org_array);
 			$('select[name="organization'+nameArea+'[]"]').bootstrapDualListbox({
 				bootstrap2Compatible: true,
 				moveOnSelect: false,
-				preserveSelectionOnMove: 'moved'
+				preserveSelectionOnMove: 'moved',
+				infoText: false
 			});
+			$("#orgQuantityForm .box2 [disabled=disabled]").removeAttr("disabled");
 			$(".move,.moveall,.remove,.removeall").css("width", "50%");
 		}
 	});
@@ -762,10 +780,18 @@ var dropDrowPositionFn = function(nameArea,id,defaultAll){
 				htmlOption+="<option value=''>All Position</option>";
 			}
 			$.each(data,function(index,indexEntry){
+				if (indexEntry['is_active']==1){
 				if(id==indexEntry['position_id']){
 					htmlOption+="<option selected='selected' value="+indexEntry['position_id']+">"+indexEntry['position_name']+"</option>";
 				}else{
 					htmlOption+="<option value="+indexEntry['position_id']+">"+indexEntry['position_name']+"</option>";
+				}
+				}else{
+					if(id==indexEntry['position_id']){
+						htmlOption+="<option selected='selected' disabled='disabled' value="+indexEntry['position_id']+">"+indexEntry['position_name']+"</option>";
+					}else{
+						htmlOption+="<option disabled='disabled' value="+indexEntry['position_id']+">"+indexEntry['position_name']+"</option>";
+					}
 				}
 			});
 			htmlOption+="</select>";
@@ -774,8 +800,10 @@ var dropDrowPositionFn = function(nameArea,id,defaultAll){
 			$('select[name="position'+nameArea+'[]"]').bootstrapDualListbox({
 				bootstrap2Compatible: true,
 				moveOnSelect: false,
-				preserveSelectionOnMove: 'moved'
+				preserveSelectionOnMove: 'moved',
+				infoText: false
 			});
+			$("#positionQuantityForm .box2 [disabled=disabled]").removeAttr("disabled");
 			$(".move,.moveall,.remove,.removeall").css("width", "50%");
 		}
 	});
