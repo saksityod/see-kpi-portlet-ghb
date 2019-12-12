@@ -1,6 +1,6 @@
 <?xml version="1.0"?> 
 <!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 6.2.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_6_2_0.dtd">
-
+ 
 <liferay-portlet-app>
 	<portlet>
 		<portlet-name>see-kpi</portlet-name> 
@@ -96,6 +96,7 @@
 		<header-portlet-css>/css/jquery.multiselect.css</header-portlet-css>
 		<header-portlet-css>/css/bootstrap-duallistbox.css</header-portlet-css>
    		<header-portlet-css>/js/bootstrap-modal/css/bootstrap-modal.css</header-portlet-css>
+   		<header-portlet-css>/css/plugins/select2-4.0.8/select2.min.css</header-portlet-css>
    		
 		    
  	                       
@@ -105,7 +106,7 @@
 	    <footer-portlet-javascript>/js/bootstrap.min.2.3.2.js</footer-portlet-javascript>
 	    <footer-portlet-javascript>/js/jquery.multiselect.js</footer-portlet-javascript>
 	    <footer-portlet-javascript>/js/jquery.bootstrap-duallistbox.js</footer-portlet-javascript>
-	    
+	    <footer-portlet-javascript>/js/plugins/select2-4.0.8/select2.full.min.js</footer-portlet-javascript> 
 	   
 	 
 	    

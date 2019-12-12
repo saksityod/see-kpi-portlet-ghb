@@ -4,6 +4,7 @@ var restfulPathDropDownOrganization="/"+serviceName+"/public/org";
 var restfulPathPositionAutocomplete="/"+serviceName+"/public/position/auto";
 var restfulPathEmployeeAutocomplete="/"+serviceName+"/public/import_employee/auto_employee_name";
 var restfulPathOrgList="/"+serviceName+"/public/import_employee/org_list";
+var restfulPathlicnseUser="/"+serviceName+"/public/license/use";
 //Global variable
 var galbalDataImportEmp=[];
 var galbalDataTemp = [];
@@ -129,7 +130,7 @@ var clearFn = function() {
 	$("#from_emp_wsd").val("");
 	$("#from_emp_ped").val("");
 	$("#from_emp_aed").val("");
-	$("#from_org_id").val("");
+	$("#from_org_id").val([]).select2();
 	$("#from_org_name").val("");
 	$("#from_Level_id").val("");
 	$("#from_position_id").val("");
@@ -202,7 +203,7 @@ var findOneFn = function(id) {
 				$("#from_emp_wsd").val(data['working_start_date']);
 				$("#from_emp_ped").val(data['probation_end_date']);
 				$("#from_emp_aed").val(data['acting_end_date']);
-				$("#from_org_id").val(data['org_id']);
+				$("#from_org_id").val(data['org_id'] == null ? [] : data['org_id']).select2();
 				$("#from_position_id").val(data['position_id']);
 				$("#from_position_name").val(data['position_name']);
 				$("#from_sup_emp_code").val(data['chief_emp_code']);
@@ -412,6 +413,9 @@ var updateFn = function () {
 	// Get value multi_org in array
 	$.each($('#from_multi_org').select2("data"), function() {multi_org.push(this.id);}); 
 	
+	var multi_org_name=[];
+	$.each($('#from_org_id').select2("data"), function() {multi_org_name.push(this.org_id);}); 
+	
 	var isActive="";
 	//IsAction
 	if($("#from_checkboxIs_active:checked").is(":checked")){
@@ -438,7 +442,7 @@ var updateFn = function () {
 			"working_start_date":$("#from_emp_wsd").val(),
 			"probation_end_date":$("#from_emp_ped").val(),
 			"acting_end_date":$("#from_emp_aed").val(),
-			"org_id":$("#from_org_id").val(),
+			"org_id": multi_org_name,   //$("#from_org_id").val(),
 			"level_id":$("#from_Level_id").val(),
 			"position_id":$("#from_position_id").val(),
 			"chief_emp_code":$("#from_sup_emp_code").val(),
@@ -455,8 +459,10 @@ var updateFn = function () {
 			if (data['status'] == "200") {
 				getDataFn($("#pageNumber").val(),$("#rpp").val());
 				clearFn();
+				lecenseuser();
 				$('#ModalEditEmp').modal('hide');
 				callFlashSlide("Update Successfully.");
+				
 				
 			}else if (data['status'] == "400") {
 				
@@ -504,6 +510,7 @@ var insertRoleFn = function () {
 				if(data['status']==200){
 					callFlashSlide("Add Role Successfully.");
 					getDataFn($("#pageNumber").val(),$("#rpp").val());
+					lecenseuser();
 					$('#ModalLevel').modal('hide');
 					
 				}
@@ -528,6 +535,7 @@ var dropDownListOrganization = function(param){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		async:false,
 		success:function(data){
+//			OrgName = data;
 			$.each(data,function(index,indexEntry){
 //				if(id==indexEntry["txtConnection_id"]){
 //					html+="<option  value="+indexEntry["org_id"]+">"+indexEntry["org_name"]+"</option>";			
@@ -541,7 +549,29 @@ var dropDownListOrganization = function(param){
 
 	return html;
 };
-
+var OrgName = function(param){
+	var html="";
+	$.ajax ({
+		url:restfulURL+restfulPathDropDownOrganization ,
+		type:"get" ,
+		dataType:"json" ,
+		headers:{Authorization:"Bearer "+tokenID.token},
+		async:false,
+		success:function(data){
+//			OrgName = data;
+			console.log(data);
+			html+="<option selected value=\"\" selected></option>";
+			$.each(data,function(index,indexEntry){
+//				if(id==indexEntry["txtConnection_id"]){
+//					html+="<option  value="+indexEntry["org_id"]+">"+indexEntry["org_name"]+"</option>";			
+//				}else{
+					html+="<option  value="+indexEntry["org_id"]+">"+indexEntry["org_name"]+"</option>";	
+//				}		
+			});	
+			$("#from_org_id").html(html);
+		}
+	});	
+};
 //List Organization for Multiple Select
 var getListOrganizationForMultipleSelect = function(){
 	$.ajax ({
@@ -557,7 +587,25 @@ var getListOrganizationForMultipleSelect = function(){
 	});	
 
 };
+//license user
+var lecenseuser = function(){
+	$.ajax({
+		url:restfulURL+restfulPathlicnseUser,
+		type:"get" ,
+		dataType:"json" ,
+		headers:{Authorization:"Bearer "+tokenID.token},
+		async:false,
+		success:function(data){
+			var html="";
+			html+="<div class='span6'><h5>Employee List</h5></div>"
+			html+="<div class='span6' style='text-align: right;font-size: 25;padding-top: 6px;'>" 
+			html+="<span class='badge badge-pill badge-success' style='border-radius: 5px;' id='userlicense'><i class='fa fa-user' aria-hidden='true'></i> "+notNullTextFn(addCommas(parseFloat(data)))+"  Active</span>"
+			html+="</div>"
 
+			$("#headelicen").html(html);
+		}
+	});
+}
 //DropDownList Emp Type
 var dropDownEmpType = function(){
 	var html="";
@@ -593,9 +641,10 @@ $(document).ready(function() {
 	$("#search_emp_id").val("");
 	getListOrganizationForMultipleSelect();
 	$("#search_org").html(dropDownListOrganization('All'));
-	$("#from_org_id").html(dropDownListOrganization());
+//	$("#from_org_id").html(dropDownListOrganization());
 	listAppraisalLevel();
-
+	OrgName();
+	lecenseuser();
 	$("#countPaginationTop").val( $("#countPaginationTop option:first-child").val());
 	$("#countPaginationBottom").val( $("#countPaginationBottom option:first-child").val());
 	
@@ -1014,5 +1063,10 @@ $(document).ready(function() {
     	  //},
     	 // templateSelection: function(data) {return data.text;}
     	});
-	
+     
+     /* Set Data For Multiple Org Name*/
+     $("#from_org_id").select2({
+    	 data:$("#from_org_id").val(),
+    	 width: '100%'
+    	});
 });

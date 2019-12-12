@@ -411,11 +411,13 @@ plid = layout.getPlid();
 	margin-bottom: 0px !important;
 	margin-top: 10px !important;
 	box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0),0 0 8px rgba(255, 255, 255, 0) !important;
+	width: 95% !important;
 }
 .select2-results__options{margin-left: 0px !important;}
 li[aria-disabled=true]{
 	display: none;
 } 
+
 
 
 </style>
@@ -508,7 +510,14 @@ li[aria-disabled=true]{
 				<div class="row-fluid " id="employee_list_content">
 					<div class="col-lg-12">
 						<div class="ibox-title">
-							<h5>Employee List</h5>
+						<div id="headelicen"></div>
+							<!-- <div class="span6"><h5>Employee List</h5></div>
+    						<div class="span6" style="text-align: right;font-size: 25;">
+    						<h5>จำนวน User License ที่ใช้งาน 
+    							<span class="badge badge-pill badge-success" style="border-radius: 5px;" id="userlicense">134 คน</span>
+    						</h5>
+    						</div> -->
+    						
 						</div>
 
 
