@@ -2,7 +2,7 @@
 /*#########################  Main Function Data #######################*/
 //Global variable
 var globalData=[];
-
+var item;
 //Get Data
 var getDataFn = function(page,rpp) {
 	
@@ -313,6 +313,8 @@ var findOneFn = function(id,form_url) {
 		  headers:{Authorization:"Bearer "+tokenID.token},
 		  async:false,
 		  success:function(data){ 
+			console.log(data);
+			item = data.item_id;
 			$("#modal-"+form_url).modal({
 	 			"backdrop" : setModalPopup[0],
 				"keyboard" : setModalPopup[1]
@@ -526,7 +528,39 @@ var structureListFn = function(nameArea){
 	})
 
 }
+// ReferenceTarget Search Start
+var Referen = function(){
+	var itemid = item;
+	console.log(itemid);
+    	$.ajax({
+			 url:restfulURL+"/"+serviceName+"/public/reference_target_list",
+			 type:"GET",
+			 dataType:"json",
+			 headers:{Authorization:"Bearer "+tokenID.token},
+			 data:{"item_id":itemid},
+			 //async:false,
+             error: function (xhr, textStatus, errorThrown) {
+                    console.log('Error: ' + xhr.responseText);
+                },
+			 success:function(data){
+				 console.log(data);
+				 var htmlOption="";
+				 htmlOption+="<option value=''> </option>";
+				 $.each(data.data,function(index,indexEntry){
+					 if(index['reference_target_id']){
+						 htmlOption+="<option selected value="+indexEntry['item_id']+">"+indexEntry['item_name']+"</option>";
+					 }else{
+						 htmlOption+="<option value="+indexEntry['item_id']+">"+indexEntry['item_name']+"</option>";
+							
+					 }
+					});
+				 $("#ReferenceTarget").html(htmlOption);
+			}
+			
+			});
 
+}
+//Autocomplete ReferenceTarget Search End
 var dropDrowValueTypeFn =function(nameArea,id,defaultAll){
 	/*
     "kpi_type_id": 3,
@@ -920,7 +954,7 @@ $(document).ready(function(){
 	dropDrowkpiTypeFn('','',defaultAll=true);
 	$(".app_url_hidden").show();
 	//parameter end
-	
+//	Referen();
 	
 	
 
@@ -983,7 +1017,7 @@ $(document).ready(function(){
 				 type:"post",
 				 dataType:"json",
 				 headers:{Authorization:"Bearer "+tokenID.token},
-				 data:{"org_name":request.term,"level_id":$("#appraisalLevel").val()},
+				 data:{"level_id":$("#appraisalLevel").val()},
 				 //async:false,
                  error: function (xhr, textStatus, errorThrown) {
                         console.log('Error: ' + xhr.responseText);
@@ -1005,6 +1039,11 @@ $(document).ready(function(){
     });
 	//Autocomplete Organization Search End
 	
+	$("#ReferenceTarget").select2({
+   	 data:Referen(), 
+	 width: '100%'
+	});
+	
 	
 	
 	//Search Start
@@ -1015,8 +1054,17 @@ $(document).ready(function(){
 	//$("#btnSearchAdvance").click();
 	//Search End
 	
-
-	
+	// Reference Target start
+	$(".hidrefer").hide();
+	 $("#valueTypeQuantity").change(function(){
+		 if ($("#valueTypeQuantity").val()==4){
+		 $(".hidrefer").show();
+		 }else
+		 {
+		 $(".hidrefer").hide();
+		 }
+		 });
+	// Reference Target End
 	
 	  
 		
@@ -1101,7 +1149,7 @@ $(document).ready(function(){
 			
 		}
 	 });
-	 
+
 	 //binding advance multi select start
 	 
 	  //var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox();

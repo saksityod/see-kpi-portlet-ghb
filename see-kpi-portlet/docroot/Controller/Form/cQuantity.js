@@ -16,9 +16,12 @@ var clearQuantityFormFn = function(){
 	$("#formulaDescriptionQuantity").val("");
 	$("#kpiQuantity").val("");
 	$("#textarea_cds").html("");
+	$(".hidrefer").hide();
+	$("#ReferenceTarget").val("");
 	
 	
 }
+
 //List Data
 var listDataQuantityFn = function(data) {
 	var rows="";
@@ -67,6 +70,7 @@ var updateQuantityFn  = function(){
 	 var value_type=$("#valueTypeQuantity").val();
 	 var function_type = $("#functionTypeQuantity").val();
 	 var kpi_id = $("#kpiQuantity").val();
+	 var ReferenceTarget = $("#ReferenceTarget").val();
 	 
 	 var is_variance="";
 	 if($('#isShowVarianceQuantity').prop('checked')==true){
@@ -108,16 +112,18 @@ var updateQuantityFn  = function(){
 		 "value_type_id":value_type,
 		 "function_type":function_type,
 		 "kpi_id":kpi_id,
-		 "form_id":"1"
+		 "form_id":"1",
+		 "reference_target_id" :ReferenceTarget
 		},
 	    success:function(data,status){
+		console.log(data);
 		     if(data['status']=="200"){
 				 $('#modal-quantity').modal('hide');
 			     callFlashSlide("Update Successfully.");
 				 getDataFn($("#pageNumber").val(),$("#rpp").val());
 		      	 clearQuantityFormFn();
 		     }else if(data['status']==400) {
-				callFlashSlideInModal(validationFn(data),"#informationQuantity","error");
+				callFlashSlideInModal(data['Error'],"#informationQuantity","error");
 			 }
 		   }
 	   });
@@ -146,7 +152,7 @@ var insertQuantityFn = function(param) {
 	 var value_type = $("#valueTypeQuantity").val();
 	 var function_type = $("#functionTypeQuantity").val();
 	 var kpi_id = $("#kpiQuantity").val();
-	
+	 var ReferenceTarget = $("#ReferenceTarget").val();
 	 /*
 	 console.log(appraisal_level_id);
 	 console.log(organization);
@@ -193,9 +199,11 @@ var insertQuantityFn = function(param) {
 			 "value_type_id":value_type,
 			 "function_type":function_type,
 			 "kpi_id":kpi_id,
-			 "form_id":"1"
+			 "form_id":"1",
+			 "reference_target_id":ReferenceTarget
 		},
 		success:function(data){
+			console.log(data);
 			if(data['status']==200){
 				if(param !="saveAndAnother"){
 					   callFlashSlide("Insert Successfully.");
@@ -208,7 +216,7 @@ var insertQuantityFn = function(param) {
 						callFlashSlideInModal("Insert Data is Successfully.","#informationQuantity");
 					}
 			}else if(data['status']==400){
-				callFlashSlideInModal(validationFn(data),"#informationQuantity","error");
+				callFlashSlideInModal(data['ERROR'],"#informationQuantity","error");
 			}
 		}
 	});
@@ -264,7 +272,7 @@ var cdsGetFn = function(page,rpp){
 }
 
 var initailQuantityFormFn = function(action,structureId,structureName,data){
-	
+	console.log(data);
 /*
 item_id
 item_name
@@ -309,7 +317,18 @@ structure_name
 		$("#textarea_cds").html(data['formula_cds_name']);
 		$("#kpiQuantity").val(data['kpi_id']);
 		$("#functionTypeQuantity").val(data['function_type']);
+		$("#ReferenceTarget").val(data['reference_target_id']).trigger('change');
+		console.log(data['reference_target_id']);
 		
+		// Reference Target start
+		if ($("#valueTypeQuantity").val()==4){
+			 $(".hidrefer").show();
+			 }else
+			 {
+			 $(".hidrefer").hide();
+			 };
+			 
+		// Reference Target End
 		
 		//get formula cds id start
 		$("#textarea_cds").keyup(function(){
@@ -433,6 +452,7 @@ structure_name
 		dropDrowValueTypeFn("Quantity",'',defaultAll=false);
 		dropDrowremindConditionFn("Quantity",'',defaultAll=false,defaultEmpty=false);
 		$("#btnAddAnotherQuantity").show();
+		Referen();
 		//SEARCH
 		//Autocomplete Search Start.
 
