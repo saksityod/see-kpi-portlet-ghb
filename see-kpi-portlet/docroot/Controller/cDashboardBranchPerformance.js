@@ -70,6 +70,15 @@ var tempBranchKpi = {
 			</tbody>
 			</table>
 		`,
+		empty :`
+			<tr>
+				<td colspan="3" style="height: 50px;vertical-align: middle;">
+					<center>
+						<div style="color: #b71540;">${Liferay.Language.get('no-data-to-display')}</div>
+					</center>
+				</td>
+            </tr>	
+		`,
         print_tbody(){
                 target = this.target ? addCommas(notNullFn(this.target)) : '&nbsp;' ;
                 forecast = this.forecast ? addCommas(notNullFn(this.forecast)) : '&nbsp;';
@@ -305,9 +314,9 @@ var pinSymbol = function (color) {
 							  //console.log(locations[i][4]);
 							  //console.log(locations[i][4][0]['org_id']);
 							  $("body").mLoading();
-							  //listDataPerformanceDetailFn(locations[i][4],marker.title,"gmap");
+							  listDataPerformanceDetailFn(locations[i][4],marker.title,"gmap");
 							  //listAllDataPerformanceDetailFn(locations[i][4],"gmap");
-							  showPerformanceDetail2Fn(null,locations[i][4][0]['org_id'],"gmap");
+							  //showPerformanceDetail2Fn(null,locations[i][4][0]['org_id'],"gmap");
 							  
 							}
 						  })(marker, i));
@@ -318,7 +327,7 @@ var pinSymbol = function (color) {
 						//maps.panToBounds(bounds); 	// # auto-center 
 				
 				
-						//listDataPerformanceDetailFn(data['google_map'],$("#embed_region_name").val(),"gmap");
+						listDataPerformanceDetailFn(data['google_map'],$("#embed_region_name").val(),"gmap");
 				
 			}
 		});
@@ -424,7 +433,7 @@ var listDataPerformanceDetailFn = function(data,district,type){
 			dataTableHTML+="<thead>";
 				dataTableHTML+="<tr>";
 //					dataTableHTML+="<th>Perspective</th>";
-					dataTableHTML+="<th style='min-width: 270px;font-weight: 700;font-size: 17px;'>"+Liferay.Language.get('kpi')+"</th>";
+					dataTableHTML+="<th style='min-width: 122px;font-weight: 700;font-size: 17px;'>"+Liferay.Language.get('kpi')+"</th>";
 					dataTableHTML+="<th style='min-width: 70px;font-weight: 900;font-size: 17px;'>"+Liferay.Language.get('uom')+"</th>";
 					dataTableHTML+="<th style='text-align:center;min-width: 250px;font-weight: 700;font-size: 17px;'>"+Liferay.Language.get('kpi-result')+"</th>";	
 			dataTableHTML+="</tr>";
@@ -732,9 +741,14 @@ var renderKpiDetaill = (items,parent_org_id) => {
     tempPerf.main_area.find(`#underOrgId${parent_org_id}`).attr("class","");
     tempBranchKpi.table = $(tempBranchKpi.main_table);
     
-    $.each(items,(k,v)=>{
-    	tempBranchKpi.table.find(`tbody`).append(tempBranchKpi.print_tbody.bind(v)())
-    });
+    if(items.length){
+    	$.each(items,(k,v)=>{
+        	tempBranchKpi.table.find(`tbody`).append(tempBranchKpi.print_tbody.bind(v)())
+        });
+    }else{
+    	tempBranchKpi.table.find(`tbody`).append(tempBranchKpi.empty)
+    }
+    
     
     tempPerf.main_area.find(`#underOrgId${parent_org_id}`).append(tempBranchKpi.table);
 };
@@ -919,6 +933,7 @@ var showPerformanceDetail2Fn=function(district,org,type){
 	var period= $("#embed_period").val();
 	var kpi= $("#embed_kpi").val();
 	var level = $("#embed_level").val();
+	var drilldown = $('#drilldown').is(':checked');;
 	
 	$.ajax({
 		url:restfulURL+"/"+serviceName+"/public/dashboard/branch_details2",
@@ -929,7 +944,8 @@ var showPerformanceDetail2Fn=function(district,org,type){
 				"period_id"		:	period,
 				"item_id"		:	kpi,
 				"level_id"		: 	level,
-				"org_id"		:   org
+				"org_id"		:   org,
+				"drilldown"		:   drilldown
 				
 			
 		},
@@ -1007,8 +1023,8 @@ var createJvectorMap = function(objColorData,objDataAvg){
   				
   				var district = code.substring(3);
   				//$("body").mLoading();
-  				//showPerformanceDetailFn(district,$("#districtNameHi").val());
-  				showPerformanceDetail2Fn(district,null,"mapTH");
+  				showPerformanceDetailFn(district,$("#districtNameHi").val());
+  				//showPerformanceDetail2Fn(district,null,"mapTH");
   				//$("body").mLoading();
   		    },
     	    onRegionTipShow: function (e, el, code) {
@@ -1053,7 +1069,7 @@ var searchAdvanceFn = function() {
 		$("#mapPerfomanceArea").hide();
 		$("#mapGooglePerfomanceArea").show();
 		initGoogleMap();
-		showPerformanceDetail2Fn(null,null,"gmap");
+		//showPerformanceDetail2Fn(null,null,"gmap");
 	}
 
 }; 
@@ -1089,7 +1105,9 @@ $("document").ready(function(){
 		 	$("#district").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/district_list","get",{"org_code":$("#region").val()},"All District"));
 		 	$("#kpi").html((generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/kpi_map_list","POST",{"region_code":$("#region").val(),"district_code":$("#district").val(),"year":$("#year").val(),"period":$("#period").val()})));
 		 	$("#level").html((generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/level_list","GET",{})));
-			
+		 	$('#drilldown').prop('checked', false);
+		 	$('.drilldown').show();
+		 	
 		 	//#Change Param Function
 			$("#year").change(function(){
 				$("#period").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/period_list","POST",{"appraisal_year":$("#year").val()}));
@@ -1103,6 +1121,13 @@ $("document").ready(function(){
 			$("#region").change(function(){
 				$("#district").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/district_list","get",{"org_code":$("#region").val()},"All District"));$("#district").change();
 				$("#kpi").html((generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/kpi_map_list","POST",{"region_code":$("#region").val(),"district_code":$("#district").val(),"year":$("#year").val(),"period":$("#period").val()})));
+				
+				if($('#region').val()){
+					$('#drilldown').prop('checked', false);
+					$('.drilldown').hide();
+				}else{
+				 	$('.drilldown').show();
+				}
 				
 			});
 			$("#district").change(function(){

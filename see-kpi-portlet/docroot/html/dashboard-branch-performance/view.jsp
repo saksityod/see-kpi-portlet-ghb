@@ -394,7 +394,7 @@ overflow:hidden !important;
 						</select>
 						
 					</div>
-					<div id='' class="form-group span2"
+					<div id='' class="form-group span2 drilldown"
 						style="margin-left: 5px; margin-bottom: 3px;">
 						<select name="level" id="level"
 							class="input form-control input-sm span12" title=""
@@ -406,6 +406,13 @@ overflow:hidden !important;
 							<option value="7">สาขา</option>
 
 						</select>
+					</div>
+					<div class="form-group span2 drilldown"
+						style="margin-left: 5px; margin-bottom: 3px;">
+						<label for="drilldown" class="checkbox" style="cursor: pointer; margin-top: 5px;"> <input
+							id="drilldown" name="drilldown" type="checkbox"
+							value="" style="margin-top: 3.5px;"> Drilldown
+						</label>
 					</div>
 
 
