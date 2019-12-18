@@ -764,6 +764,20 @@ overflow-y: visible;
 .ui-state-default{
 	width: 100% !important;
 }
+
+#orgQuantityForm .box1 [disabled=disabled] {
+    background-color: red;
+    display: none;
+}
+
+#positionQuantityForm .box1 [disabled=disabled] {
+    background-color: red;
+    display: none;
+}
+.select2-search__field {
+    width: 95% !important;
+}
+
 </style>
 <body class=" gray-bg ">
 <!--  #####################Content data here ######################-->
@@ -1661,6 +1675,21 @@ overflow-y: visible;
 				                <br style="clear:both">
 			                </div>
 			                
+			                
+			                <div class='form-file-mangement hidrefer' >
+				                <div class="form-label-quantity">
+				                	Reference Target <span class='redFont '>*</span>
+				                </div>
+				                
+				                <div class="form-input-customs" id="ReferenceTargetAreaQuantity">
+				                	<select data-toggle="tooltip" title="ReferenceTarget"
+											class='input form-control input-sm span12'
+											name='ReferenceTarget' id='ReferenceTarget'>
+											<!-- <option selected value=""> </option> -->
+									</select>
+				                </div>
+				                <br style="clear:both">
+			                </div>
 			                 
 			                
 			                 

@@ -295,7 +295,12 @@ overflow:auto;
 overflow:hidden !important;
 }
 
- 
+.aui .ui-accordion-header{
+	color: #555 !important;
+}
+.aui .liquidFillGaugeText{
+	font-weight: bold;
+}
 
 </style>
 <input type="hidden" id="user_portlet" name="user_portlet"
@@ -377,7 +382,7 @@ overflow:hidden !important;
 
 						</select>
 					</div>
-					<div class="form-group span10" id="kpiArea"
+					<div class="form-group span12" id="kpiArea"
 						style="margin-left: 5px; margin-bottom: 3px;">
 						<select name="kpi" id="kpi"
 							class="input form-control input-sm span12" title=""
@@ -388,6 +393,19 @@ overflow:hidden !important;
 							<option value="">KPI2</option>
 						</select>
 						
+					</div>
+					<div id='' class="form-group span2"
+						style="margin-left: 5px; margin-bottom: 3px;">
+						<select name="level" id="level"
+							class="input form-control input-sm span12" title=""
+							data-toggle="tooltip" style="cursor: pointer;"
+							data-original-title="<liferay-ui:message key="level"/>">
+
+							<option value="5">ฝ่าย</option>
+							<option value="6">เขต</option>
+							<option value="7">สาขา</option>
+
+						</select>
 					</div>
 
 
@@ -422,11 +440,11 @@ overflow:hidden !important;
    		<div id='mapGooglePerfomanceArea' style='width:500px; height:500px;'></div>
    	    -->
 	</div>
-	<div class='span6' id='detailArea' style='display: none;'>
+	<div class='span6' id='detailArea' style='display: none;min-height: 550px;'>
 
 
 		<h3 style='text-align: center; color: black;' id='BranchPerTitle'></h3>
-		<div id="detailPerfomanceArea">
+		<div id="detailPerfomanceArea" class="detailPerfomanceArea">
 
 
 		</div>
