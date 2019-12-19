@@ -1151,7 +1151,7 @@ $(document).ready(function () {
     },
     filterAppraisalLevel: '',
     filterOrganization: '',
-    exportMonth: '',
+    exportMonth: '1',
     cdsEditing: false,
     pagination: {
       perPage: 10,

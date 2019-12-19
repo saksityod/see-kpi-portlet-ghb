@@ -1330,7 +1330,7 @@ $(document).ready(() => {
     filterPosition: { id: '', name: '' },
     filterAppraisalLevel: '',
     filterOrganization: '',
-    exportMonth: '',
+    exportMonth: '1',
     cdsEditing: false,
     pagination: {
       perPage: 10,
