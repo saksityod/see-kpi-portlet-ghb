@@ -202,7 +202,7 @@ $(document).ready(function () {
       }
     },
     applyImportModalListeners: function applyImportModalListeners() {
-      var importCdsButton = $('#btn_import');
+      var importCdsButton = $('#cdsImportButton');
       var importModal = $('#ModalImport');
       var importFileForm = $('form#fileImportCdsResult');
       var importFileInput = $('#file');
@@ -276,13 +276,24 @@ $(document).ready(function () {
       });
     },
     applyExportButtonListeners: function applyExportButtonListeners() {
-      var exportButton = $('#exportToExcel');
+      var exportCdsButton = $('#cdsExportButton');
+      var confirmExportButton = $('#btnConfirmExport');
+      var exportMonthSelector = $('#exportMonthSelector');
 
-      if (exportButton) {
-        exportButton.on('click', function () {
+      if (exportMonthSelector) {
+        MONTHS_ARRAY.map(function (month) {
+          exportMonthSelector.append("<option value='".concat(month.id, "'>").concat(month.label_th_short, "</option>"));
+        });
+        exportMonthSelector.on('change', function (e) {
+          state.exportMonth = e.target.value;
+        });
+      }
+
+      if (confirmExportButton) {
+        confirmExportButton.on('click', function (e) {
           var requestData = {
             current_appraisal_year: state.filterYear,
-            month_id: state.filterMonth,
+            month_id: state.exportMonth,
             level_id: state.filterAppraisalLevel,
             appraisal_type_id: state.filterAppraisalType,
             org_id: state.filterOrgLevel,
@@ -318,6 +329,15 @@ $(document).ready(function () {
           xhr.send(JSON.stringify(requestData));
         });
       }
+
+      exportCdsButton.click(function () {
+        $('.btnModalClose').click();
+        $('.dropify-clear').click();
+        exportCdsButton.attr({
+          'data-backdrop': setModalPopup[0],
+          'data-keyboard': setModalPopup[1]
+        });
+      });
     },
     applySearchButtonListeners: function applySearchButtonListeners() {
       var searchButton = $('#btnSearchAdvance');
@@ -520,7 +540,7 @@ $(document).ready(function () {
           var monthItem = item.months.find(function (i) {
             return i.appraisal_month_no == month.id;
           });
-          monthsTableHead += "\n            <th class=\"colHead\">\n              <span class='".concat(monthItem ? 'text-success' : 'text-primary', "'>\n                ").concat(month.label_th_short, "\n              </span>\n              <span class='colHeadOptions'>\n                <i data-trigger=\"focus\" \n                  tabindex=\"0\" \n                  data-content=\"\n                    <button style='width:100%;' \n                      class='btn btn-success btn-small btn-gear cdsDetailButton' \n                      data-target='' data-backdrop='static' \n                      data-keyboard='false' data-toggle='modal'\n                      data-cdsid='").concat(item.cds_id, "'\n                      data-orgid='").concat(item.org_id, "'\n                      data-levelid='").concat(item.level_id, "'\n                      data-empid='").concat(item.emp_id, "'\n                      data-monthno='").concat(month.id, "'>\n                      Detail\n                    </button>  \n                    <button style='width:100%;'\n                      class='btn btn-danger btn-small btn-gear cdsDeleteButton'\n                      data-cdsid='").concat(item.cds_id, "'\n                      data-orgid='").concat(item.org_id, "'\n                      data-levelid='").concat(item.level_id, "'\n                      data-empid='").concat(item.emp_id, "'\n                      data-monthno='").concat(month.id, "'>\n                      Delete\n                    </button>\n                    <button style='width: 100%'\n                      class='btn btn-success btn-small btn-gear cdsImportButton' \n                      data-cdsid='").concat(item.cds_id, "'\n                      data-orgid='").concat(item.org_id, "'\n                      data-levelid='").concat(item.level_id, "'\n                      data-empid='").concat(item.emp_id, "'\n                      data-monthno='").concat(month.id, "'>\n                      <i class='fa fa-upload'></i>&nbsp;Import\n                    </button>\n                    <button style='width:100%;'\n                      class='btn btn-warning btn-small btn-gear cdsExportButton' \n                      data-orgid='").concat(item.org_id, "'\n                      data-levelid='").concat(item.level_id, "'\n                      data-empid='").concat(item.emp_id, "'\n                      data-monthno='").concat(month.id, "'>\n                      <i class='fa fa-download'></i>&nbsp;Export\n                    </button>\"\n                  data-placement=\"top\" \n                  data-toggle=\"popover\" \n                  data-html=\"true\" \n                  class=\"fa fa-ellipsis-v options popover-detail-del\" \n                  data-original-title=\"\" \n                  title=\"\">\n                </i>\n              </span>\n            </th>");
+          monthsTableHead += "\n            <th class=\"colHead\">\n              <span class='".concat(monthItem ? 'text-success' : 'text-primary', "'>\n                ").concat(month.label_th_short, "\n              </span>\n              <span class='colHeadOptions'>\n                <i data-trigger=\"focus\" \n                  tabindex=\"0\" \n                  data-content=\"\n                    <button style='width:100%;' \n                      class='btn btn-success btn-small btn-gear cdsDetailButton' \n                      data-target='' data-backdrop='static' \n                      data-keyboard='false' data-toggle='modal'\n                      data-cdsid='").concat(item.cds_id, "'\n                      data-orgid='").concat(item.org_id, "'\n                      data-levelid='").concat(item.level_id, "'\n                      data-empid='").concat(item.emp_id, "'\n                      data-monthno='").concat(month.id, "'>\n                      Detail\n                    </button>  \n                    <button style='width:100%;'\n                      class='btn btn-danger btn-small btn-gear cdsDeleteButton'\n                      data-cdsid='").concat(item.cds_id, "'\n                      data-orgid='").concat(item.org_id, "'\n                      data-levelid='").concat(item.level_id, "'\n                      data-empid='").concat(item.emp_id, "'\n                      data-monthno='").concat(month.id, "'>\n                      Delete\n                    </button>\"\n                  data-placement=\"top\" \n                  data-toggle=\"popover\" \n                  data-html=\"true\" \n                  class=\"fa fa-ellipsis-v options popover-detail-del\" \n                  data-original-title=\"\" \n                  title=\"\">\n                </i>\n              </span>\n            </th>");
           cdsValueInputsString += "\n          <td>\n            <input type='text' \n              id=\"cdsValueInput-".concat(item.cds_result_id, "-").concat(month.id, "\" \n              data-cds_id=").concat(item.cds_id, "\n              data-cds_result_id=").concat(item.cds_result_id, "\n              data-level_id=").concat(item.level_id, "\n              data-org_id=").concat(item.org_id, "\n              data-emp_id=").concat(item.emp_id, "\n              data-monthid=").concat(month.id, "\n              class=\"cdsValueInput colCdsData\" \n              value=\"").concat(monthItem ? monthItem.cds_value || '' : '', "\" \n              ").concat(state.cdsEditing ? '' : 'disabled', " />\n          </td>");
           cdsForecastValueInputsString += "\n          <td>\n            <input type='text' \n              id=\"cdsForecastValueInput-".concat(item.cds_result_id, "-").concat(month.id, "\" \n              data-cds_id=").concat(item.cds_id, "\n              data-cds_result_id=").concat(item.cds_result_id, "\n              data-level_id=").concat(item.level_id, "\n              data-org_id=").concat(item.org_id, "\n              data-emp_id=").concat(item.emp_id, "\n              data-monthid=").concat(month.id, "\n              class=\"cdsForecastValueInput colCdsData\" \n              value=\"").concat(monthItem ? monthItem.corporate_forecast_value || '' : '', "\"\n              ").concat(state.cdsEditing ? '' : 'disabled', " />\n          </td>");
           cdsForecastBUInputsString += "\n            <td>\n              <input type='text' \n                id=\"cdsForecastBUInput-".concat(item.cds_result_id, "-").concat(month.id, "\" \n                data-cds_id=").concat(item.cds_id, "\n                data-cds_result_id=").concat(item.cds_result_id, "\n                data-level_id=").concat(item.level_id, "\n                data-org_id=").concat(item.org_id, "\n                data-emp_id=").concat(item.emp_id, "\n                data-monthid=").concat(month.id, "\n                class=\"cdsForecastBUInput colCdsData\" \n                value=\"").concat(monthItem ? monthItem.bu_forecast_value || '' : '', "\" \n                ").concat(state.cdsEditing ? '' : 'disabled', " />\n            </td>");
@@ -1120,7 +1140,6 @@ $(document).ready(function () {
   };
   var state = {
     filterYear: '',
-    filterMonth: '',
     filterAppraisalType: '2',
     filterEmp: {
       id: '',
@@ -1132,6 +1151,7 @@ $(document).ready(function () {
     },
     filterAppraisalLevel: '',
     filterOrganization: '',
+    exportMonth: '',
     cdsEditing: false,
     pagination: {
       perPage: 10,

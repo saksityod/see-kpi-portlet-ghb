@@ -209,7 +209,7 @@ $(document).ready(() => {
       }
     },
     applyImportModalListeners: () => {
-      const importCdsButton = $('#btn_import');
+      const importCdsButton = $('#cdsImportButton');
       const importModal = $('#ModalImport');
       const importFileForm = $('form#fileImportCdsResult');
       const importFileInput = $('#file');
@@ -297,13 +297,25 @@ $(document).ready(() => {
       });
     },
     applyExportButtonListeners: () => {
-      const exportButton = $('#exportToExcel');
+      const exportCdsButton = $('#cdsExportButton');
+      const confirmExportButton = $('#btnConfirmExport');
+      const exportMonthSelector = $('#exportMonthSelector');
 
-      if (exportButton) {
-        exportButton.on('click', () => {
+      if (exportMonthSelector) {
+        MONTHS_ARRAY.map(month => {
+          exportMonthSelector.append(`<option value='${month.id}'>${month.label_th_short}</option>`)
+        })
+
+        exportMonthSelector.on('change', e => {
+          state.exportMonth = e.target.value
+        })
+      }
+
+      if (confirmExportButton) {
+        confirmExportButton.on('click', e => {
           let requestData = {
             current_appraisal_year: state.filterYear,
-            month_id: state.filterMonth,
+            month_id: state.exportMonth,
             level_id: state.filterAppraisalLevel,
             appraisal_type_id: state.filterAppraisalType,
             org_id: state.filterOrgLevel,
@@ -337,6 +349,15 @@ $(document).ready(() => {
           xhr.send(JSON.stringify(requestData));
         });
       }
+
+      exportCdsButton.click(function() {
+        $('.btnModalClose').click();
+        $('.dropify-clear').click();
+        exportCdsButton.attr({
+          'data-backdrop': setModalPopup[0],
+          'data-keyboard': setModalPopup[1]
+        });
+      });
     },
     applySearchButtonListeners: () => {
       const searchButton = $('#btnSearchAdvance');
@@ -614,23 +635,6 @@ $(document).ready(() => {
                       data-empid='${item.emp_id}'
                       data-monthno='${month.id}'>
                       Delete
-                    </button>
-                    <button style='width: 100%'
-                      class='btn btn-success btn-small btn-gear cdsImportButton' 
-                      data-cdsid='${item.cds_id}'
-                      data-orgid='${item.org_id}'
-                      data-levelid='${item.level_id}'
-                      data-empid='${item.emp_id}'
-                      data-monthno='${month.id}'>
-                      <i class='fa fa-upload'></i>&nbsp;Import
-                    </button>
-                    <button style='width:100%;'
-                      class='btn btn-warning btn-small btn-gear cdsExportButton' 
-                      data-orgid='${item.org_id}'
-                      data-levelid='${item.level_id}'
-                      data-empid='${item.emp_id}'
-                      data-monthno='${month.id}'>
-                      <i class='fa fa-download'></i>&nbsp;Export
                     </button>"
                   data-placement="top" 
                   data-toggle="popover" 
@@ -1321,12 +1325,12 @@ $(document).ready(() => {
 
   const state = {
     filterYear: '',
-    filterMonth: '',
     filterAppraisalType: '2',
     filterEmp: { id: '', name: '' },
     filterPosition: { id: '', name: '' },
     filterAppraisalLevel: '',
     filterOrganization: '',
+    exportMonth: '',
     cdsEditing: false,
     pagination: {
       perPage: 10,
