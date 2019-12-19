@@ -282,7 +282,7 @@ $(document).ready(function () {
 
       if (exportMonthSelector) {
         MONTHS_ARRAY.map(function (month) {
-          exportMonthSelector.append("<option value='".concat(month.id, "'>").concat(month.label_th_short, "</option>"));
+          exportMonthSelector.append("<option value='".concat(month.id, "'>").concat(month.label_en_short, "</option>"));
         });
         exportMonthSelector.on('change', function (e) {
           state.exportMonth = e.target.value;
