@@ -1577,6 +1577,23 @@
 	    <footer-portlet-javascript>/Controller/cCdsResultV2-compiled.js</footer-portlet-javascript> 
 		<css-class-wrapper>cds-result-v2-portlet</css-class-wrapper>
 	</portlet>
+	<portlet>
+		<portlet-name>force-rank</portlet-name> 
+		<icon>/icon.png</icon> 
+		<header-portlet-css>/js/bootstrap2.3.2/css/bootstrap.min.css</header-portlet-css>
+		<header-portlet-css>/js/bootstrap2.3.2/css/bootstrap-responsive.min.css</header-portlet-css>
+		<header-portlet-css>/css/jquery.mloading.css</header-portlet-css>
+	    <header-portlet-css>/css/forceRank.css</header-portlet-css>  
+	    <footer-portlet-javascript>/js/jquery3.1.1.js</footer-portlet-javascript>
+        <footer-portlet-javascript>/js/jquery-2.1.1.js</footer-portlet-javascript>
+        <footer-portlet-javascript>/js/jquery.mloading.js</footer-portlet-javascript>
+	    <footer-portlet-javascript>/js/bootstrap.min.2.3.2.js</footer-portlet-javascript>
+	    <footer-portlet-javascript>/js/Chart.min.js</footer-portlet-javascript>
+	    <footer-portlet-javascript>/Controller/cConfig.js</footer-portlet-javascript>  
+	    <footer-portlet-javascript>/Controller/cMain.js</footer-portlet-javascript>	
+	    <footer-portlet-javascript>/Controller/cForceRank-compiled.js</footer-portlet-javascript> 
+		<css-class-wrapper>force-rank-portlet</css-class-wrapper>
+	</portlet>
 
 		<role-mapper>
 		<role-name>administrator</role-name>

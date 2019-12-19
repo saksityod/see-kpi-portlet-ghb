@@ -43,43 +43,28 @@ plid = layout.getPlid();
                 <div class="ibox-content breadcrumbs2">
                     <div class="row-fluid p-t-xxs cSearchAdvance">
                         <div class="form-group">
-                            <div id="drop_down_list_year" class="form-group pull-left span3" style="margin-left: 5px;">
+                            <div id="drop_down_list_year" class="form-group pull-left parameters">
                                 <select id="year" class="input span12 m-b-n"></select>
                             </div>
-                            <div id="drop_down_list_month" class="form-group pull-left span3" style="margin-left: 5px;">
-                                <select id="month" class="input span12 m-b-n"></select>
-                            </div>
-                            <div id="drop_down_list_appraisal_type" class="form-group pull-left span3" style="margin-left: 5px;">
+                            <div id="drop_down_list_appraisal_type" class="form-group pull-left parameters">
                                 <select id="app_type" class="input span12 m-b-n"></select>
                             </div>
-                            <div class="form-group pull-left span3" style="margin-left: 5px;" id="txtEmpInput">
+                            <div id="auto_complete_emp_name" class="form-group pull-left parameters">
                                 <input id="emp_name" name="emp_name" type="text" data-toggle="tooltip" data-placement="top" title="<liferay-ui:message key=' employee-name '/>" class="span12 m-b-n ui-autocomplete-input" placeholder="<liferay-ui:message key='employee-name' />" disabled>
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="form-group pull-left span3" style="margin-left: 5px">
+                            <div id="auto_complete_position" class="form-group pull-left parameters">
                                 <input id="position" name="position" type="text" data-toggle="tooltip" data-placement="top" title="<liferay-ui:message key=' position '/>" class="span12 m-b-n ui-autocomplete-input" placeholder="<liferay-ui:message key='position'/>" disabled>
                             </div>
-                            <div id="drop_down_list_appraisal_level" class="form-group pull-left span3" style="margin-left: 5px">
+                            <div id="drop_down_list_appraisal_level" class="form-group pull-left parameters">
                                 <select id="app_lv" class="input span12 m-b-n"></select>
                             </div>
-                            <div id="drop_down_list_organization" class="form-group pull-left span3" style="margin-left: 5px">
+                            <div id="drop_down_list_organization" class="form-group pull-left parameters">
                                 <select id="org_id" class="input span12 m-b-n"></select>
                             </div>
                         </div>
                         <div class="form-group pull-right m-b-none">
-                            <div class="form-group pull-right m-b-none ">
-                                <button id="btn_import" type="button" data-target="#ModalImport" data-toggle="modal" class="btn btn-success btn-sm " style="margin-left: 5px">
-								<i class="fa fa-upload"></i>&nbsp;<liferay-ui:message key="import"/>&nbsp;&nbsp;
-							</button>
-                            </div>
-                            <div class="form-group pull-right m-b-none ">
-                                <form id="formExportToExcel" action="" method="post" class="pull-right " style="margin-bottom: 0px; margin-left: 5px">
-                                    <button id="exportToExcel" class="btn btn-warning btn-sm" type="button">
-									<i class="fa fa-download"></i> <liferay-ui:message key="export"/>
-								</button>
-                                </form>
-                            </div>
                             <div class="form-group pull-right m-b-none ">
                                 <button type="button" name="btnSearchAdvance" id="btnSearchAdvance" class="btn btn-info input-sm " style="margin-left: 0px">
 								<i class="fa fa-search"></i>&nbsp;<liferay-ui:message key="search"/>
@@ -159,9 +144,6 @@ plid = layout.getPlid();
                                 </th>
                                 <th style='width: auto'>
                                     <liferay-ui:message key="year" />
-                                </th>
-                                <th style='width: auto; text-align: center;'>
-                                    <liferay-ui:message key="manage" />
                                 </th>
                             </tr>
                         </thead>
