@@ -28,31 +28,9 @@ $(document).ready(() => {
       $('.dropify').dropify();
       $('.app_url_hidden').show();
       $('.sr-only').hide();
-      methods.getBrowserWidth();
-
-      $(window).on('resize', () => methods.getBrowserWidth());
-    },
-    getBrowserWidth: () => {
-      let wSearchAdvance = $('.cSearchAdvance').width() - 4;
-      let wTarget = $('#drop_down_list_appraisal_type').width();
-      let wCalTarget = $('#drop_down_list_appraisal_type').width() * 4 + 20;
-      let height = $('#drop_down_list_appraisal_type').height() + 0.25;
-      let empInput = $('#txtEmpInput');
-
-      if (window.innerWidth < 980) {
-        empInput.css({ width: '' });
-        empInput.css({ height: '' });
-      } else if (window.innerWidth < 1366) {
-        empInput.width(wSearchAdvance - wCalTarget + wTarget);
-        empInput.css({ height: height });
-      } else {
-        empInput.width(wSearchAdvance - wCalTarget + wTarget);
-        empInput.css({ height: height });
-      }
     },
     applySearchListeners: () => {
       const yearDropdown = $('#year');
-      const monthDropdown = $('#month');
       const appraisalTypeDropdown = $('#app_type');
       const employeeNameInput = $('#emp_name');
       const positionInput = $('#position');
@@ -71,21 +49,6 @@ $(document).ready(() => {
 
         yearDropdown.on('change', e => {
           state.filterYear = e.target.value;
-        });
-      }
-
-      if (monthDropdown) {
-        methods.renderSearchDropdownList(
-          'public/cds_result/month_list',
-          {},
-          monthDropdown,
-          'month_id',
-          'month_name',
-          'filterMonth'
-        );
-
-        monthDropdown.on('change', e => {
-          state.filterMonth = e.target.value;
         });
       }
 
@@ -419,9 +382,10 @@ $(document).ready(() => {
           forecastValueInputs.attr('disabled', true);
           forecastBUInputs.attr('disabled', true);
         } else {
+          let currentMonth = new Date().getMonth() + 1
           cdsValueInputs.map((index, item) => {
             item = $(item);
-            if (item.data('monthid') == state.filterMonth) {
+            if (item.data('monthid') == currentMonth || item.data('monthid') == currentMonth - 1) {
               item.attr('disabled', false);
             } else {
               item.attr('disabled', true);
@@ -430,7 +394,7 @@ $(document).ready(() => {
 
           forecastValueInputs.map((index, item) => {
             item = $(item);
-            if (item.data('monthid') >= state.filterMonth) {
+            if (item.data('monthid') >= currentMonth) {
               item.attr('disabled', false);
             } else {
               item.attr('disabled', true);
@@ -439,7 +403,7 @@ $(document).ready(() => {
 
           forecastBUInputs.map((index, item) => {
             item = $(item);
-            if (item.data('monthid') >= state.filterMonth) {
+            if (item.data('monthid') >= currentMonth) {
               item.attr('disabled', false);
             } else {
               item.attr('disabled', true);
@@ -569,7 +533,6 @@ $(document).ready(() => {
             methods.setupPagination(state.pagination);
 
             $('#cds_result_list_content').show();
-            methods.getBrowserWidth();
           }
         }
       });
@@ -585,28 +548,6 @@ $(document).ready(() => {
         <td class="Search">$cdsName</td>
         <td class="Search">$UOMName</td>
         <td class="Search">$year</td>
-        <td style="text-align:center; justify-content: space-between;">
-          <i data-trigger="focus" tabindex="0" data-content="
-              <button style='width:100%;' class='btn btn-success btn-small btn-gear cdsDetailButton' 
-                id='$cdsId' data-target='' data-backdrop='static' 
-                data-keyboard='false' data-toggle='modal'
-                data-orgid='$orgId'
-                data-levelid='$levelId'
-                data-empid='$empId'>
-                Detail
-              </button>  
-              <button id='$cdsId' style='width:100%;' 
-                class='btn btn-danger btn-small btn-gear cdsDeleteButton'
-                data-orgid='$orgId'
-                data-levelid='$levelId'
-                data-empid='$empId'>
-                Delete
-              </button>
-            "
-            data-placement="top" data-toggle="popover" data-html="true" 
-            class="fa fa-cog font-gear popover-detail-del $isHidden" data-original-title="" title="">
-          </i>
-        </td>
       </tr>
       <tr class="collapse" id="collapse-$cdsId$orgId$levelId">
         <td colspan='6' class="cds-item-collapse">
@@ -643,10 +584,63 @@ $(document).ready(() => {
         let cdsForecastValueInputsString = '';
         let cdsForecastBUInputsString = '';
         let months = [...MONTHS_ARRAY];
-        let filteringMonth = item.months.find(i => i.appraisal_month_no == state.filterMonth);
         months.map(month => {
           let monthItem = item.months.find(i => i.appraisal_month_no == month.id);
-          monthsTableHead += `<th class="colHead">${month.label_th_short}</th>`;
+          monthsTableHead += `
+            <th class="colHead">
+              <span class='${ monthItem ? 'text-success' : 'text-primary'}'>
+                ${month.label_th_short}
+              </span>
+              <span class='colHeadOptions'>
+                <i data-trigger="focus" 
+                  tabindex="0" 
+                  data-content="
+                    <button style='width:100%;' 
+                      class='btn btn-success btn-small btn-gear cdsDetailButton' 
+                      data-target='' data-backdrop='static' 
+                      data-keyboard='false' data-toggle='modal'
+                      data-cdsid='${item.cds_id}'
+                      data-orgid='${item.org_id}'
+                      data-levelid='${item.level_id}'
+                      data-empid='${item.emp_id}'
+                      data-monthno='${month.id}'>
+                      Detail
+                    </button>  
+                    <button style='width:100%;'
+                      class='btn btn-danger btn-small btn-gear cdsDeleteButton'
+                      data-cdsid='${item.cds_id}'
+                      data-orgid='${item.org_id}'
+                      data-levelid='${item.level_id}'
+                      data-empid='${item.emp_id}'
+                      data-monthno='${month.id}'>
+                      Delete
+                    </button>
+                    <button style='width: 100%'
+                      class='btn btn-success btn-small btn-gear cdsImportButton' 
+                      data-cdsid='${item.cds_id}'
+                      data-orgid='${item.org_id}'
+                      data-levelid='${item.level_id}'
+                      data-empid='${item.emp_id}'
+                      data-monthno='${month.id}'>
+                      <i class='fa fa-upload'></i>&nbsp;Import
+                    </button>
+                    <button style='width:100%;'
+                      class='btn btn-warning btn-small btn-gear cdsExportButton' 
+                      data-orgid='${item.org_id}'
+                      data-levelid='${item.level_id}'
+                      data-empid='${item.emp_id}'
+                      data-monthno='${month.id}'>
+                      <i class='fa fa-download'></i>&nbsp;Export
+                    </button>"
+                  data-placement="top" 
+                  data-toggle="popover" 
+                  data-html="true" 
+                  class="fa fa-ellipsis-v options popover-detail-del" 
+                  data-original-title="" 
+                  title="">
+                </i>
+              </span>
+            </th>`;
           cdsValueInputsString += `
           <td>
             <input type='text' 
@@ -704,7 +698,6 @@ $(document).ready(() => {
           .replace('$cdsValueInputsString', cdsValueInputsString)
           .replace('$cdsForecastValueInputsString', cdsForecastValueInputsString)
           .replace('$cdsForecastBUInputsString', cdsForecastBUInputsString)
-          .replace('$isHidden', filteringMonth ? '' : 'hide');
       });
 
       let tableBody = $('#listCdsResult');
@@ -985,10 +978,11 @@ $(document).ready(() => {
 
         cdsDetailButtons.off('click');
         cdsDetailButtons.on('click', e => {
-          let targetCdsId = e.target.id;
+          let targetCdsId = e.target.dataset.cdsid;
           let targetOrgId = e.target.dataset.orgid;
           let targetLevelId = e.target.dataset.levelid;
           let targetEmpId = e.target.dataset.empid;
+          let targetMonth = e.target.dataset.monthno;
           let cdsRecord = state.originalData.find(
             record =>
               record.cds_id == targetCdsId &&
@@ -999,7 +993,7 @@ $(document).ready(() => {
           if (cdsRecord) {
             let cdsResultRecord = cdsRecord.months.find(
               cdsResult =>
-                cdsResult.appraisal_month_no == state.filterMonth &&
+                cdsResult.appraisal_month_no == targetMonth &&
                 cdsResult.cds_id == targetCdsId &&
                 (cdsResult.appraisal_type_id == 1
                   ? cdsResult.org_id == targetOrgId
@@ -1007,7 +1001,7 @@ $(document).ready(() => {
                 cdsResult.level_id == cdsRecord.level_id
             );
 
-            if (cdsResultRecord.cds_result_id) {
+            if (cdsResultRecord && cdsResultRecord.cds_result_id) {
               methods.openEditDetailModal(cdsResultRecord.cds_result_id);
             }
           }
@@ -1015,9 +1009,10 @@ $(document).ready(() => {
 
         cdsDeleteButtons.off('click');
         cdsDeleteButtons.on('click', e => {
-          let targetCdsId = e.target.id;
+          let targetCdsId = e.target.dataset.cdsid;
           let targetOrgId = e.target.dataset.orgid;
           let targetLevelId = e.target.dataset.levelid;
+          let targetMonth = e.target.dataset.monthno;
           let cdsRecord = state.originalData.find(
             record =>
               record.cds_id == targetCdsId &&
@@ -1028,7 +1023,7 @@ $(document).ready(() => {
           if (cdsRecord) {
             let cdsResultRecord = cdsRecord.months.find(
               cdsResult =>
-                cdsResult.appraisal_month_no == state.filterMonth &&
+                cdsResult.appraisal_month_no == targetMonth &&
                 cdsResult.cds_id == targetCdsId &&
                 (cdsResult.appraisal_type_id == 1
                   ? cdsResult.org_id == targetOrgId
@@ -1036,7 +1031,7 @@ $(document).ready(() => {
                 cdsResult.level_id == cdsRecord.level_id
             );
 
-            if (cdsResultRecord.cds_result_id) {
+            if (cdsResultRecord && cdsResultRecord.cds_result_id) {
               methods.openDeleteModal(cdsResultRecord.cds_result_id);
             }
           }

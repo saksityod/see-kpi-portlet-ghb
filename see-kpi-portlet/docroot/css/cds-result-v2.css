@@ -350,3 +350,26 @@
 	width: 10% !important;
 	min-width: 50px !important;
 }
+
+.colHead {
+	text-align:center; 
+	justify-content: space-between;
+}
+
+.parameters {
+	margin: 0 2px;
+	width: calc(33% - 2px);
+}
+
+.colHeadOptions > i.options {
+	padding: 5px 10px;
+	border: 0;
+}
+
+.text-success {
+	color: #0cc523;
+}
+
+.text-primary {
+	color: #50a2f5;
+}
