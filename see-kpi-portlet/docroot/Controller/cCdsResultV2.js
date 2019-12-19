@@ -303,7 +303,7 @@ $(document).ready(() => {
 
       if (exportMonthSelector) {
         MONTHS_ARRAY.map(month => {
-          exportMonthSelector.append(`<option value='${month.id}'>${month.label_th_short}</option>`)
+          exportMonthSelector.append(`<option value='${month.id}'>${month.label_en_short}</option>`)
         })
 
         exportMonthSelector.on('change', e => {
