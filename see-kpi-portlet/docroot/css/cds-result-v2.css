@@ -373,3 +373,10 @@
 .text-primary {
 	color: #50a2f5;
 }
+
+.modal-export-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}

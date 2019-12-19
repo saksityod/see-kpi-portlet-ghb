@@ -105,6 +105,14 @@ plid = layout.getPlid();
                             <liferay-ui:message key="cancel"/>
                         </button>
                     </div>
+                    <div class="span6 text-right">
+                        <button class='btn btn-success btn-small btn-gear' data-target="#ModalImport" data-toggle="modal" id="cdsImportButton">
+                            <i class='fa fa-upload'></i>&nbsp;Import
+                        </button>
+                        <button class='btn btn-warning btn-small btn-gear' data-target="#exportModal" data-toggle="modal" id="cdsExportButton">
+                            <i class='fa fa-download'></i>&nbsp;Export
+                        </button>
+                    </div>
                 </div>
                 <!-- end button -->
 
@@ -250,6 +258,43 @@ plid = layout.getPlid();
             <div class="modal-footer">
                 <div align="center">
                     <button class="btn btn-success" id="btnConfirmOK" type="button">
+                        &nbsp;&nbsp;<i class="fa fa-check-circle"></i>&nbsp;&nbsp;<liferay-ui:message key="yes"/>&nbsp;&nbsp;
+                    </button> &nbsp;&nbsp;
+                    <button data-dismiss="modal" class="btn btn-danger" type="button">
+                        <i class="fa fa-times-circle"></i>&nbsp;<liferay-ui:message key="cancel"/>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Confirm End -->
+
+<!-- Modal Confirm Start -->
+<div aria-hidden="true" role="dialog" tabindex="-1" id="exportModal" class="modal inmodal in" style="width:400px;left:calc;display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content  bounceInRight">
+            <div class="modal-header">
+                <button data-dismiss="modal" class="close" type="button" style="padding-top:3px">
+						<span aria-hidden="true"><i class='fa fa-times'></i></span><span class="sr-only">Close</span>
+					</button>
+                <h5 class="modal-title">
+                    <liferay-ui:message key="export"/>
+                </h5>
+            </div>
+            <div class="modal-body">
+                <div class="modal-export-content">
+                    <span>
+                        <label style="font-weight: 600;"><liferay-ui:message key="confirm-to-delete-data"/>?</label>
+                    </span>
+                    <span>
+                        <select id="exportMonthSelector"></select>
+                    </span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div align="center">
+                    <button class="btn btn-success" id="btnConfirmExport" type="button">
                         &nbsp;&nbsp;<i class="fa fa-check-circle"></i>&nbsp;&nbsp;<liferay-ui:message key="yes"/>&nbsp;&nbsp;
                     </button> &nbsp;&nbsp;
                     <button data-dismiss="modal" class="btn btn-danger" type="button">
