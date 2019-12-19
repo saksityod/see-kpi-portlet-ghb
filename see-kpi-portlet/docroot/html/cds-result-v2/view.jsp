@@ -285,7 +285,7 @@ plid = layout.getPlid();
             <div class="modal-body">
                 <div class="modal-export-content">
                     <span>
-                        <label style="font-weight: 600;"><liferay-ui:message key="confirm-to-delete-data"/>?</label>
+                        <label style="font-weight: 600;"><liferay-ui:message key="select-month"/>?</label>
                     </span>
                     <span>
                         <select id="exportMonthSelector"></select>
@@ -295,7 +295,7 @@ plid = layout.getPlid();
             <div class="modal-footer">
                 <div align="center">
                     <button class="btn btn-success" id="btnConfirmExport" type="button">
-                        &nbsp;&nbsp;<i class="fa fa-check-circle"></i>&nbsp;&nbsp;<liferay-ui:message key="yes"/>&nbsp;&nbsp;
+                        <i class='fa fa-download'></i>&nbsp;Export
                     </button> &nbsp;&nbsp;
                     <button data-dismiss="modal" class="btn btn-danger" type="button">
                         <i class="fa fa-times-circle"></i>&nbsp;<liferay-ui:message key="cancel"/>
