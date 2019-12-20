@@ -844,6 +844,7 @@ overflow-y: visible;
 		
 	</div>
 	
+	<div>
 	<div class="app_url_hidden" id="SOKpiList" style="padding: 2px;border-style: solid;border-color:rgb(255, 119, 40);border-width: 0px 1px 2px;padding-left: 0px;border-right-width: 1px;padding-right: 0px;border-top-width: 2px;padding-top: 0px;">
 		<div class="container1">
 			<div id="includePage" class="ng-view ng-scope">
@@ -855,7 +856,7 @@ overflow-y: visible;
 						</div>
 					</div>
 					<div style="padding-top: 1%;padding-bottom: 1%;padding-left: 1%;">
-						<button class="btn btn-success" id="addSOKpi" ><i class="fa fa-plus-square"></i>&nbsp;Add SO KPI</button>
+						<button class="btn btn-success" id="addSOKpi" data-toggle="modal" data-target="#modalAddSOKPI" data-backdrop='static'><i class="fa fa-plus-square"></i>&nbsp;Add SO KPI</button>
 					</div>
 					<table class='table table-striped'>
 						<thead>
@@ -887,17 +888,18 @@ overflow-y: visible;
                
             	</div>
             	<div class="modal-body">
-            		<table>
+            	<div class="row-fluid">
+            	<table>
             			<tbody style="text-align: left;">
 	            			<tr style="width:50%">
-	            				<td style="min-width: 30%;"><h5>SO KPI NAME :</h5></td>
+	            				<td style="width: 30%;"><h5>SO KPI NAME :</h5></td>
 	            				<td style="padding-left: 5px;">
 	            					<input data-toggle="tooltip" title="" data-original-title="<liferay-ui:message key="Search"/>"
 										class="form-control input-sm searchAdvanceText span12"
 										placeholder="<liferay-ui:message key="Put SO KPI Name."/>" type="text" id="soName">
 								</td>
 	            			</tr >
-	            			<tr style="width:50%">
+	            			<tr>
 	            				<td><h5>Strategic Objective :</h5></td>
 	            				<td style="padding-left: 5px;">
 	            					<select id="dropdownAddSO" data-toggle="tooltip" title="" data-original-title="<liferay-ui:message key="level"/>"
@@ -906,7 +908,7 @@ overflow-y: visible;
 									</select>
 	            				</td>
 	            			</tr>
-	            			<tr style="width:50%">
+	            			<tr>
 	            				<td><h5>SMART KPI :</h5></td>
 	            				<td style="padding-left: 5px;">
 	            					<select id="dropdownAddSmartKpi" data-toggle="tooltip"  
@@ -915,7 +917,7 @@ overflow-y: visible;
 									</select>
 								</td>
 	            			</tr>
-	            			<tr style="width:50%">
+	            			<tr>
 	            				<td><h5>UOM :</h5></td>
 	            				<td style="padding-left: 5px;">
 	            					<select id="dropdownAddUOM" data-toggle="tooltip" title="" data-original-title="<liferay-ui:message key="level"/>"
@@ -924,7 +926,7 @@ overflow-y: visible;
 									</select>
 								</td>
 	            			</tr>
-	            			<tr style="width:50%">
+	            			<tr>
 	            				<td><h5>Value Type :</h5></td>
 	            				<td style="padding-left: 5px;">
 	            					<select id="dropdownAddValueType" data-toggle="tooltip" title="" data-original-title="<liferay-ui:message key="level"/>"
@@ -933,7 +935,7 @@ overflow-y: visible;
 									</select>
 	            				</td>
 	            			</tr>
-	            			<tr style="width:50%">
+	            			<tr>
 	            				<td><h5>Function Type :</h5></td>
 	            				<td style="padding-left: 5px;">
 	            					<select id="dropdownAddFuncType" data-toggle="tooltip" title="" data-original-title="<liferay-ui:message key="level"/>"
@@ -942,7 +944,7 @@ overflow-y: visible;
 									</select>
 								</td>
 	            			</tr>
-	            			<tr style="width:50%">
+	            			<tr>
 	            				<td><h5>Is Active :</h5></td>
 	            				<td style="text-align: left;padding: 5px;">
 	            					<input type="checkbox" class="form-check-input" id="ckboxadd" checked>
@@ -950,6 +952,8 @@ overflow-y: visible;
 	            			</tr>
             			</tbody>
             		</table>
+            	</div>
+            		
             	</div>
             	<div class="modal-footer">
    					<button class="btn btn-primary" type="button" id="btnSubmitAddSO">Save</button>
