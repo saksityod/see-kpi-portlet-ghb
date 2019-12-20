@@ -339,7 +339,7 @@ $(document).ready(() => {
             let blob = xhr.response;
             let a = document.createElement('a');
             a.href = window.URL.createObjectURL(blob);
-            a.download = 'CDS_Result';
+            a.download = 'CDS_Result.xls';
             a.click();
             callFlashSlide('Saved');
           };
