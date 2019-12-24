@@ -6,6 +6,9 @@
 		<!-- 
 			<portlet id="see-kpi" />  
 		-->
+		<portlet id="so-kpi"></portlet>
+		<portlet id="project"></portlet>
+		<portlet id="strategic-objective"></portlet>
 		<portlet id="appraisal"></portlet>
 		<portlet id="appraisal-report"></portlet>
 		<portlet id="appraisal-item"></portlet>
@@ -52,4 +55,5 @@
 		<portlet id="import-appraisal-item"></portlet>
 		<portlet id="job-log"></portlet>
 	</category>
+	
 </display>
