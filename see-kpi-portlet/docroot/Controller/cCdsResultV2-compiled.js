@@ -43,40 +43,9 @@ $(document).ready(function () {
       $('.dropify').dropify();
       $('.app_url_hidden').show();
       $('.sr-only').hide();
-      methods.getBrowserWidth();
-      $(window).on('resize', function () {
-        return methods.getBrowserWidth();
-      });
-    },
-    getBrowserWidth: function getBrowserWidth() {
-      var wSearchAdvance = $('.cSearchAdvance').width() - 4;
-      var wTarget = $('#drop_down_list_appraisal_type').width();
-      var wCalTarget = $('#drop_down_list_appraisal_type').width() * 4 + 20;
-      var height = $('#drop_down_list_appraisal_type').height() + 0.25;
-      var empInput = $('#txtEmpInput');
-
-      if (window.innerWidth < 980) {
-        empInput.css({
-          width: ''
-        });
-        empInput.css({
-          height: ''
-        });
-      } else if (window.innerWidth < 1366) {
-        empInput.width(wSearchAdvance - wCalTarget + wTarget);
-        empInput.css({
-          height: height
-        });
-      } else {
-        empInput.width(wSearchAdvance - wCalTarget + wTarget);
-        empInput.css({
-          height: height
-        });
-      }
     },
     applySearchListeners: function applySearchListeners() {
       var yearDropdown = $('#year');
-      var monthDropdown = $('#month');
       var appraisalTypeDropdown = $('#app_type');
       var employeeNameInput = $('#emp_name');
       var positionInput = $('#position');
@@ -87,13 +56,6 @@ $(document).ready(function () {
         methods.renderSearchDropdownList('public/cds_result/year_list', {}, yearDropdown, 'current_appraisal_year', 'current_appraisal_year', 'filterYear');
         yearDropdown.on('change', function (e) {
           state.filterYear = e.target.value;
-        });
-      }
-
-      if (monthDropdown) {
-        methods.renderSearchDropdownList('public/cds_result/month_list', {}, monthDropdown, 'month_id', 'month_name', 'filterMonth');
-        monthDropdown.on('change', function (e) {
-          state.filterMonth = e.target.value;
         });
       }
 
@@ -240,7 +202,7 @@ $(document).ready(function () {
       }
     },
     applyImportModalListeners: function applyImportModalListeners() {
-      var importCdsButton = $('#btn_import');
+      var importCdsButton = $('#cdsImportButton');
       var importModal = $('#ModalImport');
       var importFileForm = $('form#fileImportCdsResult');
       var importFileInput = $('#file');
@@ -314,13 +276,24 @@ $(document).ready(function () {
       });
     },
     applyExportButtonListeners: function applyExportButtonListeners() {
-      var exportButton = $('#exportToExcel');
+      var exportCdsButton = $('#cdsExportButton');
+      var confirmExportButton = $('#btnConfirmExport');
+      var exportMonthSelector = $('#exportMonthSelector');
 
-      if (exportButton) {
-        exportButton.on('click', function () {
+      if (exportMonthSelector) {
+        MONTHS_ARRAY.map(function (month) {
+          exportMonthSelector.append("<option value='".concat(month.id, "'>").concat(month.label_en_short, "</option>"));
+        });
+        exportMonthSelector.on('change', function (e) {
+          state.exportMonth = e.target.value;
+        });
+      }
+
+      if (confirmExportButton) {
+        confirmExportButton.on('click', function (e) {
           var requestData = {
             current_appraisal_year: state.filterYear,
-            month_id: state.filterMonth,
+            month_id: state.exportMonth,
             level_id: state.filterAppraisalLevel,
             appraisal_type_id: state.filterAppraisalType,
             org_id: state.filterOrgLevel,
@@ -344,7 +317,7 @@ $(document).ready(function () {
             var blob = xhr.response;
             var a = document.createElement('a');
             a.href = window.URL.createObjectURL(blob);
-            a.download = 'CDS_Result';
+            a.download = 'CDS_Result.xls';
             a.click();
             callFlashSlide('Saved');
           };
@@ -356,6 +329,15 @@ $(document).ready(function () {
           xhr.send(JSON.stringify(requestData));
         });
       }
+
+      exportCdsButton.click(function () {
+        $('.btnModalClose').click();
+        $('.dropify-clear').click();
+        exportCdsButton.attr({
+          'data-backdrop': setModalPopup[0],
+          'data-keyboard': setModalPopup[1]
+        });
+      });
     },
     applySearchButtonListeners: function applySearchButtonListeners() {
       var searchButton = $('#btnSearchAdvance');
@@ -397,10 +379,11 @@ $(document).ready(function () {
           forecastValueInputs.attr('disabled', true);
           forecastBUInputs.attr('disabled', true);
         } else {
+          var currentMonth = new Date().getMonth() + 1;
           cdsValueInputs.map(function (index, item) {
             item = $(item);
 
-            if (item.data('monthid') == state.filterMonth) {
+            if (item.data('monthid') == currentMonth || item.data('monthid') == currentMonth - 1) {
               item.attr('disabled', false);
             } else {
               item.attr('disabled', true);
@@ -409,7 +392,7 @@ $(document).ready(function () {
           forecastValueInputs.map(function (index, item) {
             item = $(item);
 
-            if (item.data('monthid') >= state.filterMonth) {
+            if (item.data('monthid') >= currentMonth) {
               item.attr('disabled', false);
             } else {
               item.attr('disabled', true);
@@ -418,7 +401,7 @@ $(document).ready(function () {
           forecastBUInputs.map(function (index, item) {
             item = $(item);
 
-            if (item.data('monthid') >= state.filterMonth) {
+            if (item.data('monthid') >= currentMonth) {
               item.attr('disabled', false);
             } else {
               item.attr('disabled', true);
@@ -538,14 +521,13 @@ $(document).ready(function () {
             methods.renderData(state.originalData);
             methods.setupPagination(state.pagination);
             $('#cds_result_list_content').show();
-            methods.getBrowserWidth();
           }
         }
       });
     },
     renderData: function renderData(records) {
       var htmlTable = "";
-      var dataRowString = "\n      <tr class=\"rowSearch\" data-recordid=\"$cdsId\" data-toggle=\"collapse\" data-target=\"#collapse-$cdsId$orgId$levelId\">\n        <td class=\"expandButton text-center\" style=\"cursor: pointer;\">\n          <i class=\"fa fa-plus\" style=\"vertical-align: middle;\"></i>\n        </td>\n        <td class=\"Search\">$orgOrEmpName</td>\n        <td class=\"Search\">$cdsName</td>\n        <td class=\"Search\">$UOMName</td>\n        <td class=\"Search\">$year</td>\n        <td style=\"text-align:center; justify-content: space-between;\">\n          <i data-trigger=\"focus\" tabindex=\"0\" data-content=\"\n              <button style='width:100%;' class='btn btn-success btn-small btn-gear cdsDetailButton' \n                id='$cdsId' data-target='' data-backdrop='static' \n                data-keyboard='false' data-toggle='modal'\n                data-orgid='$orgId'\n                data-levelid='$levelId'\n                data-empid='$empId'>\n                Detail\n              </button>  \n              <button id='$cdsId' style='width:100%;' \n                class='btn btn-danger btn-small btn-gear cdsDeleteButton'\n                data-orgid='$orgId'\n                data-levelid='$levelId'\n                data-empid='$empId'>\n                Delete\n              </button>\n            \"\n            data-placement=\"top\" data-toggle=\"popover\" data-html=\"true\" \n            class=\"fa fa-cog font-gear popover-detail-del $isHidden\" data-original-title=\"\" title=\"\">\n          </i>\n        </td>\n      </tr>\n      <tr class=\"collapse\" id=\"collapse-$cdsId$orgId$levelId\">\n        <td colspan='6' class=\"cds-item-collapse\">\n          <div class=\"collapse-hide table-responsive\">\n            <table>\n              <thead>\n                <tr>\n                  <th style='width: 12.5%;min-width: 90px;'>\u0E40\u0E14\u0E37\u0E2D\u0E19</th>\n                  $monthsTableHead\n                </tr>\n              </thead>\n              <tbody>\n                <tr>\n                  <td style='width: 12.5%;min-width: 90px;'>\u0E04\u0E48\u0E32\u0E02\u0E2D\u0E07\u0E0A\u0E38\u0E14\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25</td>\n                  $cdsValueInputsString\n                </tr>\n                <tr>\n                  <td style='width: 12.5%;min-width: 90px;'>\u0E04\u0E48\u0E32\u0E04\u0E32\u0E14\u0E01\u0E32\u0E23\u0E13\u0E4C</td>\n                  $cdsForecastValueInputsString\n                </tr>\n                <tr>\n                  <td style='width: 12.5%;min-width: 90px;'>\u0E04\u0E48\u0E32\u0E04\u0E32\u0E14\u0E01\u0E32\u0E23\u0E13\u0E4C\u0E2B\u0E19\u0E48\u0E27\u0E22\u0E07\u0E32\u0E19</td>\n                  $cdsForecastBUInputsString\n                </tr>\n              </tbody>\n            </table>\n          </div>\n        </td>\n      </tr>\n      ";
+      var dataRowString = "\n      <tr class=\"rowSearch\" data-recordid=\"$cdsId\" data-toggle=\"collapse\" data-target=\"#collapse-$cdsId$orgId$levelId\">\n        <td class=\"expandButton text-center\" style=\"cursor: pointer;\">\n          <i class=\"fa fa-plus\" style=\"vertical-align: middle;\"></i>\n        </td>\n        <td class=\"Search\">$orgOrEmpName</td>\n        <td class=\"Search\">$cdsName</td>\n        <td class=\"Search\">$UOMName</td>\n        <td class=\"Search\">$year</td>\n      </tr>\n      <tr class=\"collapse\" id=\"collapse-$cdsId$orgId$levelId\">\n        <td colspan='6' class=\"cds-item-collapse\">\n          <div class=\"collapse-hide table-responsive\">\n            <table>\n              <thead>\n                <tr>\n                  <th style='width: 12.5%;min-width: 90px;'>\u0E40\u0E14\u0E37\u0E2D\u0E19</th>\n                  $monthsTableHead\n                </tr>\n              </thead>\n              <tbody>\n                <tr>\n                  <td style='width: 12.5%;min-width: 90px;'>\u0E04\u0E48\u0E32\u0E02\u0E2D\u0E07\u0E0A\u0E38\u0E14\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25</td>\n                  $cdsValueInputsString\n                </tr>\n                <tr>\n                  <td style='width: 12.5%;min-width: 90px;'>\u0E04\u0E48\u0E32\u0E04\u0E32\u0E14\u0E01\u0E32\u0E23\u0E13\u0E4C</td>\n                  $cdsForecastValueInputsString\n                </tr>\n                <tr>\n                  <td style='width: 12.5%;min-width: 90px;'>\u0E04\u0E48\u0E32\u0E04\u0E32\u0E14\u0E01\u0E32\u0E23\u0E13\u0E4C\u0E2B\u0E19\u0E48\u0E27\u0E22\u0E07\u0E32\u0E19</td>\n                  $cdsForecastBUInputsString\n                </tr>\n              </tbody>\n            </table>\n          </div>\n        </td>\n      </tr>\n      ";
       records.map(function (item) {
         var monthsTableHead = '';
         var cdsValueInputsString = '';
@@ -554,19 +536,16 @@ $(document).ready(function () {
 
         var months = _toConsumableArray(MONTHS_ARRAY);
 
-        var filteringMonth = item.months.find(function (i) {
-          return i.appraisal_month_no == state.filterMonth;
-        });
         months.map(function (month) {
           var monthItem = item.months.find(function (i) {
             return i.appraisal_month_no == month.id;
           });
-          monthsTableHead += "<th class=\"colHead\">".concat(month.label_th_short, "</th>");
+          monthsTableHead += "\n            <th class=\"colHead\">\n              <span class='".concat(monthItem ? 'text-success' : 'text-primary', "'>\n                ").concat(month.label_th_short, "\n              </span>\n              <span class='colHeadOptions'>\n                <i data-trigger=\"focus\" \n                  tabindex=\"0\" \n                  data-content=\"\n                    <button style='width:100%;' \n                      class='btn btn-success btn-small btn-gear cdsDetailButton' \n                      data-target='' data-backdrop='static' \n                      data-keyboard='false' data-toggle='modal'\n                      data-cdsid='").concat(item.cds_id, "'\n                      data-orgid='").concat(item.org_id, "'\n                      data-levelid='").concat(item.level_id, "'\n                      data-empid='").concat(item.emp_id, "'\n                      data-monthno='").concat(month.id, "'>\n                      Detail\n                    </button>  \n                    <button style='width:100%;'\n                      class='btn btn-danger btn-small btn-gear cdsDeleteButton'\n                      data-cdsid='").concat(item.cds_id, "'\n                      data-orgid='").concat(item.org_id, "'\n                      data-levelid='").concat(item.level_id, "'\n                      data-empid='").concat(item.emp_id, "'\n                      data-monthno='").concat(month.id, "'>\n                      Delete\n                    </button>\"\n                  data-placement=\"top\" \n                  data-toggle=\"popover\" \n                  data-html=\"true\" \n                  class=\"fa fa-ellipsis-v options popover-detail-del\" \n                  data-original-title=\"\" \n                  title=\"\">\n                </i>\n              </span>\n            </th>");
           cdsValueInputsString += "\n          <td>\n            <input type='text' \n              id=\"cdsValueInput-".concat(item.cds_result_id, "-").concat(month.id, "\" \n              data-cds_id=").concat(item.cds_id, "\n              data-cds_result_id=").concat(item.cds_result_id, "\n              data-level_id=").concat(item.level_id, "\n              data-org_id=").concat(item.org_id, "\n              data-emp_id=").concat(item.emp_id, "\n              data-monthid=").concat(month.id, "\n              class=\"cdsValueInput colCdsData\" \n              value=\"").concat(monthItem ? monthItem.cds_value || '' : '', "\" \n              ").concat(state.cdsEditing ? '' : 'disabled', " />\n          </td>");
           cdsForecastValueInputsString += "\n          <td>\n            <input type='text' \n              id=\"cdsForecastValueInput-".concat(item.cds_result_id, "-").concat(month.id, "\" \n              data-cds_id=").concat(item.cds_id, "\n              data-cds_result_id=").concat(item.cds_result_id, "\n              data-level_id=").concat(item.level_id, "\n              data-org_id=").concat(item.org_id, "\n              data-emp_id=").concat(item.emp_id, "\n              data-monthid=").concat(month.id, "\n              class=\"cdsForecastValueInput colCdsData\" \n              value=\"").concat(monthItem ? monthItem.corporate_forecast_value || '' : '', "\"\n              ").concat(state.cdsEditing ? '' : 'disabled', " />\n          </td>");
           cdsForecastBUInputsString += "\n            <td>\n              <input type='text' \n                id=\"cdsForecastBUInput-".concat(item.cds_result_id, "-").concat(month.id, "\" \n                data-cds_id=").concat(item.cds_id, "\n                data-cds_result_id=").concat(item.cds_result_id, "\n                data-level_id=").concat(item.level_id, "\n                data-org_id=").concat(item.org_id, "\n                data-emp_id=").concat(item.emp_id, "\n                data-monthid=").concat(month.id, "\n                class=\"cdsForecastBUInput colCdsData\" \n                value=\"").concat(monthItem ? monthItem.bu_forecast_value || '' : '', "\" \n                ").concat(state.cdsEditing ? '' : 'disabled', " />\n            </td>");
         });
-        htmlTable += dataRowString.replace('$orgOrEmpName', state.filterAppraisalType == '2' ? item.emp_name : item.org_name).replace('$cdsName', item.cds_name).replace('$UOMName', item.uom_name).replace('$year', item.year).replace(/\$cdsId/g, item.cds_id).replace(/\$orgId/g, item.org_id).replace(/\$levelId/g, item.level_id).replace(/\$empId/g, item.emp_id).replace('$monthsTableHead', monthsTableHead).replace('$cdsValueInputsString', cdsValueInputsString).replace('$cdsForecastValueInputsString', cdsForecastValueInputsString).replace('$cdsForecastBUInputsString', cdsForecastBUInputsString).replace('$isHidden', filteringMonth ? '' : 'hide');
+        htmlTable += dataRowString.replace('$orgOrEmpName', state.filterAppraisalType == '2' ? item.emp_name : item.org_name).replace('$cdsName', item.cds_name).replace('$UOMName', item.uom_name).replace('$year', item.year).replace(/\$cdsId/g, item.cds_id).replace(/\$orgId/g, item.org_id).replace(/\$levelId/g, item.level_id).replace(/\$empId/g, item.emp_id).replace('$monthsTableHead', monthsTableHead).replace('$cdsValueInputsString', cdsValueInputsString).replace('$cdsForecastValueInputsString', cdsForecastValueInputsString).replace('$cdsForecastBUInputsString', cdsForecastBUInputsString);
       });
       var tableBody = $('#listCdsResult');
       tableBody.empty();
@@ -907,39 +886,41 @@ $(document).ready(function () {
         var cdsDeleteButtons = $('.cdsDeleteButton');
         cdsDetailButtons.off('click');
         cdsDetailButtons.on('click', function (e) {
-          var targetCdsId = e.target.id;
+          var targetCdsId = e.target.dataset.cdsid;
           var targetOrgId = e.target.dataset.orgid;
           var targetLevelId = e.target.dataset.levelid;
           var targetEmpId = e.target.dataset.empid;
+          var targetMonth = e.target.dataset.monthno;
           var cdsRecord = state.originalData.find(function (record) {
             return record.cds_id == targetCdsId && (record.appraisal_type_id == 1 ? record.org_id == targetOrgId : record.emp_id == targetEmpId) && record.level_id == targetLevelId;
           });
 
           if (cdsRecord) {
             var cdsResultRecord = cdsRecord.months.find(function (cdsResult) {
-              return cdsResult.appraisal_month_no == state.filterMonth && cdsResult.cds_id == targetCdsId && (cdsResult.appraisal_type_id == 1 ? cdsResult.org_id == targetOrgId : cdsResult.emp_id == targetEmpId) && cdsResult.level_id == cdsRecord.level_id;
+              return cdsResult.appraisal_month_no == targetMonth && cdsResult.cds_id == targetCdsId && (cdsResult.appraisal_type_id == 1 ? cdsResult.org_id == targetOrgId : cdsResult.emp_id == targetEmpId) && cdsResult.level_id == cdsRecord.level_id;
             });
 
-            if (cdsResultRecord.cds_result_id) {
+            if (cdsResultRecord && cdsResultRecord.cds_result_id) {
               methods.openEditDetailModal(cdsResultRecord.cds_result_id);
             }
           }
         });
         cdsDeleteButtons.off('click');
         cdsDeleteButtons.on('click', function (e) {
-          var targetCdsId = e.target.id;
+          var targetCdsId = e.target.dataset.cdsid;
           var targetOrgId = e.target.dataset.orgid;
           var targetLevelId = e.target.dataset.levelid;
+          var targetMonth = e.target.dataset.monthno;
           var cdsRecord = state.originalData.find(function (record) {
             return record.cds_id == targetCdsId && (record.appraisal_type_id == 1 ? record.org_id == targetOrgId : record.emp_id == targetEmpId) && record.level_id == targetLevelId;
           });
 
           if (cdsRecord) {
             var cdsResultRecord = cdsRecord.months.find(function (cdsResult) {
-              return cdsResult.appraisal_month_no == state.filterMonth && cdsResult.cds_id == targetCdsId && (cdsResult.appraisal_type_id == 1 ? cdsResult.org_id == targetOrgId : cdsResult.emp_id == targetEmpId) && cdsResult.level_id == cdsRecord.level_id;
+              return cdsResult.appraisal_month_no == targetMonth && cdsResult.cds_id == targetCdsId && (cdsResult.appraisal_type_id == 1 ? cdsResult.org_id == targetOrgId : cdsResult.emp_id == targetEmpId) && cdsResult.level_id == cdsRecord.level_id;
             });
 
-            if (cdsResultRecord.cds_result_id) {
+            if (cdsResultRecord && cdsResultRecord.cds_result_id) {
               methods.openDeleteModal(cdsResultRecord.cds_result_id);
             }
           }
@@ -1159,7 +1140,6 @@ $(document).ready(function () {
   };
   var state = {
     filterYear: '',
-    filterMonth: '',
     filterAppraisalType: '2',
     filterEmp: {
       id: '',
@@ -1171,6 +1151,7 @@ $(document).ready(function () {
     },
     filterAppraisalLevel: '',
     filterOrganization: '',
+    exportMonth: '1',
     cdsEditing: false,
     pagination: {
       perPage: 10,

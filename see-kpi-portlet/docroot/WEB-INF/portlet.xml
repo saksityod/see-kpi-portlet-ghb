@@ -1538,12 +1538,14 @@
 		</security-role-ref>
 	</portlet>
 	<portlet>
-		<portlet-name>so-kpi</portlet-name>
-		<display-name>So Kpi</display-name>
-		<portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class>
+		<portlet-name>force-rank</portlet-name>
+		<display-name>Force Rank</display-name>
+		<portlet-class>
+			com.liferay.util.bridges.mvc.MVCPortlet
+		</portlet-class>
 		<init-param>
 			<name>view-template</name>
-			<value>/html/sokpi/view.jsp</value>
+			<value>/html/force-rank/view.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
@@ -1551,8 +1553,8 @@
 			<portlet-mode>view</portlet-mode>
 		</supports>
 		<portlet-info>
-			<title>So Kpi</title>
-			<short-title>So Kpi</short-title>
+			<title>Force Rank</title>
+			<short-title>Force Rank</short-title>
 			<keywords></keywords>
 		</portlet-info>
 		<security-role-ref>
