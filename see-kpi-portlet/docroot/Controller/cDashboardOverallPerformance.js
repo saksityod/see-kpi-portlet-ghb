@@ -2,6 +2,7 @@
  var galbalDashboard=[];
  var galbalDataTemp = [];
  var rangeColorsThreshold=[];
+ var listRangeColorsThreshold=[];
  galbalDataTemp['galbalOrg'] = [];
  galbalDataTemp['extract'] = false;
  galbalDataTemp['All_KPI'] = [];
@@ -368,9 +369,12 @@ var listAllKPIFn = function(data){
 	var actual;
 	var percent_target;
 	var percent_forecast;
-
+	listRangeColorsThreshold = [];
 	$.each(data,function(index2,indexEntry2){
-		
+		listRangeColorsThreshold.push({
+			item_id : indexEntry2['item_id'],
+			rangeColor : indexEntry2['rangeColor']
+		});
 		rangeColorsThreshold = indexEntry2['rangeColor'];
 		target = (indexEntry2['target']==null || indexEntry2['target']=='') ? '&nbsp;' : addCommas(notNullFn(indexEntry2['target']));
 		forecast = (indexEntry2['forecast']==null || indexEntry2['forecast']=='') ? '&nbsp;' : addCommas(notNullFn(indexEntry2['forecast']));
@@ -400,18 +404,20 @@ var listAllKPIFn = function(data){
 						dataTableHTML+="</tr>";
 						dataTableHTML+="<tr>";
 							dataTableHTML+="<td>"+Liferay.Language.get('percent-target')+"<span style='float:right'>"+percent_target+"</span></td>";
-							dataTableHTML+="<td colspan='2'><div class='sparkline' style='opacity:1;'  >"+indexEntry2['percent_target_str']+"</div></td>";
+							dataTableHTML+="<td colspan='2'><div class='sparkline' item_id='"+indexEntry2['item_id']+"' style='opacity:1;'  >"+indexEntry2['percent_target_str']+"</div></td>";
 						dataTableHTML+="</tr>";
 						dataTableHTML+="<tr>";
 							dataTableHTML+="<td>"+Liferay.Language.get('percent-forecast')+"<span style='float:right'>"+percent_forecast+"</span></td>";
-							dataTableHTML+="<td colspan='2'><div class='sparkline' style='opacity:1;'>"+indexEntry2['percent_forecast_str']+"</div></td>";
+							dataTableHTML+="<td colspan='2'><div class='sparkline' item_id='"+indexEntry2['item_id']+"' style='opacity:1;'>"+indexEntry2['percent_forecast_str']+"</div></td>";
 						dataTableHTML+="</tr>";
 					dataTableHTML+="</tbody>";
 				dataTableHTML+="</table>";
 			dataTableHTML+="</td>";
 		dataTableHTML+="</tr>";
 		
+		
 	});
+	
 	$("#kpiList").html(dataTableHTML);
 	$("#btn_kpi").off("click");
 	$("#btn_kpi").on("click");
@@ -420,16 +426,23 @@ var listAllKPIFn = function(data){
 		if($("#btn_kpi").attr("data-sparkline") != "active" ){
 			$("body").mLoading('show');
 			$("#btn_kpi").attr("data-sparkline","active" );
-			setTimeout(function(){ 
-				$(".sparkline").sparkline('html', {
-			        type: 'bullet',
-			        width:'120',
-			        height: '20',
-			        targetWidth: '6',
-				    targetColor: '#fefefe',
-				    performanceColor: '#282a4b',
-			        rangeColors: rangeColorsThreshold
-				}).css("opacity","1");
+			
+			setTimeout(function(){
+				//$(".sparkline[item_id=587]")
+				$.each(listRangeColorsThreshold,function(key,item){
+					
+					$(".sparkline[item_id="+item.item_id+"]").sparkline('html', {
+				        type: 'bullet',
+				        width:'120',
+				        height: '20',
+				        targetWidth: '6',
+					    targetColor: '#fefefe',
+					    performanceColor: '#282a4b',
+				        rangeColors: item.rangeColor
+					}).css("opacity","1");
+					
+					
+				});
 				
 				$("body").mLoading('hide');
 			}, 1000);
