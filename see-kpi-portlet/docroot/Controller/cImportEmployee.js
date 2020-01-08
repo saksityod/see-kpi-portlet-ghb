@@ -413,8 +413,8 @@ var updateFn = function () {
 	// Get value multi_org in array
 	$.each($('#from_multi_org').select2("data"), function() {multi_org.push(this.id);}); 
 	
-	var multi_org_name=[];
-	$.each($('#from_org_id').select2("data"), function() {multi_org_name.push(this.org_id);}); 
+	//var multi_org_name=[];
+	//$.each($('#from_org_id').select2("data"), function() {multi_org_name.push(this.org_id);}); 
 	
 	var isActive="";
 	//IsAction
@@ -442,7 +442,7 @@ var updateFn = function () {
 			"working_start_date":$("#from_emp_wsd").val(),
 			"probation_end_date":$("#from_emp_ped").val(),
 			"acting_end_date":$("#from_emp_aed").val(),
-			"org_id": multi_org_name,   //$("#from_org_id").val(),
+			"org_id": $("#from_org_id").val(),
 			"level_id":$("#from_Level_id").val(),
 			"position_id":$("#from_position_id").val(),
 			"chief_emp_code":$("#from_sup_emp_code").val(),
