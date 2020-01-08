@@ -169,7 +169,8 @@ var listDashBoardFn = function(data){
 		$("#period").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/period_list","POST",{"appraisal_year":$("#year").val()}));
 		$("#app_type").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/appraisal_assignment/appraisal_type_list","GET"));
 		$("#apprasiaLevel").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/appraisal/al_list","GET"));
-		$("#organization").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/org","GET",{"level_id":$("#apprasiaLevel").val()}));
+//		$("#organization").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/org","GET",{"level_id":$("#apprasiaLevel").val()}));
+		$("#organization").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/list_organization","GET",{"level_id":$("#apprasiaLevel").val()}));
 		$("#kpi_type").html((generateDropDownList(restfulURL+"/"+serviceName+"/public/report/list_kpi_type","GET",{"appraisal_level":$("#apprasiaLevel").val(),"org_id":$("#organization").val(),"emp_id":$("#emp_name_id").val(),"appraisal_type_id":1,"period":$("#period").val()},Liferay.Language.get('all-kpi-type'))));
 		$("#kpi").html((generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/kpi_list","POST",{"appraisal_level":$("#apprasiaLevel").val(),"org_id":$("#organization").val(),"emp_id":$("#emp_name_id").val(),"appraisal_type_id":1,"kpi_type_id":$("#kpi_type").val(),"period":$("#period").val(), "year": $("#year").val()},Liferay.Language.get('all-kpi'))));
 
@@ -184,7 +185,8 @@ var listDashBoardFn = function(data){
 		});
 		
 		$("#apprasiaLevel").change(function() {
-			$("#organization").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/org","GET",{"level_id":$("#apprasiaLevel").val()}));
+			$("#organization").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/list_organization","GET",{"level_id":$("#apprasiaLevel").val()}));
+//			$("#organization").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/org","GET",{"level_id":$("#apprasiaLevel").val()}));
 //			$("#organization").html(generateDropDownList(restfulURL+"/"+serviceName+"/public/dashboard/org_list","POST",{"appraisal_level":$("#apprasiaLevel").val()}));
 			$("#organization").change();
 		});
