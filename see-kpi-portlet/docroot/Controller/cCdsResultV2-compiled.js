@@ -370,7 +370,12 @@ $(document).ready(function () {
         saveButton.prop('disabled', !state.cdsEditing);
         cancelButton.prop('disabled', !state.cdsEditing);
 
-        if (tokenID.is_hr === 1 && state.filterAppraisalLevel == 2) {
+        if(tokenID.is_hr === 1) {
+            cdsValueInputs.attr('disabled', false);
+            forecastValueInputs.attr('disabled', false);
+            forecastBUInputs.attr('disabled', false);
+            //console.log("Edit case 5");
+         }else if (tokenID.is_hr === 1 && state.filterAppraisalLevel == 2) {
         	//- แต่แก้ไข field cds_value, forecast, forect BU ไม่ได้ (Disable ปุ่ม Edit, Save, Cancel)
             cdsValueInputs.attr('disabled', true);
             forecastValueInputs.attr('disabled', true);
@@ -394,12 +399,7 @@ $(document).ready(function () {
              forecastValueInputs.attr('disabled', false);
              forecastBUInputs.attr('disabled', true)
              //console.log("Edit case 4");
-        }else if(tokenID.is_hr === 1) {
-          cdsValueInputs.attr('disabled', false);
-          forecastValueInputs.attr('disabled', false);
-          forecastBUInputs.attr('disabled', false);
-          //console.log("Edit case 5");
-        } else if (tokenID.is_show_corporate === 1 && state.filterAppraisalLevel == 2) {
+        }else if (tokenID.is_show_corporate === 1 && state.filterAppraisalLevel == 2) {
           cdsValueInputs.attr('disabled', true);
           forecastValueInputs.attr('disabled', true);
           forecastBUInputs.attr('disabled', true);
