@@ -103,7 +103,7 @@ $(document).ready(function () {
                 emp_name: req.term
               },
               error: function error(xhr, textStatus, errorThrown) {
-                console.log('Error: ' + xhr.responseText);
+                //console.log('Error: ' + xhr.responseText);
               },
               success: function success(data) {
                 res(data.map(function (item) {
@@ -129,9 +129,9 @@ $(document).ready(function () {
           },
           change: function change(e, ui) {
             if (employeeNameInput.val() == state.filterEmp.name) {
-              console.log(state.filterEmp);
+              //console.log(state.filterEmp);
             } else if (ui.item != null) {
-              console.log(ui.item);
+              //console.log(ui.item);
               state.filterEmp = {
                 id: ui.item.emp_id,
                 name: ui.item.emp_name
@@ -157,7 +157,7 @@ $(document).ready(function () {
                 position_name: req.term
               },
               error: function error(xhr, textStatus, errorThrown) {
-                console.log('Error: ' + xhr.responseText);
+                //console.log('Error: ' + xhr.responseText);
               },
               success: function success(data) {
                 res(data.map(function (item) {
@@ -174,7 +174,7 @@ $(document).ready(function () {
             });
           },
           select: function select(e, ui) {
-            console.log(e, ui);
+            //console.log(e, ui);
             state.filterPosition = {
               id: ui.item.position_id,
               name: ui.item.position_value
@@ -182,10 +182,10 @@ $(document).ready(function () {
             return false;
           },
           change: function change(e, ui) {
-            console.log(e, ui);
+            //console.log(e, ui);
 
             if (positionInput.val() == state.filterPosition.name) {
-              console.log('test');
+              //console.log('test');
             } else if (ui.item != null) {
               state.filterPosition = {
                 id: ui.item.position_id,
@@ -323,7 +323,7 @@ $(document).ready(function () {
           };
 
           xhr.onerror = function (err) {
-            console.log(err);
+            //console.log(err);
           };
 
           xhr.send(JSON.stringify(requestData));
@@ -370,14 +370,40 @@ $(document).ready(function () {
         saveButton.prop('disabled', !state.cdsEditing);
         cancelButton.prop('disabled', !state.cdsEditing);
 
-        if (tokenID.is_hr === 1) {
+        if (tokenID.is_hr === 1 && state.filterAppraisalLevel == 2) {
+        	//- แต่แก้ไข field cds_value, forecast, forect BU ไม่ได้ (Disable ปุ่ม Edit, Save, Cancel)
+            cdsValueInputs.attr('disabled', true);
+            forecastValueInputs.attr('disabled', true);
+            forecastBUInputs.attr('disabled', true);
+            //console.log("Edit case 1");
+         }else if (tokenID.is_show_corporate === 1 && $.inArray(tokenID.level_id, [2,3]) == -1 && state.filterAppraisalLevel == 2) {
+        	// - แต่แก้ไข field cds_value, forecast, forect BU ไม่ได้ (Disable ปุ่ม Edit, Save, Cancel)
+        	 cdsValueInputs.attr('disabled', true);
+             forecastValueInputs.attr('disabled', true);
+             forecastBUInputs.attr('disabled', true);
+             //console.log("Edit case 2");
+        }else if (tokenID.is_show_corporate === 1 && tokenID.level_id === 3 && state.filterAppraisalLevel == 2) {
+        	// - และให้แก้ไข้ได้เฉพาะ field forecast BU (Enable ปุ่ม Edit, Save, Cancel)
+       	 	cdsValueInputs.attr('disabled', true);
+            forecastValueInputs.attr('disabled', true);
+            forecastBUInputs.attr('disabled', false);
+            //console.log("Edit case 3");
+       }else if (tokenID.level_id === 2 && state.filterAppraisalLevel == 2) {
+        	// - แต่แก้ให้สามารถแก้ไข field cds_value และ forecast ได้ แต่ไม่สามารถแก้ไข field forecast bu ได้ (Enable ปุ่ม Edit, Save, Cancel)
+        	 cdsValueInputs.attr('disabled', false);
+             forecastValueInputs.attr('disabled', false);
+             forecastBUInputs.attr('disabled', true)
+             //console.log("Edit case 4");
+        }else if(tokenID.is_hr === 1) {
           cdsValueInputs.attr('disabled', false);
           forecastValueInputs.attr('disabled', false);
           forecastBUInputs.attr('disabled', false);
+          //console.log("Edit case 5");
         } else if (tokenID.is_show_corporate === 1 && state.filterAppraisalLevel == 2) {
           cdsValueInputs.attr('disabled', true);
           forecastValueInputs.attr('disabled', true);
           forecastBUInputs.attr('disabled', true);
+          //console.log("Edit case 6");
         } else {
           var currentMonth = new Date().getMonth() + 1;
           cdsValueInputs.map(function (index, item) {
@@ -407,6 +433,11 @@ $(document).ready(function () {
               item.attr('disabled', true);
             }
           });
+        //- ที่หน้าจอ Enable ปุ่ม Edit, Save, Cancel และสามารถแก้ไขได้แค่ field cds value, forecast_bu
+        	//console.log("Edit case 6 else");
+        	cdsValueInputs.attr('disabled', false);
+            forecastBUInputs.attr('disabled', false)
+          forecastValueInputs.attr('disabled', true);
         }
       });
       cancelButton.on('click', function () {
@@ -515,6 +546,70 @@ $(document).ready(function () {
             } else {
               $('#btnEditCdsResult').prop('disabled', state.cdsEditing);
             }
+            let importCdsButton = $('#cdsImportButton');
+            let exportCdsButton = $('#cdsExportButton');
+           
+            //เงื่อนไข >> เพิ่มเติมเฉพาะ CDS Result ทั้งส่วนของการแก้ไขที่หน้าจอ และ Import Export Excel โดยทำเฉพาะกรณีที่เลือก level_id = 2 ที่ parameter
+            
+            if (tokenID.is_hr === 1 && state.filterAppraisalLevel == 2) {
+            	//console.log("Case 1");
+            	
+            	/*
+            	 .แต่ถ้า user ที่ login เข้าระบบ เป็นพนักงานที่อยู่ใน level Admin (is_hr)
+				- ให้สามารถแก้ไข field cds_value, forecase, forecase BU ได้ (Enable ปุ่ม Edit, Save, Cancel)
+				- และให้ Enable ปุ่ม Export, Import และส่วนของไฟล์ Excel แสดง field cds value, forecast, forecast bu
+            	 */
+            	$('#btnEditCdsResult').prop('disabled', false);
+            	importCdsButton.prop('disabled', false);
+            	exportCdsButton.prop('disabled', false);
+            }else if (tokenID.is_show_corporate === 1 && $.inArray(tokenID.level_id, [2,3]) == -1 && state.filterAppraisalLevel == 2){
+            	//console.log("Case 2");
+            	//alert("Case 2");
+            	/*
+            	 .ถ้า user ที่ login เข้าระบบ เป็น employee ที่ is_show_corporate = 1 แต่ไม่ได้อยู่ level องค์กร(level_id=2) และกลุ่มงาน(level_id=3)
+				- ให้พนักงานสามารถค้นหาและแสดงข้อมูลของ Organization Level ที่เป็น องค์กร ได้
+				- แต่แก้ไข field cds_value, forecast, forect BU ไม่ได้ (Disable ปุ่ม Edit, Save, Cancel)
+				- และให้ Disable ส่วนของปุ่ม Export, Import 
+            	 */
+            	$('#btnEditCdsResult').prop('disabled', true);
+            	importCdsButton.prop('disabled', true);
+            	exportCdsButton.prop('disabled', true);
+            }else if (tokenID.is_show_corporate === 1 && tokenID.level_id === 3 && state.filterAppraisalLevel == 2){
+            	//console.log("Case 3");
+            	/*
+            	 .แต่ถ้า user ที่ login เข้าระบบ เป็น employee ที่ is_show_corporate = 1 และอยู่ level กลุ่มงาน(level_id=3)
+				- ให้พนักงานสามารถค้นหาและแสดงข้อมูลของ Organization Level ที่เป็น องค์กร ได้
+				- และให้แก้ไข้ได้เฉพาะ field forecast BU (Enable ปุ่ม Edit, Save, Cancel)
+				- และให้ Enable ปุ่ม Export, Import และส่วนของไฟล์ Excel แสดงแค่ field forecast bu
+				
+            	 */
+            	$('#btnEditCdsResult').prop('disabled', state.cdsEditing);
+            	importCdsButton.prop('disabled', false);
+            	exportCdsButton.prop('disabled', false);
+            }else if (tokenID.level_id === 2 && state.filterAppraisalLevel == 2){
+            	//console.log("Case 4");
+            	/*
+           	 .แต่ถ้า user ที่ login เข้าระบบ เป็นพนักงานที่อยู่ใน level องค์กร(level_id=2) (ไม่สนใจ is_show_corporate)
+			- สามารถค้นหาข้อมูลระดับองค์กรได้อยู่แล้ว
+			- แต่แก้ให้สามารถแก้ไข field cds_value และ forecast ได้ แต่ไม่สามารถแก้ไข field forecast bu ได้ (Enable ปุ่ม Edit, Save, Cancel)
+			- และให้ Enable ปุ่ม Export, Import และส่วนของไฟล์ Excel แสดงแค่ field cds value, forecast
+           	 */
+	           	$('#btnEditCdsResult').prop('disabled', state.cdsEditing);
+	           	importCdsButton.prop('disabled', false);
+	           	exportCdsButton.prop('disabled', false);
+           }else if (tokenID.is_hr === 0 && state.filterAppraisalLevel != 2){
+        	   //console.log("Case 5");
+        	   /*
+             	  กรณีเป็น พนักงาน (ที่ is_hr = 0 และ is_show_corporate = 0,1 แต่ไม่ได้เลือก level_id = 2 ที่ parameter)
+				- เมื่อกดปุ่ม Export จะแสดงคอลัมน์
+				CDS Value โดย Insert/Update ลง field cds_value ใน table cds_result
+				Forecast BU โดย Insert/Update ลง field forecast_bu ใน table cds_result
+				- ที่หน้าจอ Enable ปุ่ม Edit, Save, Cancel และสามารถแก้ไขได้แค่ field cds value, forecast_bu
+             	 */
+  	           	$('#btnEditCdsResult').prop('disabled', state.cdsEditing);
+  	           	importCdsButton.prop('disabled', false);
+  	           	exportCdsButton.prop('disabled', false);
+             }
 
             $('#btnSaveCdsResult').prop('disabled', !state.cdsEditing);
             $('#btnCancelCdsResult').prop('disabled', !state.cdsEditing);
