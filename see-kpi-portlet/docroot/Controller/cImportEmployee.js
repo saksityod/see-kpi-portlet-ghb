@@ -176,6 +176,7 @@ var getDataFn = function(page,rpp){
 			
 			listImportEmployeeFn(data['data']);
 			//total
+			lecenseuser();
 			galbalDataImportEmp=data;
 			paginationSetUpFn(galbalDataImportEmp['current_page'],galbalDataImportEmp['last_page'],galbalDataImportEmp['last_page']);
 		}
@@ -344,6 +345,7 @@ var listImportEmployeeFn = function(data) {
 					    	 
 					       callFlashSlide("Delete Successfully.");
 					       getDataFn($("#pageNumber").val(),$("#rpp").val());
+					       lecenseuser();
 					       clearFn();
 					       $("#confrimModal").modal('hide');
 					       
@@ -695,11 +697,13 @@ $(document).ready(function() {
    
 	$("#btnEmpSubmit").click(function(){
 		updateFn();
+		lecenseuser();
 		return false;
 	});
 	
 	$("#btnLvSubmit").click(function(){
 		insertRoleFn();
+		lecenseuser();
 		return false;
 	});
 
@@ -987,6 +991,7 @@ $(document).ready(function() {
 							
 					callFlashSlide("Import Employee Successfully");
 					getDataFn($(".pagination .active").attr( "data-lp" ),$("#rpp").val());
+					lecenseuser();
 					$("body").mLoading('hide');
 					$('#ModalImport').modal('hide');
 					
