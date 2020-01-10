@@ -81,11 +81,11 @@ $(document).ready(function () {
           state.filterAppraisalType = e.target.value;
 
           if (e.target.value == 2) {
-            $('#orgOrEmp').text('Emp Name');
+            $('#orgOrEmp').text(Liferay.Language.get('employee-name'));
             employeeNameInput.attr('disabled', false);
             positionInput.attr('disabled', false);
           } else {
-            $('#orgOrEmp').text('Org Name');
+            $('#orgOrEmp').text(Liferay.Language.get('organization-name'));
             employeeNameInput.attr('disabled', true);
             positionInput.attr('disabled', true);
           }
@@ -281,9 +281,13 @@ $(document).ready(function () {
       var exportMonthSelector = $('#exportMonthSelector');
 
       if (exportMonthSelector) {
-        MONTHS_ARRAY.map(function (month) {
-          exportMonthSelector.append("<option value='".concat(month.id, "'>").concat(month.label_en_short, "</option>"));
-        });
+    	  	MONTHS_ARRAY.map(function (month) {
+    	  	if(Liferay.Language.get("language-get")=="EN"){
+    	  		exportMonthSelector.append("<option value='".concat(month.id, "'>").concat(month.label_en_short, "</option>"));
+    	  	}else if(Liferay.Language.get("language-get")=="TH"){
+    	  		exportMonthSelector.append("<option value='".concat(month.id, "'>").concat(month.label_th_short, "</option>"));
+    	  	}
+    	  	});
         exportMonthSelector.on('change', function (e) {
           state.exportMonth = e.target.value;
         });
@@ -348,9 +352,9 @@ $(document).ready(function () {
           methods.refreshData();
 
           if ($('#app_type').val() == 2) {
-            $('#orgOrEmp').text('Emp Name');
+            $('#orgOrEmp').text(Liferay.Language.get('employee-name'));
           } else {
-            $('#orgOrEmp').text('Org Name');
+            $('#orgOrEmp').text(Liferay.Language.get('organization-name'));
           }
         });
       }
@@ -624,7 +628,7 @@ $(document).ready(function () {
     },
     renderData: function renderData(records) {
       var htmlTable = "";
-      var dataRowString = "\n      <tr class=\"rowSearch\" data-recordid=\"$cdsId\" data-toggle=\"collapse\" data-target=\"#collapse-$cdsId$orgId$levelId\">\n        <td class=\"expandButton text-center\" style=\"cursor: pointer;\">\n          <i class=\"fa fa-plus\" style=\"vertical-align: middle;\"></i>\n        </td>\n        <td class=\"Search\">$orgOrEmpName</td>\n        <td class=\"Search\">$cdsName</td>\n        <td class=\"Search\">$UOMName</td>\n        <td class=\"Search\">$year</td>\n      </tr>\n      <tr class=\"collapse\" id=\"collapse-$cdsId$orgId$levelId\">\n        <td colspan='6' class=\"cds-item-collapse\">\n          <div class=\"collapse-hide table-responsive\">\n            <table>\n              <thead>\n                <tr>\n                  <th style='width: 12.5%;min-width: 90px;'>\u0E40\u0E14\u0E37\u0E2D\u0E19</th>\n                  $monthsTableHead\n                </tr>\n              </thead>\n              <tbody>\n                <tr>\n                  <td style='width: 12.5%;min-width: 90px;'>\u0E04\u0E48\u0E32\u0E02\u0E2D\u0E07\u0E0A\u0E38\u0E14\u0E02\u0E49\u0E2D\u0E21\u0E39\u0E25</td>\n                  $cdsValueInputsString\n                </tr>\n                <tr>\n                  <td style='width: 12.5%;min-width: 90px;'>\u0E04\u0E48\u0E32\u0E04\u0E32\u0E14\u0E01\u0E32\u0E23\u0E13\u0E4C</td>\n                  $cdsForecastValueInputsString\n                </tr>\n                <tr>\n                  <td style='width: 12.5%;min-width: 90px;'>\u0E04\u0E48\u0E32\u0E04\u0E32\u0E14\u0E01\u0E32\u0E23\u0E13\u0E4C\u0E2B\u0E19\u0E48\u0E27\u0E22\u0E07\u0E32\u0E19</td>\n                  $cdsForecastBUInputsString\n                </tr>\n              </tbody>\n            </table>\n          </div>\n        </td>\n      </tr>\n      ";
+      var dataRowString = `\n      <tr class=\"rowSearch\" data-recordid=\"$cdsId\" data-toggle=\"collapse\" data-target=\"#collapse-$cdsId$orgId$levelId\">\n        <td class=\"expandButton text-center\" style=\"cursor: pointer;\">\n          <i class=\"fa fa-plus\" style=\"vertical-align: middle;\"></i>\n        </td>\n        <td class=\"Search\">$orgOrEmpName</td>\n        <td class=\"Search\">$cdsName</td>\n        <td class=\"Search\">$UOMName</td>\n        <td class=\"Search\">$year</td>\n      </tr>\n      <tr class=\"collapse\" id=\"collapse-$cdsId$orgId$levelId\">\n        <td colspan='6' class=\"cds-item-collapse\">\n          <div class=\"collapse-hide table-responsive\">\n            <table>\n              <thead>\n                <tr>\n                  <th style='width: 12.5%;min-width: 90px;'>${Liferay.Language.get('month')}</th>\n                  $monthsTableHead\n                </tr>\n              </thead>\n              <tbody>\n                <tr>\n                  <td style='width: 12.5%;min-width: 90px;'>${Liferay.Language.get('value-of-data-set')}</td>\n                  $cdsValueInputsString\n                </tr>\n                <tr>\n                  <td style='width: 12.5%;min-width: 90px;'>${Liferay.Language.get('forecast-value')}</td>\n                  $cdsForecastValueInputsString\n                </tr>\n                <tr>\n                  <td style='width: 12.5%;min-width: 90px;'>${Liferay.Language.get('forecast-organization')}</td>\n                  $cdsForecastBUInputsString\n                </tr>\n              </tbody>\n            </table>\n          </div>\n        </td>\n      </tr>\n      `;
       records.map(function (item) {
         var monthsTableHead = '';
         var cdsValueInputsString = '';
@@ -632,15 +636,20 @@ $(document).ready(function () {
         var cdsForecastBUInputsString = '';
 
         var months = _toConsumableArray(MONTHS_ARRAY);
-
+        var language=Liferay.Language.get("language-get");
         months.map(function (month) {
           var monthItem = item.months.find(function (i) {
             return i.appraisal_month_no == month.id;
           });
-          monthsTableHead += "\n            <th class=\"colHead\">\n              <span class='".concat(monthItem ? 'text-success' : 'text-primary', "'>\n                ").concat(month.label_th_short, "\n              </span>\n              <span class='colHeadOptions'>\n                <i data-trigger=\"focus\" \n                  tabindex=\"0\" \n                  data-content=\"\n                    <button style='width:100%;' \n                      class='btn btn-success btn-small btn-gear cdsDetailButton' \n                      data-target='' data-backdrop='static' \n                      data-keyboard='false' data-toggle='modal'\n                      data-cdsid='").concat(item.cds_id, "'\n                      data-orgid='").concat(item.org_id, "'\n                      data-levelid='").concat(item.level_id, "'\n                      data-empid='").concat(item.emp_id, "'\n                      data-monthno='").concat(month.id, "'>\n                      Detail\n                    </button>  \n                    <button style='width:100%;'\n                      class='btn btn-danger btn-small btn-gear cdsDeleteButton'\n                      data-cdsid='").concat(item.cds_id, "'\n                      data-orgid='").concat(item.org_id, "'\n                      data-levelid='").concat(item.level_id, "'\n                      data-empid='").concat(item.emp_id, "'\n                      data-monthno='").concat(month.id, "'>\n                      Delete\n                    </button>\"\n                  data-placement=\"top\" \n                  data-toggle=\"popover\" \n                  data-html=\"true\" \n                  class=\"fa fa-ellipsis-v options popover-detail-del\" \n                  data-original-title=\"\" \n                  title=\"\">\n                </i>\n              </span>\n            </th>");
+          if(language=="TH"){
+        	  monthsTableHead += "\n            <th class=\"colHead\">\n              <span class='".concat(monthItem ? 'text-success' : 'text-primary', "'>\n                ").concat(month.label_th_short, "\n              </span>\n              <span class='colHeadOptions'>\n                <i data-trigger=\"focus\" \n                  tabindex=\"0\" \n                  data-content=\"\n                    <button style='width:100%;' \n                      class='btn btn-success btn-small btn-gear cdsDetailButton' \n                      data-target='' data-backdrop='static' \n                      data-keyboard='false' data-toggle='modal'\n                      data-cdsid='").concat(item.cds_id, "'\n                      data-orgid='").concat(item.org_id, "'\n                      data-levelid='").concat(item.level_id, "'\n                      data-empid='").concat(item.emp_id, "'\n                      data-monthno='").concat(month.id, "'>\n                      "+Liferay.Language.get('detail')+"\n                    </button>  \n                    <button style='width:100%;'\n                      class='btn btn-danger btn-small btn-gear cdsDeleteButton'\n                      data-cdsid='").concat(item.cds_id, "'\n                      data-orgid='").concat(item.org_id, "'\n                      data-levelid='").concat(item.level_id, "'\n                      data-empid='").concat(item.emp_id, "'\n                      data-monthno='").concat(month.id, "'>\n                      "+Liferay.Language.get('delete')+"\n                    </button>\"\n                  data-placement=\"top\" \n                  data-toggle=\"popover\" \n                  data-html=\"true\" \n                  class=\"fa fa-ellipsis-v options popover-detail-del\" \n                  data-original-title=\"\" \n                  title=\"\">\n                </i>\n              </span>\n            </th>");
+          }else if(language=="EN") {
+        	  monthsTableHead += "\n            <th class=\"colHead\">\n              <span class='".concat(monthItem ? 'text-success' : 'text-primary', "'>\n                ").concat(month.label_en_short, "\n              </span>\n              <span class='colHeadOptions'>\n                <i data-trigger=\"focus\" \n                  tabindex=\"0\" \n                  data-content=\"\n                    <button style='width:100%;' \n                      class='btn btn-success btn-small btn-gear cdsDetailButton' \n                      data-target='' data-backdrop='static' \n                      data-keyboard='false' data-toggle='modal'\n                      data-cdsid='").concat(item.cds_id, "'\n                      data-orgid='").concat(item.org_id, "'\n                      data-levelid='").concat(item.level_id, "'\n                      data-empid='").concat(item.emp_id, "'\n                      data-monthno='").concat(month.id, "'>\n                      "+Liferay.Language.get('detail')+"\n                    </button>  \n                    <button style='width:100%;'\n                      class='btn btn-danger btn-small btn-gear cdsDeleteButton'\n                      data-cdsid='").concat(item.cds_id, "'\n                      data-orgid='").concat(item.org_id, "'\n                      data-levelid='").concat(item.level_id, "'\n                      data-empid='").concat(item.emp_id, "'\n                      data-monthno='").concat(month.id, "'>\n                      "+Liferay.Language.get('delete')+"\n                    </button>\"\n                  data-placement=\"top\" \n                  data-toggle=\"popover\" \n                  data-html=\"true\" \n                  class=\"fa fa-ellipsis-v options popover-detail-del\" \n                  data-original-title=\"\" \n                  title=\"\">\n                </i>\n              </span>\n            </th>");
+          }
           cdsValueInputsString += "\n          <td>\n            <input type='text' \n              id=\"cdsValueInput-".concat(item.cds_result_id, "-").concat(month.id, "\" \n              data-cds_id=").concat(item.cds_id, "\n              data-cds_result_id=").concat(item.cds_result_id, "\n              data-level_id=").concat(item.level_id, "\n              data-org_id=").concat(item.org_id, "\n              data-emp_id=").concat(item.emp_id, "\n              data-monthid=").concat(month.id, "\n              class=\"cdsValueInput colCdsData\" \n              value=\"").concat(monthItem ? monthItem.cds_value || '' : '', "\" \n              ").concat(state.cdsEditing ? '' : 'disabled', " />\n          </td>");
           cdsForecastValueInputsString += "\n          <td>\n            <input type='text' \n              id=\"cdsForecastValueInput-".concat(item.cds_result_id, "-").concat(month.id, "\" \n              data-cds_id=").concat(item.cds_id, "\n              data-cds_result_id=").concat(item.cds_result_id, "\n              data-level_id=").concat(item.level_id, "\n              data-org_id=").concat(item.org_id, "\n              data-emp_id=").concat(item.emp_id, "\n              data-monthid=").concat(month.id, "\n              class=\"cdsForecastValueInput colCdsData\" \n              value=\"").concat(monthItem ? monthItem.corporate_forecast_value || '' : '', "\"\n              ").concat(state.cdsEditing ? '' : 'disabled', " />\n          </td>");
           cdsForecastBUInputsString += "\n            <td>\n              <input type='text' \n                id=\"cdsForecastBUInput-".concat(item.cds_result_id, "-").concat(month.id, "\" \n                data-cds_id=").concat(item.cds_id, "\n                data-cds_result_id=").concat(item.cds_result_id, "\n                data-level_id=").concat(item.level_id, "\n                data-org_id=").concat(item.org_id, "\n                data-emp_id=").concat(item.emp_id, "\n                data-monthid=").concat(month.id, "\n                class=\"cdsForecastBUInput colCdsData\" \n                value=\"").concat(monthItem ? monthItem.bu_forecast_value || '' : '', "\" \n                ").concat(state.cdsEditing ? '' : 'disabled', " />\n            </td>");
+          
         });
         htmlTable += dataRowString.replace('$orgOrEmpName', state.filterAppraisalType == '2' ? item.emp_name : item.org_name).replace('$cdsName', item.cds_name).replace('$UOMName', item.uom_name).replace('$year', item.year).replace(/\$cdsId/g, item.cds_id).replace(/\$orgId/g, item.org_id).replace(/\$levelId/g, item.level_id).replace(/\$empId/g, item.emp_id).replace('$monthsTableHead', monthsTableHead).replace('$cdsValueInputsString', cdsValueInputsString).replace('$cdsForecastValueInputsString', cdsForecastValueInputsString).replace('$cdsForecastBUInputsString', cdsForecastBUInputsString);
       });
