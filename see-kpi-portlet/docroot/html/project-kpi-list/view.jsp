@@ -9,26 +9,32 @@
 <liferay-theme:defineObjects />
 <portlet:defineObjects />
 <%
-	String username = themeDisplay.getUser().getScreenName();
-	String password = (String) request.getSession().getAttribute(WebKeys.USER_PASSWORD);
-	layout = themeDisplay.getLayout();
-	plid = layout.getPlid();
+/*
+PortletSession portletSession1 = renderRequest.getPortletSession();
+portletSession1.setAttribute("password", "authenticated", PortletSession.APPLICATION_SCOPE);
+String pwd = (String) portletSession1.getAttribute("password", PortletSession.APPLICATION_SCOPE);
+out.print(pwd);
+String password=PortalUtil.getUser(request).getPassword();
+*/
+
+String username = themeDisplay.getUser().getScreenName();
+String password = (String)request.getSession().getAttribute(WebKeys.USER_PASSWORD);
+//out.print(username);
+
+String param_link = PortalUtil.getOriginalServletRequest(request).getParameter("param_link");
+String param_item_result_id = PortalUtil.getOriginalServletRequest(request).getParameter("param_item_result_id");
+layout = themeDisplay.getLayout();
+plid = layout.getPlid();
+//out.print(param);
+//out.print("password2="+password);
 %>
+<input type="hidden" id="param_link" name="param_link" value="<%=param_link%>">
+<input type="hidden" id="param_item_result_id" name="param_item_result_id" value="<%=param_item_result_id%>">
+
 <input type="hidden" id="user_portlet" name="user_portlet" value="<%=username%>">
 <input type="hidden" id="pass_portlet" name="pass_portlet" value="<%=password%>">
 <input type="hidden" id="url_portlet" name="url_portlet" value="<%= renderRequest.getContextPath() %>">
 <input type="hidden" id="plid_portlet" name="plid_portlet" value="<%= plid %>">
-<input type="hidden" id="get_year_id" name="get_year_id" value="<%= PortalUtil.getOriginalServletRequest(request).getParameter("param_year")%>">
-<input type="hidden" id="get_period_id" name="get_period_id" value="<%= PortalUtil.getOriginalServletRequest(request).getParameter("param_period")%>">
-<input type="hidden" id="get_appraisal_type_id" name="get_appraisal_type_id" value="<%= PortalUtil.getOriginalServletRequest(request).getParameter("param_app_type")%>">
-<input type="hidden" id="get_emp_id" name="get_emp_id" value="<%= PortalUtil.getOriginalServletRequest(request).getParameter("param_emp")%>">
-<input type="hidden" id="get_emp_name" name="get_emp_name" value="<%= PortalUtil.getOriginalServletRequest(request).getParameter("param_emp_name")%>">
-<input type="hidden" id="get_position_id" name="get_position_id" value="<%=PortalUtil.getOriginalServletRequest(request).getParameter("param_position")%>">
-<input type="hidden" id="get_level_id" name="get_level_id" value="<%= PortalUtil.getOriginalServletRequest(request).getParameter("param_app_lv")%>">
-<input type="hidden" id="get_org_id" name="get_org_id" value="<%= PortalUtil.getOriginalServletRequest(request).getParameter("param_org_id")%>">
-<input type="hidden" id="get_item_id" name="get_item_id" value="<%=PortalUtil.getOriginalServletRequest(request).getParameter("param_item")%>">
-<input type="hidden" id="get_sending_status" name="get_sending_status" value="<%=PortalUtil.getOriginalServletRequest(request).getParameter("sending_status")%>">
-
 <style>
 
 .ui-multiselect-menu{
@@ -790,246 +796,177 @@ overflow-y: visible;
 .select2-container--open {
     z-index: 1500
 }
-
-.mktd{
-	text-align:center;
-}
-
-.mkleft{
-	padding: 0 10%;
-}
-
 </style>
 
-
-<div class='row-fluid '>
-	<div class='col-xs-12'>
-		<div id="slide_status" class="span12" style="z-index: 9000;">
-			<div id="btnCloseSlide"><i class='fa fa-times'></i></div>
-			<div id="slide_status_area"></div>
-		</div>
+<body class=" gray-bg ">
+<div class='row-fluid'>
+	<div id="slide_status" class='span12'>
+		<div id="btnCloseSlide">×</div>
+		<div id="slide_status_area"></div>
 	</div>
 </div>
 
-<div class="app_url_hidden" style="display: block;">
-	<div class="row-fluid app_url_hidden">
-		<!-- start--row-fluid -->
 
-		<div class="span12">
-			<div class="ibox float-e-margins" style="margin-bottom: 0px;">
-				<div class="ibox-title"
-					style="background-color: rgb(83, 120, 253); border-color: rgb(83, 120, 253); min-height: 0px; margin:bottom: 0px;">
-					<div class="titlePanelSearch"><div class='titlePanel'><liferay-ui:message key="Advanced Search"/></div></div>
-				</div>
-				<div class="ibox-content breadcrumbs2 advance-search"
-					style="border-color: rgb(83, 120, 253);">
-
-					<div class="row-fluid ">
-							<div class="form-group pull-left span3" style="margin-left: 5px">
-									<select id="dropdownAuto" data-toggle="tooltip" title=""
-											 class="input form-control input-sm span12" id="projectAuto"
-											 name="projectAuto">
-									</select>
-									<!--
-									<input data-toggle="tooltip" title="" data-original-title="<liferay-ui:message key="Project"/>"
-									class="form-control input-sm searchAdvanceText span12"
-									placeholder="<liferay-ui:message key="Search"/>" type="text" id="txtSearch" name=""txtSearch"">
-									-->
+	<div class="app_url_hidden" id="AdvanceSearch" style="border-color:rgb(255, 119, 40);border-bottom-width: 2px;border-style: solid;border-left-width: 1px;border-top-width: 0px;border-right-width: 1px;">
+		<div class="container1">
+			<div id="includePage" class="ng-view ng-scope">
+				<div class="row-fluid" style="border-color: red;">
+					<!-- start--row-fluid -->
+					<div class="span12" >
+						<div class="ibox float-e-margins">
+							<div class="ibox-title">
+								<div class='titlePanel'><liferay-ui:message key="advanced-search"/></div>
 							</div>
-							<div class="form-group pull-right span1" style="padding-right:7%;">
-									<button type="button" class="btn btn-primary" id="btnSearch"><i class="fa fa-search" style="display: inline !important;"></i>&nbsp;Search</button>
-							</div>		
+
+						</div>
 					</div>
-			</div>
-		</div>
-		<!-- ibox2 -->
-		<div class="ibox float-e-margins" id="projectList" style="display:none;">
-				<div class="ibox-title"
-					style="background-color: rgb(83, 120, 253); border-color: rgb(83, 120, 253); min-height: 0px;">
-					<div class="titlePanelSearch"><div class='titlePanel'><liferay-ui:message key="Project List"/></div></div>
+						<div class="form-group pull-left span3" style="margin-left: 5px;padding-top: 5px;padding-bottom: 10px">
+							<select data-toggle="tooltip" title="" data-original-title="<liferay-ui:message key="level"/>"
+							class="input form-control input-sm span12" id="dropdownProjectKpi"
+							name="dropdownProjectKpi">
+							</select>
+						</div>
+						<div class="form-group pull-left span3" style="margin-left: 5px;padding-top: 5px;padding-bottom: 10px">
+								<select data-toggle="tooltip" title="" data-original-title="<liferay-ui:message key="level"/>"
+							class="input form-control input-sm span12" id="dropdownProject"
+							name="dropdownProject">
+							</select>
+						</div>
+						<div style="float:right ;padding-right: 10px;padding-top: 5px;padding-bottom: 10px">
+								<button type="button" class="btn btn-primary" id="btnSearch"><i class="fa fa-search" style="display: inline !important;"></i>&nbsp;<liferay-ui:message key="search"/></button>
+						</div>
+						
+						
+					
+     
+        <!-- content end -->
+					</div>
 				</div>
-				<div class="ibox-content breadcrumbs2 advance-search"
-					style="border-color: rgb(83, 120, 253);">
-
-					<div class="row-fluid ">
-					 <button class="btn btn-success" id="addProject" style="margin-bottom:10px;"><i class="fa fa-plus-square"></i>&nbsp;Add Projcet</button>
-						<table class='table table-striped'>
-												<thead>
-													<tr>
-														<th style="text-align: left;">Project Name</th>
-														<th style="text-align: left;">Owner</th>
-														<th style="text-align: right;">Project Value</th>
-														<th style="text-align: center;">Project Date</th>
-														<th style="text-align: center;">Manage</th>
-													</tr>
-												</thead>
-												<tbody id="DetailProjectList"></tbody>
-										 	</table>
-									
-					</div>
-			</div>
+			
+				<!-- end--row-fluid -->
 		</div>
-		<!-- end ibox2 -->
 		
-
 	</div>
 	
-	<!-- content accordion start -->
-	<div class="panel-group" id="accordion" role="tablist"
-		aria-multiselectable="true">
-	
+	<div class="app_url_hidden" id="ProjectKpilist" style="padding: 2px;border-style: solid;border-color:rgb(255, 119, 40);border-width: 0px 1px 2px;padding-left: 0px;border-right-width: 1px;padding-right: 0px;border-top-width: 2px;padding-top: 0px;">
+		<div class="container1">
+			<div id="includePage" class="ng-view ng-scope">
+				<div class="row-fluid">
+					<!-- start--row-fluid -->
+					<div class="ibox float-e-margins">
+						<div class="ibox-title">
+							<div class='titlePanel'><liferay-ui:message key="project-kpi-list"/></div>
+						</div>
+					</div>
+					<div style="padding-top: 1%;padding-bottom: 1%;padding-left: 1%;">
+						<button class="btn btn-success" id="addProjectKpi" data-toggle="modal"  data-backdrop='static' data-target="#modalAddProjectKpi"><i class="fa fa-plus-square"></i>&nbsp;<liferay-ui:message key="add-project-kpi"/></button>
+					</div>
+					<div class="row-fluid">
+					<table class='table table-striped'>
+						<thead>
+							<tr>
+								<th style="text-align: left;"><liferay-ui:message key="project-kpi-name"/></th>
+								<th style="text-align: left;"><liferay-ui:message key="project"/></th>
+								<th style="text-align: left;"><liferay-ui:message key="is-active"/></th>
+								<th style="text-align: left;"><liferay-ui:message key="manage"/></th>
+							</tr>
+						</thead>
+						<tbody id="DetailProjectKpiList">
+							
+						</tbody>
+					</table>
+					</div>
+				</div>
+			</div>
+				<!-- end--row-fluid -->
+		</div>
 	</div>
-	<!-- content accordion end -->
-</div>
-</div>
-<!-- makram -->
-
-<!-- makram -->
-
-<div aria-hidden="true" role="dialog" tabindex="-1" id="modalAddProject" class="modal inmodal " style="display: none;">
-    	<div class="modal-dialog  ">
-   			<div class="modal-content animated bounceInRight">
+	
+	
+	<!-- MODAL ADD Project KPI -->
+	<div aria-hidden="false"  role="dialog" tabindex="-1" id="modalAddProjectKpi" class="modal inmodal" backdrop='static'	 style="display: none;">
+    	<div class="modal-dialog">
+   			<div class="modal-content bounceInRight">
             	<div class="modal-header">
-                <button data-dismiss="modal" class="close" type="button" id="closeProject" style="padding-top:5px"><span aria-hidden="true"><i class='fa fa-times'></i></span><span class="sr-only"></span></button>
-                <h4 class="modal-title" id="modalTitleRole">Add Project</h4>
+                	<h4 class="modal-title"><span id="modalQualityDescription"><liferay-ui:message key="add-project-kpi"/></span> </h4>
                
-            </div>
+            	</div>
             	<div class="modal-body">
+            	<div class="row-fluid">
             		<table>
-            			<tbody style="text-align: right;">
+            			<tbody style="text-align: left;">
 	            			<tr>
-	            				<td style="min-width: 30%;"><h5>Project Name :</h5></td>
+	            				<td style="width: 30%;"><h5><liferay-ui:message key="project-kpi-name"/> :</h5></td>
 	            				<td style="padding-left: 5px;">
-	            					<div id="modalbody-projectname"></div>
-	            					<!--  
-	            					<input data-toggle="tooltip" title=""
+	            					<input id='txtAddProject' data-toggle="tooltip" title="" data-original-title="<liferay-ui:message key="Search"/>"
 										class="form-control input-sm searchAdvanceText span12"
-										placeholder="<liferay-ui:message key="Project Name"/>" type="text" id="projectName">-->
+										placeholder="<liferay-ui:message key="Put Project Name."/>" type="text">
 								</td>
-	            			</tr>
-	            			
+	            			</tr >
 	            			<tr>
-	            				<td><h5>SO KPI :</h5></td>
+	            				<td><h5><liferay-ui:message key="project"/> :</h5></td>
 	            				<td style="padding-left: 5px;">
-	            				<div id="modalbody-dropdownSoKpi"></div>
-	            					<!--
-	            					<select id="dropdownSoKpi" data-toggle="tooltip" title=""
-										class="input form-control input-sm span12" id="soKpi"
-										name="soKpi">
-									</select>-->
-	            				</td>
-	            			</tr>
-	            			
-	            			<tr>
-	            				<td><h5>Objective :</h5></td>
-	            				<td style="padding-left: 5px;">
-	            				<div id="modalbody-projectObjective"></div>
-	            					<!--  
-	            					<input data-toggle="tooltip" title="" 
-										class="form-control input-sm searchAdvanceText span12"
-										placeholder="<liferay-ui:message key="Objective"/>" type="text" id="projectObjective">
-										-->
-								</td>
-	            			</tr>
-	            			
-	            			<tr>
-	            				<td><h5>Owner :</h5></td>
-	            				<td style="padding-left: 5px;">
-	            				<div id="modalbody-dropdownOwner"></div>
-	            					<!--
-	            					<select id="dropdownOwner" data-toggle="tooltip" title="" 
-										class="input form-control input-sm span12" id="projectOwner"
-										name="projectOwner">
+	            					<select id="dropdownAddProject" multiple="multiple" data-toggle="tooltip" title="" data-original-title="<liferay-ui:message key="level"/>"
+										class="input form-control input-sm span12" >
+										<!-- <option value="1009">สนับสนุนสาขานครหลวง(เขต)</option>
+										<option value="600001">เขตเชียงใหม่ (บภ.)</option>
+										<option value="600002">เขตเชียงราย (บภ.)</option> -->
 									</select>
-									-->
-								</td>
-	            			</tr>
-	            			
-	            			<tr>
-	            				<td><h5>Project Start Date :</h5></td>
-	            				<td style="padding-left: 5px;">
-	            				<div id="modalbody-startdatepicker"></div>
-	            					<!-- 
-	            					<input type="text" class="form-control input-sm searchAdvanceText span12" id="startdatepicker">
-	            					-->
 	            				</td>
 	            			</tr>
-	            			
 	            			<tr>
-	            				<td><h5>Project End Date :</h5></td>
+	            				<td><h5><liferay-ui:message key="uom"/> :</h5></td>
 	            				<td style="padding-left: 5px;">
-	            				<div id="modalbody-enddatepicker"></div>
-	            					<!--
-	            					<input type="text" class="form-control input-sm searchAdvanceText span12" id="enddatepicker">
-	            					-->
-	            				</td>
-	            			</tr>
-	            			
-	            			<tr>
-	            				<td style="min-width: 30%;"><h5>Project Value :</h5></td>
-	            				<td style="padding-left: 5px;">
-	            				<div id="modalbody-projectValue"></div>
-	            					<!--
-	            					<input data-toggle="tooltip" title=""
-										class="form-control input-sm searchAdvanceText span12"
-										placeholder="<liferay-ui:message key="Project Value"/>" type="text" id="projectValue">
-									-->
-								</td>
-	            			</tr>
-	            			
-	            			<tr>
-	            				<td style="min-width: 30%;"><h5>Project Risk :</h5></td>
-	            				<td style="padding-left: 5px;">
-	            				<div id="modalbody-projectRisk"></div>
-	            					<!--
-	            					<input data-toggle="tooltip" title="" 
-										class="form-control input-sm searchAdvanceText span12"
-										placeholder="<liferay-ui:message key="Project Risk"/>" type="text" id="projectRisk">
-										-->
-								</td>
-	            			</tr>
-	            			
-	            			<tr>
-	            				<td><h5>Responsible :</h5></td>
-	            				<td style="padding-left: 5px;">
-	            				<div id="modalbody-dropdownResponsible"></div>
-	            					<!--
-	            					<select id="dropdownResponsible" data-toggle="tooltip" title="" 
-										class="input form-control input-sm span12" id="projectResponsible"
-										name="projectResponsible">
+	            					<select id="dropdownAddUOM" data-toggle="tooltip" title="" data-original-title="<liferay-ui:message key="level"/>"
+										class="input form-control input-sm span12" >
 									</select>
-									-->
 								</td>
 	            			</tr>
-	            			
 	            			<tr>
-	            				<td><h5>Is Active :</h5></td>
+	            				<td><h5><liferay-ui:message key="value-type"/> :</h5></td>
+	            				<td style="padding-left: 5px;">
+	            					<select id="dropdownAddValueType" data-toggle="tooltip" title="" data-original-title="<liferay-ui:message key="level"/>"
+										class="input form-control input-sm span12" >
+									</select>
+	            				</td>
+	            			</tr>
+	            			<tr>
+	            				<td><h5><liferay-ui:message key="function-type"/> :</h5></td>
+	            				<td style="padding-left: 5px;">
+	            					<select id="dropdownAddFuncType" data-toggle="tooltip" title="" data-original-title="<liferay-ui:message key="level"/>"
+										class="input form-control input-sm span12" >
+									</select>
+								</td>
+	            			</tr>
+	            			<tr>
+	            				<td><h5><liferay-ui:message key="is-active"/> :</h5></td>
 	            				<td style="text-align: left;padding: 5px;">
-	            				<div id="modalbody-checkbox"></div>
-	            					<!--
-	            					<input type="checkbox" class="form-check-input" id="ckbox" checked>
-	            					-->
+	            					<input type="checkbox" class="form-check-input" id="ckboxadd" checked>
 	            				</td>
 	            			</tr>
             			</tbody>
             		</table>
             	</div>
+            	</div>
             	<div class="modal-footer">
-            		<div id="createBtn"></div>
+   					<button class="btn btn-primary" type="button" id="btnSubmitAddProjectKPI"><liferay-ui:message key="Save"/></button>
+   					<button class="btn btn-primary" type="button" id="btnAddAnotherAddProjectKPI">save-and-add-another</button>
+                	<button id="btnCancleAddProjectKPI" data-dismiss="modal" class="btn btn-danger" type="button"><liferay-ui:message key="cancel"/></button>
             	</div>
         	</div>
     	</div>
 	</div>
-
-<!-- end -->
-<!-- model confirm -->
-<!-- confirm modal -->
-<div aria-hidden="false" role="dialog" tabindex="-1" id="confrimModal" class="modal inmodal in" style="z-index: 1310; display: none;">
+	<!-- 	END MODAL SO KPI	 -->
+	
+	
+	
+	<!-- confirm modal -->
+<div aria-hidden="false" role="dialog" tabindex="-1" id="confrimModal" class="modal inmodal in" style=" z-index: 1310; display: none;">
     <div class="modal-dialog" id="yui_patched_v3_11_0_1_1576640583291_853">
     <div class="modal-content bounceInRight" id="yui_patched_v3_11_0_1_1576640583291_852">
             <div class="modal-header" style="background: rgb(255, 119, 40) none repeat scroll 0% 0%;" id="yui_patched_v3_11_0_1_1576640583291_851">
-                <button data-dismiss="modal" id="closeConfirm" class="close" type="button" id="yui_patched_v3_11_0_1_1576640583291_877"><span aria-hidden="true" id="yui_patched_v3_11_0_1_1576640583291_876"><i class="fa fa-times" id="yui_patched_v3_11_0_1_1576640583291_875"></i></span><span class="sr-only" style="display: none;">Close</span></button>
-                <h5 class="modal-title" id="yui_patched_v3_11_0_1_1576640583291_850">Confirm Dialog</h5>
+                <button data-dismiss="modal" class="close" type="button" id="yui_patched_v3_11_0_1_1576640583291_877"><span aria-hidden="true" id="yui_patched_v3_11_0_1_1576640583291_876"><i class="fa fa-times" id="yui_patched_v3_11_0_1_1576640583291_875"></i></span><span class="sr-only" style="display: none;">Close</span></button>
+                <h5 class="modal-title" id="yui_patched_v3_11_0_1_1576640583291_850"><liferay-ui:message key="confirm-dialog"/></h5>
             </div>
             <div class="modal-body">
                 <!-- content start -->
@@ -1038,21 +975,21 @@ overflow-y: visible;
                  -->
                 <!-- form start -->
                 <div class="form-kpi-mangement">
-	                <div class="form-kpi-label" align="center">
-	                
-	                 		<label>Confirm to Delete Data?</label>
-	                 		<div id="inform_on_confirm" class="information"></div>
-	                </div>
+                 <div class="form-kpi-label" align="center">
+                 
+                    <label><liferay-ui:message key="confirm-to-delete-data"/>?</label>
+                    <div id="inform_on_confirm" class="information"></div>
+                 </div>
                 </div>
                                
                 <!-- form start -->
                 <!-- content end -->
             </div>
             <div class="modal-footer">
-            	<div align="center">
-	                <button class="btn btn-success" id="btnConfirmOK" type="button">&nbsp;&nbsp;<i class="fa fa-check-circle"></i>&nbsp;&nbsp;Yes&nbsp;&nbsp;</button>&nbsp;&nbsp;
-	                <button data-dismiss="modal" id="btnCancleDelete" class="btn btn-danger" type="button"><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
-            	</div>
+             <div align="center">
+                 <button class="btn btn-success" id="btnConfirmOK" type="button">&nbsp;&nbsp;<i class="fa fa-check-circle"></i>&nbsp;&nbsp;<liferay-ui:message key="yes"/>&nbsp;&nbsp;</button>&nbsp;&nbsp;
+                 <button data-dismiss="modal" id="btnCancleDelete" class="btn btn-danger" type="button"><i class="fa fa-times-circle"></i>&nbsp;<liferay-ui:message key="cancel"/></button>
+             </div>
             </div>
         </div>
     </div>
@@ -1060,8 +997,10 @@ overflow-y: visible;
     
    
 </div>
- 
- <script src="/see-kpi-portlet/js/jquery3.1.1.js"></script>
+
+</body>
+
+<script src="/see-kpi-portlet/js/jquery3.1.1.js"></script>
 <script type="text/javascript">
  var jQuery_1_1_3 = $.noConflict(true);
 </script>
