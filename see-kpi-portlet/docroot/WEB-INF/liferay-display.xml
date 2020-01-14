@@ -54,6 +54,8 @@
 		<portlet id="benchmark-chart"></portlet>
 		<portlet id="import-appraisal-item"></portlet>
 		<portlet id="job-log"></portlet>
+		<portlet id="project-kpi-list"></portlet>
+		<portlet id="SO-Assignment"></portlet>
+		<portlet id="smart-goal-Dashboard"></portlet>
 	</category>
-	
 </display>

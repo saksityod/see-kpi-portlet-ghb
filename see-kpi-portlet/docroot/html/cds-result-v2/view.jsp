@@ -107,10 +107,10 @@ plid = layout.getPlid();
                     </div>
                     <div class="span6 text-right">
                         <button class='btn btn-success btn-small btn-gear' data-target="#ModalImport" data-toggle="modal" id="cdsImportButton">
-                            <i class='fa fa-upload'></i>&nbsp;Import
+                            <i class='fa fa-upload'></i>&nbsp;<liferay-ui:message key="import"/>
                         </button>
                         <button class='btn btn-warning btn-small btn-gear' data-target="#exportModal" data-toggle="modal" id="cdsExportButton">
-                            <i class='fa fa-download'></i>&nbsp;Export
+                            <i class='fa fa-download'></i>&nbsp;<liferay-ui:message key="export"/>
                         </button>
                     </div>
                 </div>
@@ -194,7 +194,7 @@ plid = layout.getPlid();
         <div class="modal-content animated bounceInRight">
             <div class="modal-header">
                 <button data-dismiss="modal" class="close" type="button" style="padding-top:5px">
-                    <span aria-hidden="true"><i class='fa fa-times'></i></span><span class="sr-only">Close</span>
+                    <span aria-hidden="true"><i class='fa fa-times'></i></span><span class="sr-only"><liferay-ui:message key="close" /></span>
                 </button>
                 <h4 class="modal-title" id="">
                     <liferay-ui:message key="import-cds-result" />
@@ -240,7 +240,7 @@ plid = layout.getPlid();
         <div class="modal-content  bounceInRight">
             <div class="modal-header">
                 <button data-dismiss="modal" class="close" type="button" style="padding-top:3px">
-						<span aria-hidden="true"><i class='fa fa-times'></i></span><span class="sr-only">Close</span>
+						<span aria-hidden="true"><i class='fa fa-times'></i></span><span class="sr-only"><liferay-ui:message key="close" /></span>
 					</button>
                 <h5 class="modal-title">
                     <liferay-ui:message key="confirm-dialog" />
@@ -276,7 +276,7 @@ plid = layout.getPlid();
         <div class="modal-content  bounceInRight">
             <div class="modal-header">
                 <button data-dismiss="modal" class="close" type="button" style="padding-top:3px">
-						<span aria-hidden="true"><i class='fa fa-times'></i></span><span class="sr-only">Close</span>
+						<span aria-hidden="true"><i class='fa fa-times'></i></span><span class="sr-only"><liferay-ui:message key="close" /></span>
 					</button>
                 <h5 class="modal-title">
                     <liferay-ui:message key="export"/>
@@ -295,7 +295,7 @@ plid = layout.getPlid();
             <div class="modal-footer">
                 <div align="center">
                     <button class="btn btn-success" id="btnConfirmExport" type="button">
-                        <i class='fa fa-download'></i>&nbsp;Export
+                        <i class='fa fa-download'></i>&nbsp;<liferay-ui:message key="export" />
                     </button> &nbsp;&nbsp;
                     <button data-dismiss="modal" class="btn btn-danger" type="button">
                         <i class="fa fa-times-circle"></i>&nbsp;<liferay-ui:message key="cancel"/>
