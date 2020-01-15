@@ -6,7 +6,7 @@ var getStrategicList = function () {
 	list = [];
 	let runnumber = 1;
 		$.ajax({
-			 url: restfulURL+"/"+serviceName+"/public/strategic_objective",
+			 url: restfulURL+"/"+serviceName+"/public/so",
 			 type : "GET",
 			 dataType:"json",
 			 async:false,
@@ -17,8 +17,8 @@ var getStrategicList = function () {
 			        result.map(index => {
 			       	 	html += '<tr>';
 			       	 	html += '<td style="text-align: left; padding: 0 10px;">'+runnumber+'</td>';
-			       	 	html += '<td style="text-align: left; padding: 0 10px;" >'+index.so_name+'</td>';
-			       	 	html += '<td style="text-align: left; padding: 0 10px;">'+index.so_abbr+'</td>';
+			       	 	html += '<td style="text-align: left; padding: 0 10px;" >'+index.name+'</td>';
+			       	 	html += '<td style="text-align: left; padding: 0 10px;">'+index.abbr+'</td>';
 			    	    html += '<td style="text-align: center;"><input type"text" disabled  style=" width: 30%; background-color:#'+index.color_code+'";></h4></td>';
 			    	    
 			    	    if(index.is_active == 1) html += '<td class="mktd" style="text-align: center;"><input type="checkbox" class="form-check-input" checked disabled></td>';
@@ -26,31 +26,31 @@ var getStrategicList = function () {
 			    	    
 			    	    html += '<td  style="text-align: center;">'+
 			    			'<div class="btn-group">'+
-			    			'<button type="button" class="btn btn-warning" id="editBtn'+index.so_id+'">Edit</button>'+
-			    			'<button type="button"  class="btn btn-danger" id="deleteBtn'+index.so_id+'">Delete</button>'+
+			    			'<button type="button" class="btn btn-warning" id="editBtn'+index.id+'">Edit</button>'+
+			    			'<button type="button"  class="btn btn-danger" id="deleteBtn'+index.id+'">Delete</button>'+
 			    			'</div>'+
 			    			'</td>'+
 			    			'</tr>';
 			    	     runnumber++;
-			    	     list.push(index.so_id);
+			    	     list.push(index.id);
 					 });
 			        	$('#tableStrategic').html(html);
 			        	
 			        	
 			        	result.map(index => {
-			        		$("#deleteBtn"+index.so_id).click(function(){
-			        			confirmModal(index.so_id);
+			        		$("#deleteBtn"+index.id).click(function(){
+			        			confirmModal(index.id);
 			        		});
 			      		
 			        		
-			        		$("#editBtn"+index.so_id).click(function(){
+			        		$("#editBtn"+index.id).click(function(){
 			        			flagEdit = 1;
-			        			id = index.so_id;
-			        			let num = list.indexOf(index.so_id);
+			        			id = index.id;
+			        			let num = list.indexOf(index.id);
 			        			$('#seq').html('<input type="text" name="form_threshold_name" id="form_threshold_name"'+
 			    						'placeholder="'+(num+1)+'" class="span12 m-b-n" style="width: 200px" disabled>');
-			        			$('#strategic_objective_name').val(index.so_name);
-			        			$('#abbreviation').val(index.so_abbr);
+			        			$('#strategic_objective_name').val(index.name);
+			        			$('#abbreviation').val(index.abbr);
 			        			getColor(index.color_code);
 			        			getIsActive(index.is_active);
 			        			$('#createBtn').html('<button class="btn btn-primary" type="button" id="btnSaveStrategic1">Save</button>'+
@@ -104,7 +104,7 @@ var addStrategic = function () {
 	flagEdit = 0;
 	let count;
 		$.ajax({
-			 url: restfulURL+"/"+serviceName+"/public/strategic_objective/objective_length",
+			 url: restfulURL+"/"+serviceName+"/public/so/objective_length",
 			 type : "GET",
 			 dataType:"json",
 			 data: "",
@@ -153,10 +153,10 @@ var saveStrategic = function (option) {
 	if($('#checkbox').prop("checked") == true) is_active = 1;
     
 	$.ajax({
-		 url: restfulURL+"/"+serviceName+"/public/strategic_objective",
+		 url: restfulURL+"/"+serviceName+"/public/so",
 		 type : "POST",
 		 dataType:"json",
-		 data:{"so_name" : so_name, "so_abbr": so_abbr, "color_code": color_code, "is_active": is_active},
+		 data:{"name" : so_name, "abbr": so_abbr, "color_code": color_code, "is_active": is_active},
 		 async:false,
 		 headers:{Authorization:"Bearer "+tokenID.token},
 		 success:function(result){
@@ -180,10 +180,10 @@ var updateStrategic = function(option){
 	if($('#checkbox').prop("checked") == true) is_active = 1;
     
 	$.ajax({
-		 url: restfulURL+"/"+serviceName+"/public/strategic_objective/"+id,
+		 url: restfulURL+"/"+serviceName+"/public/so/"+id,
 		 type : "PATCH",
 		 dataType:"json",
-		 data:{"so_name" : so_name, "so_abbr": so_abbr, "color_code": color_code, "is_active": is_active},
+		 data:{"name" : so_name, "abbr": so_abbr, "color_code": color_code, "is_active": is_active},
 		 async:false,
 		 headers:{Authorization:"Bearer "+tokenID.token},
 		 success:function(result){
@@ -208,7 +208,7 @@ var confirmModal = function(index){
 	
 	$('#btnConfirmOK').click(function(){
 		$.ajax({
-		    url: restfulURL+"/"+serviceName+"/public/strategic_objective/"+index,
+		    url: restfulURL+"/"+serviceName+"/public/so/"+index,
 		     type : "DELETE",
 			 async:false,
 			 headers:{Authorization:"Bearer "+tokenID.token},
