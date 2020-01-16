@@ -861,11 +861,11 @@ overflow-y: visible;
 					<table class='table table-striped'>
 						<thead>
 							<tr>
-								<th style="text-align: left;">SO KPI NAME</th>
-								<th style="text-align: left;">Strategic Objective</th>
-								<th style="text-align: left;">SMART KPI</th>
-								<th style="text-align: left;">Is active</th>
-								<th style="text-align: left;">Manage</th>
+								<th style="text-align: left;"><liferay-ui:message key="so-kpi-name"/></th>
+								<th style="text-align: left;"><liferay-ui:message key="strategic-objective"/></th>
+								<th style="text-align: left;"><liferay-ui:message key="smart-kpi"/></th>
+								<th style="text-align: left;"><liferay-ui:message key="is-active"/></th>
+								<th style="text-align: left;"><liferay-ui:message key="manage"/></th>
 							</tr>
 						</thead>
 						<tbody id="DetailSOKpiList">
@@ -892,7 +892,7 @@ overflow-y: visible;
             	<table>
             			<tbody style="text-align: left;">
 	            			<tr style="width:50%">
-	            				<td style="width: 30%;"><h5>SO KPI NAME :</h5></td>
+	            				<td style="width: 30%;"><h5><liferay-ui:message key="so-kpi-name"/> :</h5></td>
 	            				<td style="padding-left: 5px;">
 	            					<input data-toggle="tooltip" title="" data-original-title="<liferay-ui:message key="Search"/>"
 										class="form-control input-sm searchAdvanceText span12"
@@ -900,7 +900,7 @@ overflow-y: visible;
 								</td>
 	            			</tr >
 	            			<tr>
-	            				<td><h5>Strategic Objective :</h5></td>
+	            				<td><h5><liferay-ui:message key="strategic-objective"/> :</h5></td>
 	            				<td style="padding-left: 5px;">
 	            					<select id="dropdownAddSO" data-toggle="tooltip" title="" data-original-title="<liferay-ui:message key="level"/>"
 										class="input form-control input-sm span12" id="soSO"
@@ -909,7 +909,7 @@ overflow-y: visible;
 	            				</td>
 	            			</tr>
 	            			<tr>
-	            				<td><h5>SMART KPI :</h5></td>
+	            				<td><h5><liferay-ui:message key="smart-kpi"/> :</h5></td>
 	            				<td style="padding-left: 5px;">
 	            					<select id="dropdownAddSmartKpi" data-toggle="tooltip"  
 										class="input form-control input-sm span12" id="soSKpi"
@@ -918,7 +918,7 @@ overflow-y: visible;
 								</td>
 	            			</tr>
 	            			<tr>
-	            				<td><h5>UOM :</h5></td>
+	            				<td><h5><liferay-ui:message key="uom"/></h5></td>
 	            				<td style="padding-left: 5px;">
 	            					<select id="dropdownAddUOM" data-toggle="tooltip" title="" data-original-title="<liferay-ui:message key="level"/>"
 										class="input form-control input-sm span12" id="soUOM"
@@ -927,7 +927,7 @@ overflow-y: visible;
 								</td>
 	            			</tr>
 	            			<tr>
-	            				<td><h5>Value Type :</h5></td>
+	            				<td><h5><liferay-ui:message key="value-type"/> :</h5></td>
 	            				<td style="padding-left: 5px;">
 	            					<select id="dropdownAddValueType" data-toggle="tooltip" title="" data-original-title="<liferay-ui:message key="level"/>"
 										class="input form-control input-sm span12" id="soUOM"
@@ -936,7 +936,7 @@ overflow-y: visible;
 	            				</td>
 	            			</tr>
 	            			<tr>
-	            				<td><h5>Function Type :</h5></td>
+	            				<td><h5><liferay-ui:message key="function-type"/> :</h5></td>
 	            				<td style="padding-left: 5px;">
 	            					<select id="dropdownAddFuncType" data-toggle="tooltip" title="" data-original-title="<liferay-ui:message key="level"/>"
 										class="input form-control input-sm span12" id="soUOM"
@@ -945,7 +945,7 @@ overflow-y: visible;
 								</td>
 	            			</tr>
 	            			<tr>
-	            				<td><h5>Is Active :</h5></td>
+	            				<td><h5><liferay-ui:message key="is-active"/> :</h5></td>
 	            				<td style="text-align: left;padding: 5px;">
 	            					<input type="checkbox" class="form-check-input" id="ckboxadd" checked>
 	            				</td>
@@ -956,22 +956,22 @@ overflow-y: visible;
             		
             	</div>
             	<div class="modal-footer">
-   					<button class="btn btn-primary" type="button" id="btnSubmitAddSO">Save</button>
-   					<button class="btn btn-primary" type="button" id="btnAddAnotherAddSO">Save & Add Another</button>
-                	<button id="btnCancleAddSO" data-dismiss="modal" class="btn btn-danger" type="button">Cancel</button>
+   					<button class="btn btn-primary" type="button" id="btnSubmitAddSO"><liferay-ui:message key="save"/></button>
+   					<button class="btn btn-primary" type="button" id="btnAddAnotherAddSO"><liferay-ui:message key="save-and-add-another"/></button>
+                	<button id="btnCancleAddSO" data-dismiss="modal" class="btn btn-danger" type="button"><liferay-ui:message key="cancel"/></button>
             	</div>
         	</div>
     	</div>
 	</div>
 	<!-- 	END MODAL SO KPI	 -->
 	
-	<!-- confirm modal -->
+<!-- confirm modal -->
 <div aria-hidden="false" role="dialog" tabindex="-1" id="confrimModal" class="modal inmodal in" style=" z-index: 1310; display: none;">
     <div class="modal-dialog" id="yui_patched_v3_11_0_1_1576640583291_853">
     <div class="modal-content bounceInRight" id="yui_patched_v3_11_0_1_1576640583291_852">
             <div class="modal-header" style="background: rgb(255, 119, 40) none repeat scroll 0% 0%;" id="yui_patched_v3_11_0_1_1576640583291_851">
                 <button data-dismiss="modal" class="close" type="button" id="yui_patched_v3_11_0_1_1576640583291_877"><span aria-hidden="true" id="yui_patched_v3_11_0_1_1576640583291_876"><i class="fa fa-times" id="yui_patched_v3_11_0_1_1576640583291_875"></i></span><span class="sr-only" style="display: none;">Close</span></button>
-                <h5 class="modal-title" id="yui_patched_v3_11_0_1_1576640583291_850">Confirm Dialog</h5>
+                <h5 class="modal-title" id="yui_patched_v3_11_0_1_1576640583291_850"><liferay-ui:message key="confirm-dialog"/></h5>
             </div>
             <div class="modal-body">
                 <!-- content start -->
@@ -982,7 +982,7 @@ overflow-y: visible;
                 <div class="form-kpi-mangement">
                  <div class="form-kpi-label" align="center">
                  
-                    <label>Confirm to Delete Data?</label>
+                    <label><liferay-ui:message key="confirm-to-delete-data"/>?</label>
                     <div id="inform_on_confirm" class="information"></div>
                  </div>
                 </div>
@@ -992,8 +992,8 @@ overflow-y: visible;
             </div>
             <div class="modal-footer">
              <div align="center">
-                 <button class="btn btn-success" id="btnConfirmOK" type="button">&nbsp;&nbsp;<i class="fa fa-check-circle"></i>&nbsp;&nbsp;Yes&nbsp;&nbsp;</button>&nbsp;&nbsp;
-                 <button data-dismiss="modal" id="btnCancleDelete" class="btn btn-danger" type="button"><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
+                 <button class="btn btn-success" id="btnConfirmOK" type="button">&nbsp;&nbsp;<i class="fa fa-check-circle"></i>&nbsp;&nbsp;<liferay-ui:message key="yes"/>&nbsp;&nbsp;</button>&nbsp;&nbsp;
+                 <button data-dismiss="modal" id="btnCancleDelete" class="btn btn-danger" type="button"><i class="fa fa-times-circle"></i>&nbsp;<liferay-ui:message key="cancel"/></button>
              </div>
             </div>
         </div>

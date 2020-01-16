@@ -40,7 +40,7 @@ var dropdownAddSO= function(){
 		success:function(data){
 			var html = "";
 			$.each(data['data'],function(items,itemsEntry){
-				html += '<option id='+"SO"+itemsEntry['so_id']+' value='+ itemsEntry['so_id'] +'>'+ itemsEntry['so_name']+'</option>';
+				html += `<option id="SO${itemsEntry['id']}" value=${itemsEntry['id']} > ${itemsEntry['name']} </option>`;
 			});
 			$('#dropdownAddSO').html(html);
 		}
@@ -62,8 +62,9 @@ var dropdownAddSmartKpi = function(){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success:function(data){
 			var html = "";
+			html += `<option id="SK0" value=0>  </option>`;
 			$.each(data['data'],function(items,itemsEntry){
-				html += '<option id='+"SK"+itemsEntry['item_id']+' value='+ itemsEntry['item_id'] +'>'+ itemsEntry['item_name']+'</option>';
+				html += `<option id="SK${itemsEntry['item_id']}" value=${itemsEntry['item_id']} > ${itemsEntry['item_name']} </option>`;
 			});
 			$('#dropdownAddSmartKpi').html(html);
 		}
@@ -86,9 +87,9 @@ var dropdownAddUOM =function(){
 		success:function(data){
 			var html = "";
 			$.each(data['data'],function(items,itemsEntry){
-				html += '<option id='+"UOM"+itemsEntry['uom_id']+' value='+ itemsEntry['uom_id'] +'>'+ itemsEntry['uom_name']+'</option>';
+				html += `<option id="UOM${itemsEntry['uom_id']}" value=${itemsEntry['uom_id']} > ${itemsEntry['uom_name']} </option>`;
 			});
-			
+			console.log(data);
 			$('#dropdownAddUOM').html(html);
 		}
 	});
@@ -108,7 +109,7 @@ var dropdownAddValueType = function(){
 		success:function(data){
 			var html = "";
 			$.each(data['data'],function(items,itemsEntry){
-				html += '<option id='+"VT"+itemsEntry['value_type_id']+' value='+ itemsEntry['value_type_id'] +'>'+ itemsEntry['value_type_name']+'</option>';
+				html += `<option id="VT${itemsEntry['value_type_id']}" value=${itemsEntry['value_type_id']} > ${itemsEntry['value_type_name']}</option>`;
 			});
 
 			$('#dropdownAddValueType').html(html);
@@ -123,9 +124,9 @@ var dropdownAddValueType = function(){
 // ADD SO KPI 
 var dropdownAddFuncType = function(){
 	var html = "";
-	html += '<option value='+1+' id='+'FT1'+'>Sum</option>';
-	html += '<option value='+2+' id='+'FT2'+'>Last</option>';
-	html += '<option value='+3+' id='+'FT3'+'>AVG</option>'; 
+	html += `<option value='1' id='FT1'>Sum</option>`;
+	html += `<option value='2' id='FT2'>Last</option>`;
+	html += `<option value='3' id='FT3'>AVG</option>`; 
 	
 	$('#dropdownAddFuncType').html(html);
 	$('#dropdownAddFuncType').select2({
@@ -146,7 +147,7 @@ var dropdownSO = function(){
 			var html = "";
 			html += '<option value='+ '' +'>'+ '-- All SO Item --' +'</option>';
 			$.each(data['data'],function(items,itemsEntry){
-				html += '<option value='+ itemsEntry['so_id'] +'>'+ itemsEntry['so_name']+'</option>';
+				html += '<option value='+ itemsEntry['id'] +'>'+ itemsEntry['name']+'</option>';
 			});
 			$('#dropdownSO').html(html);
 		}
@@ -161,16 +162,11 @@ var EditFn = function(id){
 	tempupdateID = GlobalData[id]['so_item_id'];
 	
 	$('#soName').val(GlobalData[id]['so_item_name']);
-	var setDropdownSK ="SK"+GlobalData[id]['item_id'];
-	document.getElementById(setDropdownSK).selected = true;
-	var setDropdownSO ="SO"+GlobalData[id]['so_id'];
-	document.getElementById(setDropdownSO).selected = true;
-	var setDropdownVT ="VT"+GlobalData[id]['value_type_id'];
-	document.getElementById(setDropdownVT).selected = true;
-	var setDropdownFT ="FT"+GlobalData[id]['function_type'];
-	document.getElementById(setDropdownFT).selected = true;
-	var setDropdownUOM ="UOM"+GlobalData[id]['uom_id'];
-	document.getElementById(setDropdownUOM).selected = true;
+	$('#dropdownAddUOM').val(GlobalData[id]['uom_id']).trigger('change');
+	$('#dropdownAddSmartKpi').val(GlobalData[id]['item_id']).trigger('change');
+	$('#dropdownAddValueType').val(GlobalData[id]['value_type_id']).trigger('change');
+	$('#dropdownAddFuncType').val(GlobalData[id]['function_type']).trigger('change');
+	$('#dropdownAddSO').val(GlobalData[id]['so_id']).trigger('change');
 
 	$('#modalAddSOKPI').show();
 }
@@ -220,16 +216,17 @@ var getDataFn = function(){
 			var count =0;
 			$.each(data['data'],function(items,itemsEntry){
 				GlobalData.push(itemsEntry);
-				TBhtml += '<tr>';
-				TBhtml += '<td style="text-align: left;">'+itemsEntry['so_item_name']+'</td>';
-				TBhtml += '<td style="text-align: left;">'+itemsEntry['so_name']+'</td>';
-				TBhtml += '<td style="text-align: left;">'+itemsEntry['item_name']+'</td>';
-				TBhtml += '<td style="text-align: center;padding-right: 2%;"><input type="checkbox" class="form-check-input" id="ckbox" checked disabled></td>';
-				TBhtml += '<td style="text-align: left;">';
-				TBhtml += '<button class="btn btn-warning" id="edit-'+ count +'" onclick=EditFn('+count+');>Edit</button>';
-				TBhtml += '<button class="btn btn-danger" id="delete-'+ count +'" onclick=DeleteFn('+count+');>Delete</button>';
-				TBhtml += '</td>';
-				TBhtml += '</tr>';
+				TBhtml += `<tr>
+								<td style="text-align: left;">${itemsEntry['so_item_name']}</td>
+								<td style="text-align: left;">${itemsEntry['so_name']}</td>
+								<td style="text-align: left;">${itemsEntry['item_name']}</td>
+								<td style="text-align: center;padding-right: 2%;"><input type="checkbox" class="form-check-input" id="ckbox" checked disabled></td>
+								<td style="text-align: left;">
+								<button data-toggle="modal"  data-backdrop="static" data-target="#modalAddSOKPI" class="btn btn-warning" id="edit-${count}" onclick=EditFn(${count})>${Liferay.Language.get('edit')}</button>
+								<button data-toggle="modal"  data-backdrop="static" data-target="#confrimModal" class="btn btn-danger" id="delete-${count}" onclick=DeleteFn(${count})>${Liferay.Language.get('delete')}</button>
+								</td>
+							</tr>
+							`;
 				count++;
 			});
 			
@@ -250,7 +247,7 @@ var addSOItem = function(){
 		datatype:"json",
 		data:{
 			"so_id": parseInt($('#dropdownAddSO').val()),
-            "so_item_name":$('#soName').val(),
+            "name":$('#soName').val(),
             "item_id": parseInt($('#dropdownAddSmartKpi').val()),
             "uom_id": parseInt($('#dropdownAddUOM').val()),
             "value_type_id":  parseInt($('#dropdownAddValueType').val()),
@@ -259,16 +256,16 @@ var addSOItem = function(){
 		},
 		success:function(data){
 			if(data['status']==200){
-				callFlashSlide("Add data Successfully.");
+				callFlashSlide(Liferay.Language.get('add-data-successfully'));
 				clearData();
 				dropdownSO();
 				getDataFn();
 				$('#SOKpiList').show();
 			}else if(data['status']==400){
 				$('#soName').val('');
-				callFlashSlide("SO KPI name use to be use.");
+				callFlashSlide(Liferay.Language.get('so-kpi-name-use-to-be-use'));
 			}else{
-				callFlashSlide("Somthing wrong!");
+				callFlashSlide(Liferay.Language.get('something-wrong'));
 			}
 		}
 	})
@@ -283,7 +280,7 @@ var updateSOItem = function(){
 		datatype:"json",
 		data:{
 			"so_id": parseInt($('#dropdownAddSO').val()),
-            "so_item_name":$('#soName').val(),
+            "name":$('#soName').val(),
             "item_id": parseInt($('#dropdownAddSmartKpi').val()),
             "uom_id": parseInt($('#dropdownAddUOM').val()),
             "value_type_id":  parseInt($('#dropdownAddValueType').val()),
@@ -292,15 +289,15 @@ var updateSOItem = function(){
 		},
 		success:function(data){
 			if(data['status']==200){
-			callFlashSlide("Update Successfully.");
+			callFlashSlide(Liferay.Language.get('update-successfully'));
 			clearData();
 			getDataFn();
 			$('#SOKpiList').show();
 			}else if(data['status']==400){
 				$('#soName').val('');
-				callFlashSlide("SO KPI name use to be use.");
+				callFlashSlide(Liferay.Language.get('so-kpi-name-use-to-be-use'));
 			}else{
-				callFlashSlide("Can't update.");
+				callFlashSlide(Liferay.Language.get('something-wrong'));
 			}
 		}
 	})
@@ -316,6 +313,15 @@ var clearData = function(){
 
 var SetPositionModal = function(){
 	$(this).scrollTop(0);
+}
+
+var setDefault = function(){
+	$('#soName').val('');
+	$('#dropdownAddUOM').val(8).trigger('change');
+	$('#dropdownAddSmartKpi').val(0).trigger('change');
+	$('#dropdownAddValueType').val(1).trigger('change');
+	$('#dropdownAddFuncType').val(1).trigger('change');
+	$('#dropdownAddSO').val(1).trigger('change');
 }
 
 $(document).ready(function() {
@@ -343,29 +349,33 @@ $(document).ready(function() {
 			});
 			
 			$('#addSOKpi').click(function(){
-				$('#modalAddSOKPI').show();
 				SetPositionModal();
+				setDefault();
 			});
 			
-			$('#btnCancleAddSO').click(function(){
-				$('#modalAddSOKPI').hide();
+			$('#btnCancleEditSO').click(function(){
+				$('#modalAddSOKPI').modal('hide');
+				AddOrUpdate = true;
+				tempupdateID = undefined;
+				setDefault();
 			});
 			
 			$('#btnSubmitAddSO').click(function(){
 				if(AddOrUpdate==true){
 					addSOItem();
-					$('#modalAddSOKPI').hide();
+					$('#modalAddSOKPI').modal('hide');
 				}else{
 					updateSOItem();
-					$('#modalAddSOKPI').hide();
+					$('#modalAddSOKPI').modal('hide');
 				}
 			});
 			
 			$('#btnCancleAddSO').click(function(){
+				$('#modalAddSOKPI').modal('hide');
 				AddOrUpdate = true;
 				tempupdateID = undefined;
-				$('#soName').val('');
-			})
+				setDefault();
+			});
 			
 			$('#btnAddAnotherAddSO').click(function(){
 				if(AddOrUpdate==true){
@@ -377,12 +387,12 @@ $(document).ready(function() {
 			
 			$('#btnConfirmOK').click(function(){
 				DeleteConfirm(tempDaleteID);
-				$("#confrimModal").hide();
+				$("#confrimModal").modal('hide');
 			});
 			
 			$('#btnCancleDelete').click(function(){
 				tempupdateID = undefined;
-				$("#confrimModal").hide();
+				$("#confrimModal").modal('hide');
 			});
 		};
 	};
