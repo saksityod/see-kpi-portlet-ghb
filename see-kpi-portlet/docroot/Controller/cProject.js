@@ -5,28 +5,26 @@ var projects_id = [];
 var flagEdit = 0;
 var respons = [];
 var id = 0;
+
 var pushDataToProjects = function(result){
 	projects_name = [];
 	projects_id = [];
 	let html = "";
-	html += '<option value="'+"null"+'">'+"Select List Item"+'</option>';
-	result.map(index => {
-		html += '<option value="'+index.project_id+'">'+index.project_name+'</option>';
-//		projects_name.push(index.project_name);
-//		projects_id.push(index.project_id);
+	html += `<option value="null">${Liferay.Language.get('select-list-item')}</option>`;
+	
+	result.map(item =>{
+		html += `<option value="${item.id}">${item.name}</option>`;
 	});
 	
 	$('#dropdownAuto').select2();
 	$('#dropdownAuto').html(html);
-//	$("#txtSearch").autocomplete({
-//	      source: projects_name
-//	});
+
 }
 
 var initData = function (){
 	$.ajax({
 		 url: restfulURL+"/"+serviceName+"/public/project/search",
-		 type : "POST",
+		 type : "get",
 		 dataType:"json",
 		 data:{"project_id" : ""},
 		 async:false,
@@ -47,7 +45,7 @@ var dropdownSoKpi = function(){
 		 headers:{Authorization:"Bearer "+tokenID.token},
 		 success:function(result){
 			 result.map(index => {
-				html += '<option value="'+index.so_item_id+'">'+index.so_item_name+'</option>';
+				html += `<option value="${index.id}">${index.name}</option>`;
 			 });
 		 }
 	});
@@ -58,9 +56,6 @@ var dropdownSoKpi = function(){
 	});
 	$('#dropdownSoKpi').html(html);
 }
-
-
-
 
 var dropdownResponsible = function(){
 	let html = "";
@@ -73,8 +68,7 @@ var dropdownResponsible = function(){
 		 headers:{Authorization:"Bearer "+tokenID.token},
 		 success:function(result){
 			 result.map(index => {
-//				 respons.push(index.emp_name);
-				html += '<option value="'+index.emp_id+'">'+index.emp_name+'</option>';
+				html += `<option value="${index.emp_id}">${index.emp_name}</option>`;
 			 });
 		 }
 	});
@@ -95,7 +89,7 @@ var dropdownOwner = function(){
 		 headers:{Authorization:"Bearer "+tokenID.token},
 		 success:function(result){
 			 result.map(index => {
-				html += '<option value="'+index.org_id+'">'+index.org_name+'</option>';
+				html += `<option value="${index.org_id}">${index.org_name}</option>`;
 			 });
 		 }
 	});
@@ -127,20 +121,31 @@ var editProject = function(){
 		 url: restfulURL+"/"+serviceName+"/public/project/"+id,
 		 type : "PATCH",
 		 dataType:"json",
-		 data:{"project_name":project_name, "objective":objective, "org_id":owner, "emp_id":responsible, "project_start_date":start_date, "project_end_date":end_date, "project_value":value, "project_risk":risk, "is_active":is_active, "so_item_id": so_kpi},
-		 async:false,
-		 headers:{Authorization:"Bearer "+tokenID.token},
-		 success:function(result){
+		 data:{
+			 "name":project_name,
+			 "objective":objective,
+			 "org_id":owner, "emp_id":responsible,
+			 "date_start":start_date,
+			 "date_end":end_date,
+			 "value":value,
+			 "risk":risk,
+			 "is_active":is_active,
+			 "so_item_id": so_kpi
+		 	},
+		async:false,
+		headers:{Authorization:"Bearer "+tokenID.token},
+		success:function(result){
 			if(result['status']==200){
-				callFlashSlide("Update is Successfully.");   	  
-		     }else if (result['status'] == "400"){
-		    	 callFlashSlide("Update is Unsuccessfully");
+				callFlashSlide(Liferay.Language.get('update-successfully'));   	  
+			}else if (result['status'] == "400"){
+		    	callFlashSlide(Liferay.Language.get('update-unsuccessfully'));
 		    }
 	    }
 	});
-	$('#modalAddProject').hide();
+	$('#modalAddProject').modal('hide');
 	getDataFn("null");
 }
+
 var saveProject = function(option){
 	let project_name = $('#projectName').val();
 	let so_kpi = null;
@@ -162,69 +167,71 @@ var saveProject = function(option){
 				 url: restfulURL+"/"+serviceName+"/public/project",
 				 type : "POST",
 				 dataType:"json",
-				 data:{"project_name":project_name, "objective":objective, "org_id":owner, "emp_id":responsible, "project_start_date":start_date, "project_end_date":end_date, "project_value":value, "project_risk":risk, "is_active":is_active, "so_item_id":so_kpi},
+				 data:{
+					 "name":project_name,
+					 "objective":objective,
+					 "org_id":owner,
+					 "emp_id":responsible,
+					 "date_start":start_date,
+					 "date_end":end_date,
+					 "value":value,
+					 "risk":risk,
+					 "is_active":is_active,
+					 "so_kpi_id":so_kpi
+					 },
 				 async:false,
 				 headers:{Authorization:"Bearer "+tokenID.token},
 				 success:function(result){
 					 if(result['status']==200){
-						 if(option == 1) $('#modalAddProject').hide();
-			    		 callFlashSlide("Save Successfully."); 
-			    		 getDataFn("null");
-			    		 renderModal();
-			    		 
+						if(option == 1) $('#modalAddProject').modal('hide');
+				    		callFlashSlide(Liferay.Language.get('save-success')); 
+				    		getDataFn("null");
+				    		renderModal();	 
 				     }else if (result['status'] == "400"){
-				    	 callFlashSlide("Save Unsuccessfully.");
+				    	callFlashSlide(Liferay.Language.get('save-unsuccess'));
 				     }
 			    }
 		});
 }
 
 var renderModal = function(){
-	$('#modalbody-projectname').html('<input data-toggle="tooltip" title=""'+
-										'class="form-control input-sm searchAdvanceText span12"'+
-										'placeholder="Project Name" type="text" id="projectName">');
-	$('#modalbody-dropdownSoKpi').html('<select id="dropdownSoKpi" data-toggle="tooltip" title=""'+
-										'class="input form-control input-sm span12" id="soKpi"'+
-										'name="soKpi">'+
-										'</select>');
+	$('#modalbody-projectname').html(`<input data-toggle="tooltip" title=""
+										class="form-control input-sm searchAdvanceText span12"
+										placeholder="Project Name" type="text" id="projectName">`);
+	$('#modalbody-dropdownSoKpi').html(`<select id="dropdownSoKpi" data-toggle="tooltip" title=""
+										class="input form-control input-sm span12" id="soKpi"
+										name="soKpi">
+										</select>`);
 	
-//	$('#modalbody-projectObjective').html('<input data-toggle="tooltip" title=""'+ 
-//										'class="form-control input-sm searchAdvanceText span12"'+
-//										'placeholder="Objective" type="textarea" id="projectObjective" style="resize:vertical">');
-	$('#modalbody-projectObjective').html('<textarea class="form-control input-sm searchAdvanceText span12" id="projectObjective" style="resize:vertical"></textarea>');
-	$('#modalbody-dropdownOwner').html('<select id="dropdownOwner" data-toggle="tooltip" title=""'+
-										  'class="input form-control input-sm span12" id="projectOwner"'+
-										  'name="projectOwner">'+
-										  '</select>');
-	$('#modalbody-startdatepicker').html('<input type="text" class="form-control input-sm searchAdvanceText span12" id="startdatepicker">');
+	$('#modalbody-projectObjective').html(`<textarea class="form-control input-sm searchAdvanceText span12" id="projectObjective" style="resize:vertical"></textarea>`);
+	$('#modalbody-dropdownOwner').html(`<select id="dropdownOwner" data-toggle="tooltip" title=""
+										  class="input form-control input-sm span12" id="projectOwner"
+										  name="projectOwner">
+										  </select>`);
+	$('#modalbody-startdatepicker').html(`<input type="text" class="form-control input-sm searchAdvanceText span12" id="startdatepicker">`);
 	
-	$('#modalbody-enddatepicker').html('<input type="text" class="form-control input-sm searchAdvanceText span12" id="enddatepicker">');
+	$('#modalbody-enddatepicker').html(`<input type="text" class="form-control input-sm searchAdvanceText span12" id="enddatepicker">`);
 	
-	$('#modalbody-projectValue').html('<input data-toggle="tooltip" title=""'+
-									  'class="form-control input-sm searchAdvanceText span12"'+
-									  'placeholder="Project Value" type="text" id="projectValue">');
-//	$('#modalbody-projectRisk').html('<input data-toggle="tooltip" title=""'+
-//									'class="form-control input-sm searchAdvanceText span12"'+
-//									'placeholder="Project Risk" type="textarea" id="projectRisk" style="resize:vertical">');
-	$('#modalbody-projectRisk').html('<textarea class="form-control input-sm searchAdvanceText span12" id="projectObjective" style="resize:vertical"></textarea>');
-	$('#modalbody-dropdownResponsible').html('<select id="dropdownResponsible" data-toggle="tooltip" title=""'+
-											 'class="input form-control input-sm span12" id="projectResponsible"'+
-											 'name="projectResponsible">'+
-											  '</select>');
-//	$('#modalbody-dropdownResponsible').html('<input data-toggle="tooltip" title=""'+
-//			'class="form-control input-sm searchAdvanceText span12"'+
-//			'placeholder="Responsible" type="text" id="projectResponsible" style="z-index: 9999999;">');
+	$('#modalbody-projectValue').html(`<input data-toggle="tooltip" title=""
+									  class="form-control input-sm searchAdvanceText span12"
+									  placeholder="Project Value" type="text" id="projectValue">`);
+
+	$('#modalbody-projectRisk').html(`<textarea class="form-control input-sm searchAdvanceText span12" id="projectObjective" style="resize:vertical"></textarea>`);
+	$('#modalbody-dropdownResponsible').html(`<select id="dropdownResponsible" data-toggle="tooltip" title=""
+											 class="input form-control input-sm span12" id="projectResponsible"
+											 name="projectResponsible">
+											 </select>`);
 	
-	$('#modalbody-checkbox').html('<input type="checkbox" class="form-check-input" id="ckbox" checked>');
+	$('#modalbody-checkbox').html(`<input type="checkbox" class="form-check-input" id="ckbox" checked>`);
 	dropdownSoKpi();
 	dropdownOwner();
 	dropdownResponsible();
 	$( "#startdatepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
 	$( "#enddatepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
 	
-	$("#createBtn").html('<button class="btn btn-primary" type="button" id="btnSave">Save</button>'+
-						 '<button class="btn btn-primary" type="button" id="btnSaveandAdd">Save & Add Another</button>'+
-						 '<button id="btnCancleAdd" data-dismiss="modal" class="btn btn-danger" type="button">Cancel</button>');
+	$("#createBtn").html(`<button class="btn btn-primary" type="button" id="btnSave">Save</button>
+						 <button class="btn btn-primary" type="button" id="btnSaveandAdd">Save & Add Another</button>
+						 <button id="btnCancleAdd" data-dismiss="modal" class="btn btn-danger" type="button">Cancel</button>`);
 	
 	
 	btnListener();
@@ -252,7 +259,7 @@ var getDataFn = function(project_id){
 	if(project_id.localeCompare("null") == 0) project_id = null; 
  	$.ajax({
 		 url: restfulURL+"/"+serviceName+"/public/project/search",
-		 type : "POST",
+		 type : "GET",
 		 dataType:"json",
 		 data:{"project_id" : project_id},
 		 async:false,
@@ -261,52 +268,48 @@ var getDataFn = function(project_id){
 			 	pushDataToProjects(result);
 				var html = "";	 
 		        result.map(index => {
-		       	 	html += '<tr>';
-		       	 	html += '<td style="text-align: left; padding: 0 10px;">'+index.project_name+'</td>';
-		       	 	html += '<td style="text-align: left; padding: 0 10px;">'+index.org_name+'</td>';
-		       	 	
-		       	 	html += '<td style="text-align: right;">'+index.project_value+'</td>';
-		   
-		        	
-
-		       	 	html += '<td style="text-align: center; padding: 0 10px;">'+formatDate(index.project_start_date.split("-"))+' - '+formatDate(index.project_end_date.split("-"))+'</td>';
-		    	    html += '<td style="text-align: center;">'+
-		    			'<div class="btn-group">'+
-		    			'<button type="button" class="btn btn-warning" id="editBtn-'+index.project_id+'" >Edit</button>'+
-		    			'<button type="button"  class="btn btn-danger" id="deleteBtn-'+index.project_id+'" >Delete</button>'+
-		    			'</div>'+
-		    			'</td>'+
-		    			'</tr>';
+		       	 	html += `<tr>
+			       	 			<td style="text-align: left; padding: 0 10px;">${index.name}</td>
+			       	 			<td style="text-align: left; padding: 0 10px;">${index.org_name}</td>
+			       	 			<td style="text-align: right;">${index.value}</td>
+		       	 				<td style="text-align: center; padding: 0 10px;">${formatDate(index.date_start.split("-"))}-${formatDate(index.date_end.split("-"))}</td>
+		       	 				<td style="text-align: center;">
+		       	 					<div class="btn-group">
+		       	 					<button data-toggle="modal"  data-backdrop="static" data-target="#modalAddProject" type="button" class="btn btn-warning" id="editBtn-${index.id}" >Edit</button>
+		       	 					<button data-toggle="modal"  data-backdrop="static" data-target="#confrimModal" type="button" class="btn btn-danger" id="deleteBtn-${index.id}" >Delete</button>
+		       	 					</div>
+		       	 				</td>
+		       	 			</tr>
+		       	 			`;
 				 });
 		        
 		        $('#DetailProjectList').html(html);
 		        
 		        result.map(index => {
 		        	
-		        $("#editBtn-"+index.project_id).click(function(){
-		        	$('#projectName').val(index.project_name);
-		        	$('#dropdownSoKpi').val(index.so_item_id);
+		        $("#editBtn-"+index.id).click(function(){
+		        	$('#projectName').val(index.name);
+		        	$('#dropdownSoKpi').val(index.so_kpi_id);
 		        	$('#dropdownSoKpi').trigger('change');
 		        	$('textarea#projectObjective').val(index.objective);
 		        	$('#dropdownOwner').val(index.org_id);
 		        	$('#dropdownOwner').trigger('change');
 		        	$('#dropdownResponsible').val(index.emp_id);
 		        	$('#dropdownResponsible').trigger('change');
-		        	$('#startdatepicker').val(index.project_start_date);
-		        	$('#enddatepicker').val(index.project_end_date);
-		        	$('#projectValue').val(index.project_value);
-		        	$('textarea#projectRisk').val(index.project_risk);
-		        	if(index.is_active == 0) $('#modalbody-checkbox').html('<input type="checkbox" class="form-check-input" id="ckbox">');
-		        	$("#createBtn").html('<button class="btn btn-primary" type="button" id="btnSave">Save</button>'+
-							 '<button id="btnCancleAdd" data-dismiss="modal" class="btn btn-danger" type="button">Cancel</button>');
+		        	$('#startdatepicker').val(index.start_date);
+		        	$('#enddatepicker').val(index.end_date);
+		        	$('#projectValue').val(index.value);
+		        	$('textarea#projectRisk').val(index.risk);
+		        	if(index.is_active == 0) $('#modalbody-checkbox').html(`<input type="checkbox" class="form-check-input" id="ckbox">`);
+		        	$("#createBtn").html(`<button class="btn btn-primary" type="button" id="btnSave">Save</button>
+							 <button id="btnCancleAdd" data-dismiss="modal" class="btn btn-danger" type="button">Cancel</button>`);
 		        	btnListener();
 		        	flagEdit = 1;
-		        	id = index.project_id;
-		        	$('#modalAddProject').show();
+		        	id = index.id;
 		         });//end editBtn	
 		        
-		         $("#deleteBtn-"+index.project_id).click(function(){
-		        	 confirmModal(index.project_id);
+		         $("#deleteBtn-"+index.id).click(function(){
+		        	 confirmModal(index.id);
 		          });//end deleteBtn
 		       }); //end map
 		 
@@ -316,11 +319,6 @@ var getDataFn = function(project_id){
 
 var confirmModal = function(index){
 	$(this).scrollTop(0)
-	$('#confrimModal').show();
-	
-	$('#btnCancleDelete').click(function(){
-		$('#confrimModal').hide();
-	});
 	
 	$('#btnConfirmOK').click(function(){
 		$.ajax({
@@ -329,11 +327,11 @@ var confirmModal = function(index){
 			 async:false,
 			 headers:{Authorization:"Bearer "+tokenID.token},
 		     success: function(result) {
-		    	 $('#confrimModal').hide();
+		    	 $('#confrimModal').modal('hide');
 		    	 if(result['status']==200){
-		    		 callFlashSlide("Delete Successfully.");   	  
+		    		 callFlashSlide(Liferay.Language.get('delete-successfully'));   	  
 			     }else if (result['status'] == "400"){
-			    	 callFlashSlide("Delete Unsuccessfully.");
+			    	 callFlashSlide(Liferay.Language.get('delete-unsuccessfully'));
 			     }
 		    	 getDataFn("null");
 		    },
@@ -356,34 +354,33 @@ $(document).ready(function() {
 		if(connectionServiceFn(username,password,plid)==true){
 			initData();
 			renderModal();
-			$('#confrimModal').hide();
+			//$('#confrimModal').modal('hide');
 			$("#AdvanceSearch").show();
 			
 			$('#btnSearch').click(function(){
-//				let name = $('#txtSearch').val();
-//				let index = projects_name.indexOf(name);
+
 				let index = $('#dropdownAuto').val();
-//				getDataFn(projects_id[index]);
+
 				getDataFn(index);
 				$('#projectList').show();
 			});
-			
-			
-			
 			
 			$('#addProject').click(function(){
 				flagEdit = 0;
 				$(this).scrollTop(0);
 				renderModal();
-				$('#modalAddProject').show();
 			});
 			
 			$('#closeConfirm').click(function(){
-				$('#confrimModal').hide();
+				$('#confrimModal').modal('hide');
 			});
 			
 			$('#closeProject').click(function(){
-				$('#modalAddProject').hide();
+				$('#modalAddProject').modal('hide');
+			});
+			
+			$('#btnCancleDelete').click(function(){
+				$('#confrimModal').modal('hide');
 			});
 		};
 	};

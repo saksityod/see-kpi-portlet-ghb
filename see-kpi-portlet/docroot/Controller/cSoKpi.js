@@ -89,7 +89,7 @@ var dropdownAddUOM =function(){
 			$.each(data['data'],function(items,itemsEntry){
 				html += `<option id="UOM${itemsEntry['uom_id']}" value=${itemsEntry['uom_id']} > ${itemsEntry['uom_name']} </option>`;
 			});
-			console.log(data);
+			
 			$('#dropdownAddUOM').html(html);
 		}
 	});
@@ -145,9 +145,9 @@ var dropdownSO = function(){
 		headers:{Authorization:"Bearer "+tokenID.token},
 		success:function(data){
 			var html = "";
-			html += '<option value='+ '' +'>'+ '-- All SO Item --' +'</option>';
+			html += `<option value=''>-- All SO Item --</option>`;
 			$.each(data['data'],function(items,itemsEntry){
-				html += '<option value='+ itemsEntry['id'] +'>'+ itemsEntry['name']+'</option>';
+				html += `<option value="itemsEntry['id']" >${itemsEntry['name']}</option>`;
 			});
 			$('#dropdownSO').html(html);
 		}

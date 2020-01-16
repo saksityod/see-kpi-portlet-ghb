@@ -788,7 +788,7 @@ overflow-y: visible;
 
 
 .select2-container--open {
-    z-index: 1500
+    z-index: 1500;
 }
 
 .mktd{
@@ -797,6 +797,14 @@ overflow-y: visible;
 
 .mkleft{
 	padding: 0 10%;
+}
+
+.ui-state-default{
+	text-align: center !important;
+}
+
+#ui-datepicker-div{
+	z-index: 1500;
 }
 
 </style>
@@ -852,15 +860,15 @@ overflow-y: visible;
 					style="border-color: rgb(83, 120, 253);">
 
 					<div class="row-fluid ">
-					 <button class="btn btn-success" id="addProject" style="margin-bottom:10px;"><i class="fa fa-plus-square"></i>&nbsp;Add Projcet</button>
+					 <button data-toggle="modal"  data-backdrop="static" data-target="#modalAddProject" class="btn btn-success" id="addProject" style="margin-bottom:10px;"><i class="fa fa-plus-square"></i>&nbsp;Add Projcet</button>
 						<table class='table table-striped'>
 												<thead>
 													<tr>
-														<th style="text-align: left;">Project Name</th>
-														<th style="text-align: left;">Owner</th>
-														<th style="text-align: right;">Project Value</th>
-														<th style="text-align: center;">Project Date</th>
-														<th style="text-align: center;">Manage</th>
+														<th style="text-align: left;"><liferay-ui:message key="project-name"/></th>
+														<th style="text-align: left;"><liferay-ui:message key="owner"/></th>
+														<th style="text-align: right;"><liferay-ui:message key="project-value"/></th>
+														<th style="text-align: center;"><liferay-ui:message key="project-date"/></th>
+														<th style="text-align: center;"><liferay-ui:message key="manage"/></th>
 													</tr>
 												</thead>
 												<tbody id="DetailProjectList"></tbody>
@@ -886,19 +894,19 @@ overflow-y: visible;
 
 <!-- makram -->
 
-<div aria-hidden="true" role="dialog" tabindex="-1" id="modalAddProject" class="modal inmodal " style="display: none;">
+<div aria-hidden="true" role="dialog" tabindex="-1" id="modalAddProject" class="modal inmodal " style="display: none;z-index:1200;">
     	<div class="modal-dialog  ">
    			<div class="modal-content animated bounceInRight">
             	<div class="modal-header">
                 <button data-dismiss="modal" class="close" type="button" id="closeProject" style="padding-top:5px"><span aria-hidden="true"><i class='fa fa-times'></i></span><span class="sr-only"></span></button>
-                <h4 class="modal-title" id="modalTitleRole">Add Project</h4>
+                <h4 class="modal-title" id="modalTitleRole"><liferay-ui:message key="add-project"/></h4>
                
             </div>
-            	<div class="modal-body">
+            	<div class="row-fluid">
             		<table>
             			<tbody style="text-align: right;">
 	            			<tr>
-	            				<td style="min-width: 30%;"><h5>Project Name :</h5></td>
+	            				<td style="min-width: 30%;"><h5><liferay-ui:message key="project-name"/> :</h5></td>
 	            				<td style="padding-left: 5px;">
 	            					<div id="modalbody-projectname"></div>
 	            					<!--  
@@ -909,7 +917,7 @@ overflow-y: visible;
 	            			</tr>
 	            			
 	            			<tr>
-	            				<td><h5>SO KPI :</h5></td>
+	            				<td><h5><liferay-ui:message key="so-kpi"/> :</h5></td>
 	            				<td style="padding-left: 5px;">
 	            				<div id="modalbody-dropdownSoKpi"></div>
 	            					<!--
@@ -921,7 +929,7 @@ overflow-y: visible;
 	            			</tr>
 	            			
 	            			<tr>
-	            				<td><h5>Objective :</h5></td>
+	            				<td><h5><liferay-ui:message key="objective"/> :</h5></td>
 	            				<td style="padding-left: 5px;">
 	            				<div id="modalbody-projectObjective"></div>
 	            					<!--  
@@ -933,7 +941,7 @@ overflow-y: visible;
 	            			</tr>
 	            			
 	            			<tr>
-	            				<td><h5>Owner :</h5></td>
+	            				<td><h5><liferay-ui:message key="owner"/> :</h5></td>
 	            				<td style="padding-left: 5px;">
 	            				<div id="modalbody-dropdownOwner"></div>
 	            					<!--
@@ -946,7 +954,7 @@ overflow-y: visible;
 	            			</tr>
 	            			
 	            			<tr>
-	            				<td><h5>Project Start Date :</h5></td>
+	            				<td><h5><liferay-ui:message key="project-start-date"/> :</h5></td>
 	            				<td style="padding-left: 5px;">
 	            				<div id="modalbody-startdatepicker"></div>
 	            					<!-- 
@@ -956,7 +964,7 @@ overflow-y: visible;
 	            			</tr>
 	            			
 	            			<tr>
-	            				<td><h5>Project End Date :</h5></td>
+	            				<td><h5><liferay-ui:message key="project-start-end-date"/> :</h5></td>
 	            				<td style="padding-left: 5px;">
 	            				<div id="modalbody-enddatepicker"></div>
 	            					<!--
@@ -966,7 +974,7 @@ overflow-y: visible;
 	            			</tr>
 	            			
 	            			<tr>
-	            				<td style="min-width: 30%;"><h5>Project Value :</h5></td>
+	            				<td style="min-width: 30%;"><h5><liferay-ui:message key="project-value"/> :</h5></td>
 	            				<td style="padding-left: 5px;">
 	            				<div id="modalbody-projectValue"></div>
 	            					<!--
@@ -978,7 +986,7 @@ overflow-y: visible;
 	            			</tr>
 	            			
 	            			<tr>
-	            				<td style="min-width: 30%;"><h5>Project Risk :</h5></td>
+	            				<td style="min-width: 30%;"><h5><liferay-ui:message key="project-risk"/> :</h5></td>
 	            				<td style="padding-left: 5px;">
 	            				<div id="modalbody-projectRisk"></div>
 	            					<!--
@@ -990,7 +998,7 @@ overflow-y: visible;
 	            			</tr>
 	            			
 	            			<tr>
-	            				<td><h5>Responsible :</h5></td>
+	            				<td><h5><liferay-ui:message key="responsible"/> :</h5></td>
 	            				<td style="padding-left: 5px;">
 	            				<div id="modalbody-dropdownResponsible"></div>
 	            					<!--
@@ -1003,7 +1011,7 @@ overflow-y: visible;
 	            			</tr>
 	            			
 	            			<tr>
-	            				<td><h5>Is Active :</h5></td>
+	            				<td><h5><liferay-ui:message key="is-active"/> :</h5></td>
 	            				<td style="text-align: left;padding: 5px;">
 	            				<div id="modalbody-checkbox"></div>
 	            					<!--
@@ -1023,13 +1031,12 @@ overflow-y: visible;
 
 <!-- end -->
 <!-- model confirm -->
-<!-- confirm modal -->
-<div aria-hidden="false" role="dialog" tabindex="-1" id="confrimModal" class="modal inmodal in" style="z-index: 1310; display: none;">
+<div aria-hidden="false" role="dialog" tabindex="-1" id="confrimModal" class="modal inmodal in" style=" z-index: 1310; display: none;">
     <div class="modal-dialog" id="yui_patched_v3_11_0_1_1576640583291_853">
     <div class="modal-content bounceInRight" id="yui_patched_v3_11_0_1_1576640583291_852">
             <div class="modal-header" style="background: rgb(255, 119, 40) none repeat scroll 0% 0%;" id="yui_patched_v3_11_0_1_1576640583291_851">
-                <button data-dismiss="modal" id="closeConfirm" class="close" type="button" id="yui_patched_v3_11_0_1_1576640583291_877"><span aria-hidden="true" id="yui_patched_v3_11_0_1_1576640583291_876"><i class="fa fa-times" id="yui_patched_v3_11_0_1_1576640583291_875"></i></span><span class="sr-only" style="display: none;">Close</span></button>
-                <h5 class="modal-title" id="yui_patched_v3_11_0_1_1576640583291_850">Confirm Dialog</h5>
+                <button data-dismiss="modal" class="close" type="button" id="yui_patched_v3_11_0_1_1576640583291_877"><span aria-hidden="true" id="yui_patched_v3_11_0_1_1576640583291_876"><i class="fa fa-times" id="yui_patched_v3_11_0_1_1576640583291_875"></i></span><span class="sr-only" style="display: none;">Close</span></button>
+                <h5 class="modal-title" id="yui_patched_v3_11_0_1_1576640583291_850"><liferay-ui:message key="confirm-dialog"/></h5>
             </div>
             <div class="modal-body">
                 <!-- content start -->
@@ -1038,21 +1045,21 @@ overflow-y: visible;
                  -->
                 <!-- form start -->
                 <div class="form-kpi-mangement">
-	                <div class="form-kpi-label" align="center">
-	                
-	                 		<label>Confirm to Delete Data?</label>
-	                 		<div id="inform_on_confirm" class="information"></div>
-	                </div>
+                 <div class="form-kpi-label" align="center">
+                 
+                    <label><liferay-ui:message key="confirm-to-delete-data"/>?</label>
+                    <div id="inform_on_confirm" class="information"></div>
+                 </div>
                 </div>
                                
                 <!-- form start -->
                 <!-- content end -->
             </div>
             <div class="modal-footer">
-            	<div align="center">
-	                <button class="btn btn-success" id="btnConfirmOK" type="button">&nbsp;&nbsp;<i class="fa fa-check-circle"></i>&nbsp;&nbsp;Yes&nbsp;&nbsp;</button>&nbsp;&nbsp;
-	                <button data-dismiss="modal" id="btnCancleDelete" class="btn btn-danger" type="button"><i class="fa fa-times-circle"></i>&nbsp;Cancel</button>
-            	</div>
+             <div align="center">
+                 <button class="btn btn-success" id="btnConfirmOK" type="button">&nbsp;&nbsp;<i class="fa fa-check-circle"></i>&nbsp;&nbsp;<liferay-ui:message key="yes"/>&nbsp;&nbsp;</button>&nbsp;&nbsp;
+                 <button data-dismiss="modal" id="btnCancleDelete" class="btn btn-danger" type="button"><i class="fa fa-times-circle"></i>&nbsp;<liferay-ui:message key="cancel"/></button>
+             </div>
             </div>
         </div>
     </div>
