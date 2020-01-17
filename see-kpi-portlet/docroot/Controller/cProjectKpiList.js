@@ -7,6 +7,7 @@ var AddOrUpdate = true;
 var project_id=$('#dropdownProject').val();
 var project_item_id=$('#dropdownProjectKpi').val();
 
+// ดึงข้อมูล เพื่อ แสดง ข้อมูล หน้า เริ่มต้น (id DetailProjectKpiList )
 var getDataFn= function(){
 	
 	$.ajax({
@@ -45,6 +46,7 @@ var getDataFn= function(){
 			$('#DetailProjectKpiList').html(TBhtml);
 		}
 	});
+	// map เพื่อ set onclick ของ edit และ delete
 	GlobalData.map(item =>{
 		$('#edit-projectkpi-'+item.project_item_id).click(function(){
 			AddOrUpdate = false;
@@ -69,7 +71,7 @@ var getDataFn= function(){
 	
 }
 
-//drop-down search
+//drop-down search (Dropdown project_kpi name *ซ้ายสุด)
 var dropdownProjectKpi = function(){
 	
 	$.ajax({
@@ -82,8 +84,8 @@ var dropdownProjectKpi = function(){
 			html += '<option  value="">'+Liferay.Language.get('select-project-kpi-name')+'</option>';
 			$.each(datas['data'],function(items,itemsEntry){
 				html += `
-					<option id="projectkpi-${itemsEntry['project_item_id']}" value="${itemsEntry['project_item_id']}">
-					${itemsEntry['project_item_name']}
+					<option id="projectkpi-${itemsEntry['id']}" value="${itemsEntry['id']}">
+						${itemsEntry['name']}
 					</option>
 				`;
 			});
@@ -97,7 +99,7 @@ var dropdownProjectKpi = function(){
 	});
 }
 
-//drop-down search
+//drop-down search (Dropdown project name *อันดับที่2จากซ้าย)
 var dropdownProject = function(){
 	
 	$.ajax({
@@ -114,10 +116,9 @@ var dropdownProject = function(){
 			html += '<option  value="">'+Liferay.Language.get('select-project-name')+'</option>';
 			$.each(datas['data'],function(items,itemsEntry){
 				html +=`
-					<option id="project-${itemsEntry['project_id']}" value="${itemsEntry['project_id']}">
-					${itemsEntry['project_name']}
+					<option id="project-${itemsEntry['id']}" value="${itemsEntry['id']}">
+					${itemsEntry['name']}
 					</option>
-					
 				`;
 			});
 
@@ -130,6 +131,7 @@ var dropdownProject = function(){
 	});
 }
 
+// Drop down Project ใน modal modalAddProjectKpi
 var dropdownAddProject = function(){
 	
 	$.ajax({
@@ -142,8 +144,8 @@ var dropdownAddProject = function(){
 			
 			$.each(datas['data'],function(items,itemsEntry){
 				html += `
-					<option id="select-${itemsEntry['project_id']}" value="${itemsEntry['project_id']}">
-					${itemsEntry['project_name']}
+					<option id="select-${itemsEntry['id']}" value="${itemsEntry['id']}">
+					${itemsEntry['name']}
 					</option>
 				`;
 			});
@@ -158,6 +160,7 @@ var dropdownAddProject = function(){
 	});
 }
 
+//Drop down UOM ใน modal modalAddProjectKpi
 var dropdownAddUOM =function(){
 	$.ajax({
 		url:restfulURL+"/"+serviceName+"/public/so_item/dropdown_uom",
@@ -183,7 +186,7 @@ var dropdownAddUOM =function(){
 	});
 }
 
-
+//Drop down Value Type ใน modal modalAddProjectKpi
 var dropdownAddValueType = function(){
 	$.ajax({
 		url:restfulURL+"/"+serviceName+"/public/so_item/dropdown_value_type",
@@ -209,6 +212,7 @@ var dropdownAddValueType = function(){
 	});
 }
 
+//Drop down Function Type ใน modal modalAddProjectKpi
 var dropdownAddFuncType = function(){
 	var html = "";
 	html += `<option value="1" id="FT1">Sum</option>`;
@@ -222,6 +226,7 @@ var dropdownAddFuncType = function(){
 	});
 }
 
+//Delete ข้อมูล
 var deleteProjectKPI = function(){
 	$.ajax({
 		url:restfulURL+"/"+serviceName+"/public/project_kpi_item/"+tempDaleteID,
@@ -241,6 +246,7 @@ var deleteProjectKPI = function(){
 	});
 }
 
+//เพิ่ม ข้อมูล
 var addProjectKPI = function(){
 	$.ajax({
 		url:restfulURL+"/"+serviceName+"/public/project_kpi_item",
@@ -248,7 +254,7 @@ var addProjectKPI = function(){
 		datatype:"json",
 		async : false,
 		data:{
-			"project_item_name": $('#txtAddProject').val(),
+			"name": $('#txtAddProject').val(),
 			"uom_id": $('#dropdownAddUOM').val(),
 		    "value_type_id" :$('#dropdownAddValueType').val(),
 		    "function_type" :$('#dropdownAddFuncType').val(),
@@ -272,6 +278,7 @@ var addProjectKPI = function(){
 	});
 }
 
+//Update ข้อมูล
 var editProjectKPI = function(){
 	$.ajax({
 		url:restfulURL+"/"+serviceName+"/public/project_kpi_item/"+tempEditID,
@@ -279,7 +286,7 @@ var editProjectKPI = function(){
 		datatype:"json",
 		async : false,
 		data:{
-			"project_item_name": $('#txtAddProject').val(),
+			"name": $('#txtAddProject').val(),
 			"uom_id": $('#dropdownAddUOM').val(),
 		    "value_type_id" :$('#dropdownAddValueType').val(),
 		    "function_type" :$('#dropdownAddFuncType').val(),
@@ -303,6 +310,7 @@ var editProjectKPI = function(){
 	});
 }
 
+// Clear ข้อมูลเป็น ค่าเริ่มต้น
 var clearData = function(){
 	GlobalData = [];
 	tempDaleteID = undefined;
@@ -331,6 +339,7 @@ $(document).ready(function() {
 			dropdownAddProject();
 			$("#AdvanceSearch").show();
 			
+			//Click button Search
 			$('#btnSearch').click(function(){
 				project_id=$('#dropdownProject').val();
 				project_item_id=$('#dropdownProjectKpi').val();
@@ -338,6 +347,7 @@ $(document).ready(function() {
 				$('#ProjectKpilist').show();
 			});
 			
+			//Click button Add Project KPI
 			$('#btnSubmitAddProjectKPI').click(function(){
 				if(AddOrUpdate==true){
 					addProjectKPI();
@@ -351,6 +361,7 @@ $(document).ready(function() {
 				dropdownProject();
 			});
 			
+			//Click button Add Another Add Project KPI
 			$('#btnAddAnotherAddProjectKPI').click(function(){
 				if(AddOrUpdate==true){
 					addProjectKPI();
@@ -361,16 +372,19 @@ $(document).ready(function() {
 				dropdownProject();
 			});
 			
+			//Click button cancel ใน Modal
 			$('#btnCancleAddProjectKPI').click(function(){
 				$("#ckboxadd").prop("checked",true);
 				$('#txtAddProject').val('');
 				$('#dropdownAddProject').val('').trigger('change');
 			});
 			
+			//Drop Down ProjectKpi ตอน เปลื่ยน ข้อมูล
 			$('#dropdownProjectKpi').change(function(){
 				dropdownProject();
 			});
 			
+			//กดยืนยันลบ
 			$('#btnConfirmOK').click(function(){
 				deleteProjectKPI();
 			})
