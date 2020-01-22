@@ -3,85 +3,181 @@ var password = "";
 var count_Circle_Data = 0;
 var GlobalData = [];
 
-var getDataFn = function(){
-	GlobalData[0]=0;
-	GlobalData[1]=1;
-	addCircleSOData('ff0000');
-	addCircleSOData('00ff00');
+// get SO circle Data (SO)
+var getDataFn = (smart) => {
+	
+	$.ajax({
+		url:restfulURL+"/"+serviceName+"/public/smart_goal_dashboard/so_data",
+		type:"get",
+		async : false,
+		datatype : "json",
+		data :{
+			"smart":smart
+		},
+		headers:{Authorization:"Bearer "+tokenID.token},
+		success:function(data){
+			GlobalData = data['data'];
+			$('#SO-circles').html('');
+			clearData();
+			$.each(data['data'],function(items,itemsEntry){
+				addCircleSOData(itemsEntry.color_code);
+			});
+			
+		}
+	});
 	
 	GlobalData.map(item=>{
-		$('#circle-'+item).click(function(){
-    	console.log(item);
+		$('#circle-'+item.so_id).click(function(){
     	$('#SmartGoalDashboardDetail').show();
-    	getDataSOFn(1);
+    	getDataSOFn(item['so_id']);
 		});
 	});
 	
 }
 
-var getDataSOFn = function(){
-	html =	`
+//get Data to crate graph (SO)
+var getDataSOFn = (so_id) => {
+	let dataCircleGraph;
+	let dataHistogramGraph;
+	
+	$.ajax({
+		url:restfulURL+"/"+serviceName+"/public/smart_goal_dashboard/graph_circle/"+so_id,
+		type:"get",
+		async : false,
+		datatype : "json",
+		data :{
+			"so_or_project":1 // 1 is SO
+		},
+		headers:{Authorization:"Bearer "+tokenID.token},
+		success:function(data){
+			dataCircleGraph = data['data'];	
+		}
+	});
+	
+	$.ajax({
+		url:restfulURL+"/"+serviceName+"/public/smart_goal_dashboard/graph_histogram/"+so_id,
+		type:"get",
+		async : false,
+		datatype : "json",
+		data :{
+			"so_or_project":1 // 1 is SO
+		},
+		headers:{Authorization:"Bearer "+tokenID.token},
+		success:function(data){
+			dataHistogramGraph = data['data'];	
+		}
+	});
+	
+	let html =``;
+	dataCircleGraph.map(item=>{
+		html +=	`
 			<div class='span12 row-fluid' >
 				<div class="span4"  style="padding-left: 10px;">
-					<div id = "G1" ></div>
+					<div id = "graph-1-${item['id']}-${item['kpi_id']}" ></div>
 					<center>
-						<button id="view-project-1" style="width:100%">View Project</button>
+						<button id="view-project-${item['id']}-${item['kpi_id']}" style="width:100%">View Project</button>
 					</center>
 				</div>
-				<div id = "G2" class="span8"></div>
+				<div id = "graph-2-${item['id']}-${item['kpi_id']}" class="span8"></div>
 			</div>
 		`;
+	});
 	$('#ChartList').html(html);
-	createChartHistogram(1,"SO","data");
-	createChartGaugeWithTarget(1,"SO","data");
 	
-	//click view project
-	$('#view-project-1').click(function(){
-		$('#titlePanel').html("Project");
-		$('#SO-circles').html('');
-		$('#SmartGoalDashboardList').hide();
-		getDataProjectFn();
+	dataCircleGraph.map(item=>{
+		createChartGaugeWithTarget(`graph-1-${item['id']}-${item['kpi_id']}`,`SO`,item);
+		//click view project
+		$(`#view-project-${item['id']}-${item['kpi_id']}`).click(function(){
+			$('#titlePanel').html("Project");
+			$('#SO-circles').html('');
+			$('#SmartGoalDashboardList').hide();
+			getDataProjectFn(item['kpi_id']);
+		});
+	});
+	
+	dataHistogramGraph.map(item=>{
+		createChartHistogram(`graph-2-${item['id']}-${item['kpi_id']}`,`SO`,item);
 	});
 }
 
-var getDataProjectFn = function(){
-	html =	`
+// get Data to crate graph (Project)
+var getDataProjectFn = (so_kpi_id) => {
+	let dataCircleGraph;
+	let dataHistogramGraph;
+	
+	$.ajax({
+		url:restfulURL+"/"+serviceName+"/public/smart_goal_dashboard/graph_circle/"+so_kpi_id,
+		type:"get",
+		async : false,
+		datatype : "json",
+		data :{
+			"so_or_project":2 // 2 is Project
+		},
+		headers:{Authorization:"Bearer "+tokenID.token},
+		success:function(data){
+			dataCircleGraph = data['data'];	
+		}
+	});
+	
+	$.ajax({
+		url:restfulURL+"/"+serviceName+"/public/smart_goal_dashboard/graph_histogram/"+so_kpi_id,
+		type:"get",
+		async : false,
+		datatype : "json",
+		data :{
+			"so_or_project":2 // 2 is Project
+		},
+		headers:{Authorization:"Bearer "+tokenID.token},
+		success:function(data){
+			dataHistogramGraph = data['data'];	
+		}
+	});
+	
+	let html =``;
+	dataCircleGraph.map(item=>{
+		html +=	`
 			<div class='span12 row-fluid' >
 				<div class="span4"  style="padding-left: 10px;">
-					<div id = "G1" ></div>
+					<div id = "graph-1-${item['id']}-${item['kpi_id']}" ></div>
 					<center>
-						<button id="view-project-1" style="width:100%">View Project</button>
+						<button id="view-actionplan-${item['id']}-${item['kpi_id']}" style="width:100%">View Action Plan</button>
 					</center>
 				</div>
-				<div id = "G2" class="span8"></div>
+				<div id = "graph-2-${item['id']}-${item['kpi_id']}" class="span8"></div>
 			</div>
 		`;
+	});
 	$('#ChartList').html(html);
-	createChartHistogram(1,"Project","data");
-	createChartGaugeWithTarget(1,"Project","data");
 	
-	//click view project
-	$('#view-project-1').click(function(){
-		$('#titlePanel').html("Project");
-		$('#SO-circles').html('');
-		$('#SmartGoalDashboardList').hide();
-		getDataProjectFn();
+	dataCircleGraph.map(item=>{
+		createChartGaugeWithTarget(`graph-1-${item['id']}-${item['kpi_id']}`,`Project`,item);
+		//click view project
+		$(`#view-project-${item['id']}-${item['kpi_id']}`).click(function(){
+			$('#titlePanel').html("Project");
+			$('#SO-circles').html('');
+			$('#SmartGoalDashboardList').hide();
+			getDataProjectFn(item);
+		});
+	});
+	
+	dataHistogramGraph.map(item=>{
+		createChartHistogram(`graph-2-${item['id']}-${item['kpi_id']}`,`Project`,item);
 	});
 }
 
 var createChartHistogram = function(renderAt,SOorProject,dataSource){
-	console.log(SOorProject);
+	console.log(dataSource);
 	FusionCharts.ready(function() {
 		  var salesAnlysisChart = new FusionCharts({
 		    type: 'mscombi2d',
-		    renderAt: 'G2',
+		    renderAt: renderAt,
 		    width: '100%',
 		    height: '300',
 		    dataFormat: 'json',
 		    dataSource: {
 		      "chart": {
-		    	"caption": "SO1",
-		    	"subcaption": "Total: 2000",
+		    	"caption": dataSource['kpi_name'],
+		    	"subcaption": `Total : ${dataSource['total']}`,
 		    	"captionAlignment":"left",
 		        "numberPrefix": "$",
 		        "toolTipColor": "#ffffff",
@@ -100,128 +196,17 @@ var createChartHistogram = function(renderAt,SOorProject,dataSource){
 				"usePlotGradientColor": "0",
 		        "theme" : "fint",
 		      },
-		      "categories": [{
-		        "category": [{
-		            "label": "Jan"
-		          },
-		          {
-		            "label": "Feb"
-		          },
-		          {
-		            "label": "Mar"
-		          },
-		          {
-		            "label": "Apr"
-		          },
-		          {
-		            "label": "May"
-		          },
-		          {
-		            "label": "Jun"
-		          },
-		          {
-		            "label": "Jul"
-		          },
-		          {
-		            "label": "Aug"
-		          },
-		          {
-		            "label": "Sep"
-		          },
-		          {
-		            "label": "Oct"
-		          },
-		          {
-		            "label": "Nov"
-		          },
-		          {
-		            "label": "Dec"
-		          }
-		        ]
-		      }],
+		      "categories": dataSource['category'],
 		      "dataset": [{
-		          "seriesName": "Actual Revenue",
+		          "seriesName": "Actual",
 		          "showValues": "0",
-		          "data": [{
-		              "value": "16000"
-		            },
-		            {
-		              "value": "20000"
-		            },
-		            {
-		              "value": "18000"
-		            },
-		            {
-		              "value": "19000"
-		            },
-		            {
-		              "value": "15000"
-		            },
-		            {
-		              "value": "21000"
-		            },
-		            {
-		              "value": "16000"
-		            },
-		            {
-		              "value": "20000"
-		            },
-		            {
-		              "value": "17000"
-		            },
-		            {
-		              "value": "25000"
-		            },
-		            {
-		              "value": "19000"
-		            },
-		            {
-		              "value": "23000"
-		            }
-		          ]
+		          "data": dataSource['dataSource_actual']
 		        },
 		        {
-		          "seriesName": "Projected Revenue",
+		          "seriesName": "Forecast",
 		          "renderAs": "line",
-		          "data": [{
-		              "value": "15000"
-		            },
-		            {
-		              "value": "16000"
-		            },
-		            {
-		              "value": "17000"
-		            },
-		            {
-		              "value": "18000"
-		            },
-		            {
-		              "value": "19000"
-		            },
-		            {
-		              "value": "19000"
-		            },
-		            {
-		              "value": "19000"
-		            },
-		            {
-		              "value": "19000"
-		            },
-		            {
-		              "value": "20000"
-		            },
-		            {
-		              "value": "21000"
-		            },
-		            {
-		              "value": "22000"
-		            },
-		            {
-		              "value": "23000"
-		            }
-		          ]
+		          "data": dataSource['dataSource_forecast']
 		        },
-	
 		      ]
 		    }
 		  }).render();
@@ -229,24 +214,24 @@ var createChartHistogram = function(renderAt,SOorProject,dataSource){
 }
 
 var createChartGaugeWithTarget = function(renderAt,SOorProject,dataSource){
-	console.log(SOorProject);
+	console.log(dataSource);
 	FusionCharts.ready(function() {
 		  var revenueChart = new FusionCharts({
 		    type: 'doughnut2d',
-		    renderAt: 'G1',
+		    renderAt: renderAt,
 		    width: '100%',
 		    height: '280',
 		    dataFormat: 'json',
 		    dataSource: {
 		      "chart": {
-		    	"caption": "SO1",
-		    	"subcaption": "Smart KPI: สินเชื่อ",
+		    	"caption": dataSource['kpi_name'],
+		    	"subcaption": "Smart KPI"+ dataSource['item_name']!=null?dataSource['item_name']:"",
 		    	"captionAlignment":"left",
 		        "numberPrefix": "$",
 		        "bgColor": "#ffffff",
 		        "startingAngle": "310",
 		        "showLegend": "1",
-		        "defaultCenterLabel": "67%",
+		        "defaultCenterLabel": ""+ dataSource['percen_actual_target']+"%",
 		        "showTooltip": "1",
 		        "labelFontColor": "#ffffff",
 		        "decimals": "0",
@@ -254,20 +239,11 @@ var createChartGaugeWithTarget = function(renderAt,SOorProject,dataSource){
 		        "enablesmartLabel": "0",
 		        "slicingDistance": "0",
 		        "enableRotation": "0",
-		        "use3DLighting" : "0"
+		        "use3DLighting" : "0",
+		        "palettecolors": "afd8f8,aff8cc"
 		        
 		      },
-		      "data": [{
-		          "label": "Food",
-		          "value": "50",
-		        	"color": "#ffffff"
-		        },
-		        {
-		          "label": "Apparels",
-		          "value": "100",
-		          "color": "#0000ff"
-		        }
-		      ]
+		      "data": dataSource['dataSource']
 		    }
 		  }).render();
 		});
@@ -276,7 +252,7 @@ var createChartGaugeWithTarget = function(renderAt,SOorProject,dataSource){
 
 var addCircleSOData = function(color){
 	html = `
-		<div id="circle-${count_Circle_Data}" value="${count_Circle_Data}" class="span circle2" style="background-color:#${color};color: white;margin-left:20px;margin-bottom: 2px;">
+		<div id="circle-${GlobalData[count_Circle_Data]['so_id']}" value="${count_Circle_Data}" class="span circle2" style="background-color:${color};color: white;margin-left:20px;margin-bottom: 2px;">
 			<div style="height: 50%;display: flex;justify-content: center;position: relative;top: -33px;">SO</div>
 			<div style="height: 50%;display: flex;justify-content: center;bottom: 85px;position: relative;">50%</div>
 		</div>
@@ -286,12 +262,58 @@ var addCircleSOData = function(color){
 	count_Circle_Data++;
 }
 
-var getAllCharts = function(){
+var getProjectCharts = () => {
 	
 }
 
-var clearData = function(){
+var clearData = () => {
 	count_Circle_Data = 0;
+}
+
+// set circle S M A R T
+var setSMART = () => {
+	let tdata;
+	$.ajax({
+		url:restfulURL+"/"+serviceName+"/public/smart_goal_dashboard/smart_color",
+		type:"get",
+		async : false,
+		headers:{Authorization:"Bearer "+tokenID.token},
+		success:function(data){
+			let html=``;
+			tdata = data['data'];
+			data['data'].map(item=>{
+				html += `
+						<div class="circle" id="smart-circle-${item['perspective_id']}" style="background-color:#${item['color_code']};color: white;margin:3px;padding: 3px;">${item['perspective_abbr']}</div>
+					`;
+			});
+			$('#smart-circles').html(html);
+		}
+	});
+	tdata.map(item=>{
+		$(`#smart-circle-${item['perspective_id']}`).click(function(){
+			getDataFn(item['perspective_abbr']);
+		});
+	});
+}
+
+//set Drop-down Year
+var setDropdownYear = () => {
+	$.ajax({
+		url:restfulURL+"/"+serviceName+"/public/smart_goal_dashboard/dropdown_year",
+		type:"get",
+		async : false,
+		headers:{Authorization:"Bearer "+tokenID.token},
+		success:function(data){
+			let html = ``;
+			
+			data['data'].map(item=>{
+				html += `
+						<option value="${item['year']}">${item['year']}</option>
+				`;
+			});
+			$('#dropdownYear').html(html);
+		}
+	});
 }
 
 $(document).ready(function() {
@@ -303,6 +325,8 @@ $(document).ready(function() {
 		if(connectionServiceFn(username,password,plid)==true){
 			
 			$("#AdvanceSearch").show();
+			setDropdownYear();
+			setSMART();
 			
 			$('#btnSearch').click(function(){
 				$('#titlePanel').html("SO");
@@ -315,7 +339,7 @@ $(document).ready(function() {
 			
 			$('#AllSoKPIGraph').click(function(){
 				$('#SmartGoalDashboardList').hide();
-				getAllCharts();
+				getProjectCharts();
 			});
 			
 		}

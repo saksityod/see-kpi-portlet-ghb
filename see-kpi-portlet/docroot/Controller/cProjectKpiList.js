@@ -135,7 +135,7 @@ var dropdownProject = function(){
 var dropdownAddProject = function(){
 	
 	$.ajax({
-		url:restfulURL+"/"+serviceName+"/public/project_kpi_item/dropdown_project_name",
+		url:restfulURL+"/"+serviceName+"/public/project_kpi_item/select_item_mapping",
 		type:"get",
 		async : false,
 		headers:{Authorization:"Bearer "+tokenID.token},

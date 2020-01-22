@@ -908,9 +908,7 @@ overflow-y: visible;
 	            				<td style="padding-left: 5px;">
 	            					<select id="dropdownAddProject" multiple="multiple" data-toggle="tooltip" title="" data-original-title="<liferay-ui:message key="level"/>"
 										class="input form-control input-sm span12" >
-										<!-- <option value="1009">สนับสนุนสาขานครหลวง(เขต)</option>
-										<option value="600001">เขตเชียงใหม่ (บภ.)</option>
-										<option value="600002">เขตเชียงราย (บภ.)</option> -->
+										
 									</select>
 	            				</td>
 	            			</tr>

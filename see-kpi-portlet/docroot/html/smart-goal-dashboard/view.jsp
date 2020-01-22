@@ -514,6 +514,7 @@ plid = layout.getPlid();
 .aui .row-fluid [class*="span"]{
 min-height: auto;
 margin-bottom:1px;
+
 }
 
 .textInfo{
@@ -729,6 +730,9 @@ top: 25%
   cursor: pointer;
 }
 
+.row-fluid{
+	margin-left:0px !important;
+}
 
 </style>
 
@@ -789,11 +793,6 @@ top: 25%
 										</tr>
 										<tr>
 											<td id="smart-circles" style="padding-right: 8px;">
-												<div class="circle" style="background-color:green;color: white;margin:3px;padding: 3px;">S</div>
-												<div class="circle" style="background-color:green;color: white;margin:3px;padding: 3px;">M</div>
-												<div class="circle" style="background-color:green;color: white;margin:3px;padding: 3px;">A</div>
-												<div class="circle" style="background-color:green;color: white;margin:3px;padding: 3px;">R</div>
-												<div class="circle" style="background-color:green;color: white;margin:3px;padding: 3px;">T</div>
 											</td>
 											<td id="SO-circles">
 												
@@ -818,7 +817,7 @@ top: 25%
 									</div>
 								</div>
 								<div class="row-fluid" id="ChartList">
-								
+									
 								</div>
 							</div>
 						</div>
